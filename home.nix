@@ -24,5 +24,6 @@
   imports = [
     ./fzf.nix
     ./bash.nix
+    ./git.nix
   ];
 }
