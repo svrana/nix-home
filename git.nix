@@ -78,4 +78,10 @@
       ".*@neomake*"
     ];
   };
+
+  programs.bash.initExtra = ''
+    source "$RCS/git/git-completion.bash"
+    __git_complete g __git_main
+    alias g='git'
+  '';
 }

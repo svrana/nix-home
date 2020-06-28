@@ -22,8 +22,8 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./git.nix
     ./fzf.nix
     ./bash.nix
-    ./git.nix
   ];
 }
