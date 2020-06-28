@@ -34,5 +34,8 @@
     '';
     bashrcExtra = ''
     '';
+    shellAliases = {
+      hm = "home-manager";
+    };
   };
 }
