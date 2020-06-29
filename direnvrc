@@ -1,0 +1,56 @@
+# vim:filetype=sh
+
+PATH_prepend() {
+    [ -z "$1" ] && return
+    export PATH=$1:$PATH
+}
+
+
+layout_python() {
+    local python=${1:-python2}
+    local subdir=${2:-$PWD}
+
+    unset PYTHONHOME # what is this?
+    export VIRTUAL_ENV=${WORKON_HOME}/${subdir##*/}
+    if [[ ! -d $VIRTUAL_ENV ]]; then
+        virtualenv -p "$python" "$VIRTUAL_ENV"
+    fi
+    PATH_add "$VIRTUAL_ENV/bin"
+
+    export PYTHONPATH=$PWD
+    export PYLINTRC=${PWD}/.pylintrc
+}
+
+layout_golang() {
+    local project=${1:-${PWD##*/}}
+    local virtualgodir="$HOME/.virtualgo"
+
+    export _VIRTUALGO_OLDPS1=$PS1
+    export _VIRTUALGO_OLDGOPATH=$GOPATH
+    export _VIRTUALGO_OLDPATH_SH=$PATH
+
+    export GOPATH="$virtualgodir/$project:$GOPATH"
+    export VIRTUALGO="$project"
+    export VIRTUALGO_PATH="$virtualgodir/$VIRTUALGO"
+    export GOBIN="$VIRTUALGO_PATH/bin"
+
+    PATH_prepend "$GOBIN"
+}
+
+layout_node() {
+    local version=${1}
+
+    if [ -z "$version" ]; then
+        echo "must specify node version"
+    fi
+    version="v${version}"
+    local node_dir="${NVM_DIR}/versions/node/${version}"
+
+    if [ ! -d "$node_dir" ]; then
+        echo "Node $version not found in \$NVM_DIR"
+        return
+    fi
+
+    PATH_prepend "${node_dir}/bin"
+    export MANPATH="${node_dir}}/share/man":$MANPATH
+}

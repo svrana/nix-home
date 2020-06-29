@@ -28,7 +28,7 @@
         . /etc/bash_completion
       fi
       source ~/.nix-profile/etc/profile.d/nix.sh
-      export DOTFILE_PLUGINS=(aws cd dircolors docker dotfiles go gruf keychain k8s less ls powerline-go ps python pulumi rust rvm sai systemd tmux direnv)
+      export DOTFILE_PLUGINS=(aws cd dircolors docker dotfiles go gruf keychain k8s less ls powerline-go ps python pulumi rust rvm sai systemd tmux)
       source ~/.dotfiles/load.sh
       setxkbmap -option caps:ctrl_modifier
     '';

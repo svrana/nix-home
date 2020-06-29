@@ -22,8 +22,25 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./direnv.nix
+    ./tmux.nix
     ./git.nix
     ./fzf.nix
     ./bash.nix
+  ];
+
+  home.packages = with pkgs; [
+    aerc
+    dbeaver
+    fd
+    firefox
+    jq
+    k9s
+    kubectl
+    kubectx
+    packer
+    pass
+    ripgrep
+    wmctrl
   ];
 }
