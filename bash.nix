@@ -17,9 +17,8 @@
       MANPAGER = "nvim -c 'set ft=man' -";
       EDITOR = "nvim";
       TERM = "xterm-256color";
-      XDG_CONFIG_HOME = "$HOME/.config";
-      XDG_CACHE_HOME = "$HOME/.cache";
-      XDG_DATA_HOME = "$HOME/.local/share";
+      # fixing locale errors when running some commands (like man, rofi, etc)
+      LOCALES_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
     };
     # only run for interactive sessions
     initExtra = ''
@@ -33,6 +32,15 @@
       setxkbmap -option caps:ctrl_modifier
     '';
     bashrcExtra = ''
+    '';
+    profileExtra = ''
+    if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+            # If not using a graphical login, then start up x ourselves
+            link=$(readlink -nf /etc/systemd/system/default.target)
+            if [ "$link"="/etc/systemd/system/default.target" ]; then
+                    exec startx
+            fi
+    fi
     '';
     shellAliases = {
       hm = "home-manager";
