@@ -22,6 +22,8 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./modules/settings.nix
+
     ./direnv.nix
     ./tmux.nix
     ./git.nix
