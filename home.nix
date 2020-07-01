@@ -29,6 +29,8 @@
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
+    ./programs/ssh.nix
+
     ./programs/bash.nix
   ];
 
