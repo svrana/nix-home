@@ -24,20 +24,21 @@
   imports = [
     ./modules/settings.nix
 
-    ./direnv.nix
-    ./tmux.nix
-    ./git.nix
-    ./fzf.nix
-    ./bash.nix
+    ./programs/direnv
+    ./programs/k9s
+    ./programs/tmux
+    ./programs/git.nix
+    ./programs/fzf.nix
+    ./programs/bash.nix
   ];
 
   home.packages = with pkgs; [
     aerc
+    autocutsel
     dbeaver
     fd
     firefox
     jq
-    k9s
     kubectl
     kubectx
     packer

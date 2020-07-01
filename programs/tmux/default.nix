@@ -5,6 +5,7 @@
     enable = true;
     baseIndex = 1;
     keyMode = "vi";
+    # sensible adds some config I don't like if I set the shortcut here
     #shortcut = "j";
     terminal = "screen-256color";
     escapeTime = 0;
