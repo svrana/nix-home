@@ -19,6 +19,10 @@
   # changes in each release.
   home.stateVersion = "20.09";
 
+  # fixing locale errors when running some commands (like man, rofi, etc)
+  # See https://github.com/rycee/home-manager/issues/354
+  home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+
   nixpkgs.config.allowUnfree = true;
 
   imports = [

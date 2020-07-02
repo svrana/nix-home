@@ -17,8 +17,6 @@
       MANPAGER = "nvim -c 'set ft=man' -";
       EDITOR = "nvim";
       TERM = "xterm-256color";
-      # fixing locale errors when running some commands (like man, rofi, etc)
-      LOCALES_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
     };
     # only run for interactive sessions
     initExtra = ''
