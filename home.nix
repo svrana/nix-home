@@ -23,11 +23,14 @@
   # See https://github.com/rycee/home-manager/issues/354
   home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
+
   nixpkgs.config.allowUnfree = true;
 
   imports = [
     ./modules/settings.nix
 
+    ./programs/go.nix
+    ./programs/dircolors
     ./programs/direnv
     ./programs/k9s
     ./programs/tmux
@@ -42,6 +45,7 @@
     aerc
     autocutsel
     dbeaver
+    #dircolors
     fd
     firefox
     jq
@@ -52,4 +56,8 @@
     ripgrep
     wmctrl
   ];
+
+  # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  # ln -s "${home_directory}/Downloads" ~/.dl
+# '';
 }
