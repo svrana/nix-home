@@ -1,0 +1,5 @@
+#!/bin/bash
+
+inputFile=${1:-/dev/stdin}
+
+ruby -ryaml -rjson -e 'puts JSON.pretty_generate(YAML.load(ARGF))' < "$inputFile"

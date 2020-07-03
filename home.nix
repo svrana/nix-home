@@ -29,6 +29,11 @@
   imports = [
     ./modules/settings.nix
 
+    ./personal/programs/sai.nix
+
+    ./programs/cdp.nix
+    #./programs/dunst.nix
+    ./programs/gruf.nix
     ./programs/go.nix
     ./programs/dircolors
     ./programs/direnv
@@ -45,19 +50,49 @@
     aerc
     autocutsel
     dbeaver
-    #dircolors
     fd
     firefox
     jq
     kubectl
     kubectx
+    k9s
+    lesspipe
+    man
     packer
     pass
     ripgrep
     wmctrl
   ];
 
+  # bring in host settings first
+
+  # home.file.".Xresources" = {
+  #   target = ".Xresources";
+  #   text = ''
+  #     Xft.antialias: true
+  #     Xft.hinting:   true
+  #     Xft.rgba:      rgb
+  #     Xft.hintstyle: hintfull
+
+  #     Xcursor.size: ${toString config.settings.cursorSize}
+  #   '';
+  # };
+  home.file.".Xmodmap" = {
+    text = ''
+      keycode 66 = Control_L
+      clear Lock
+    '';
+  };
+
+  home.file.".inputrc".source = ./config/inputrc;
+  home.file.".local/bin" = {
+    source = ./scripts;
+    recursive = true;
+  };
+
   # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  # ln -s "${home_directory}/Downloads" ~/.dl
-# '';
+  #   ln -s "${home_directory}/Documents" ~/Cloud/Documents
+  #   ln -s "${home_directory}/Music " ~/Cloud/Music
+  #   ln -s "${home_directory}/Pictures" ~/Cloud/Pictures
+  # '';
 }

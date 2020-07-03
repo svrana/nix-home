@@ -17,6 +17,12 @@
       MANPAGER = "nvim -c 'set ft=man' -";
       EDITOR = "nvim";
       TERM = "xterm-256color";
+      # for docker-compose/dev/fixuid
+      BUILDUID = "$(id -u $USER)";
+      LS_DFLT_ARGS="-hN --color=auto --group-directories-first";
+      WORKON_HOME="~/.virtualenvs";
+      PYTHONDONTWRITEBYTECODE = 1;
+      CARGO_PATH = "~/.cargo";
     };
     # only run for interactive sessions
     initExtra = ''
@@ -26,9 +32,16 @@
         . /etc/bash_completion
       fi
 
-      export DOTFILE_PLUGINS=(cd docker dotfiles gruf keychain k8s less ls powerline-go ps python pulumi rust rvm sai systemd)
+      export DOTFILE_PLUGINS=(gruf keychain k8s ls powerline-go rust)
       source ~/.dotfiles/load.sh
+
+      # Move this to proper config file
       setxkbmap -option caps:ctrl_modifier
+
+      bind '"":"source ~/.bashrc && direnv reload > /dev/null 2>&1\n"'
+
+      PATH_append "$HOME/.pulumi/bin"
+      PATH_append "$CARGO_PATH/bin"
     '';
     bashrcExtra = ''
     '';
@@ -45,6 +58,20 @@
     export PROJECTS=~/Projects
     export APPS=~/Apps
 
+    complete -F __start_kubectl k
+
+    is() {
+        if [ -z "$1" ]; then
+            return
+        fi
+
+        ps -ef | head -n1 ; ps -ef | grep -v grep | grep "$@" -i --color=auto;
+    }
+
+    lsh() {
+        ll | awk '{print $9}' | grep '^\.'
+    }
+
     if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
             # If not using a graphical login, then start up x ourselves
             link=$(readlink -nf /etc/systemd/system/default.target)
@@ -59,6 +86,20 @@
       ".."   = "cd ..";
       "..."  = "cd ../../";
       "...." = "cd ../../..";
+
+      "p" = "pushd";
+      "P="= "popd";
+
+      "k" = "kubectl";
+      "pl" = "pulumi";
+
+      "ls" = "ls \$LS_DFLT_ARGS";
+      "ll" = "ls -al";
+      "lsd" = "ls -d */";
+
+      "sctl" = "sudo systemctl";
+      "jctl" = "sudo journalctl";
+      "nctl" = "sudo networkctl";
     };
   };
 }

@@ -1,0 +1,1 @@
+ln -sf $HOME/.aws/credentials.home $HOME/.aws/credentials

@@ -1,0 +1,98 @@
+#!/usr/bin/env ruby
+#
+# Command line program that prints binary representation of input integer.
+#
+# Requires Ruby for 2.0.0+ (for bit_length)
+
+$banner = <<-EOS
+Print the binary representation of the specified integer
+
+Usage:
+  #{File.basename($0)} [params] integer
+
+   -e   Input is an expression that evaluates to an integer
+   -g   Do not separate bytes
+   -a   Show entire 32/64 bits of integer
+EOS
+
+def usage
+  puts $banner
+end
+
+#
+#
+# @param [Fixnum|Bignum] int
+# @param boolean, only msb
+# @return String of 0s and 1s representing positions of bits of int
+def int_to_bitstr(int, all_zeroes=false)
+  if all_zeroes
+    length = int.bit_length > 32 ? 64 : 32
+  else
+    [8, 16, 24, 32, 40, 48, 56, 64].each { |n|
+      if int.bit_length < n
+        length = n
+        break
+      end
+    }
+  end
+  length -= 1
+
+  length.downto(0).map { |i| int[i] }.join
+end
+
+def display_bitstr(bitstr, group=false)
+  formatted_str = ''
+  length = bitstr.length - 1
+
+  0.upto(length) do |i|
+    if group
+      formatted_str << ' ' if i != 0 && i % 8 == 0
+    end
+    formatted_str << bitstr[i]
+  end
+
+  puts formatted_str
+end
+
+evaluate = false
+group = true
+all_zeroes = false
+input = ''
+
+loop do
+  case ARGV[0]
+  when '-e' then
+    ARGV.shift
+    evaluate = true
+    input = ARGV.shift
+    if input.nil?
+      puts 'Must provide an expression to evaluate'
+      exit 1
+    end
+  when '-g' then
+    ARGV.shift
+    group = false
+  when '-a' then
+    ARGV.shift
+    all_zeroes = true
+  when /^-/ then
+    puts "Invalid option: #{ARGV[0].inspect}"
+    exit 1
+  else
+    break
+  end
+end
+
+unless evaluate
+  if ARGV.empty?
+    usage
+    exit 1
+  else
+    input = ARGV.shift
+  end
+end
+
+input = eval(input) if evaluate
+bitstr = int_to_bitstr(input.to_i, all_zeroes)
+print "#{input}: " if evaluate
+display_bitstr(bitstr, group)

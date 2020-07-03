@@ -13,7 +13,7 @@ with lib;
         default = 18;
         type = types.int;
       };
-      dunstfontSize = mkOption {
+      dunstFontSize = mkOption {
         default = 16;
         type = types.int;
       };

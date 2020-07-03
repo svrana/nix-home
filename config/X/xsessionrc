@@ -1,0 +1,2 @@
+#!/bin/sh
+. ~/.bash_profile
