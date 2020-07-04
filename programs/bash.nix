@@ -42,6 +42,10 @@
 
       PATH_append "$HOME/.pulumi/bin"
       PATH_append "$CARGO_PATH/bin"
+
+      hm() {
+        home-manager -f $PROJECTS/nix-home/hosts/$HOSTNAME.nix $@
+      }
     '';
     bashrcExtra = ''
     '';
@@ -81,7 +85,6 @@
     fi
     '';
     shellAliases = {
-      hm = "home-manager";
       "cd.." = "cd ..";
       ".."   = "cd ..";
       "..."  = "cd ../../";
