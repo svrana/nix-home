@@ -32,7 +32,7 @@
         . /etc/bash_completion
       fi
 
-      export DOTFILE_PLUGINS=(gruf keychain k8s ls powerline-go rust)
+      export DOTFILE_PLUGINS=(gruf rust)
       source ~/.dotfiles/load.sh
 
       # Move this to proper config file
@@ -44,8 +44,18 @@
       PATH_append "$CARGO_PATH/bin"
 
       hm() {
-        home-manager -f $PROJECTS/nix-home/hosts/$HOSTNAME.nix $@
+        home-manager -f "$PROJECTS/nix-home/hosts/$HOSTNAME.nix" $@
       }
+
+      _update_ps1() {
+        local priority='root,perms,venv,git-branch,exit,cwd'
+        local modules='perms,venv,gitlite,ssh,cwd,exit'
+
+        PS1="$(powerline-go -cwd-mode dironly -theme default -modules $modules \
+          -priority $priority -cwd-max-depth 1 -max-width 65 \
+          -path-aliases \~/go/src/github.com=@go-gh)"
+      }
+      PROMPT_COMMAND="_update_ps1 ; $PROMPT_COMMAND"
     '';
     bashrcExtra = ''
     '';

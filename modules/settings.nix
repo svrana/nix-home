@@ -5,8 +5,8 @@ with lib;
 {
   options = {
     settings = {
-      alacrittyfontSize = mkOption {
-        default = 19;
+      alacrittyFontSize = mkOption {
+        default = 14;
         type = types.int;
       };
       rofiFontSize = mkOption {

@@ -31,12 +31,14 @@
 
     ./personal/programs/sai.nix
 
+    #./programs/alacritty.nix
     ./programs/cdp.nix
+    ./programs/dircolors
+    ./programs/direnv
     ./programs/dunst.nix
     ./programs/gruf.nix
     ./programs/go.nix
-    ./programs/dircolors
-    ./programs/direnv
+    ./programs/keychain.nix
     ./programs/k9s
     ./programs/tmux
     ./programs/git.nix
@@ -53,6 +55,7 @@
     dunst
     fd
     firefox
+    gnupg
     jq
     kubectl
     kubectx
@@ -61,6 +64,7 @@
     man
     packer
     pass
+    pinentry-gtk2
     ripgrep
     wmctrl
   ];
