@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -42,7 +42,6 @@
     # cannot seem to register with gpg-agent
     #./programs/keychain.nix
     ./programs/k9s
-    # SHAW: neovim
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
@@ -101,7 +100,9 @@
       clear Lock
     '';
   };
-
+  home.file.".xinitrc".source = ./config/X/xinitrc;
+  home.file.".xserverrc".source = ./config/X/xserverrc;
+  home.file.".xsessionrc".source = ./config/X/xsessionrc;
   home.file.".inputrc".source = ./config/inputrc;
   home.file.".local/bin" = {
     source = ./scripts;
@@ -114,12 +115,11 @@
     rvm_silence_path_mismatch_check_flag=1
   '';
   # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #   ln -s "${home_directory}/Documents" ~/Cloud/Documents
-  #   ln -s "${home_directory}/Music " ~/Cloud/Music
-  #   ln -s "${home_directory}/Pictures" ~/Cloud/Pictures
+  #   ln -s "${homeDirectory}/Documents" ~/Cloud/Documents
+  #   ln -s "${homeDirectory}/Music " ~/Cloud/Music
+  #   ln -s "${homeDirectory}/Pictures" ~/Cloud/Pictures
   # '';
   xdg.configFile."mimeapps.list".source = ./config/mimeapps.list;
-
   xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
