@@ -1,0 +1,4 @@
+splitw -v -c "#{pane_current_path}"
+swap-pane -t 1
+selectp -t 1
+select-layout main-vertical

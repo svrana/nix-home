@@ -36,7 +36,6 @@
     extraConfig = {
       url."git@github.com:".insteadOf = "https://github.com";
       diff-so-fancy = { stripLeadingSymbols = false; };
-      #excludefile = "$RCS/git/gitignore_global";
       core = {
         pager = "diff-so-fancy | less --tabs=4 -RFX";
       };
@@ -80,7 +79,7 @@
   };
 
   programs.bash.initExtra = ''
-    source "$RCS/git/git-completion.bash"
+    source "$RCS/git-completion.bash"
     __git_complete g __git_main
     alias g='git'
   '';

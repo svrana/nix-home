@@ -31,6 +31,7 @@
 
     ./personal/programs/sai.nix
 
+    # alacritty can find the glx lib
     #./programs/alacritty.nix
     ./programs/cdp.nix
     ./programs/dircolors
@@ -38,8 +39,10 @@
     ./programs/dunst.nix
     ./programs/gruf.nix
     ./programs/go.nix
-    ./programs/keychain.nix
+    # cannot seem to register with gpg-agent
+    #./programs/keychain.nix
     ./programs/k9s
+    # SHAW: neovim
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
@@ -51,6 +54,7 @@
   home.packages = with pkgs; [
     aerc
     autocutsel
+    ctags
     dbeaver
     dunst
     fd
@@ -66,22 +70,22 @@
     pass
     pinentry-gtk2
     ripgrep
+    shellcheck
+    ssh-agents
     wmctrl
   ];
 
-  # bring in host settings first
+  home.file.".Xresources" = {
+    target = ".Xresources";
+    text = ''
+      Xft.antialias: true
+      Xft.hinting:   true
+      Xft.rgba:      rgb
+      Xft.hintstyle: hintfull
 
-  # home.file.".Xresources" = {
-  #   target = ".Xresources";
-  #   text = ''
-  #     Xft.antialias: true
-  #     Xft.hinting:   true
-  #     Xft.rgba:      rgb
-  #     Xft.hintstyle: hintfull
-
-  #     Xcursor.size: ${toString config.settings.cursorSize}
-  #   '';
-  # };
+      Xcursor.size: ${toString config.settings.cursorSize}
+    '';
+  };
   home.file.".Xmodmap" = {
     text = ''
       keycode 66 = Control_L
@@ -94,10 +98,16 @@
     source = ./scripts;
     recursive = true;
   };
-
+  home.file.".rvmrc".text = ''
+    rvm_autoupdate_flag=2
+    export rvm_max_time_flag=20
+    create_on_use_flag=1
+    rvm_silence_path_mismatch_check_flag=1
+  '';
   # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
   #   ln -s "${home_directory}/Documents" ~/Cloud/Documents
   #   ln -s "${home_directory}/Music " ~/Cloud/Music
   #   ln -s "${home_directory}/Pictures" ~/Cloud/Pictures
   # '';
+  xdg.configFile."mimeapps.list".source = ./config/mimeapps.list;
 }

@@ -1,0 +1,5 @@
+splitw -h -c "#{pane_current_path}"
+splitw -h -c "#{pane_current_path}"
+select-layout even-horizontal
+
+selectp -t 1

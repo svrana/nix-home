@@ -1,0 +1,5 @@
+splitw -h -c "#{pane_current_path}"
+splitw -v -c "#{pane_current_path}"
+selectp -t 1
+splitw -v -c "#{pane_current_path}"
+selectp -t 1
