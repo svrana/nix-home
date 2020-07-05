@@ -69,11 +69,20 @@
     packer
     pass
     pinentry-gtk2
+    readline
     ripgrep
     shellcheck
     ssh-agents
     wmctrl
   ];
+
+  # Not quite new enough; missing CocTagFunc
+  # programs.neovim = {
+  #   enable = true;
+  #   viAlias = true;
+  #   vimAlias = true;
+  #   vimdiffAlias = true;
+  # };
 
   home.file.".Xresources" = {
     target = ".Xresources";
@@ -110,4 +119,9 @@
   #   ln -s "${home_directory}/Pictures" ~/Cloud/Pictures
   # '';
   xdg.configFile."mimeapps.list".source = ./config/mimeapps.list;
+
+  xdg.configFile."nvim" = {
+    source = ./config/nvim;
+    recursive = true;
+  };
 }
