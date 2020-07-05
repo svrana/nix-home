@@ -1,0 +1,25 @@
+\set HISTFILE ~/.config/psql/history- :HOST - :DBNAME
+\pset null '[null]'
+\set HISTCONTROL ignoredups
+\set HISTCONTROL ignorespace
+\timing
+\set COMP_KEYWORD_CASE upper
+\set IGNOREEOF 5
+\set PROMPT1 '(%n@%m) [%/] > '
+\set PROMPT2 '->'
+
+-- To run these aliases, prepend :, i.e., :showtables
+\set users 	'SELECT * from pg_user;'
+\set conninfo   'SELECT usename, count(*) FROM pg_stat_activity GROUP BY usename;'
+\set usergroups `cat $RCS/psql/psql-user-groups.sql`
+\set aliases 	`cat $RCS/psql/psql-aliases.sql`
+\set showtables 'select table_name FROM information_schema.tables WHERE table_type=\'BASE TABLE\' and table_schema=\'public\' ;'
+\set showviews  'select table_name FROM information_schema.tables WHERE table_type=\'VIEW\' and table_schema=\'public\' ;'
+\set tablesizes 'SELECT relname as "Table", pg_size_pretty(pg_total_relation_size(relid)) As "Size", pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as "External Size" FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DESC;'
+
+\set rs_gen_view_ddl `cat $RCS/psql/psql-v-generate-tbl-ddl.sql`
+\set rs_gen_view_ext `cat $RCS/psql/psql-v-generate-ext-tbl-info.sql`
+\set rs_tablesize  `cat $RCS/psql/psql-table-sizes.sql`
+\set rs_groupprivs `cat $RCS/psql/psql-group-privs.sql`
+\set rs_showlocks  'select table_id, last_update, lock_owner, lock_owner_pid, lock_status from stv_locks ;'
+\set rs_showrunning 'select pid, trim(user_name), starttime, substring(query,1,40) from stv_recents where status=\'Running\';'

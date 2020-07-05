@@ -1,0 +1,9 @@
+rofi.theme: solarized
+rofi.font: SFNS 12
+
+rofi.columns: 1
+rofi.bw: 0
+#!rofi.padding: 20
+rofi.eh: 1
+#!rofi.separator-style: solid
+rofi.hide-scrollbar: true

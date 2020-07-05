@@ -20,8 +20,11 @@
       # for docker-compose/dev/fixuid
       BUILDUID = "$(id -u $USER)";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
-      WORKON_HOME = "~/.virtualenvs";
+      WORKON_HOME = "~/.cache/virtualenvs";
       PYTHONDONTWRITEBYTECODE = 1;
+      WEECHAT_HOME = "~/.config/weechat";
+      INPUTRC = "~/.config/inputrc";
+      PSQLRC = "~/.config/psql/config";
     };
     # only run for interactive sessions
     initExtra = ''
@@ -31,13 +34,11 @@
         . /etc/bash_completion
       fi
 
-    
-
-      # Move this to proper config file
-      setxkbmap -option caps:ctrl_modifier
-
+      # TODO: Move this to proper config file per host as the uhk doesn't have
+      # a capslock key and the Mouse key is changed via firmware. See man keyboard 5.
+      setxkbmap -option ctrl:nocaps
+      # Move this
       bind '"":"source ~/.bashrc && direnv reload > /dev/null 2>&1\n"'
-
 
       hm() {
         home-manager -f "$DOTFILES/hosts/$HOSTNAME.nix" $@
@@ -81,7 +82,9 @@
 
       source "$RCS/functions.sh"
 
-      PATH_append "$BIN_DIR:$DOTFILES/scripts:~/.pulumi/bin:$CARGO_PATH/bin"
+      PATH_append "$BIN_DIR:$DOTFILES/scripts:$HOME/.pulumi/bin:$CARGO_PATH/bin"
+
+      eval `keychain --quiet --quick --eval --absolute --dir $HOME/.config/keychain ~/.ssh/id_rsa ~/.ssh/vranix/id_rsa`
     '';
     profileExtra = ''
     # programs launched without a terminal still need nix profile/bin in their path

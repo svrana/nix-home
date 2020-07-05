@@ -45,7 +45,6 @@
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
-    ./programs/ssh.nix
 
     ./programs/bash.nix
   ];
@@ -90,7 +89,6 @@
       Xft.hinting:   true
       Xft.rgba:      rgb
       Xft.hintstyle: hintfull
-
       Xcursor.size: ${toString config.settings.cursorSize}
     '';
   };
@@ -103,7 +101,6 @@
   home.file.".xinitrc".source = ./config/X/xinitrc;
   home.file.".xserverrc".source = ./config/X/xserverrc;
   home.file.".xsessionrc".source = ./config/X/xsessionrc;
-  home.file.".inputrc".source = ./config/inputrc;
   home.file.".local/bin" = {
     source = ./scripts;
     recursive = true;
@@ -114,6 +111,8 @@
     create_on_use_flag=1
     rvm_silence_path_mismatch_check_flag=1
   '';
+  home.file.".ssh/config".source = ./personal/ssh/config;
+  #home.file.".pypirc".source = ./personal/pypi/pypirc;
   # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
   #   ln -s "${homeDirectory}/Documents" ~/Cloud/Documents
   #   ln -s "${homeDirectory}/Music " ~/Cloud/Music
@@ -123,5 +122,27 @@
   xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
+  };
+  xdg.configFile."ranger" = {
+    source = ./config/ranger;
+    recursive = true;
+  };
+  xdg.configFile."i3/config".source = ./config/i3config;
+  xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
+  xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
+  xdg.configFile."qutebrowser/quickmarks".source = /home/shaw/Documents/apps/qutebrowser/quickmarks;
+  xdg.configFile."qutebrowser/bookmarks/urls".source = /home/shaw/Documents/apps/qutebrowser/bookmarks;
+  xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
+  xdg.configFile."inputrc".source = ./config/inputrc;
+  xdg.configFile."psql/config".source = ./config/psql/psqlrc;
+  xdg.configFile."rofi/config" = {
+    text = ''
+      rofi.theme: solarized
+      rofi.font: SFNS ${toString config.settings.rofiFontSize}
+      rofi.columns: 1
+      rofi.bw: 0
+      rofi.eh: 1
+      rofi.hide-scrollbar: true
+  '';
   };
 }

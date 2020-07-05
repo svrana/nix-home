@@ -1,0 +1,13 @@
+\echo '\nAliases:\n'
+\echo '\t:users\t\tShow users'
+\echo '\t:conninfo\tServer connections'
+\echo '\t:showtables\tShow all tables'
+\echo '\t:showviews\tShow all views'
+\echo '\t:rs_showlocks\tShow table locks (redshift only)'
+\echo '\t:rs_showrunning\tShow running processes (redshift only)'
+\echo '\t:rs_tablesize\tTable sizes (redshift only)'
+\echo '\t:rs_usergroups\tShow users and their groups (redshift only)'
+\echo '\t:rs_groupprivs\tShow group priveleges (redshift only)'
+\echo '\t:rs_gen_view_ddl\tCreates view admin.v_generate_tbl_ddl'
+\echo '\t:rs_gen_view_ext\tCreates view admin.v_extended_table_info'
+\echo
