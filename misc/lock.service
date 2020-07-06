@@ -1,0 +1,11 @@
+[Unit]
+Description=Lock the screen on resume from suspend
+Before=sleep.target suspend.target
+
+[Service]
+Environment="DISPLAY=:0"
+User=shaw
+ExecStart=/home/shaw/.local/bin/i3lockwrapper.sh
+
+[Install]
+WantedBy=multi-user.target

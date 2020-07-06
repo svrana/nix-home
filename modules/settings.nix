@@ -25,6 +25,33 @@ with lib;
         default = 14;
         type = types.int;
       };
+      polybar = {
+        font0Size = mkOption {
+          default = "18;3";
+          type = types.string;
+        };
+        font1Size = mkOption {
+          default = "18;4";
+          type = types.string;
+        };
+        font2Size = mkOption {
+          default = "22;7";
+          type = types.string;
+        };
+      };
+      # polybarFont0Size = mkOption {
+      #   default = "18;3";
+      #   type = types.string;
+      # };
+      # polybarFont1Size = mkOption {
+      #   default = "18;4";
+      #   type = types.string;
+      # };
+      # polybarFont2Size = mkOption {
+      #   # wrong, configured on winfield
+      #   default = "22;7";
+      #   type = types.string;
+      # };
     };
   };
 }

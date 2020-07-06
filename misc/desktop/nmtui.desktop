@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=network manager terminal interface
+Terminal=true
+Name=nmtui
+GenericName=Network Manager Terminal UI
+Exec=/usr/bin/nmtui
+Type=Application
+Icon=/var/lib/app-info/icons/ubuntu-bionic-main/64x64/network-manager-gnome_preferences-system-network.png

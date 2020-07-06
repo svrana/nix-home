@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Vim the web
+Terminal=false
+Name=qutebrowser
+Exec=/home/shaw/.local/bin/qutebrowser %u
+Type=Application
+Icon=/home/shaw/Apps/qutebrowser/icons/qutebrowser-128x128.png
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;

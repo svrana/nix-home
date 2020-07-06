@@ -220,6 +220,7 @@ autocmd BufRead gitcommit setlocal spell spelllang=en_US textwidth=72
 autocmd BufRead gitcommit setlocal fo+=t
 autocmd BufRead *.md setlocal spell spelllang=en_US textwidth=90 " z= for suggestions
 autocmd BufRead *.txt setlocal spell spelllang=en_US textwidth=90
+autocmd BufRead *.eml setlocal spell spelllang=en_US textwidth=90
 autocmd BufNewFile,BufRead,BufEnter *.erb setf ruby
 autocmd BufNewFile,BufRead,BufEnter *.feature setf ruby
 autocmd BufNewFile,BufRead,BufEnter *.gradle setf groovy

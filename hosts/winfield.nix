@@ -13,6 +13,14 @@ in
     # not used yet: change manually in config/alacritty.yml
     alacrittyFontSize = 8;
     cursorSize = 16;
+    polybar = {
+      font0Size = "12;3";
+      font1Size = "12;4";
+      font2Size = "22;7";
+    };
+    # polybarFont0Size = "12;3";
+    # polybarFont1Size = "12;4";
+    # polybarFont2Size = "22;7";
   };
 
   imports = [

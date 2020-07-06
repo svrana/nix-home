@@ -204,7 +204,7 @@ for_window [class="Standard Notes"] move scratchpad, move position 1000 50, resi
 exec --no-startup-id $HOME/.local/bin/standard-notes
 
 for_window [class="Slack"] move scratchpad, move position 1000 50, resize set 1800 2000
-#exec --no-startup-id slack
+exec --no-startup-id slack
 
 
 # (Pulse) Audio controls

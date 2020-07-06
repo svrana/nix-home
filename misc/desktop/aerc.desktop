@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Email
+Terminal=false
+Name=aerc
+GenericName=Console Email
+Exec=alacritty --class aerc -t aerc -e aerc
+Type=Application

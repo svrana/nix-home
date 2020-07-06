@@ -42,6 +42,7 @@
     # cannot seem to register with gpg-agent
     #./programs/keychain.nix
     ./programs/k9s
+    #./programs/polybar.nix
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
@@ -105,6 +106,14 @@
     source = ./scripts;
     recursive = true;
   };
+  home.file.".local/share/fonts" = {
+    source = ./fonts;
+    recursive = true;
+  };
+  home.file.".local/share/applications" = {
+    source = ./misc/desktop;
+    recursive = true;
+  };
   home.file.".rvmrc".text = ''
     rvm_autoupdate_flag=2
     export rvm_max_time_flag=20
@@ -112,7 +121,7 @@
     rvm_silence_path_mismatch_check_flag=1
   '';
   home.file.".ssh/config".source = ./personal/ssh/config;
-  #home.file.".pypirc".source = ./personal/pypi/pypirc;
+  home.file.".pypirc".source = ./personal/pypi/pypirc;
   # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
   #   ln -s "${homeDirectory}/Documents" ~/Cloud/Documents
   #   ln -s "${homeDirectory}/Music " ~/Cloud/Music
@@ -145,4 +154,12 @@
       rofi.hide-scrollbar: true
   '';
   };
+  xdg.configFile."aerc" = {
+    source = ./config/aerc;
+    recursive = true;
+  };
+  # xdg.configFile."aerc/accounts.conf" = {
+  #   source = ./personal/aerc/accounts.conf;
+  # };
+  xdg.configFile."cmus/rc".source = ./config/cmus.rc;
 }
