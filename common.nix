@@ -54,6 +54,7 @@
     aerc
     autocutsel
     ctags
+    dante
     dbeaver
     dunst
     fd
@@ -72,6 +73,7 @@
     ripgrep
     shellcheck
     ssh-agents
+    w3m
     wmctrl
   ];
 
