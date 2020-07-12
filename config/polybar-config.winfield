@@ -30,7 +30,7 @@ font-2 = UbuntuMono Nerd Font Mono:style=regular:size=22;7
 
 modules-left = i3
 modules-center = date
-modules-right = alsa pulseaudio xbacklight battery wlan eth powermenu
+modules-right = pulseaudio xbacklight battery wlan eth powermenu
 
 ; disable systray
 tray-position = none

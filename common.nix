@@ -19,20 +19,24 @@
   # changes in each release.
   home.stateVersion = "20.09";
 
-  # fixing locale errors when running some commands (like man, rofi, etc)
-  # See https://github.com/rycee/home-manager/issues/354
-  home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+  home.sessionVariables = {
+    # fixing locale errors when running some commands (like man, rofi, etc)
+    # See https://github.com/rycee/home-manager/issues/354
+    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+  };
 
 
   nixpkgs.config.allowUnfree = true;
+  xdg.enable = true;
 
   imports = [
     ./modules/settings.nix
 
-    ./personal/programs/sai.nix
+    #./personal/programs/sai.nix
 
     # alacritty can find the glx lib
     #./programs/alacritty.nix
+    ./programs/bat.nix
     ./programs/cdp.nix
     ./programs/dircolors
     ./programs/direnv
@@ -85,25 +89,7 @@
   #   vimdiffAlias = true;
   # };
 
-  home.file.".Xresources" = {
-    target = ".Xresources";
-    text = ''
-      Xft.antialias: true
-      Xft.hinting:   true
-      Xft.rgba:      rgb
-      Xft.hintstyle: hintfull
-      Xcursor.size: ${toString config.settings.cursorSize}
-    '';
-  };
-  home.file.".Xmodmap" = {
-    text = ''
-      keycode 66 = Control_L
-      clear Lock
-    '';
-  };
-  home.file.".xinitrc".source = ./config/X/xinitrc;
-  home.file.".xserverrc".source = ./config/X/xserverrc;
-  home.file.".xsessionrc".source = ./config/X/xsessionrc;
+
   home.file.".local/bin" = {
     source = ./scripts;
     recursive = true;
@@ -124,11 +110,47 @@
   '';
   home.file.".ssh/config".source = ./personal/ssh/config;
   home.file.".pypirc".source = ./personal/pypi/pypirc;
-  # home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #   ln -s "${homeDirectory}/Documents" ~/Cloud/Documents
-  #   ln -s "${homeDirectory}/Music " ~/Cloud/Music
-  #   ln -s "${homeDirectory}/Pictures" ~/Cloud/Pictures
-  # '';
+  home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ln -sf $CLOUD_ROOT/Documents /home/shaw/Documents
+    ln -sf $CLOUD_ROOT/Cloud/Music /home/shaw/Music
+    ln -sf $CLOUD_ROOT/Pictures /home/shaw/Pictures
+
+    cp $PERSONAL/aerc/accounts.conf $XDG_CONFIG_HOME/aerc
+    ln -sf $RCS/alacritty.yml $XDG_CONFIG_HOME/alacritty
+
+    cp $PERSONAL/ssh/id_rsa ~/.ssh
+    cp $PERSONAL/ssh/id_rsa.pub ~/.ssh
+    ln -sf $PERSONAL/ssh/bommie ~/.ssh
+    ln -sf $PERSONAL/ssh/vranix ~/.ssh
+  '';
+  xdg.configFile."X11/Xresources" = {
+    text = ''
+      Xft.antialias: true
+      Xft.hinting:   true
+      Xft.rgba:      rgb
+      Xft.hintstyle: hintfull
+      Xcursor.size: ${toString config.settings.cursorSize}
+    '';
+  };
+  xdg.configFile."X11/Xmodmap" = {
+    text = ''
+      keycode 66 = Control_L
+      clear Lock
+    '';
+  };
+  xdg.configFile."X11/xinitrc" = {
+    text = ''
+      xmodmap ~/.config/X11/Xmodmap
+      xrdb ~/.config/X11/Xresources
+      dbus-run-session /usr/bin/i3
+    '';
+  };
+  xdg.configFile."X11/xserverrc" = {
+    text = ''
+      #!/bin/sh
+      exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
+    '';
+  };
   xdg.configFile."mimeapps.list".source = ./config/mimeapps.list;
   xdg.configFile."nvim" = {
     source = ./config/nvim;
@@ -160,8 +182,19 @@
     source = ./config/aerc;
     recursive = true;
   };
+  xdg.configFile."npm/npmrc" = {
+    text = ''
+      python=/usr/bin/python2
+      prefix=''${XDG_DATA_HOME}/npm
+      cache=''${XDG_CACHE_HOME}/npm
+      tmp=''${XDG_RUNTIME_DIR}/npm
+      init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
+    '';
+  };
+  # aerc complains about link perms
   # xdg.configFile."aerc/accounts.conf" = {
   #   source = ./personal/aerc/accounts.conf;
   # };
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
+  xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
 }

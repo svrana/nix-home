@@ -6,7 +6,10 @@
     historySize = 100000;
     historyControl = [
       "ignoredups"
+      "erasedups"
+      "ignorespace"
     ];
+    historyFile = "$XDG_DATA_HOME/bash/history";
     shellOptions = [
       "histappend"
       "checkwinsize"
@@ -14,17 +17,36 @@
       "cdspell"
     ];
     sessionVariables = {
-      MANPAGER = "nvim -c 'set ft=man' -";
-      EDITOR = "nvim";
-      TERM = "xterm-256color";
       # for docker-compose/dev/fixuid
       BUILDUID = "$(id -u $USER)";
+      EDITOR = "nvim";
+      MANPAGER = "nvim -c 'set ft=man' -";
+      TERM = "xterm-256color";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
-      WORKON_HOME = "~/.cache/virtualenvs";
       PYTHONDONTWRITEBYTECODE = 1;
-      WEECHAT_HOME = "~/.config/weechat";
-      INPUTRC = "~/.config/inputrc";
-      PSQLRC = "~/.config/psql/config";
+
+      # home directory cleanup
+      AWS_SHARED_CREDENTIALS_FILE = "$XDG_CONFIG_HOME/aws/credentials";
+      AWS_CONFIG_FILE = "$XDG_CONFIG_HOME/aws/config";
+      CARGO_HOME = "$XDG_DATA_HOME/cargo";
+      DOCKER_CONFIG="$XDG_CONFIG_HOME/docker";
+      GEM_HOME = "$XDG_DATA_HOME/gem";
+      GNUPGHOME="$XDG_DATA_HOME/gnupg";
+      GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
+      INPUTRC = "$XDG_CONFIG_HOME/inputrc";
+      LESSHISTFILE = "-";
+      NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
+      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+      PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store";
+      PSQLRC = "$XDG_CONFIG_HOME/psql/config";
+      PYLINTHOME = "$XDG_CACHE_HOME/pylint";
+      RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
+      SQLITE_HISTORY = "$XDG_DATA_HOME/sqlite_history";
+      WEECHAT_HOME = "$XDG_CONFIG_HOME/weechat";
+      WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
+      WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
+      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
     };
     # only run for interactive sessions
     initExtra = ''
@@ -67,7 +89,6 @@
       PROMPT_COMMAND="_update_ps1 ; $PROMPT_COMMAND"
     '';
     bashrcExtra = ''
-      export CARGO_PATH=~/.cargo
       export TMP=/tmp
       export CLOUD_ROOT=~/Cloud
       export PHOTOS=~/Pictures
@@ -76,28 +97,28 @@
       export MUSIC=~/Music
       export PROJECTS=~/Projects
       export APPS=~/Apps
-      export DOTFILES=~/.dotfiles
+      export DOTFILES=~/Projects/dotfiles
       export RCS="$DOTFILES/config"
+      export PERSONAL="$DOTFILES/personal"
       export BIN_DIR=~/.local/bin
 
       source "$RCS/functions.sh"
 
-      PATH_append "$BIN_DIR:$DOTFILES/scripts:$HOME/.pulumi/bin:$CARGO_PATH/bin"
-
-      eval `keychain --quiet --quick --eval --absolute --dir $HOME/.config/keychain ~/.ssh/id_rsa ~/.ssh/vranix/id_rsa`
+      PATH_append "$BIN_DIR:$HOME/.pulumi/bin:$CARGO_PATH/bin"
     '';
     profileExtra = ''
     # programs launched without a terminal still need nix profile/bin in their path
     source ~/.nix-profile/etc/profile.d/nix.sh
 
-    complete -F __start_kubectl k
+    eval `keychain --quiet --quick --eval --absolute --dir $HOME/.config/keychain ~/.ssh/id_rsa ~/.ssh/vranix/id_rsa`
 
+    complete -F __start_kubectl k
 
     if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
             # If not using a graphical login, then start up x ourselves
             link=$(readlink -nf /etc/systemd/system/default.target)
             if [ "$link"="/etc/systemd/system/default.target" ]; then
-                    exec startx
+                    exec startx "$XDG_CONFIG_HOME/X11/xinitrc" -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1
             fi
     fi
     '';
@@ -109,7 +130,7 @@
       "cdd"  = "cd $DOTFILES";
 
       "p" = "pushd";
-      "P="= "popd";
+      "P"= "popd";
 
       "k" = "kubectl";
       "pl" = "pulumi";
