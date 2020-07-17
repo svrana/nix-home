@@ -56,12 +56,6 @@
         . /etc/bash_completion
       fi
 
-      # TODO: Move this to proper config file per host as the uhk doesn't have
-      # a capslock key and the Mouse key is changed via firmware. See man keyboard 5.
-      setxkbmap -option ctrl:nocaps
-      # Move this
-      bind '"":"source ~/.bashrc && direnv reload > /dev/null 2>&1\n"'
-
       hm() {
         home-manager -f "$DOTFILES/hosts/$HOSTNAME.nix" $@
       }
@@ -83,8 +77,7 @@
         local modules='perms,venv,gitlite,ssh,cwd,exit'
 
         PS1="$(powerline-go -cwd-mode dironly -theme default -modules $modules \
-          -priority $priority -cwd-max-depth 1 -max-width 65 \
-          -path-aliases \~/go/src/github.com=@go-gh)"
+          -priority $priority -max-width 65)"
       }
       PROMPT_COMMAND="_update_ps1 ; $PROMPT_COMMAND"
     '';
