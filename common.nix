@@ -25,14 +25,15 @@
     LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
   };
 
-
   nixpkgs.config.allowUnfree = true;
   xdg.enable = true;
 
   imports = [
+    # settings has to go first as the config there controls aspects of the
+    # pkg conigurations below it.
     ./modules/settings.nix
 
-    #./personal/programs/sai.nix
+    ./personal/programs/sai.nix
 
     # alacritty can find the glx lib
     #./programs/alacritty.nix
@@ -43,8 +44,7 @@
     ./programs/dunst.nix
     ./programs/gruf.nix
     ./programs/go.nix
-    # cannot seem to register with gpg-agent
-    #./programs/keychain.nix
+    ./programs/keychain.nix
     ./programs/k9s
     #./programs/polybar.nix
     ./programs/tmux
@@ -64,6 +64,7 @@
     fd
     firefox
     gnupg
+    insync
     jq
     kubectl
     kubectx
@@ -111,17 +112,18 @@
   home.file.".ssh/config".source = ./personal/ssh/config;
   home.file.".pypirc".source = ./personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ln -sf $CLOUD_ROOT/Documents /home/shaw/Documents
-    ln -sf $CLOUD_ROOT/Cloud/Music /home/shaw/Music
-    ln -sf $CLOUD_ROOT/Pictures /home/shaw/Pictures
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Cloud/Music /home/shaw/Music
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
 
-    cp $PERSONAL/aerc/accounts.conf $XDG_CONFIG_HOME/aerc
-    ln -sf $RCS/alacritty.yml $XDG_CONFIG_HOME/alacritty
+    $DRY_RUN_CMD cp $VERBOSE_ARG $PERSONAL/aerc/accounts.conf $XDG_CONFIG_HOME/aerc
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $RCS/alacritty.yml $XDG_CONFIG_HOME/alacritty
 
-    cp $PERSONAL/ssh/id_rsa ~/.ssh
-    cp $PERSONAL/ssh/id_rsa.pub ~/.ssh
-    ln -sf $PERSONAL/ssh/bommie ~/.ssh
-    ln -sf $PERSONAL/ssh/vranix ~/.ssh
+    # qutebrowser writes to these so cannot be in the nix store- having them synced across
+    # desktops automatically is also nice.
+    $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG /home/shaw/Documents/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG /home/shaw/Documents/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
   '';
   xdg.configFile."X11/Xresources" = {
     text = ''
@@ -163,8 +165,6 @@
   xdg.configFile."i3/config".source = ./config/i3config;
   xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
   xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
-  xdg.configFile."qutebrowser/quickmarks".source = /home/shaw/Documents/apps/qutebrowser/quickmarks;
-  xdg.configFile."qutebrowser/bookmarks/urls".source = /home/shaw/Documents/apps/qutebrowser/bookmarks;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;

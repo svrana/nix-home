@@ -103,8 +103,6 @@
     # programs launched without a terminal still need nix profile/bin in their path
     source ~/.nix-profile/etc/profile.d/nix.sh
 
-    eval `keychain --quiet --quick --eval --absolute --dir $HOME/.config/keychain ~/.ssh/id_rsa ~/.ssh/vranix/id_rsa`
-
     complete -F __start_kubectl k
 
     if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then

@@ -1,8 +1,9 @@
 { pkgs, lib, ... }:
 
 {
-  #programs.k9s.enable = true;
+  #pkgs.k9s.enable = true;
 
+  #TODO: add home-manager module to handle config
   home.file."k9s_skin" = {
     target = ".k9s/skin.yml";
     source = ./skin.yml;
