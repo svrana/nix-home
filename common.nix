@@ -35,7 +35,7 @@
 
     ./personal/programs/sai.nix
 
-    # alacritty can find the glx lib
+    # alacritty can't find the glx lib
     #./programs/alacritty.nix
     ./programs/bat.nix
     ./programs/cdp.nix
@@ -46,7 +46,7 @@
     ./programs/go.nix
     ./programs/keychain.nix
     ./programs/k9s
-    #./programs/polybar.nix
+    ./programs/polybar.nix
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
@@ -68,7 +68,8 @@
     jq
     kubectl
     kubectx
-    k9s
+    # need newer version for skin
+    #k9s
     lesspipe
     man
     packer
@@ -76,11 +77,23 @@
     pinentry-gtk2
     readline
     ripgrep
+    rofi
     shellcheck
     ssh-agents
     w3m
     wmctrl
   ];
+
+  # xession.enable = true;
+  # xsession.windowManager.i3 = {
+  #   enable = true;
+  #   package = "pkgs.i3-gaps";
+  #   extraPackages = with pkgs; [
+  #     i3lock-fancy
+  #   ];
+  # };
+
+  #services.xclutter.enable = true;
 
   # Not quite new enough; missing CocTagFunc
   # programs.neovim = {
@@ -89,7 +102,6 @@
   #   vimAlias = true;
   #   vimdiffAlias = true;
   # };
-
 
   home.file.".local/bin" = {
     source = ./scripts;
@@ -162,8 +174,8 @@
     source = ./config/ranger;
     recursive = true;
   };
-  xdg.configFile."i3/config".source = ./config/i3config;
-  xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
+  #xdg.configFile."i3/config".source = ./config/i3config;
+  #xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
   xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;

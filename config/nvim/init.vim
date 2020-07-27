@@ -43,9 +43,10 @@ Plug 'vim-scripts/matchit.zip'
 " Programming (general)
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ternjs/tern_for_vim'
 Plug 'svrana/neomake'
 Plug 'majutsushi/tagbar'		" ide
@@ -57,7 +58,7 @@ Plug 'airblade/vim-rooter' 		" Automatically go to the project root (i.e., .git,
 
 " Language specific functionality
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } " mostly for identifier jumping
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " mostly for identifier jumping
 Plug 'wsdjeg/vim-fetch'			" open file:lineno:colno see sf()
 "Plug 'fatih/gomodifytags'
 "Plug 'zchee/deoplete-go'

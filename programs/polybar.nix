@@ -4,48 +4,11 @@
   services.polybar = {
     script = "polybar top &";
     enable = true;
-    # config = ''
-    # {
-    #   "colors" = {
-    #     background = #073642;
-    #     background-alt = #586e75;
-    #     foreground = #dfdfdf;
-    #     foreground-alt = #555;
-    #     primary = #ffb52a;
-    #     secondary = #e60053;
-    #     alert = #bd2c40;
-    #   };
+    package = pkgs.polybar.override {
+      i3GapsSupport = true;
+    };
 
-    #   "bar/example" = {
-    #     tray-maxsize = 1000;
-    #     width = 100%
-    #     height = 30;
-    #     radius = 3;
-    #     fixed-center = true;
 
-    #     background = ${colors.background};
-    #     foreground = ${colors.foreground};
-
-    #     line-size = 3;
-    #     line-color = #f00;
-
-    #     border-size = 0;
-
-    #     padding-left = 0;
-    #     padding-right = 1;
-
-    #     module-margin-left = 1;
-    #     module-margin-right = 2;
-
-    #     font-0 = System San Francisco Display:style=regular:size=12;;3;
-    #     font-1 = Font Awesome:style=regular:size=12;;4;
-    #     font-2 = UbuntuMono Nerd Font Mono:style=regular:size=22;;7;
-
-    #     modules-left = i3;
-    #     modules-center = date;
-    #     modules-right = pulseaudio xbacklight battery wlan eth powermenu;
-    #  };
-    # };
     extraConfig = ''
     [colors]
     background = #073642
@@ -62,33 +25,24 @@
     height = 30
     radius = 3
     fixed-center = true
-
     background = ''${colors.background}
     foreground = ''${colors.foreground}
-
     line-size = 3
     line-color = #f00
-
     border-size = 0
     border-color = #00000000
-
     padding-left = 0
     padding-right = 1
-
     module-margin-left = 1
     module-margin-right = 2
-
     font-0 = System San Francisco Display:style=regular:size=${config.settings.polybar.font0Size}
-    font-1 = Font Awesome:style=regular:size=12;4
-    font-2 = UbuntuMono Nerd Font Mono:style=regular:size=22;7
-
+    font-1 = Font Awesome:style=regular:size=${config.settings.polybar.font1Size}
+    font-2 = UbuntuMono Nerd Font Mono:style=regular:size=${config.settings.polybar.font2Size}
     modules-left = i3
     modules-center = date
     modules-right = pulseaudio xbacklight battery wlan eth powermenu
-
     ; disable systray
     tray-position = none
-
     cursor-click = pointer
     cursor-scroll = ns-resize
 
@@ -97,42 +51,29 @@
     format = <label-state> <label-mode>
     index-sort = true
     wrapping-scroll = false
-
-    ;ws-icon-0 = 1;
     ws-icon-0 = 1;
     ws-icon-1 = 2;
-    ;ws-icon-1 = 2;
-    ;ws-icon-1 = 2;
     ws-icon-2 = 3;
     ws-icon-3 = 4;
-    ;ws-icon-4 = 5;
-    ;ws-icon-4 = 5;
     ws-icon-4 = 5;
-    ;ws-icon-5 = 6;
     ws-icon-5 = 6;
     ws-icon-default = 
-
     ; Only show workspaces on the same output as the bar
     ;pin-workspaces = true
-
     label-mode-padding = 2
     label-mode-foreground = #000
     label-mode-background = ''${colors.primary}
-
     ; focused = Active workspace on focused monitor
     label-focused = %icon%
     label-focused-background = ''${colors.background-alt}
     label-focused-padding = 4
-
     ; unfocused = Inactive workspace on any monitor
     label-unfocused = %icon%
     label-unfocused-padding = ''${self.label-focused-padding}
-
     ; visible = Active workspace on unfocused monitor
     label-visible = %icon%
     label-visible-background = ''${self.label-focused-background}
     label-visible-padding = ''${self.label-focused-padding}
-
     ; urgent = Workspace with urgency hint set
     label-urgent = %icon%
     label-urgent-background = ''${colors.alert}
@@ -142,10 +83,8 @@
     type = internal/network
     interface = wlp2s0
     interval = 3.0
-
     format-connected = <ramp-signal> <label-connected>
     label-connected = %essid%
-
     ramp-signal-0 = 
     ramp-signal-1 = 
     ramp-signal-2 = 
@@ -163,11 +102,6 @@
     label-disconnected = " "
     format-disconnected = <label-disconnected>
     label-disconnected-foreground = ''${colors.foreground-alt}
-
-    [module/weather]
-    type = custom/script
-    exec = curl -s wttr.in/San\ Francisco?format="%c+%t"
-    interval = 1500
 
     [module/date]
     type = internal/date
@@ -233,5 +167,4 @@
     margin-bottom = 5
     '';
   };
-
 }

@@ -17,10 +17,6 @@ with lib;
         default = 16;
         type = types.int;
       };
-      polybarFontSize = mkOption {
-        default = 18;
-        type = types.int;
-      };
       cursorSize = mkOption {
         default = 14;
         type = types.int;
@@ -35,7 +31,7 @@ with lib;
           type = types.string;
         };
         font2Size = mkOption {
-          default = "22;7";
+          default = "26;7"; # untested
           type = types.string;
         };
       };
