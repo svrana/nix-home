@@ -56,6 +56,7 @@
 
   home.packages = with pkgs; [
     aerc
+    appimage-run
     autocutsel
     ctags
     dante
@@ -79,6 +80,8 @@
     ripgrep
     rofi
     shellcheck
+    slack
+    spotify
     ssh-agents
     w3m
     wmctrl
@@ -174,7 +177,7 @@
     source = ./config/ranger;
     recursive = true;
   };
-  #xdg.configFile."i3/config".source = ./config/i3config;
+  xdg.configFile."i3/config".source = ./config/i3config;
   #xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
   xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
