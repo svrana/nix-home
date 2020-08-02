@@ -57,6 +57,7 @@
   home.packages = with pkgs; [
     aerc
     appimage-run
+    awscli
     autocutsel
     ctags
     dante
@@ -73,6 +74,7 @@
     #k9s
     lesspipe
     man
+    openvpn
     packer
     pass
     pinentry-gtk2
