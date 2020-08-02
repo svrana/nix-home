@@ -4,8 +4,7 @@
   programs.go = {
     enable = true;
     goPath = ".cache/go";
-    # packages = ''
-    # '';
+    packages."github.com/svrana/powerline-go" = builtins.fetchGit "https://github.com/svrana/powerline-go";
   };
 
   programs.bash.initExtra = ''

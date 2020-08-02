@@ -62,22 +62,29 @@
     ctags
     dante
     dbeaver
+    docker-compose
     dunst
     fd
     firefox
     gnupg
+    htop
     insync
     jq
+    keybase
+    keybase-gui
     kubectl
     kubectx
     # need newer version for skin
     #k9s
     lesspipe
     man
+    nodejs-12_x
+    nodePackages.eslint
     openvpn
     packer
     pass
     pinentry-gtk2
+    ranger
     readline
     ripgrep
     rofi
@@ -85,10 +92,38 @@
     slack
     spotify
     ssh-agents
+    tmate
     w3m
     wmctrl
+    xclip
+    xdg_utils
+    zip
   ];
 
+  services.keybase.enable = true;
+
+ #programs.nodejs-12.enable = true;
+
+ # see lock on resume
+ #
+ # systemd.user.services.volumeicon = {
+ #    Unit = {
+ #      Description = "Volume Icon";
+ #      After = [ "graphical-session-pre.target" ];
+ #      PartOf = [ "graphical-session.target" ];
+ #    };
+
+ #    Install = {
+ #      WantedBy = [ "graphical-session.target" ];
+ #    };
+
+ #    Service = {
+ #      ExecStart = "${pkgs.volumeicon}/bin/volumeicon";
+ #    };
+ #  };
+
+
+  #
   # xession.enable = true;
   # xsession.windowManager.i3 = {
   #   enable = true;
@@ -214,4 +249,13 @@
   # };
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
   xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
+
+  # TODO:
+  #   override k9s
+  #   figure out prompt
+  #     create the damn package yourself /home/shaw/Projects/nixpkgs/pkgs/applications/blockchains/quorum.nix for typical golang package
+  #     or override the existing powerline-go
+  #   node -- n?
+  #     how do i pick node versions, python, etc.
+  #   diff-so-fancy
 }
