@@ -43,8 +43,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    openvpn
     wget
     vim
+    gnome3.adwaita-icon-theme
   ];
 
   fonts.fonts = with pkgs; [
@@ -79,6 +81,14 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.bluetooth = {
+    enable = true;
+    extraConfig = "
+      [General]
+        Enable=Source,Sink,Media,Socket
+    ";
+  services.blueman.enable = true;
+
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -88,6 +98,8 @@
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
+  services.gnome3.gnome-keyring.enable = true;
+
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = true;
   # Required because /run/user/1000 tempfs is too small for docker
@@ -96,7 +108,7 @@
   '';
 
   security.sudo.wheelNeedsPassword = false;
-
+  users.users.root.initialHashedPassword = "";
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;

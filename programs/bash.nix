@@ -17,6 +17,8 @@
       "cdspell"
     ];
     sessionVariables = {
+      AWS_VAULT_BACKEND = "pass";
+      AWS_VAULT_PASS_PREFIX = "vault";
       # for docker-compose/dev/fixuid
       BUILDUID = "$(id -u $USER)";
       EDITOR = "nvim";
@@ -37,7 +39,9 @@
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
-      PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store";
+      PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+      AWS_VAULT_PASS_PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+
       PSQLRC = "$XDG_CONFIG_HOME/psql/config";
       PYLINTHOME = "$XDG_CACHE_HOME/pylint";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";

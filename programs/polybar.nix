@@ -8,7 +8,6 @@
       i3GapsSupport = true;
     };
 
-
     extraConfig = ''
     [colors]
     background = #073642

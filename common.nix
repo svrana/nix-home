@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+   pkgsUnstable = import <nixpkgs-unstable> {};
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -35,7 +38,6 @@
 
     ./personal/programs/sai.nix
 
-    # alacritty can't find the glx lib
     #./programs/alacritty.nix
     ./programs/bat.nix
     ./programs/cdp.nix
@@ -55,19 +57,25 @@
   ];
 
   home.packages = with pkgs; [
-    aerc
+    pkgsUnstable.aerc
+    # opengl apps doesn't work on non-nixos without some fudging which I didn't do (https://github.com/NixOS/nixpkgs/issues/9415)
+    #pkgsUnstable.alacritty
     appimage-run
     awscli
+    aws-vault
     autocutsel
     ctags
     dante
     dbeaver
+    gitAndTools.diff-so-fancy
     docker-compose
     dunst
     fd
     firefox
     gnupg
     htop
+    # didn't work on ubuntu, try again after switch
+    #i3lock-color
     insync
     jq
     keybase
@@ -75,7 +83,7 @@
     kubectl
     kubectx
     # need newer version for skin
-    #k9s
+    pkgsUnstable.k9s
     lesspipe
     man
     nodejs-12_x
@@ -95,14 +103,37 @@
     tmate
     w3m
     wmctrl
+    xautolock
     xclip
     xdg_utils
     zip
   ];
 
-  services.keybase.enable = true;
+  gtk = {
+    enable = true;
+    # font = {
+    #   name = "Noto Sans 10";
+    #   package = pkgs.noto-fonts;
+    # };
+    # iconTheme = {
+    #   name = "Adwaita";
+    #   package = pkgs.gnome3.adwaita-icon-theme;
+    # };
+    # theme = {
+    #   name = "Adapta-Nokto-Eta";
+    #   package = pkgs.adapta-gtk-theme;
+    # };
+    gtk3 = {
+      bookmarks = [
+        "file:///home/shaw/Documents"
+        "file:///home/shaw/Music"
+        "file:///home/shaw/Pictures"
+        "file:///home/shaw/Downloads"
+      ];
+    };
+  };
 
- #programs.nodejs-12.enable = true;
+  services.keybase.enable = true;
 
  # see lock on resume
  #
@@ -129,14 +160,14 @@
   #   enable = true;
   #   package = "pkgs.i3-gaps";
   #   extraPackages = with pkgs; [
-  #     i3lock-fancy
+  #     i3lock-color
   #   ];
   # };
 
   #services.xclutter.enable = true;
 
   # Not quite new enough; missing CocTagFunc
-  # programs.neovim = {
+  # pkgsUnstable.neovim = {
   #   enable = true;
   #   viAlias = true;
   #   vimAlias = true;
@@ -251,11 +282,17 @@
   xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
 
   # TODO:
+  # virtualenv
   #   override k9s
   #   figure out prompt
   #     create the damn package yourself /home/shaw/Projects/nixpkgs/pkgs/applications/blockchains/quorum.nix for typical golang package
   #     or override the existing powerline-go
-  #   node -- n?
-  #     how do i pick node versions, python, etc.
-  #   diff-so-fancy
+  #pkgs.powerline-go = pkgs.powerline-go.overrideAttrs (oldAttrs: rec {
+  #  version = "1.51-svrana";
+  #});
+    # src = fetchFromGitHub {
+    #   owner = "svrana";
+    #   repo = pname;
+    #   rev = "v{version}";
+    # };
 }
