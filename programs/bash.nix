@@ -128,6 +128,7 @@
       "p" = "pushd";
       "P"= "popd";
 
+      "v" = "nvim";
       "k" = "kubectl";
       "pl" = "pulumi";
 
