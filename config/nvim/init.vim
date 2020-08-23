@@ -18,7 +18,6 @@ Plug 'svrana/solarize'			" solarize everything
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'edkolev/tmuxline.vim'
 
 " Vim functionality helpers
 Plug 'tpope/vim-obsession'		" auto-session handling
@@ -29,52 +28,45 @@ Plug 'mhinz/vim-startify'
 Plug 'unblevable/quick-scope'
 
 " Git related plugins
-Plug 'tpope/vim-fugitive'		" mostly for blame
+Plug 'tpope/vim-fugitive'		" mostly for blame, but some others
 Plug 'airblade/vim-gitgutter'		" showing and staging chunks
 Plug 'jreybert/vimagit'			" project wide git
 Plug 'tpope/vim-rhubarb'		" sharing git urls
+Plug 'stsewd/fzf-checkout.vim'
 
 " Text processing
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'		" auto-commenting
 Plug 'christoomey/vim-sort-motion'
 Plug 'vim-scripts/matchit.zip'
+Plug 'justinmk/vim-sneak'
 
 " Programming (general)
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ternjs/tern_for_vim'
 Plug 'svrana/neomake'
 Plug 'majutsushi/tagbar'		" ide
 Plug 'wellle/tmux-complete.vim'		" completion from other tmux panes
-"Plug 'SirVer/ultisnips'			" snippet handler
+Plug 'SirVer/ultisnips'			" snippet handler
 "Plug 'honza/vim-snippets'		" Snippets are separated from the engine.
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter' 		" Automatically go to the project root (i.e., .git, etc)
 
-" Language specific functionality
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " mostly for identifier jumping
 Plug 'wsdjeg/vim-fetch'			" open file:lineno:colno see sf()
-"Plug 'fatih/gomodifytags'
-"Plug 'zchee/deoplete-go'
-"Plug 'zchee/deoplete-jedi'
-"Plug 'fishbullet/deoplete-ruby'
 Plug 'psf/black'			" python formatting
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'LnL7/vim-nix'
 
 " File handling
 Plug 'junegunn/fzf.vim'
 Plug 'farmergreg/vim-lastplace'		" open file at last position
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
-" Language specific visual effects:  ftplugins, highlighting, etc
+" Language specific visual effects: ftplugins, highlighting, etc
 Plug 'tpope/vim-jdaddy'			" json formatting
 Plug 'cespare/vim-toml'			" toml formatting
 Plug 'othree/html5.vim'
@@ -85,20 +77,17 @@ Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-packer'
 Plug 'google/vim-jsonnet'
 Plug 'posva/vim-vue'
-Plug 'justinmk/vim-sneak'
 Plug 'tmux-plugins/vim-tmux'		" editing .tmux.conf
 Plug 'leafgarland/typescript-vim'
+Plug 'LnL7/vim-nix'
 
-Plug 'stsewd/fzf-checkout.vim'
+
 
 call plug#end()				" All of your Plugins must be added before the following line
 set mouse=a
 set rtp+=$RCS/nvim/vimsnips
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
-let $FZF_DEFAULTS_OPTS='--reverse'
-nnoremap <leader>gc :GCheckout<CR>
-nnoremap <leader>gs :GStatus<CR>
 
 "nmap <leader>gh :diffget //3<CR>
 "nmap <leader>gg :diffget //2<CR>
@@ -167,25 +156,11 @@ au BufWrite *.ts :Autoformat
 let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'delete'
 
-"let g:deoplete#enable_at_startup = 1
-" let g:deoplete#disable_auto_complete = 1
-"set completeopt=longest,menuone,preview
-"let g:deoplete#sources = {}
-"let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
-"let g:deoplete#sources['python.py'] = ['file', 'ultisnips']
-"et g:tern#command = ['tern']
-"et g:tern#arguments = ['--persistent']
-"
-
-" call deoplete#custom#source('omni', 'functions', {
-"     \ 'python':  'ultisnips',
-"     \})
-
 " Snippet configuration (not working)
 let g:UltiSnipsExpandTrigger="<c-;>"
 "let g:UltiSnipsExpandTrigger=";"
 "let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsSnippetsDir="/home/shaw/.dotfiles/configs/nvim/vimsnips"
+let g:UltiSnipsSnippetsDir = expand("$RCS/nvim/vimsnips")
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
@@ -244,8 +219,7 @@ autocmd BufNewFile,BufRead,BufEnter BUILD.fs setf python
 autocmd BufWritePost,BufEnter * Neomake
 autocmd FileType terraform setlocal commentstring=#%s
 autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-			\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+"autocmd  FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 " jsonc
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
@@ -291,12 +265,6 @@ augroup END
 function! GotoDotfiles()
 	cd $DOTFILES
 endfun
-
-map  \cf :call GetFile(expand("$DOTFILES"))<CR>
-map! \cf <ESC>:call GetFile(expand("$DOTFILES"))<CR>
-
-map  \gc :call GotoDotfiles()<CR>
-map! \gc <ESC>:call GotoDotfile()<CR>
 
 map \sp :split<CR>
 map! \sp <ESC>:split<CR>
@@ -404,6 +372,10 @@ map! <M-Esc>[65~ <S-MouseUp>
 nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
 nnoremap <silent> <LocalLeader>t :FZF<cr>
 nnoremap <silent> <LocalLeader>r :Rg<cr>
+nnoremap <silent> <LocalLeader>fg :Rg<cr>
+"nnoremap <silent> <LocalLeader>gc :Commits<cr>
+"nnoremap <silent> <LocalLeader>gb :BCommits<cr>
+
 nnoremap <silent> <LocalLeader>hs :!home-manager -f $DOTFILES/hosts/$HOSTNAME.nix switch<cr>
 
 nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
@@ -500,22 +472,24 @@ nmap <silent> <leader>cs <esc>:CocRestart<CR><CR>
 ""===end coc.nvim settings
 ""
 " git
-" " Jump between hunks
-nmap <Leader>gn <Plug>GitGutterNextHunk  " git next
-nmap <Leader>gp <Plug>GitGutterPrevHunk  " git previous
-nnoremap <leader>gs :Magit<CR>		 " git status
-nnoremap <leader>gP :! git push<CR>      " git push
-nnoremap <Leader>gb :Gblame<CR>          " git blame
+" Jump between hunks
+"nnoremap <leader>gc :GCheckout<CR>
+"nmap <Leader>gn <Plug>GitGutterNextHunk  " git next
+"nmap <Leader>gp <Plug>GitGutterPrevHunk  " git previous
+"nnoremap <leader>gP :! git push<CR>      " git push
 
-nnoremap <Leader>gl :.Gbrowse<CR>	 " Open current line in the browser (i.e., get link)
-vnoremap <Leader>gl :Gbrowse<CR>	 " Open visual selection in the browser
-nnoremap <Leader>gsf :Gw<CR>             " git stage file
+"nnoremap <silent> <LocalLeader>gs :Git<cr> 	" g? for help afterwards, can stage, commit and push from there
+nnoremap <leader>gs :Magit<CR>		 	" git status
+nnoremap <Leader>gb :Gblame<CR>          	" git blame
+nnoremap <Leader>gl :Gbrowse<CR>	 	" Open current line in the browser (i.e., get link)
+vnoremap <Leader>gl :Gbrowse<CR>	 	" Open visual selection in the browser
+"nnoremap <Leader>gsf :Gw<CR>            " git stage file
 " Hunk-add and hunk-revert for chunk staging
-nmap <Leader>ga <Plug>GitGutterStageHunk " git add (chunk)
-nmap <Leader>gu <Plug>GitGutterUndoHunk  " git undo (chunk)
+"nmap <Leader>ga <Plug>GitGutterStageHunk " git add (chunk)
+"nmap <Leader>gu <Plug>GitGutterUndoHunk  " git undo (chunk)
 
 " Enable deletion of untracked files in Magit
-let g:magit_discard_untracked_do_delete=1
+"let g:magit_discard_untracked_do_delete=1
 
 " Use K for show documentation in preview window
 "nnoremap <silent> K :call <SID>show_documentation()<CR>
