@@ -61,6 +61,7 @@ in
     # opengl apps doesn't work on non-nixos without some fudging which I didn't do (https://github.com/NixOS/nixpkgs/issues/9415)
     #pkgsUnstable.alacritty
     appimage-run
+    # amazon-ecr-credential-helper, where the binary?
     awscli
     aws-vault
     autocutsel
@@ -78,6 +79,7 @@ in
     #i3lock-color
     insync
     jq
+    kbfs # for keybase
     keybase
     keybase-gui
     kubectl

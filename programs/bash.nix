@@ -100,6 +100,7 @@
       export BIN_DIR=~/.local/bin
 
       source "$RCS/functions.sh"
+      source "$PERSONAL/synthesis/functions.sh"
 
       PATH_append "$BIN_DIR:$HOME/.pulumi/bin:$CARGO_PATH/bin"
     '';

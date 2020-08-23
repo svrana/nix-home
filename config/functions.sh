@@ -269,3 +269,13 @@ split() {
 join_by() {
     local d=$1 ; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}";
 }
+
+prod() {
+    kubectx arn:aws:eks:us-east-2:457413897128:cluster/eng-prod
+    [ -f Pulumi.yaml ] && pulumi stack select Synthesis-AI-Dev/prod
+}
+
+stage() {
+    kubectx arn:aws:eks:us-east-2:457413897128:cluster/eng-stage
+    [ -f Pulumi.yaml ] && pulumi stack select Synthesis-AI-Dev/stage
+}

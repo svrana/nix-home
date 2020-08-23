@@ -58,6 +58,7 @@ Plug 'airblade/vim-rooter' 		" Automatically go to the project root (i.e., .git,
 
 " Language specific functionality
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " mostly for identifier jumping
 Plug 'wsdjeg/vim-fetch'			" open file:lineno:colno see sf()
 "Plug 'fatih/gomodifytags'
@@ -88,10 +89,21 @@ Plug 'justinmk/vim-sneak'
 Plug 'tmux-plugins/vim-tmux'		" editing .tmux.conf
 Plug 'leafgarland/typescript-vim'
 
+Plug 'stsewd/fzf-checkout.vim'
 
 call plug#end()				" All of your Plugins must be added before the following line
 set mouse=a
 set rtp+=$RCS/nvim/vimsnips
+
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+let $FZF_DEFAULTS_OPTS='--reverse'
+nnoremap <leader>gc :GCheckout<CR>
+nnoremap <leader>gs :GStatus<CR>
+
+"nmap <leader>gh :diffget //3<CR>
+"nmap <leader>gg :diffget //2<CR>
+
+"
 
 let mapleader = ","
 let maplocalleader = ","
@@ -144,6 +156,7 @@ let g:neomake_verbose = 0
 
 let g:peekaboo_delay=300
 
+let g:formatterpath = ["/home/shaw/Projects/aws-infra/node_modules/.bin"]
 au BufWrite *.ts :Autoformat
 
 " Whitespace related
