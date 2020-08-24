@@ -370,7 +370,7 @@ map  <M-Esc>[65~ <S-MouseUp>
 map! <M-Esc>[65~ <S-MouseUp>
 
 nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
-nnoremap <silent> <LocalLeader>t :FZF<cr>
+nnoremap <silent> <LocalLeader>t :Files<cr>
 nnoremap <silent> <LocalLeader>r :Rg<cr>
 nnoremap <silent> <LocalLeader>fg :Rg<cr>
 "nnoremap <silent> <LocalLeader>gc :Commits<cr>

@@ -6,6 +6,7 @@
     defaultCommand = "fd --type f";
     defaultOptions = [
       "--reverse"
+      "--info inline"
       "--bind=ctrl-f:page-down,ctrl-b:page-up,ctrl-d:page-up"
     ];
     fileWidgetCommand = "fd --type f";
