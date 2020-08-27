@@ -74,6 +74,7 @@ in
     fd
     firefox
     gnupg
+    # helm # cores on me
     htop
     # didn't work on ubuntu, try again after switch
     #i3lock-color
