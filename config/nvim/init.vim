@@ -80,6 +80,7 @@ Plug 'posva/vim-vue'
 Plug 'tmux-plugins/vim-tmux'		" editing .tmux.conf
 Plug 'leafgarland/typescript-vim'
 Plug 'LnL7/vim-nix'
+Plug 'sheerun/vim-polyglot'
 
 
 
