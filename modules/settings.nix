@@ -24,15 +24,15 @@ with lib;
       polybar = {
         font0Size = mkOption {
           default = "18;3";
-          type = types.string;
+          type = types.str;
         };
         font1Size = mkOption {
           default = "18;4";
-          type = types.string;
+          type = types.str;
         };
         font2Size = mkOption {
           default = "26;7"; # untested
-          type = types.string;
+          type = types.str;
         };
       };
     };
