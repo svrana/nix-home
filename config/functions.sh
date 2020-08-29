@@ -196,65 +196,6 @@ download() {
     return $?
 }
 
-package_installed() {
-    dpkg -s "$1" &> /dev/null
-}
-
-package_version() {
-    if package_installed "$1" ; then
-        dpkg -s "$1" | grep "^Version:" | cut -d' ' -f2
-    fi
-}
-
-_ext_package_install() {
-    declare -r PACKAGE="$1"
-    declare -r VERSION="$2"
-    declare -r URL="$3"
-    local TEMPDIR
-
-    TEMPDIR=$(mktemp -d)
-    declare -r FILENAME="$TEMPDIR/${PACKAGE}-${VERSION}.deb"
-
-    # echo "PACKAGE: $PACKAGE"
-    # echo "VERSION: $VERSION"
-    # echo "URL: $URL"
-    # echo "TEMPDIR: $TEMPDIR"
-
-    if ! download "$URL" "$FILENAME" ; then
-        echo "Download of $PACKAGE from $URL to $TEMPDIR failed"
-        return 1
-    fi
-
-    if ! sudo dpkg -i "$FILENAME" ; then
-        echo "dpkg install of $FILENAME failed. File left for inspection."
-        return 1
-    fi
-
-    rm -rf "$TEMPDIR"
-}
-
-ext_package_install() {
-    declare -r PACKAGE="$1"
-    declare -r VERSION="$2"
-    declare -r URL="$3"
-
-    if package_installed "$PACKAGE" ; then
-        local CURRENT_VERSION
-        CURRENT_VERSION=$(package_version "$PACKAGE")
-        if [ "$VERSION" != "$CURRENT_VERSION" ]; then
-            echo "Upgrading $PACKAGE to v${VERSION} from v${CURRENT_VERSION}"
-            _ext_package_install $*
-            estatus
-        else
-            egood "Already installed $PACKAGE v${VERSION}"
-        fi
-    else
-         echo "$PACKAGE not installed. Installing v${VERSION}"
-        _ext_package_install $*
-        estatus
-    fi
-}
-
 split_to_array() {
    IFS=$'\n' read -d "" -ra arr <<< "${1//$2/$'\n'}"
    echo "${arr[@]}"
@@ -268,16 +209,6 @@ split() {
 
 join_by() {
     local d=$1 ; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}";
-}
-
-prod() {
-    kubectx arn:aws:eks:us-east-2:457413897128:cluster/eng-prod
-    [ -f Pulumi.yaml ] && pulumi stack select Synthesis-AI-Dev/prod
-}
-
-stage() {
-    kubectx arn:aws:eks:us-east-2:457413897128:cluster/eng-stage
-    [ -f Pulumi.yaml ] && pulumi stack select Synthesis-AI-Dev/stage
 }
 
 is_in_git_repo() {
