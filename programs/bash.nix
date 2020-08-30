@@ -84,6 +84,9 @@
           -priority $priority -max-width 65)"
       }
       PROMPT_COMMAND="_update_ps1 ; $PROMPT_COMMAND"
+
+      # hmmmmm, why do i have to do this by hand?
+      bind -f $INPUTRC
     '';
     bashrcExtra = ''
       export TMP=/tmp

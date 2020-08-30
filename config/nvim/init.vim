@@ -348,8 +348,6 @@ nnoremap \rcb :'a,'bs/^#//<CR>
 
 " toggle highlighting when searching
 nnoremap \th :set invhls hls?<CR>
-" toggle paste mapping to avoid things like autoindent causing 'stepped' text
-nnoremap \tp :set invpaste paste?<CR>
 
 set background=dark
 
@@ -370,19 +368,22 @@ map! <M-Esc>[64~ <S-MouseDown>
 map  <M-Esc>[65~ <S-MouseUp>
 map! <M-Esc>[65~ <S-MouseUp>
 
-nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
+function FZFGitRoot()
+	let root = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
+	call fzf#vim#files(root)
+endfunction
+
 nnoremap <silent> <LocalLeader>t :Files<cr>
+nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
+nnoremap <silent> <LocalLeader>f :call FZFGitRoot()<cr>
+"au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
 nnoremap <silent> <LocalLeader>r :Rg<cr>
-nnoremap <silent> <LocalLeader>fg :Rg<cr>
+nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
 "nnoremap <silent> <LocalLeader>gc :Commits<cr>
 "nnoremap <silent> <LocalLeader>gb :BCommits<cr>
 
 nnoremap <silent> <LocalLeader>hs :!home-manager -f $DOTFILES/hosts/$HOSTNAME.nix switch<cr>
-
-nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
-nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
-nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
-nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
 " Make the 81st column standout
 " Used by all ftplugins
@@ -395,7 +396,7 @@ endfunction
 nnoremap <silent> n     n:call HLNext(0.4)<cr>
 nnoremap <silent> N     N:call HLNext(0.4)<cr>
 highlight WhiteOnRed ctermfg=white ctermbg=red
-function! HLNext (blinktime)
+function! HLNext(blinktime)
 	let [bufnum, lnum, col, off] = getpos('.')
 	let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
 	let target_pat = '\c\%#'.@/
@@ -521,5 +522,5 @@ let g:netrw_banner=0
 let g:netrw_winsize=20
 let g:netrw_liststyle=3
 let g:netrw_localrmdir='rm -r'
-nnoremap <leader>fe :Lexplore<CR>
+"nnoremap <leader>fe :Lexplore<CR>
 "map <leader>nt :NERDTreeToggle<CR>

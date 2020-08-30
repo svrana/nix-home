@@ -215,6 +215,11 @@ is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
+# return the git project root or the current directory if not in a git repo.
+git_root() {
+    git rev-parse --show-toplevel 2>/dev/null || pwd
+}
+
 gf() {
   is_in_git_repo || return
   git -c color.status=always status --short |
