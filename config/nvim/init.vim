@@ -334,9 +334,9 @@ noremap <silent> <leader>zz :TagbarToggle<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
 " jump between erros in quickfix list
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
+"map <C-n> :cnext<CR> conflicts with buffer next wtf
+"map <C-m> :cprevious<CR>
+"nnoremap <leader>a :cclose<CR>
 
 " goto next tag in taglist
 map	<c-=> :tnext<CR>
