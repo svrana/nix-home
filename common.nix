@@ -47,7 +47,6 @@ in
     ./programs/gruf.nix
     ./programs/go.nix
     ./programs/keychain.nix
-    ./programs/k9s
     ./programs/polybar.nix
     ./programs/tmux
     ./programs/git.nix
@@ -74,7 +73,6 @@ in
     fd
     firefox
     gnupg
-    # helm # cores on me
     htop
     # didn't work on ubuntu, try again after switch
     #i3lock-color
@@ -283,10 +281,12 @@ in
   # };
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
   xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
+  xdg.configFile."k9s/skin.yml" = {
+    source = ./config/k9s/skin.yml;
+  };
 
   # TODO:
   # virtualenv
-  #   override k9s
   #   figure out prompt
   #     create the damn package yourself /home/shaw/Projects/nixpkgs/pkgs/applications/blockchains/quorum.nix for typical golang package
   #     or override the existing powerline-go

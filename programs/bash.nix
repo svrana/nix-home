@@ -36,6 +36,7 @@
       GNUPGHOME="$XDG_DATA_HOME/gnupg";
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";
+      K9SCONFIG = "$XDG_CONFIG_HOME/k9s";
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
