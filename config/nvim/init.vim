@@ -49,8 +49,8 @@ Plug 'ternjs/tern_for_vim'
 Plug 'svrana/neomake'
 Plug 'majutsushi/tagbar'		" ide
 Plug 'wellle/tmux-complete.vim'		" completion from other tmux panes
-Plug 'SirVer/ultisnips'			" snippet handler
-"Plug 'honza/vim-snippets'		" Snippets are separated from the engine.
+"Plug 'SirVer/ultisnips'			" snippet handler
+Plug 'honza/vim-snippets'		" Snippets are separated from the engine.
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter' 		" Automatically go to the project root (i.e., .git, etc)
 
@@ -460,7 +460,7 @@ nnoremap Q @@
 " === coc.nvim ===
 set tagfunc=CocTagFunc
 let g:airline#extensions#coc#enabled = 0
-let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin']
+let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin', 'coc-snippets']
 nmap <silent> <leader>cd <Plug>(coc-definition)
 nmap <silent> <leader>cc <Plug>(coc-references)
 nmap <silent> <leader>ci <Plug>(coc-implementation)
