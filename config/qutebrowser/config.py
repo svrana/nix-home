@@ -1558,9 +1558,9 @@ config.bind("}", "tab-move +")
 # config.bind('yy', 'yank')
 # config.bind('{{', 'navigate prev -t')
 # config.bind('}}', 'navigate next -t')
-config.bind(",l", "spawn --userscript qute-pass")  # login username and password
-config.bind(",u", "spawn --userscript qute-pass --username-only --no-insert-mode")
-config.bind(",p", "spawn --userscript qute-pass --password-only --no-insert-mode")
+config.bind(",l", "spawn --userscript qute-pass --mode gopass")  # login username and password
+config.bind(",u", "spawn --userscript qute-pass --mode gopass --username-only --no-insert-mode")
+config.bind(",p", "spawn --userscript qute-pass --mode gopass --password-only --no-insert-mode")
 config.bind("<Ctrl-b>", "config-source")
 config.bind("<Ctrl-m>", "spawn --detach mpv --force-window yes {url}")
 # config.bind("<Ctrl-r>", "spawn --userscript readability")

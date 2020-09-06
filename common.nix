@@ -72,6 +72,7 @@ in
     dunst
     fd
     firefox
+    gopass
     gnupg
     htop
     # didn't work on ubuntu, try again after switch
@@ -91,7 +92,6 @@ in
     nodePackages.eslint
     openvpn
     packer
-    pass
     pinentry-gtk2
     ranger
     readline
@@ -154,6 +154,11 @@ in
  #    };
  #  };
 
+ # do i need this? pass seems faster after adding
+ # systemd.user.services.gnome-keyring = {
+ #   enable = true;
+ #   type = [ "secrets" ];
+ # };
 
   #
   # xession.enable = true;
@@ -249,6 +254,7 @@ in
   xdg.configFile."i3/config".source = ./config/i3config;
   #xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
   xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
+  xdg.dataFile."qutebrowser/userscripts/qute-pass".source = ./config/qutebrowser/qute-pass;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;

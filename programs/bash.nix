@@ -135,6 +135,7 @@
       "v" = "nvim";
       "k" = "kubectl";
       "pl" = "pulumi";
+      "pass" = "gopass";
 
       "ls" = "ls \$LS_DFLT_ARGS";
       "ll" = "ls -al";
