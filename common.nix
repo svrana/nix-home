@@ -64,6 +64,7 @@ in
     awscli
     aws-vault
     autocutsel
+    cachix
     ctags
     dante
     dbeaver
@@ -172,13 +173,13 @@ in
 
   #services.xclutter.enable = true;
 
-  # Not quite new enough; missing CocTagFunc
-  # pkgsUnstable.neovim = {
-  #   enable = true;
-  #   viAlias = true;
-  #   vimAlias = true;
-  #   vimdiffAlias = true;
-  # };
+  # see overlay
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+  };
 
   home.file.".local/bin" = {
     source = ./scripts;
