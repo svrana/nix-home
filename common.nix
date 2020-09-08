@@ -94,6 +94,7 @@ in
     openvpn
     packer
     pinentry-gtk2
+    powerline-go
     ranger
     readline
     ripgrep
