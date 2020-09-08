@@ -129,9 +129,9 @@ in
     gtk3 = {
       bookmarks = [
         "file:///home/shaw/Documents"
+        "file:///home/shaw/Downloads"
         "file:///home/shaw/Music"
         "file:///home/shaw/Pictures"
-        "file:///home/shaw/Downloads"
       ];
     };
   };
@@ -181,6 +181,18 @@ in
     vimAlias = true;
     vimdiffAlias = true;
   };
+  # see overlay
+  # not in 20.03 home-manager
+  # programs.powerline-go = {
+  #   enable = true;
+  #   modules = [ "perms" "venv" "gitlite" "ssh" "cwd" "exit" ];
+  #   newline = false;
+  #   settings = {
+  #     cwd-mode = "dironly";
+  #     max-width = 65;
+        #priority = "root,perms,venv,git-branch,exit,cwd";
+  #   };
+  # };
 
   home.file.".local/bin" = {
     source = ./scripts;
@@ -292,18 +304,4 @@ in
   xdg.configFile."k9s/skin.yml" = {
     source = ./config/k9s/skin.yml;
   };
-
-  # TODO:
-  # virtualenv
-  #   figure out prompt
-  #     create the damn package yourself /home/shaw/Projects/nixpkgs/pkgs/applications/blockchains/quorum.nix for typical golang package
-  #     or override the existing powerline-go
-  #pkgs.powerline-go = pkgs.powerline-go.overrideAttrs (oldAttrs: rec {
-  #  version = "1.51-svrana";
-  #});
-    # src = fetchFromGitHub {
-    #   owner = "svrana";
-    #   repo = pname;
-    #   rev = "v{version}";
-    # };
 }
