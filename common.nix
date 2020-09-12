@@ -29,7 +29,11 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
+
   xdg.enable = true;
+
+  xdg.mime.enable = true;
+  targets.genericLinux.enable = true;
 
   imports = [
     # settings has to go first as the config there controls aspects of the
@@ -76,6 +80,7 @@ in
     gopass
     gnupg
     htop
+    gitAndTools.hub
     # didn't work on ubuntu, try again after switch
     #i3lock-color
     insync
@@ -94,6 +99,7 @@ in
     openvpn
     packer
     pinentry-gtk2
+    # see overlay
     powerline-go
     ranger
     readline
@@ -104,6 +110,7 @@ in
     spotify
     ssh-agents
     tmate
+    tmuxinator
     w3m
     wmctrl
     xautolock
@@ -181,18 +188,20 @@ in
     vimAlias = true;
     vimdiffAlias = true;
   };
-  # see overlay
-  # not in 20.03 home-manager
-  # programs.powerline-go = {
-  #   enable = true;
-  #   modules = [ "perms" "venv" "gitlite" "ssh" "cwd" "exit" ];
-  #   newline = false;
-  #   settings = {
-  #     cwd-mode = "dironly";
-  #     max-width = 65;
-        #priority = "root,perms,venv,git-branch,exit,cwd";
-  #   };
-  # };
+
+#
+# not in 20.03 home-manager, so configuration is setup manually
+# programs.powerline-go = {
+#   enable = true;
+#   modules = [ "perms" "venv" "gitlite" "ssh" "cwd" "exit" ];
+#   newline = false;
+#   settings = {
+#     cwd-mode = "dironly";
+#     max-width = 65;
+      #priority = "root,perms,venv,git-branch,exit,cwd";
+#   };
+# };
+
 
   home.file.".local/bin" = {
     source = ./scripts;
@@ -304,4 +313,5 @@ in
   xdg.configFile."k9s/skin.yml" = {
     source = ./config/k9s/skin.yml;
   };
+  xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
 }
