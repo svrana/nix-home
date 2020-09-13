@@ -105,6 +105,7 @@ in
     readline
     ripgrep
     rofi
+    rnix-lsp
     shellcheck
     slack
     spotify
