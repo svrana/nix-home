@@ -1,39 +1,24 @@
-set completeopt+=menu
 set notimeout
-set ttimeout
 set ttimeoutlen=100
 set backspace=indent,eol,start
-set directory^=.config/nvim/swp
 set nowrap
-set nosol
-set titleold=
-set scrollopt=ver
-set ic
+set ignorecase
 set smartcase
 set incsearch
 set nohlsearch
 set inccommand=split
 set backupcopy=yes
 set tags=tags,${GRUF_PROJECT}/tags
-set comments=sr:/*,mb:*,exl:*/,://,b:#,:%:XCOMM,n:>,fb:-
-set comments+=b:\"
 set showmatch
 set backupext=.bak
 set backupdir=~/.config/nvim/bak
-set sessionoptions=buffers,options,winpos,winsize,help,blank,globals,resize
 set noerrorbells
 set noshowmode
-set showcmd
-set helpheight=0
 set visualbell
-set t_vb=
 set ruler
 set laststatus=2
 set go=ia
 set noequalalways
-set mousehide
-set mousefocus
-set mousemodel=extend
 set updatetime=100
 set lazyredraw
 set rtp+=$RCS/nvim/vimsnips
@@ -79,13 +64,14 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'wsdjeg/vim-fetch'
 Plug 'psf/black'
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 " File handling
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'farmergreg/vim-lastplace'
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 Plug 'hynek/vim-python-pep8-indent'
@@ -93,13 +79,10 @@ Plug 'hashivim/vim-packer'
 Plug 'google/vim-jsonnet'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
-Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
-"nmap <leader>gh :diffget //3<CR>
-"nmap <leader>gg :diffget //2<CR>
 let mapleader = ","
 let maplocalleader = ","
 let g:autoswap_detect_tmux = 1
@@ -153,13 +136,8 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 autocmd! BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.py execute ':Black'
 autocmd BufWrite *.ts :Autoformat
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-autocmd FileType go nmap <leader>e <Plug>(go-rename)
-autocmd FileType go nmap <leader>r :GoTest<CR>
-autocmd FileType go nmap <leader>s <Plug>(go-implements)
-autocmd FileType go nmap <leader>o <Plug>(go-test)
 autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType * setlocal formatoptions+=croq
 autocmd BufRead gitcommit setlocal spell spelllang=en_US textwidth=72
@@ -184,25 +162,19 @@ augroup END
 
 augroup qs_colors
 	autocmd!
-	autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-	autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+	autocmd ColorScheme * highlight QuickScopePrimary ctermfg=155 cterm=underline
+	autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=81 cterm=underline
 augroup END
 
 cmap w!! %!sudo tee > /dev/null %
 
 noremap  <leader>w :w<CR>
-noremap! <leader>w <ESC>:w<CR>
 noremap  <leader>q :q<CR>
-noremap! <leader>q <ESC>:q<CR>
 noremap  <leader>e :wq<CR>
-noremap! <leader>e <ESC>:wq<CR>
 noremap  <leader>z :q!<CR>
-noremap! <leader>z <ESC>:q!<CR>
-
 nnoremap Q @@
 nnoremap <leader>nt :tabnew<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
-nnoremap \rcb :'a,'bs/^#//<CR>
 nnoremap \th :set invhls hls?<CR>
 nnoremap <silent> <LocalLeader>t :Files<cr>
 nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
@@ -221,37 +193,23 @@ nmap <silent> <leader>cd <Plug>(coc-definition)
 nmap <silent> <leader>cc <Plug>(coc-references)
 nmap <silent> <leader>ci <Plug>(coc-implementation)
 nmap <silent> <leader>cp <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>cn <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>ct <Plug>(coc-type-definition)
+nmap <silent> <leader>cn <Plug>(coc-diagnostic-next
+nmap <silent> <leader>ct <Plug>(coc-type-definitio)
 nmap <silent> <leader>cr <Plug>(coc-rename)
 nmap <silent> <leader>cs <esc>:CocRestart<CR><CR>
-nmap n nmzz.`z
-nmap N Nmzz.`z
-nmap * *mzz.`z
-nmap # #mzz.`z
-nmap g* g*mzz.`z
-nmap g# g#mzz.`z
 
 " Open visual selection in the browser
 vnoremap <Leader>gl :Gbrowse<CR>
 
 map <c-d> <c-b>
-map  <m-n> :cn<CR>
-map! <m-n> <ESC>:cn<CR>
-map  <m-p> :cp<CR>
-map! <m-p> <ESC>:cp<CR>
-map  <m-f> :cfirst<CR>
-map! <m-f> <ESC>:cfirst<CR>
-map  <m-l> :clist<CR>
-map! <m-l> <ESC>:clist<CR>
-map  <m-o> :copen<CR>
-map! <m-o> <ESC>:copen<CR>
-map  <c-x> :bdelete<CR>
-map! <c-x> <esc>:bdelete<CR>
-map  <c-s> :tabp<CR>
-map! <c-s> <ESC>tabp<CR>
-map  <c-h> :tabn<CR>
-map! <c-h> <ESC>tabn<CR>
+map <m-n> :cn<CR>
+map <m-p> :cp<CR>
+map <m-f> :cfirst<CR>
+map <m-l> :clist<CR>
+map <m-o> :copen<CR>
+map <c-x> :bdelete<CR>
+map <c-s> :tabp<CR>
+map <c-h> :tabn<CR>
 map <c-c> :make<CR>
 map - <C-W>-
 map + <C-W>+
