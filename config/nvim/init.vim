@@ -74,7 +74,6 @@ Plug 'justinmk/vim-sneak'
 " Programming (general)
 Plug 'ervandew/supertab'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'ternjs/tern_for_vim'
 Plug 'svrana/neomake'
 Plug 'wellle/tmux-complete.vim'
 Plug 'honza/vim-snippets'
@@ -89,18 +88,10 @@ Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-Plug 'tpope/vim-jdaddy'
-Plug 'cespare/vim-toml'
-Plug 'othree/html5.vim'
-Plug 'fs111/pydoc.vim'
 Plug 'hynek/vim-python-pep8-indent'
-Plug 'ingydotnet/yaml-vim'
-Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-packer'
 Plug 'google/vim-jsonnet'
-Plug 'posva/vim-vue'
 Plug 'tmux-plugins/vim-tmux'
-Plug 'leafgarland/typescript-vim'
 Plug 'LnL7/vim-nix'
 Plug 'sheerun/vim-polyglot'
 
