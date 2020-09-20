@@ -30,9 +30,10 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  xdg.enable = true;
-
-  xdg.mime.enable = true;
+  xdg = {
+    enable = true;
+    mime.enable = true;
+  };
   targets.genericLinux.enable = true;
 
   imports = [
@@ -235,8 +236,8 @@ in
     # qutebrowser writes to these so cannot be in the nix store- having them synced across
     # desktops automatically is also nice.
     $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG /home/shaw/Documents/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG /home/shaw/Documents/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
   '';
   xdg.configFile."X11/Xresources" = {
     text = ''
