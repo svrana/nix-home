@@ -82,13 +82,12 @@ Plug 'LnL7/vim-nix'
 
 call plug#end()
 
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
 let mapleader = ","
 let maplocalleader = ","
 let g:autoswap_detect_tmux = 1
-let g:typescript_indent_disable = 1
 let g:markdown_composer_autostart = 0
 let g:markdown_composer_browser="epiphany-browser"
+let g:typescript_indent_disable = 1
 " Statusline stetup
 let g:airline_powerline_fonts = 1
 let g:airline_section_b='' "Disable showing branch cause it crowds the filename
@@ -179,7 +178,7 @@ nnoremap \th :set invhls hls?<CR>
 nnoremap <silent> <LocalLeader>t :Files<cr>
 nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
 nnoremap <silent> <LocalLeader>f :call FZFGitRoot()<cr>
-nnoremap <silent> <LocalLeader>r :Rg<cr>
+nnoremap <silent> <LocalLeader>r :RG<cr>
 nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
 nnoremap <silent> <LocalLeader>hs :!home-manager -f $DOTFILES/hosts/$HOSTNAME.nix switch<cr>
 nnoremap <silent> n n:call HLNext(0.4)<cr>
@@ -198,6 +197,7 @@ nmap <silent> <leader>ct <Plug>(coc-type-definitio)
 nmap <silent> <leader>cr <Plug>(coc-rename)
 nmap <silent> <leader>cs <esc>:CocRestart<CR><CR>
 
+vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
 " Open visual selection in the browser
 vnoremap <Leader>gl :Gbrowse<CR>
 
@@ -258,3 +258,13 @@ endfunction
 if !empty($GRUF_CONFIG)
 	source ${GRUF_CONFIG}/gruf.vimrc
 end
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
