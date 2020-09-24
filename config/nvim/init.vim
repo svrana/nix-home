@@ -26,11 +26,13 @@ set tagfunc=CocTagFunc
 set background=dark
 
 function! BuildComposer(info)
-	if a:info.status != 'unchanged' || a:info.force
-		!cargo build --release
-	endif
+    if a:info.status != 'unchanged' || a:info.force
+        !cargo build --release
+    endif
 endfunction
 
+" prefer leaf's typescript-vim syntax highlighting over polyglot
+let g:polyglot_disabled = ['typescript']
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -79,6 +81,8 @@ Plug 'hashivim/vim-packer'
 Plug 'google/vim-jsonnet'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
+Plug 'leafgarland/typescript-vim'
+Plug 'tpope/vim-jdaddy'
 
 call plug#end()
 
@@ -160,9 +164,9 @@ augroup highlight_yank
 augroup END
 
 augroup qs_colors
-	autocmd!
-	autocmd ColorScheme * highlight QuickScopePrimary ctermfg=155 cterm=underline
-	autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=81 cterm=underline
+    autocmd!
+    autocmd ColorScheme * highlight QuickScopePrimary ctermfg=155 cterm=underline
+    autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=81 cterm=underline
 augroup END
 
 cmap w!! %!sudo tee > /dev/null %
@@ -217,54 +221,54 @@ map + <C-W>+
 imap jj <ESC>
 
 function FZFGitRoot()
-	let root = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
-	call fzf#vim#files(root)
+    let root = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
+    call fzf#vim#files(root)
 endfunction
 
 " Make the 81st column standout; used by all ftplugins.
 function FTPluginSetupCommands()
-	call matchadd('ColorColumn', '\%81v', 100)
+    call matchadd('ColorColumn', '\%81v', 100)
 endfunction
 
 function! HLNext(blinktime)
-	let [bufnum, lnum, col, off] = getpos('.')
-	let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-	let target_pat = '\c\%#'.@/
-	let ring = matchadd('WhiteOnRed', target_pat, 101)
-	redraw
-	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-	call matchdelete(ring)
-	redraw
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('WhiteOnRed', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
 endfunction
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
-	let l:file = expand('%')
-	if l:file =~# '^\f\+_test\.go$'
-		call go#cmd#Test(0, 1)
-	elseif l:file =~# '^\f\+\.go$'
-		call go#cmd#Build(0)
-	endif
+    let l:file = expand('%')
+    if l:file =~# '^\f\+_test\.go$'
+        call go#cmd#Test(0, 1)
+    elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+    endif
 endfunction
 
 function! s:show_documentation()
-	if &filetype == 'vim'
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
+    if &filetype == 'vim'
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 if !empty($GRUF_CONFIG)
-	source ${GRUF_CONFIG}/gruf.vimrc
+    source ${GRUF_CONFIG}/gruf.vimrc
 end
 
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)

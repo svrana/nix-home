@@ -5,6 +5,9 @@ let b:did_ftplugin = 1
 
 setlocal cindent
 setlocal formatoptions+=croql
+setlocal expandtab
+setlocal shiftwidth=4
+setlocal tabstop=4
 
 call FTPluginSetupCommands()
 
