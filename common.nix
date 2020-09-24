@@ -46,6 +46,7 @@ in
     #./programs/alacritty.nix
     ./programs/bat.nix
     ./programs/cdp.nix
+    #./programs/dev.nix
     ./programs/dircolors
     ./programs/direnv
     ./programs/dunst.nix
@@ -102,6 +103,7 @@ in
     pinentry-gtk2
     # see overlay
     powerline-go
+    python3
     ranger
     readline
     ripgrep
