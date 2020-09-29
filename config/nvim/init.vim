@@ -175,6 +175,10 @@ noremap  <leader>w :w<CR>
 noremap  <leader>q :q<CR>
 noremap  <leader>e :wq<CR>
 noremap  <leader>z :q!<CR>
+noremap! <leader>w <ESC>:w<CR>
+noremap! <leader>q <ESC>:q<CR>
+noremap! <leader>e <ESC>:wq<CR>
+noremap! <leader>z <ESC>:q!<CR>
 nnoremap Q @@
 nnoremap <leader>nt :tabnew<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
