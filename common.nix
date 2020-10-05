@@ -115,6 +115,7 @@ in
     ssh-agents
     tmate
     tmuxinator
+    #pkgsUnstable.virtualenvwrapper
     w3m
     wmctrl
     xautolock
