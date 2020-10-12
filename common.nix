@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 
-let
-   pkgsUnstable = import <nixpkgs-unstable> {};
-in
-{
+let pkgsUnstable = import <nixpkgs-unstable> { };
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -73,6 +71,7 @@ in
     cachix
     ctags
     dante
+    #gitAndTools.delta
     dbeaver
     gitAndTools.diff-so-fancy
     docker-compose
@@ -96,6 +95,7 @@ in
     pkgsUnstable.k9s
     lesspipe
     man
+    nixfmt
     nodejs-12_x
     nodePackages.eslint
     openvpn
@@ -110,12 +110,12 @@ in
     rofi
     rnix-lsp
     shellcheck
+    shfmt
     slack
     spotify
     ssh-agents
     tmate
     tmuxinator
-    #pkgsUnstable.virtualenvwrapper
     w3m
     wmctrl
     xautolock
@@ -150,29 +150,29 @@ in
 
   services.keybase.enable = true;
 
- # see lock on resume
- #
- # systemd.user.services.volumeicon = {
- #    Unit = {
- #      Description = "Volume Icon";
- #      After = [ "graphical-session-pre.target" ];
- #      PartOf = [ "graphical-session.target" ];
- #    };
+  # see lock on resume
+  #
+  # systemd.user.services.volumeicon = {
+  #    Unit = {
+  #      Description = "Volume Icon";
+  #      After = [ "graphical-session-pre.target" ];
+  #      PartOf = [ "graphical-session.target" ];
+  #    };
 
- #    Install = {
- #      WantedBy = [ "graphical-session.target" ];
- #    };
+  #    Install = {
+  #      WantedBy = [ "graphical-session.target" ];
+  #    };
 
- #    Service = {
- #      ExecStart = "${pkgs.volumeicon}/bin/volumeicon";
- #    };
- #  };
+  #    Service = {
+  #      ExecStart = "${pkgs.volumeicon}/bin/volumeicon";
+  #    };
+  #  };
 
- # do i need this? pass seems faster after adding
- # systemd.user.services.gnome-keyring = {
- #   enable = true;
- #   type = [ "secrets" ];
- # };
+  # do i need this? pass seems faster after adding
+  # systemd.user.services.gnome-keyring = {
+  #   enable = true;
+  #   type = [ "secrets" ];
+  # };
 
   #
   # xession.enable = true;
@@ -194,19 +194,18 @@ in
     vimdiffAlias = true;
   };
 
-#
-# not in 20.03 home-manager, so configuration is setup manually
-# programs.powerline-go = {
-#   enable = true;
-#   modules = [ "perms" "venv" "gitlite" "ssh" "cwd" "exit" ];
-#   newline = false;
-#   settings = {
-#     cwd-mode = "dironly";
-#     max-width = 65;
-      #priority = "root,perms,venv,git-branch,exit,cwd";
-#   };
-# };
-
+  #
+  # not in 20.03 home-manager, so configuration is setup manually
+  # programs.powerline-go = {
+  #   enable = true;
+  #   modules = [ "perms" "venv" "gitlite" "ssh" "cwd" "exit" ];
+  #   newline = false;
+  #   settings = {
+  #     cwd-mode = "dironly";
+  #     max-width = 65;
+  #priority = "root,perms,venv,git-branch,exit,cwd";
+  #   };
+  # };
 
   home.file.".local/bin" = {
     source = ./scripts;
@@ -228,7 +227,7 @@ in
   '';
   home.file.".ssh/config".source = ./personal/ssh/config;
   home.file.".pypirc".source = ./personal/pypi/pypirc;
-  home.activation.linkMyFiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Cloud/Music /home/shaw/Music
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
@@ -281,8 +280,10 @@ in
   };
   xdg.configFile."i3/config".source = ./config/i3config;
   #xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
-  xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
-  xdg.dataFile."qutebrowser/userscripts/qute-pass".source = ./config/qutebrowser/qute-pass;
+  xdg.configFile."qutebrowser/config.py".source =
+    ./config/qutebrowser/config.py;
+  xdg.dataFile."qutebrowser/userscripts/qute-pass".source =
+    ./config/qutebrowser/qute-pass;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
@@ -294,7 +295,7 @@ in
       rofi.bw: 0
       rofi.eh: 1
       rofi.hide-scrollbar: true
-  '';
+    '';
   };
   xdg.configFile."aerc" = {
     source = ./config/aerc;
@@ -315,8 +316,6 @@ in
   # };
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
   xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
-  xdg.configFile."k9s/skin.yml" = {
-    source = ./config/k9s/skin.yml;
-  };
+  xdg.configFile."k9s/skin.yml" = { source = ./config/k9s/skin.yml; };
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
 }
