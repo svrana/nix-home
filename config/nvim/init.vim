@@ -139,6 +139,7 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 autocmd! BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.py execute ':Black'
 autocmd BufWrite *.ts :Autoformat
+autocmd BufWrite *nix :Autoformat
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd CursorHold * silent call CocActionAsync('highlight')
