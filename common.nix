@@ -271,7 +271,6 @@ in {
       exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
     '';
   };
-  xdg.configFile."mimeapps.list".source = ./config/mimeapps.list;
   xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
@@ -320,4 +319,40 @@ in {
   xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
   xdg.configFile."k9s/skin.yml" = { source = ./config/k9s/skin.yml; };
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "qutebrowser.desktop";
+      "x-scheme-handler/http" = "qutebrowser.desktop";
+      "x-scheme-handler/https" = "qutebrowser.desktop";
+      "x-scheme-handler/about" = "qutebrowser.desktop";
+      "x-scheme-handler/unknown" = "google-chrome.desktop";
+      "x-scheme-handler/ftp" = "qutebrowser.desktop";
+      "x-scheme-handler/chrome" = "qutebrowser.desktop";
+      "application/x-extension-htm" = "qutebrowser.desktop";
+      "application/x-extension-html" = "qutebrowser.desktop";
+      "application/x-extension-shtml" = "qutebrowser.desktop";
+      "application/xhtml+xml" = "qutebrowser.desktop";
+      "application/x-extension-xhtml" = "qutebrowser.desktop";
+      "application/x-extension-xht" = "qutebrowser.desktop";
+      "x-scheme-handler/slack" = "slack.desktop";
+      "x-scheme-handler/zoom" = "zoom.desktop";
+    };
+    associations.added = {
+      "image/x-xcf" = "eog.desktop";
+      "x-scheme-handler/http" = "qutebrowser.desktop";
+      "x-scheme-handler/https" = "qutebrowser.desktop";
+      "x-scheme-handler/ftp" = "qutebrowser.desktop";
+      "x-scheme-handler/chrome" = "qutebrowser.desktop";
+      "text/html" = "qutebrowser.desktop";
+      "application/x-extension-htm" = "qutebrowser.desktop";
+      "application/x-extension-html" = "qutebrowser.desktop";
+      "application/x-extension-shtml" = "qutebrowser.desktop";
+      "application/xhtml+xml" = "qutebrowser.desktop";
+      "application/x-extension-xhtml" = "qutebrowser.desktop";
+      "application/x-extension-xht" = "qutebrowser.desktop";
+      "application/x-sh" = "nvim.desktop";
+      "image/heif" = "gimp.desktop";
+    };
+  };
 }
