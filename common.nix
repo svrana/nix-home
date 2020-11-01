@@ -78,6 +78,8 @@ in {
     dunst
     fd
     firefox
+    gcalcli
+    glow
     gopass
     gnupg
     htop
