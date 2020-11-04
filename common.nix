@@ -68,6 +68,7 @@ in {
     awscli
     aws-vault
     autocutsel
+    pkgsUnstable.autotiling
     cachix
     ctags
     dante
