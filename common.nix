@@ -72,6 +72,9 @@ in {
     cachix
     ctags
     dante
+    #elm
+    #elmPackages
+    #elm-format
     #gitAndTools.delta
     dbeaver
     gitAndTools.diff-so-fancy
@@ -195,20 +198,22 @@ in {
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+    withPython = false;
+    withPython3 = true;
   };
 
-  #
-  # not in 20.03 home-manager, so configuration is setup manually
-  # programs.powerline-go = {
-  #   enable = true;
-  #   modules = [ "perms" "venv" "gitlite" "ssh" "cwd" "exit" ];
-  #   newline = false;
-  #   settings = {
-  #     cwd-mode = "dironly";
-  #     max-width = 65;
-  #priority = "root,perms,venv,git-branch,exit,cwd";
-  #   };
-  # };
+  # see overlay
+  programs.powerline-go = {
+    enable = true;
+    # exit would be nice but is ugly
+    modules = [ "perms" "venv" "gitlite" "ssh" "cwd" ];
+    newline = false;
+    settings = {
+      cwd-mode = "dironly";
+      max-width = 65;
+      priority = "root,perms,venv,git-branch,exit,cwd";
+    };
+  };
 
   home.file.".local/bin" = {
     source = ./scripts;

@@ -69,15 +69,6 @@
         ll | awk '{print $9}' | grep '^\.'
       }
 
-      _update_ps1() {
-        local priority='root,perms,venv,git-branch,exit,cwd'
-        local modules='perms,venv,gitlite,ssh,cwd,exit'
-
-        PS1="$(powerline-go -cwd-mode dironly -theme default -modules $modules \
-          -priority $priority -max-width 65)"
-      }
-      PROMPT_COMMAND="_update_ps1 ; $PROMPT_COMMAND"
-
       # hmmmmm, why do i have to do this by hand?
       bind -f $INPUTRC
     '';
