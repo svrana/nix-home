@@ -185,7 +185,7 @@ exec --no-startup-id hsetroot -solid "#002b36"
 exec --no-startup-id unclutter
 exec --no-startup-id autocutsel -fork -selection CLIPBOARD
 exec --no-startup-id autocutsel -fork -selection PRIMARY
-exec --no-startup-id $HOME/.local/bin/spotifyd
+#exec --no-startup-id $HOME/.local/bin/spotifyd
 #exec --no-startup-id $HOME/.local/bin/i3-swallow.py
 
 assign [class="qutebrowser"] $ws3
