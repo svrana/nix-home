@@ -54,3 +54,9 @@ layout_node() {
     PATH_prepend "${node_dir}/bin"
     export MANPATH="${node_dir}}/share/man":$MANPATH
 }
+
+use_flake() {
+  watch_file flake.nix
+  watch_file flake.lock
+  eval "$(nix print-dev-env --profile "$(direnv_layout_dir)/flake-profile")"
+}

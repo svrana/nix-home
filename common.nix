@@ -36,7 +36,7 @@ in {
 
   imports = [
     # settings has to go first as the config there controls aspects of the
-    # pkg conigurations below it.
+    # pkg configurations below it.
     ./modules/settings.nix
 
     ./personal/programs/sai.nix
@@ -51,6 +51,7 @@ in {
     ./programs/gruf.nix
     ./programs/go.nix
     ./programs/keychain.nix
+    #./programs/i3.nix
     ./programs/polybar.nix
     ./programs/tmux
     ./programs/git.nix
@@ -101,6 +102,7 @@ in {
     pkgsUnstable.k9s
     lesspipe
     man
+    #nixFlakes
     nixfmt
     nodejs-12_x
     nodePackages.eslint
@@ -154,6 +156,7 @@ in {
     };
   };
 
+  news.display = "silent";
   services.keybase.enable = true;
 
   # see lock on resume
@@ -180,17 +183,7 @@ in {
   #   type = [ "secrets" ];
   # };
 
-  #
-  # xession.enable = true;
-  # xsession.windowManager.i3 = {
-  #   enable = true;
-  #   package = "pkgs.i3-gaps";
-  #   extraPackages = with pkgs; [
-  #     i3lock-color
-  #   ];
-  # };
-
-  #services.xclutter.enable = true;
+  services.unclutter = { enable = true; };
 
   # see overlay
   programs.neovim = {
@@ -286,7 +279,6 @@ in {
     recursive = true;
   };
   xdg.configFile."i3/config".source = ./config/i3config;
-  #xdg.configFile."polybar/config".source = ./config/polybar-config.winfield;
   xdg.configFile."qutebrowser/config.py".source =
     ./config/qutebrowser/config.py;
   xdg.dataFile."qutebrowser/userscripts/qute-pass".source =

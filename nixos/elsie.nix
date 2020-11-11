@@ -7,8 +7,15 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+    ./hardware-configuration.nix
+  ];
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -45,7 +52,6 @@
   environment.systemPackages = with pkgs; [
     openvpn
     wget
-    vim
     gnome3.adwaita-icon-theme
   ];
 
@@ -70,7 +76,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -84,10 +90,10 @@
   hardware.bluetooth = {
     enable = true;
     extraConfig = "
-      [General]
-        Enable=Source,Sink,Media,Socket
+    [General]
+    Enable=Source,Sink,Media,Socket
     ";
-  services.blueman.enable = true;
+    services.blueman.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -133,4 +139,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.03"; # Did you read the comment?
+
+  programs.home-manager.enable = true;
 }

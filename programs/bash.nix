@@ -28,6 +28,7 @@
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";
       K9SCONFIG = "$XDG_CONFIG_HOME/k9s";
+      KUBECONFIG = "$XDG_CONFIG_HOME/kube/config";
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
@@ -92,7 +93,7 @@
       PATH_append "$BIN_DIR:$HOME/.pulumi/bin:$CARGO_PATH/bin"
     '';
     profileExtra = ''
-      # programs launched without a terminal still need nix profile/bin in their path
+      # programss launched without a terminal still need nix profile/bin in their path
       source ~/.nix-profile/etc/profile.d/nix.sh
 
       complete -F __start_kubectl k
