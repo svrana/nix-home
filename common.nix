@@ -1,7 +1,5 @@
 { config, pkgs, lib, ... }:
-
-let pkgsUnstable = import <nixpkgs-unstable> { };
-in {
+{
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -32,7 +30,7 @@ in {
     enable = true;
     mime.enable = true;
   };
-  targets.genericLinux.enable = true;
+  #targets.genericLinux.enable = true;
 
   imports = [
     # settings has to go first as the config there controls aspects of the
@@ -41,7 +39,7 @@ in {
 
     ./personal/programs/sai.nix
 
-    #./programs/alacritty.nix
+    ./programs/alacritty.nix
     ./programs/bat.nix
     ./programs/cdp.nix
     #./programs/dev.nix
@@ -51,7 +49,7 @@ in {
     ./programs/gruf.nix
     ./programs/go.nix
     ./programs/keychain.nix
-    #./programs/i3.nix
+    ./programs/i3.nix
     ./programs/polybar.nix
     ./programs/tmux
     ./programs/git.nix
@@ -61,15 +59,16 @@ in {
   ];
 
   home.packages = with pkgs; [
-    pkgsUnstable.aerc
-    # opengl apps doesn't work on non-nixos without some fudging which I didn't do (https://github.com/NixOS/nixpkgs/issues/9415)
-    #pkgsUnstable.alacritty
+    #pkgsUnstable.aerc
+    aerc
+    alacritty
     appimage-run
     # amazon-ecr-credential-helper, where the binary?
     awscli
     aws-vault
     autocutsel
-    pkgsUnstable.autotiling
+    #pkgsUnstable.autotiling
+    autotiling
     cachix
     ctags
     dante
@@ -86,11 +85,12 @@ in {
     gcalcli
     glow
     gopass
+    #git
     gnupg
     htop
     gitAndTools.hub
     # didn't work on ubuntu, try again after switch
-    #i3lock-color
+    i3lock-color
     insync
     jq
     kbfs # for keybase
@@ -99,7 +99,8 @@ in {
     kubectl
     kubectx
     # need newer version for skin
-    pkgsUnstable.k9s
+    #pkgsUnstable.k9s
+    k9s
     lesspipe
     man
     #nixFlakes
@@ -191,7 +192,7 @@ in {
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    withPython = false;
+    withPython = true;
     withPython3 = true;
   };
 
@@ -242,34 +243,34 @@ in {
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
   '';
-  xdg.configFile."X11/Xresources" = {
-    text = ''
-      Xft.antialias: true
-      Xft.hinting:   true
-      Xft.rgba:      rgb
-      Xft.hintstyle: hintfull
-      Xcursor.size: ${toString config.settings.cursorSize}
-    '';
-  };
-  xdg.configFile."X11/Xmodmap" = {
-    text = ''
-      keycode 66 = Control_L
-      clear Lock
-    '';
-  };
-  xdg.configFile."X11/xinitrc" = {
-    text = ''
-      xmodmap ~/.config/X11/Xmodmap
-      xrdb ~/.config/X11/Xresources
-      dbus-run-session /usr/bin/i3
-    '';
-  };
-  xdg.configFile."X11/xserverrc" = {
-    text = ''
-      #!/bin/sh
-      exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
-    '';
-  };
+  # xdg.configFile."X11/Xresources" = {
+  #   text = ''
+  #     Xft.antialias: true
+  #     Xft.hinting:   true
+  #     Xft.rgba:      rgb
+  #     Xft.hintstyle: hintfull
+  #     Xcursor.size: ${toString config.settings.cursorSize}
+  #   '';
+  # };
+ # xdg.configFile."X11/Xmodmap" = {
+ #   text = ''
+      #keycode 66 = Control_L
+#      clear Lock
+#    '';
+#  };
+  #xdg.configFile."X11/xinitrc" = {
+  #  text = ''
+  #    xmodmap ~/.config/X11/Xmodmap
+  #    xrdb ~/.config/X11/Xresources
+  #    #dbus-run-session /usr/bin/i3
+  #  '';
+  #};
+  #xdg.configFile."X11/xserverrc" = {
+  #  text = ''
+  #    #!/bin/sh
+  #    exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
+  #  '';
+  #};
   xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
@@ -278,11 +279,8 @@ in {
     source = ./config/ranger;
     recursive = true;
   };
-  xdg.configFile."i3/config".source = ./config/i3config;
-  xdg.configFile."qutebrowser/config.py".source =
-    ./config/qutebrowser/config.py;
-  xdg.dataFile."qutebrowser/userscripts/qute-pass".source =
-    ./config/qutebrowser/qute-pass;
+  xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
+  xdg.dataFile."qutebrowser/userscripts/qute-pass".source = ./config/qutebrowser/qute-pass;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;

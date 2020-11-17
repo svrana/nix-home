@@ -94,17 +94,17 @@
     '';
     profileExtra = ''
       # programss launched without a terminal still need nix profile/bin in their path
-      source ~/.nix-profile/etc/profile.d/nix.sh
+      #source ~/.nix-profile/etc/profile.d/nix.sh
 
-      complete -F __start_kubectl k
+      #complete -F __start_kubectl k
 
-      if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-              # If not using a graphical login, then start up x ourselves
-              link=$(readlink -nf /etc/systemd/system/default.target)
-              if [ "$link"="/etc/systemd/system/default.target" ]; then
-                      exec startx "$XDG_CONFIG_HOME/X11/xinitrc" -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1
-              fi
-      fi
+      # if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+      #         # If not using a graphical login, then start up x ourselves
+      #         link=$(readlink -nf /etc/systemd/system/default.target)
+      #         if [ "$link"="/etc/systemd/system/default.target" ]; then
+      #                 exec startx "$XDG_CONFIG_HOME/X11/xinitrc" -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1
+      #         fi
+      # fi
     '';
     shellAliases = {
       "cd.." = "cd ..";
