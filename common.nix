@@ -140,24 +140,6 @@
   services.unclutter.enable = true;
   services.kbfs.enable = true;
 
-  # see lock on resume
-  #
-  # systemd.user.services.volumeicon = {
-  #    Unit = {
-  #      Description = "Volume Icon";
-  #      After = [ "graphical-session-pre.target" ];
-  #      PartOf = [ "graphical-session.target" ];
-  #    };
-
-  #    Install = {
-  #      WantedBy = [ "graphical-session.target" ];
-  #    };
-
-  #    Service = {
-  #      ExecStart = "${pkgs.volumeicon}/bin/volumeicon";
-  #    };
-  #  };
-
   # do i need this? pass seems faster after adding
   # systemd.user.services.gnome-keyring = {
   #   enable = true;
@@ -266,36 +248,10 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = "qutebrowser.desktop";
-      "x-scheme-handler/http" = "qutebrowser.desktop";
-      "x-scheme-handler/https" = "qutebrowser.desktop";
-      "x-scheme-handler/about" = "qutebrowser.desktop";
-      "x-scheme-handler/ftp" = "qutebrowser.desktop";
-      "x-scheme-handler/chrome" = "qutebrowser.desktop";
-      "application/x-extension-htm" = "qutebrowser.desktop";
-      "application/x-extension-html" = "qutebrowser.desktop";
-      "application/x-extension-shtml" = "qutebrowser.desktop";
-      "application/xhtml+xml" = "qutebrowser.desktop";
-      "application/x-extension-xhtml" = "qutebrowser.desktop";
-      "application/x-extension-xht" = "qutebrowser.desktop";
-      "x-scheme-handler/slack" = "slack.desktop";
-      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
-    };
-    associations.added = {
-      "image/x-xcf" = "eog.desktop";
-      "x-scheme-handler/http" = "qutebrowser.desktop";
-      "x-scheme-handler/https" = "qutebrowser.desktop";
-      "x-scheme-handler/ftp" = "qutebrowser.desktop";
-      "x-scheme-handler/chrome" = "qutebrowser.desktop";
-      "text/html" = "qutebrowser.desktop";
-      "application/x-extension-htm" = "qutebrowser.desktop";
-      "application/x-extension-html" = "qutebrowser.desktop";
-      "application/x-extension-shtml" = "qutebrowser.desktop";
-      "application/xhtml+xml" = "qutebrowser.desktop";
-      "application/x-extension-xhtml" = "qutebrowser.desktop";
-      "application/x-extension-xht" = "qutebrowser.desktop";
-      "application/x-sh" = "nvim.desktop";
-      "image/heif" = "gimp.desktop";
+      "text/html" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
     };
   };
 }
