@@ -24,6 +24,7 @@ set lazyredraw
 set rtp+=$RCS/nvim/vimsnips
 set tagfunc=CocTagFunc
 set background=dark
+set pyx=3
 
 function! BuildComposer(info)
     if a:info.status != 'unchanged' || a:info.force
@@ -66,7 +67,7 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.23', 'do': ':GoUpdateBinaries' }
 Plug 'wsdjeg/vim-fetch'
 Plug 'psf/black'
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -111,7 +112,7 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#coc#enabled = 0
 " virtualenv for neovim, has neovim python package installed
-let g:python3_host_prog = expand("$WORKON_HOME/neovim3/bin/python")
+"let g:python3_host_prog = expand("$WORKON_HOME/neovim3/bin/python")
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_verbose = 0
 let g:peekaboo_delay=300

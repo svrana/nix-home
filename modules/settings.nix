@@ -34,6 +34,10 @@ with lib;
           default = "26;7"; # untested
           type = types.str;
         };
+        wirelessInterface = mkOption {
+          default = "wlp2s0";
+          type = types.str;
+        };
       };
     };
   };

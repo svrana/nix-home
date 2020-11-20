@@ -1,6 +1,0 @@
-[Desktop Entry]
-Comment=Note Taking
-Terminal=false
-Name=Standard Notes
-Exec=appimage-run /home/shaw/Apps/standard-notes
-Type=Application

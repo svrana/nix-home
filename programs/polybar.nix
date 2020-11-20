@@ -6,6 +6,8 @@
     enable = true;
     package = pkgs.polybar.override {
       i3GapsSupport = true;
+      alsaSupport = true;
+      #pulseSupport = true;
     };
 
     extraConfig = ''
@@ -39,7 +41,7 @@
     font-2 = UbuntuMono Nerd Font Mono:style=regular:size=${config.settings.polybar.font2Size}
     modules-left = i3
     modules-center = date
-    modules-right = pulseaudio xbacklight battery wlan eth powermenu
+    modules-right = pulseaudio xbacklight battery wlan powermenu
     ; disable systray
     tray-position = none
     cursor-click = pointer
@@ -54,7 +56,11 @@
     ws-icon-1 = 2;
     ws-icon-2 = 3;
     ws-icon-3 = 4;
-    ws-icon-4 = 5;
+    ;ws-icon-4 = 5;
+    ;ws-icon-4 = 5;
+    ; polybar refused to load the next one
+    ws-icon-4 = 5;
+    ;ws-icon-4 = 5;a
     ws-icon-5 = 6;
     ws-icon-default = 
     ; Only show workspaces on the same output as the bar
@@ -80,7 +86,7 @@
 
     [module/wlan]
     type = internal/network
-    interface = wlp2s0
+    interface = ${config.settings.polybar.wirelessInterface}
     interval = 3.0
     format-connected = <ramp-signal> <label-connected>
     label-connected = %essid%

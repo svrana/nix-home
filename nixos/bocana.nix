@@ -6,14 +6,15 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ../hardware/bocana.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "bocana"; # Define your hostname.
+  # Define your hostname.
+  networking.hostName = "bocana";
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -26,7 +27,7 @@
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.enp2s0.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
-  
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -47,7 +48,7 @@
     xkbVariant = "";
     xkbOptions = "ctrl:nocaps";
     layout = "us";
-    videoDrivers = ["amdgpu" "modesetting" "radeon"];
+    videoDrivers = ["amdgpu"];
     displayManager = {
       defaultSession = "none+i3";
       lightdm.enable = true;
@@ -81,11 +82,11 @@
     configFile = pkgs.writeText "default.pa" ''
       load-module module-bluetooth-policy
       load-module module-bluetooth-discover
-      ## module fails to load with 
+      ## module fails to load with
       ##   module-bluez5-device.c: Failed to get device path from module arguments
       ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
-      # load-module module-bluez5-device
-      # load-module module-bluez5-discover
+      load-module module-bluez5-device
+      load-module module-bluez5-discover
     '';
   };
 
@@ -104,16 +105,19 @@
   environment.systemPackages = with pkgs; [
     wget vim
     firefox
-    gnome3.adwaita-icon-theme  
+    gnome3.adwaita-icon-theme
     bluez bluez-tools
+    pavucontrol
   ];
 
   fonts.fonts = with pkgs; [
     corefonts
     ubuntu_font_family
     powerline-fonts
-    #nerd-fonts //  https://nixos.wiki/wiki/Fonts
+    font-awesome
+    (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
   ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -122,14 +126,14 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  programs.dconf.enable = true;
 
   # List services that you want to enable:
 
   services.gnome3.gnome-keyring.enable = true;
-  # bluetooth
   services.blueman.enable = true;
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.accounts-daemon.enable = true;
 
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = true;
@@ -140,7 +144,7 @@
 
   security.sudo.wheelNeedsPassword = false;
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  # networking.firewall.allowedTCPPorts = [ ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

@@ -21,7 +21,7 @@ lock() {
     # startup lock, blocking until unlocked
     #i3-msg workspace 7 && i3-msg workspace 7 && i3lock -l -c 002b36 --ignore-empty-password --no-unlock-indicator --clock --nofork --datestr="%A, %B %d %G" --timesize=48 --datesize=24
     #i3lock -c 002b36 --ignore-empty-password --no-unlock-indicator --clock --nofork --datestr="%A, %B %d %G" --timesize=48 --datesize=24
-    i3lock -c 002b36 --ignore-empty-password --no-unlock-indicator --clock --nofork --datestr="%A, %B %d %G" --timesize=48 --datesize=24
+    i3lock-color -c 002b36 --ignore-empty-password --no-unlock-indicator --clock --nofork --datestr="%A, %B %d %G" --timesize=48 --datesize=24
 
     #echo "$PATH" > /home/shaw/switchto
 

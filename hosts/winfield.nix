@@ -13,10 +13,8 @@ in {
       font0Size = "12;3";
       font1Size = "12;4";
       font2Size = "22;7";
+      wirelessInterface = "wlp2s0";
     };
-    # polybarFont0Size = "12;3";
-    # polybarFont1Size = "12;4";
-    # polybarFont2Size = "22;7";
   };
 
   imports = [ ../common.nix ];

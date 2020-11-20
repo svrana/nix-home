@@ -43,7 +43,7 @@
       WEECHAT_HOME = "$XDG_CONFIG_HOME/weechat";
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
-      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+      #XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
     };
     # only run for interactive sessions
@@ -72,6 +72,8 @@
 
       # hmmmmm, why do i have to do this by hand?
       bind -f $INPUTRC
+
+      complete -F __start_kubectl k
     '';
     bashrcExtra = ''
       export TMP=/tmp
@@ -93,18 +95,6 @@
       PATH_append "$BIN_DIR:$HOME/.pulumi/bin:$CARGO_PATH/bin"
     '';
     profileExtra = ''
-      # programss launched without a terminal still need nix profile/bin in their path
-      #source ~/.nix-profile/etc/profile.d/nix.sh
-
-      #complete -F __start_kubectl k
-
-      # if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-      #         # If not using a graphical login, then start up x ourselves
-      #         link=$(readlink -nf /etc/systemd/system/default.target)
-      #         if [ "$link"="/etc/systemd/system/default.target" ]; then
-      #                 exec startx "$XDG_CONFIG_HOME/X11/xinitrc" -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1
-      #         fi
-      # fi
     '';
     shellAliases = {
       "cd.." = "cd ..";
@@ -125,9 +115,9 @@
       "ll" = "ls -al";
       "lsd" = "ls -d */";
 
-      "sctl" = "sudo systemctl";
-      "jctl" = "sudo journalctl";
-      "nctl" = "sudo networkctl";
+      "sctl" = "systemctl";
+      "jctl" = "journalctl";
+      "nctl" = "networkctl";
     };
   };
 }

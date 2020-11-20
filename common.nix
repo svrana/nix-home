@@ -1,5 +1,4 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -17,12 +16,7 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "20.09";
-
-  home.sessionVariables = {
-    # fixing locale errors when running some commands (like man, rofi, etc)
-    # See https://github.com/rycee/home-manager/issues/354
-    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-  };
+  news.display = "silent";
 
   nixpkgs.config.allowUnfree = true;
 
@@ -30,19 +24,17 @@
     enable = true;
     mime.enable = true;
   };
-  #targets.genericLinux.enable = true;
+
+  fonts.fontconfig.enable = true;
 
   imports = [
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
     ./modules/settings.nix
-
     ./personal/programs/sai.nix
-
     ./programs/alacritty.nix
     ./programs/bat.nix
     ./programs/cdp.nix
-    #./programs/dev.nix
     ./programs/dircolors
     ./programs/direnv
     ./programs/dunst.nix
@@ -54,12 +46,10 @@
     ./programs/tmux
     ./programs/git.nix
     ./programs/fzf.nix
-
     ./programs/bash.nix
   ];
 
   home.packages = with pkgs; [
-    #pkgsUnstable.aerc
     aerc
     alacritty
     appimage-run
@@ -67,15 +57,10 @@
     awscli
     aws-vault
     autocutsel
-    #pkgsUnstable.autotiling
     autotiling
     cachix
     ctags
     dante
-    #elm
-    #elmPackages
-    #elm-format
-    #gitAndTools.delta
     dbeaver
     gitAndTools.diff-so-fancy
     docker-compose
@@ -83,38 +68,39 @@
     fd
     firefox
     gcalcli
+    gcc
     glow
     gopass
-    #git
+    gnumake
     gnupg
+    hsetroot
     htop
     gitAndTools.hub
-    # didn't work on ubuntu, try again after switch
     i3lock-color
     insync
     jq
-    kbfs # for keybase
+    kbfs
     keybase
     keybase-gui
     kubectl
     kubectx
-    # need newer version for skin
-    #pkgsUnstable.k9s
     k9s
     lesspipe
+    lsof
     man
-    #nixFlakes
+    gnome3.nautilus
     nixfmt
     nodejs-12_x
     nodePackages.eslint
     openvpn
     packer
-    pinentry-gtk2
-    # see overlay
+    pciutils
+    pinentry
     powerline-go
     python3
     ranger
     readline
+    gnome3.rhythmbox
     ripgrep
     rofi
     rnix-lsp
@@ -123,30 +109,23 @@
     slack
     spotify
     ssh-agents
+    standardnotes
+    system-san-francisco-font
     tmate
     tmuxinator
+    usbutils
     w3m
+    wirelesstools
     wmctrl
     xautolock
     xclip
     xdg_utils
+    zoom-us
     zip
   ];
 
   gtk = {
     enable = true;
-    # font = {
-    #   name = "Noto Sans 10";
-    #   package = pkgs.noto-fonts;
-    # };
-    # iconTheme = {
-    #   name = "Adwaita";
-    #   package = pkgs.gnome3.adwaita-icon-theme;
-    # };
-    # theme = {
-    #   name = "Adapta-Nokto-Eta";
-    #   package = pkgs.adapta-gtk-theme;
-    # };
     gtk3 = {
       bookmarks = [
         "file:///home/shaw/Documents"
@@ -157,8 +136,9 @@
     };
   };
 
-  news.display = "silent";
   services.keybase.enable = true;
+  services.unclutter.enable = true;
+  services.kbfs.enable = true;
 
   # see lock on resume
   #
@@ -184,22 +164,19 @@
   #   type = [ "secrets" ];
   # };
 
-  services.unclutter = { enable = true; };
-
   # see overlay
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    withPython = true;
+    withPython = false;
     withPython3 = true;
+    extraPython3Packages = (ps: with ps; [ pynvim ]);
   };
-
   # see overlay
   programs.powerline-go = {
     enable = true;
-    # exit would be nice but is ugly
     modules = [ "perms" "venv" "gitlite" "ssh" "cwd" ];
     newline = false;
     settings = {
@@ -208,69 +185,43 @@
       priority = "root,perms,venv,git-branch,exit,cwd";
     };
   };
-
+  programs.qutebrowser = {
+    enable = true;
+    extraConfig = builtins.readFile ./config/qutebrowser/config.py;
+  };
   home.file.".local/bin" = {
     source = ./scripts;
-    recursive = true;
-  };
-  home.file.".local/share/fonts" = {
-    source = ./fonts;
     recursive = true;
   };
   home.file.".local/share/applications" = {
     source = ./misc/desktop;
     recursive = true;
   };
-  home.file.".rvmrc".text = ''
-    rvm_autoupdate_flag=2
-    export rvm_max_time_flag=20
-    create_on_use_flag=1
-    rvm_silence_path_mismatch_check_flag=1
-  '';
   home.file.".ssh/config".source = ./personal/ssh/config;
   home.file.".pypirc".source = ./personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Cloud/Music /home/shaw/Music
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
 
-    $DRY_RUN_CMD cp $VERBOSE_ARG $PERSONAL/aerc/accounts.conf $XDG_CONFIG_HOME/aerc
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $RCS/alacritty.yml $XDG_CONFIG_HOME/alacritty
-
     # qutebrowser writes to these so cannot be in the nix store- having them synced across
-    # desktops automatically is also nice.
+    # desktops automatically is also nice. Have to do this after sync or qutebrowser will
+    # autocreate and then you've got a mess.
     $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
+    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
+    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
+    if [ ! -d $XDG_DATA_HOME/nvim/black ]; then
+      $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/nvim/black
+      $DRY_RUN_CMD python3 -m venv $XDG_DATA_HOME/nvim/black
+      $DRY_RUN_CMD $XDG_DATA_HOME/nvim/black/bin/pip3 install black
+    fi
   '';
-  # xdg.configFile."X11/Xresources" = {
-  #   text = ''
-  #     Xft.antialias: true
-  #     Xft.hinting:   true
-  #     Xft.rgba:      rgb
-  #     Xft.hintstyle: hintfull
-  #     Xcursor.size: ${toString config.settings.cursorSize}
-  #   '';
-  # };
- # xdg.configFile."X11/Xmodmap" = {
- #   text = ''
-      #keycode 66 = Control_L
-#      clear Lock
-#    '';
-#  };
-  #xdg.configFile."X11/xinitrc" = {
-  #  text = ''
-  #    xmodmap ~/.config/X11/Xmodmap
-  #    xrdb ~/.config/X11/Xresources
-  #    #dbus-run-session /usr/bin/i3
-  #  '';
-  #};
-  #xdg.configFile."X11/xserverrc" = {
-  #  text = ''
-  #    #!/bin/sh
-  #    exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
-  #  '';
-  #};
+  home.activation.copyAercAccounts =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      install -D -m600 ${
+        ./personal/aerc/accounts.conf
+      } $XDG_CONFIG_HOME/aerc/accounts.conf
+    '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
@@ -279,8 +230,8 @@
     source = ./config/ranger;
     recursive = true;
   };
-  xdg.configFile."qutebrowser/config.py".source = ./config/qutebrowser/config.py;
-  xdg.dataFile."qutebrowser/userscripts/qute-pass".source = ./config/qutebrowser/qute-pass;
+  xdg.dataFile."qutebrowser/userscripts/qute-pass".source =
+    ./config/qutebrowser/qute-pass;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
@@ -307,14 +258,11 @@
       init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
     '';
   };
-  # aerc complains about link perms
-  # xdg.configFile."aerc/accounts.conf" = {
-  #   source = ./personal/aerc/accounts.conf;
-  # };
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
   xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
   xdg.configFile."k9s/skin.yml" = { source = ./config/k9s/skin.yml; };
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -322,7 +270,6 @@
       "x-scheme-handler/http" = "qutebrowser.desktop";
       "x-scheme-handler/https" = "qutebrowser.desktop";
       "x-scheme-handler/about" = "qutebrowser.desktop";
-      "x-scheme-handler/unknown" = "google-chrome.desktop";
       "x-scheme-handler/ftp" = "qutebrowser.desktop";
       "x-scheme-handler/chrome" = "qutebrowser.desktop";
       "application/x-extension-htm" = "qutebrowser.desktop";
@@ -332,7 +279,7 @@
       "application/x-extension-xhtml" = "qutebrowser.desktop";
       "application/x-extension-xht" = "qutebrowser.desktop";
       "x-scheme-handler/slack" = "slack.desktop";
-      "x-scheme-handler/zoom" = "zoom.desktop";
+      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
     };
     associations.added = {
       "image/x-xcf" = "eog.desktop";
