@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+
+{
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -47,6 +49,7 @@
     ./programs/git.nix
     ./programs/fzf.nix
     ./programs/bash.nix
+    ./programs/spotify.nix
   ];
 
   home.packages = with pkgs; [
@@ -59,6 +62,7 @@
     autocutsel
     autotiling
     cachix
+    cmus
     ctags
     dante
     dbeaver
@@ -97,6 +101,7 @@
     pciutils
     pinentry
     powerline-go
+    psmisc
     python3
     ranger
     readline
@@ -107,7 +112,6 @@
     shellcheck
     shfmt
     slack
-    spotify
     ssh-agents
     standardnotes
     system-san-francisco-font
@@ -139,6 +143,11 @@
   services.keybase.enable = true;
   services.unclutter.enable = true;
   services.kbfs.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    pinentryFlavor = "gnome3";
+  };
 
   # do i need this? pass seems faster after adding
   # systemd.user.services.gnome-keyring = {
@@ -197,6 +206,7 @@
       $DRY_RUN_CMD python3 -m venv $XDG_DATA_HOME/nvim/black
       $DRY_RUN_CMD $XDG_DATA_HOME/nvim/black/bin/pip3 install black
     fi
+    # import public/private personal keys. Create $GNUPGHOME directory if not exists
   '';
   home.activation.copyAercAccounts =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -233,7 +243,7 @@
   };
   xdg.configFile."npm/npmrc" = {
     text = ''
-      python=/usr/bin/python2
+      python=python
       prefix=''${XDG_DATA_HOME}/npm
       cache=''${XDG_CACHE_HOME}/npm
       tmp=''${XDG_RUNTIME_DIR}/npm
@@ -241,10 +251,8 @@
     '';
   };
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
-  xdg.configFile."spotifyd/spotifyd.conf".source = ./config/spotifyd.conf;
   xdg.configFile."k9s/skin.yml" = { source = ./config/k9s/skin.yml; };
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
-
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

@@ -24,7 +24,8 @@
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       GEM_HOME = "$XDG_DATA_HOME/gem";
-      GNUPGHOME = "$XDG_DATA_HOME/gnupg";
+      # home-amanger doesn't really support this until until https://github.com/nix-community/home-manager/pull/887
+      #GNUPGHOME = "$XDG_DATA_HOME/gnupg";
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";
       K9SCONFIG = "$XDG_CONFIG_HOME/k9s";
@@ -44,6 +45,7 @@
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
       #XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+      #XAUTHORITY = "$XDG_CONFIG_HOME/Xauthority";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
     };
     # only run for interactive sessions
@@ -94,8 +96,7 @@
 
       PATH_append "$BIN_DIR:$HOME/.pulumi/bin:$CARGO_PATH/bin"
     '';
-    profileExtra = ''
-    '';
+    profileExtra = "";
     shellAliases = {
       "cd.." = "cd ..";
       ".." = "cd ..";

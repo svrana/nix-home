@@ -78,7 +78,7 @@
             "${mod}+q" = "kill";
             "${mod}+d" = ''exec --no-startup-id "rofi -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
             "${mod}+Tab" = ''exec --no-startup-id "rofi -show window -eh 2 -padding 16 -show-icons"'';
-            "${mod}+u" = "exec --no-startup-id 'alacritty -e ranger'";
+            "${mod}+u" = ''exec --no-startup-id "alacritty -e ranger"'';
             "${mod}+x" = "layout toggle splitv splith";
             "${mod}+h" = "focus left";
             "${mod}+j" = "focus down";
@@ -166,8 +166,6 @@
           startup = [
             { command = "$HOME/.local/bin/autotiling-launch.sh"; notification = false; always = true; }
             { command = "systemctl --user restart polybar"; always = true; notification = false; }
-            { command = "dbus-launch /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1"; notification = false; }
-            { command = "dbus-launch /usr/lib/gnome-settings-daemon/gsd-xsettings"; notification = false; }
             { command = "insync start"; notification = false; }
             { command = "dunst"; notification = false; }
             { command = "xautolock -corners '--00' -time 5 -locker $HOME/.local/bin/i3lockwrapper.sh"; notification = false; }

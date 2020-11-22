@@ -6,8 +6,7 @@
     enable = true;
     package = pkgs.polybar.override {
       i3GapsSupport = true;
-      alsaSupport = true;
-      #pulseSupport = true;
+      pulseSupport = true;
     };
 
     extraConfig = ''
@@ -24,7 +23,7 @@
     tray-maxsize = 1000
     width = 100%
     height = 30
-    radius = 3
+    ;radius = 3
     fixed-center = true
     background = ''${colors.background}
     foreground = ''${colors.foreground}

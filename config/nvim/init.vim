@@ -34,6 +34,7 @@ endfunction
 
 " prefer leaf's typescript-vim syntax highlighting over polyglot
 let g:polyglot_disabled = ['typescript']
+let g:formatters_nix = []
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -86,6 +87,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-jdaddy'
 
 call plug#end()
+
 
 let mapleader = ","
 let maplocalleader = ","
@@ -140,7 +142,7 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 autocmd! BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.py execute ':Black'
 autocmd BufWrite *.ts :Autoformat
-autocmd BufWrite *nix :Autoformat
+"autocmd BufWrite *.nix :Autoformat
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd CursorHold * silent call CocActionAsync('highlight')
