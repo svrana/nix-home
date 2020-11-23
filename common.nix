@@ -222,8 +222,8 @@
     source = ./config/ranger;
     recursive = true;
   };
-  xdg.dataFile."qutebrowser/userscripts/qute-pass".source =
-    ./config/qutebrowser/qute-pass;
+  #xdg.dataFile."qutebrowser/userscripts/qute-pass".source =
+  #  ./config/qutebrowser/qute-pass;
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
