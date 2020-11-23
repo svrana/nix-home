@@ -13,36 +13,25 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Define your hostname.
   networking.hostName = "bocana";
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.enp2s0.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   nixpkgs.config.allowUnfree = true;
 
   # Select internationalisation properties.
-
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
-  # Enable X11 and enable i3.
   services.xserver = {
     enable = true;
     xkbVariant = "";
@@ -56,18 +45,23 @@
     windowManager.i3.enable = true;
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ brlaser ];
+  };
+  # for printer discovery
+  services.avahi.enable = true;
+  # Important to resolve .local domains of printers, otherwise you get an error
+  # like  "Impossible to connect to XXX.local: Name or service not known"
+  services.avahi.nssmdns = true;
 
   hardware.bluetooth = {
     enable = true;
     config = { General = { Enable = "Source,Sink,Media,Socket"; }; };
   };
 
-  # Enable sound.
   sound = {
     enable = true;
-    #extraConfig = "";
     mediaKeys.enable = true;
   };
   hardware.pulseaudio = {
@@ -78,9 +72,6 @@
     package = pkgs.pulseaudioFull;
     extraConfig = "load-module module-switch-on-connect";
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shaw = {
@@ -134,17 +125,8 @@
   '';
 
   security.sudo.wheelNeedsPassword = false;
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "20.09";
 }
