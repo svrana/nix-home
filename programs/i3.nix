@@ -120,7 +120,7 @@
             "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
             "${mod}+comma" = ''[instance="Spotify"] focus'';
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
-            "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend n)etworking restart";
+            "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart";
             "Mod1+Control+l" = "exec --no-startup-id $HOME/.local/bin/i3lockwrapper.sh";
             "Mod1+Control+t" = "exec --no-startup-id alacritty";
             "Mod1+Control+v" = "split horizontal";
@@ -153,12 +153,13 @@
               "Return" = "mode default";
               "Escape" = "mode default";
             };
-            "exit: l)ogout r)eboot s)hutdown su)spend n)etworking restart" = {
+            "exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart" = {
               "l" = "exec i3-msg exit";
               "r" = "exec sudo systemctl reboot";
               "s" = "exec sudo systemctl poweroff";
               "u" = "exec sudo systemctl suspend";
               "n" = "exec sudo systemctl restart NetworkManager ; mode default";
+              "h" = "exec sudo systemctl hibernate; mode default";
               "Escape" = "mode default";
               "Return" = "mode default";
             };
