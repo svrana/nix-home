@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let imports = [ ../modules/settings.nix ];
+let imports = [ ../../modules/settings.nix ];
 in {
   config.settings = {
     rofiFontSize = 12;
@@ -15,5 +15,5 @@ in {
     };
   };
 
-  imports = [ ../common.nix ];
+  imports = [ ../../common.nix ];
 }

@@ -7,12 +7,21 @@
       package = pkgs.vanilla-dmz;
       name = "Vanilla-DMZ";
     };
+    importedVariables = [
+      "INPUTRC"
+      "DOTFILES"
+      "RCS"
+      "BIN_DIR"
+    ];
     # oddly this breaks i3-gaps if changed
     #scriptPath = ".config/X11/xsession-hm";
     windowManager = {
       i3 = {
         enable = true;
         package = pkgs.i3-gaps;
+        #extraPackages = with pkgs; [
+        # autotiling
+        #];
         config = {
           modifier = "Mod4";
           floating = {
@@ -30,14 +39,14 @@
             newWindow = "focus";
           };
           #menu = "rofi -show drun -modi drun,run -eh 2 -padding 16 -show-icons";
-          fonts = [ "System San Francisco Display 16" ];
+          fonts = [ "System San Francisco Display 12" ];
           colors = {
             focused = {
               border = "#4c7899";
               background = "$base01";
               text = "#ffffff";
-              indicator = "#2e9ef4";
-              childBorder = "#285577";
+              indicator = "$blue";
+              childBorder = "$cyan";
             };
             focusedInactive = {
               border = "#333333";
@@ -84,6 +93,7 @@
             "${mod}+j" = "focus down";
             "${mod}+k" = "focus up";
             "${mod}+l" = "focus right";
+            "${mod}+p" = ''exec --no-startup-id "gopass ls --flat | rofi -dmenu | xargs --no-run-if-empty gopass show"'';
             "${mod}+Shift+h" = "move left";
             "${mod}+Shift+j" = "move down";
             "${mod}+Shift+k" = "move up";
@@ -95,7 +105,7 @@
             "${mod}+Shift+space" = "floating toggle";
             "${mod}+space" = "focus mode_toggle";
             "${mod}+a" = "focus parent";
-            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmux attach";
+            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmux";
             "${mod}+1" = "workspace 1";
             "${mod}+2" = "workspace 2";
             "${mod}+3" = "workspace 3";
@@ -114,23 +124,23 @@
             "${mod}+Shift+r" = "restart";
             "${mod}+r" = "mode resize";
             "${mod}+i" = "mode split";
-            "${mod}+b" = ''[class="aerc"] focus'';
-            "${mod}+n" = ''[instance="tmux"] focus'';
-            "${mod}+m" = ''[class="qutebrowser"] focus'';
+            "${mod}+n" = ''[instance="aerc"] focus'';
+            "${mod}+m" = ''[instance="tmux"] focus'';
+            "${mod}+comma" = ''[class="qutebrowser"] focus'';
+            "${mod}+period" = ''[instance="spotify"] focus'';
             "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
-            "${mod}+comma" = ''[instance="Spotify"] focus'';
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
             "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart";
-            "Mod1+Control+l" = "exec --no-startup-id $HOME/.local/bin/i3lockwrapper.sh";
+            "Mod1+Control+l" = "exec --no-startup-id $BIN_DIR/i3lockwrapper.sh";
             "Mod1+Control+t" = "exec --no-startup-id alacritty";
             "Mod1+Control+v" = "split horizontal";
             "Mod1+Control+h" = "split vertical";
-            "Mod1+Control+u" = "exec --no-startup-id $HOME/.local/bin/vol.sh --up";
-            "Mod1+Control+d" = "exec --no-startup-id $HOME/.local/bin/vol.sh --down";
-            "Mod1+Control+m" = "exec --no-startup-id $HOME/.local/bin/vol.sh --togmute";
-            "XF86AudioRaiseVolume" = "exec --no-startup-id $HOME/.local/bin/vol.sh --up";
-            "XF86AudioLowerVolume" = "exec --no-startup-id $HOME/.local/bin/vol.sh --down";
-            "XF86AudioMute" = "exec --no-startup-id $HOME/.local/bin/vol.sh --togmute";
+            "Mod1+Control+u" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
+            "Mod1+Control+d" = "exec --no-startup-id $BIN_DIR/vol.sh --down";
+            "Mod1+Control+m" = "exec --no-startup-id $BIN_DIR/vol.sh --togmute";
+            "XF86AudioRaiseVolume" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
+            "XF86AudioLowerVolume" = "exec --no-startup-id $BIN_DIR/vol.sh --down";
+            "XF86AudioMute" = "exec --no-startup-id $BIN_DIR/vol.sh --togmute";
             "XF86AudioPlay" = "exec --no-startup-id playerctl play";
             "XF86AudioPause" = "exec --no-startup-id playerctl pause";
             "XF86AudioNext" = "exec --no-startup-id playerctl next";
@@ -165,14 +175,12 @@
             };
           };
           startup = [
-            { command = "$HOME/.local/bin/autotiling-launch.sh"; notification = false; always = true; }
+            { command = "$BIN_DIR/autotiling-launch.sh"; notification = false; always = true; }
             { command = "systemctl --user restart polybar"; always = true; notification = false; }
             { command = "insync start"; notification = false; }
             { command = "dunst"; notification = false; }
-            { command = "xautolock -corners '--00' -time 5 -locker $HOME/.local/bin/i3lockwrapper.sh"; notification = false; }
+            { command = "xautolock -corners '--00' -time 5 -locker $BIN_DIR/i3lockwrapper.sh"; notification = false; }
             { command = "hsetroot -solid '#002b36'"; notification = false; }
-            { command = "autocutsel -fork -selection CLIPBOARD"; notification = false; }
-            { command = "autocutsel -fork -selection PRIMARY"; notification = false; }
             { command = "qutebrowser"; notification = false; }
             { command = "standardnotes"; notification = false; }
             { command = "slack"; notification = false; }

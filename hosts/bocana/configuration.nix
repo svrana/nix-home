@@ -1,12 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
-
 {
   imports = [
     # Include the results of the hardware scan.
-    ../hardware/bocana.nix
+    ./hardware-configuration.nix
+    ../../arch/amd
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -40,7 +39,20 @@
     videoDrivers = [ "amdgpu" ];
     displayManager = {
       defaultSession = "none+i3";
-      lightdm.enable = true;
+      lightdm = {
+        enable = true;
+        greeters.gtk = {
+          enable = true;
+          #theme = {
+          #  package = pkgs.numix-solarized-gtk-theme;
+          #  name = "NumixSolarizedDarkCyan";
+          #};
+          #iconTheme = {
+          #  package = pkgs.paper-icon-theme;
+          #  name = "Paper";
+          #};
+        };
+      };
     };
     windowManager.i3.enable = true;
   };

@@ -34,7 +34,6 @@ endfunction
 
 " prefer leaf's typescript-vim syntax highlighting over polyglot
 let g:polyglot_disabled = ['typescript']
-let g:formatters_nix = []
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -192,7 +191,7 @@ nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
 nnoremap <silent> <LocalLeader>f :call FZFGitRoot()<cr>
 nnoremap <silent> <LocalLeader>r :RG<cr>
 nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
-nnoremap <silent> <LocalLeader>hs :!home-manager -f $DOTFILES/hosts/$HOSTNAME.nix switch<cr>
+nnoremap <silent> <LocalLeader>hs :!home-manager -f $DOTFILES/hosts/$HOSTNAME switch<cr>
 nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
 nnoremap <leader>gs :Magit<CR>

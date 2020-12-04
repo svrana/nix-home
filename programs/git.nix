@@ -112,7 +112,7 @@
   };
 
   programs.bash.initExtra = ''
-    source "$RCS/git-completion.bash"
+    source ${pkgs.git}/share/bash-completion/completions/git
     __git_complete g __git_main
     alias g='git'
   '';

@@ -6,18 +6,11 @@
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "shaw";
-  home.homeDirectory = "/home/shaw";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "20.09";
+  home = {
+    username = "shaw";
+    homeDirectory = "/home/shaw";
+    stateVersion = "20.09";
+  };
   news.display = "silent";
 
   nixpkgs.config.allowUnfree = true;
@@ -68,7 +61,7 @@
     dbeaver
     gitAndTools.diff-so-fancy
     docker-compose
-    dunst
+    dunst libnotify
     fd
     firefox
     gcalcli
@@ -92,14 +85,17 @@
     lesspipe
     lsof
     man
+    neofetch
+    # couldn't get the override working so forked nixpkgs and installed with nix-env after adding directory to .nix-defexpr
+    #pulumi-bin
     gnome3.nautilus
+#    manix
     nixfmt
     nodejs-12_x
     nodePackages.eslint
     openvpn
     packer
     pciutils
-    pinentry
     powerline-go
     psmisc
     python3
@@ -112,6 +108,7 @@
     shellcheck
     shfmt
     slack
+#    spotify-tui
     ssh-agents
     standardnotes
     system-san-francisco-font
@@ -130,6 +127,14 @@
 
   gtk = {
     enable = true;
+    # theme = {
+    #   package = pkgs.numix-solarized-gtk-theme;
+    #   name = "NumixSolarizedDarkCyan";
+    # };
+    # iconTheme = {
+    #   package = pkgs.paper-icon-theme;
+    #   name = "Paper";
+    # };
     gtk3 = {
       bookmarks = [
         "file:///home/shaw/Documents"
@@ -142,12 +147,26 @@
 
   services.keybase.enable = true;
   services.unclutter.enable = true;
-  services.kbfs.enable = true;
+  services.kbfs = {
+    enable = true;
+    mountPoint = ".cache/keybase";
+  };
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
     pinentryFlavor = "gnome3";
   };
+  # password prompt doesn't come up
+  # services.spotifyd = {
+  #   enable = true;
+  #   settings = {
+  #     global = {
+  #       username = "shaversports";
+  #       # don't get prompted for password...
+  #       password_cmd = "${pkgs.gopass}/bin/gopass show spotify.com | ${pkgs.coreutils}/bin/head -1";
+  #     };
+  #   };
+  # };
 
   # do i need this? pass seems faster after adding
   # systemd.user.services.gnome-keyring = {
@@ -180,6 +199,10 @@
     enable = true;
     extraConfig = builtins.readFile ./config/qutebrowser/config.py;
   };
+  programs.zathura = {
+    enable = true;
+    extraConfig = builtins.readFile ./config/zathura-solarized-dark.rc;
+  };
   home.file.".local/bin" = {
     source = ./scripts;
     recursive = true;
@@ -191,14 +214,14 @@
   home.file.".ssh/config".source = ./personal/ssh/config;
   home.file.".pypirc".source = ./personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
+    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
+    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
+    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
 
     # qutebrowser writes to these so cannot be in the nix store- having them synced across
     # desktops automatically is also nice. Have to do this after sync or qutebrowser will
     # autocreate and then you've got a mess.
-    $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
+    #$DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
     #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
     #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
     if [ ! -d $XDG_DATA_HOME/nvim/black ]; then
@@ -260,6 +283,19 @@
       "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
+    };
+  };
+  systemd.user.services.autocutsel = {
+    Unit.Description = "AutoCutSel";
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "forking";
+      Restart = "always";
+      RestartSec = 2;
+      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
+      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
     };
   };
 }

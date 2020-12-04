@@ -8,11 +8,9 @@ in
 
   programs.spicetify = {
     enable = true;
-    #theme = "SolarizedDark";
-    #injectCss = true;
-    #replaceColors = true;
-    #overwriteAssets = true;
-    theme = "Dribbblish";
-    colorScheme = "dracula";
+    theme = "SolarizedDark";
+    injectCss = true;
+    replaceColors = true;
+    overwriteAssets = true;
   };
 }

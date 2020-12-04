@@ -24,7 +24,7 @@
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       GEM_HOME = "$XDG_DATA_HOME/gem";
-      # home-amanger doesn't really support this until until https://github.com/nix-community/home-manager/pull/887
+      # home-manager doesn't support this until until https://github.com/nix-community/home-manager/pull/887
       #GNUPGHOME = "$XDG_DATA_HOME/gnupg";
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";
@@ -47,17 +47,26 @@
       #XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
       #XAUTHORITY = "$XDG_CONFIG_HOME/Xauthority";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
+
+      TMP = "/tmp";
+      CLOUD_ROOT = "$HOME/Cloud";
+      PHOTOS = "$HOME/Pictures";
+      DOCUMENTS = "$HOME/Documents";
+      DOWNLOADS = "$HOME/Downloads";
+      MUSIC = "$HOME/Music";
+      PROJECTS = "$HOME/Projects";
+      APPS = "$HOME/Apps";
+      DOTFILES = "$HOME/Projects/dotfiles";
+      RCS = "$DOTFILES/config";
+      PERSONAL = "$DOTFILES/personal";
+      BIN_DIR = "$HOME/.local/bin";
     };
     # only run for interactive sessions
     initExtra = ''
       set -o vi
 
-      if [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-      fi
-
       hm() {
-        home-manager -f "$DOTFILES/hosts/$HOSTNAME.nix" $@
+        home-manager -f "$DOTFILES/hosts/$HOSTNAME" $@
       }
 
       is() {
@@ -72,29 +81,18 @@
         ll | awk '{print $9}' | grep '^\.'
       }
 
-      # hmmmmm, why do i have to do this by hand?
+      # hm readline module does not support moving it out of the home dir, so we manage
+      # the config ourselves and bootstraped here
       bind -f $INPUTRC
 
+      source ${pkgs.kubectl}/share/bash-completion/completions/kubectl
       complete -F __start_kubectl k
     '';
     bashrcExtra = ''
-      export TMP=/tmp
-      export CLOUD_ROOT=~/Cloud
-      export PHOTOS=~/Pictures
-      export DOCUMENTS=~/Documents
-      export DOWNLOADS=~/Downloads
-      export MUSIC=~/Music
-      export PROJECTS=~/Projects
-      export APPS=~/Apps
-      export DOTFILES=~/Projects/dotfiles
-      export RCS="$DOTFILES/config"
-      export PERSONAL="$DOTFILES/personal"
-      export BIN_DIR=~/.local/bin
-
       source "$RCS/functions.sh"
       source "$PERSONAL/synthesis/functions.sh"
 
-      PATH_append "$BIN_DIR:$HOME/.pulumi/bin:$CARGO_PATH/bin"
+      PATH_append "$BIN_DIR:$CARGO_PATH/bin"
     '';
     profileExtra = "";
     shellAliases = {

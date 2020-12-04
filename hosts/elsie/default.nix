@@ -6,11 +6,11 @@
 
 let
   imports = [
-    ../modules/settings.nix
+    ../../modules/settings.nix
   ];
 in
 {
   imports = [
-    ../common.nix
+    ../../common.nix
   ];
 }
