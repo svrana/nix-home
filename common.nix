@@ -115,6 +115,7 @@
     tmate
     tmuxinator
     usbutils
+    weechat
     w3m
     wirelesstools
     wmctrl
