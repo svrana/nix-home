@@ -14,7 +14,6 @@
       BUILDUID = "$(id -u $USER)";
       EDITOR = "nvim";
       MANPAGER = "nvim -c 'set ft=man' -";
-      TERM = "xterm-256color";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       PYTHONDONTWRITEBYTECODE = 1;
 
