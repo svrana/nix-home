@@ -45,7 +45,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Vim functionality helpers
 Plug 'tpope/vim-obsession'
 Plug 'junegunn/vim-peekaboo'
-Plug 'mhinz/vim-startify'
 Plug 'unblevable/quick-scope'
 " Git related plugins
 Plug 'tpope/vim-fugitive'
@@ -133,6 +132,7 @@ let g:netrw_banner=0
 let g:netrw_winsize=20
 let g:netrw_liststyle=3
 let g:netrw_localrmdir='rm -r'
+let g:rooter_cd_cmd = 'lcd'
 
 colorscheme solarized
 highlight IncSearch ctermbg=LightYellow ctermfg=Red
