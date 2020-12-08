@@ -105,7 +105,7 @@
             "${mod}+Shift+space" = "floating toggle";
             "${mod}+space" = "focus mode_toggle";
             "${mod}+a" = "focus parent";
-            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmux";
+            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmuxinator work";
             "${mod}+1" = "workspace 1";
             "${mod}+2" = "workspace 2";
             "${mod}+3" = "workspace 3";
