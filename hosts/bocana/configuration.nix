@@ -123,7 +123,8 @@
 
   # List services that you want to enable:
 
-  #services.gnome3.gnome-keyring.enable = true;
+  # enabling for standard-notes which uses libsecret
+  services.gnome3.gnome-keyring.enable = true;
   services.dbus.packages = [ pkgs.gcr ]; # fixes pinentry-gnome3 from working on none-Gnome systems.
   services.blueman.enable = true;
   services.openssh.enable = true;
