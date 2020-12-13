@@ -17,7 +17,10 @@
     foreground-alt = #555
     primary = #ffb52a
     secondary = #e60053
-    alert = #bd2c40
+    # red v-
+    #alert = #bd2c40
+    # solarized cyan v--
+    alert = #2aa198
 
     [bar/top]
     tray-maxsize = 1000
