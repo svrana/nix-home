@@ -87,7 +87,7 @@ argument_parser.add_argument('--username-pattern', '-u', default=r'.*/(.+)',
                              help='Regular expression that matches the username')
 argument_parser.add_argument('--username-target', '-U', choices=['path', 'secret'], default='path',
                              help='The target for the username regular expression')
-argument_parser.add_argument('--password-pattern', '-P', default=r'(.*)',
+argument_parser.add_argument('--password-pattern', '-P', default=r'Password:\s?(.+)',
                              help='Regular expression that matches the password')
 argument_parser.add_argument('--dmenu-invocation', '-d', default='rofi -dmenu',
                              help='Invocation used to execute a dmenu-provider')
@@ -222,8 +222,11 @@ def main(arguments):
     # Match password
     match = re.match(arguments.password_pattern, secret)
     if not match:
-       stderr('Failed to match password pattern on secret!')
-       return ExitCodes.COULD_NOT_MATCH_PASSWORD
+        # ok, forget the pattern, try getting anything
+        match = re.match(r'(.*)', secret)
+        if not match:
+            stderr('Failed to match password pattern on secret!')
+            return ExitCodes.COULD_NOT_MATCH_PASSWORD
     password = match.group(1)
 
     # Match username
@@ -231,24 +234,28 @@ def main(arguments):
     match = re.search(arguments.username_pattern, target, re.MULTILINE)
     if not match:
         stderr('Failed to match username pattern on {}! Will try matching in secret..'.format(arguments.username_target))
-        match = re.search(r'.*^username:\s?(.+)', secret , re.MULTILINE)
+        match = re.search(r'.*^[u|U]sername:\s?(.+)', secret , re.MULTILINE)
         if not match:
             return ExitCodes.COULD_NOT_MATCH_USERNAME
     username = match.group(1)
 
     if arguments.username_only:
         fake_key_raw(username)
+        qute_command('fake-key <Tab>')
     elif arguments.password_only:
         fake_key_raw(password)
+        qute_command('fake-key <Tab>')
     elif arguments.otp_only:
         otp = pass_otp(selection)
         fake_key_raw(otp)
+        qute_command('fake-key <Tab>')
     else:
         # Enter username and password using fake-key and <Tab> (which seems to work almost universally), then switch
         # back into insert-mode, so the form can be directly submitted by hitting enter afterwards
         fake_key_raw(username)
         qute_command('fake-key <Tab>')
         fake_key_raw(password)
+        qute_command('fake-key <Tab>')
 
     if arguments.insert_mode:
         qute_command('enter-mode insert')
