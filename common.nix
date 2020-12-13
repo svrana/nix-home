@@ -86,9 +86,11 @@
     lsof
     man
     neofetch
+    openssl
     # couldn't get the override working so forked nixpkgs and installed with nix-env after adding directory to .nix-defexpr
-    #pulumi-bin
+#    pulumi-bin
     gnome3.nautilus
+    gnome3.eog
 #    manix
     nixfmt
     nodejs-12_x
@@ -102,6 +104,7 @@
     ranger
     readline
     gnome3.rhythmbox
+    gnome3.gnome-screenshot
     ripgrep
     rofi
     rnix-lsp
@@ -110,7 +113,7 @@
     slack
 #    spotify-tui
     ssh-agents
-    standardnotes
+#    standardnotes
     system-san-francisco-font
     tmate
     tmuxinator
@@ -123,6 +126,7 @@
     xclip
     xdg_utils
     zoom-us
+    unzip
     zip
   ];
 
