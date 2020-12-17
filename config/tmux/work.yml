@@ -38,34 +38,17 @@ root: ~/
 # attach: false
 
 windows:
-  - apis:
+  - c1:
       layout: even-horizontal
-      root: ~/Projects/apis
+      root: ~/Projects/c1
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - vim
         - ls
-        - dev apis up && make watch
-  - aws-infra:
-      layout: even-horizontal
-      root: ~/Projects/aws-infra
-      panes:
-        - ls
-        -
-        -
-  - eng-docs:
-      layout: even-horizontal
-      root: ~/Projects/eng-docs
-      panes:
         - ls
   - dots:
       layout: even-horizontal
       root: ~/Projects/dotfiles
       panes:
         - ls
-  - vpn:
-      layout: even-horizontal
-      panes:
-        - vpn-start.sh
