@@ -9,7 +9,7 @@
   home = {
     username = "shaw";
     homeDirectory = "/home/shaw";
-    stateVersion = "20.09";
+    stateVersion = "21.03";
   };
   news.display = "silent";
 
@@ -26,7 +26,7 @@
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
     ./modules/settings.nix
-    ./personal/programs/sai.nix
+    ./personal/programs/work.nix
     ./programs/alacritty.nix
     ./programs/bat.nix
     ./programs/cdp.nix
@@ -127,6 +127,7 @@
     xdg_utils
     zoom-us
     unzip
+    yarn
     zip
   ];
 
@@ -219,16 +220,20 @@
   home.file.".ssh/config".source = ./personal/ssh/config;
   home.file.".pypirc".source = ./personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
-    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
-    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
+    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
+    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
+    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
 
     # qutebrowser writes to these so cannot be in the nix store- having them synced across
     # desktops automatically is also nice. Have to do this after sync or qutebrowser will
     # autocreate and then you've got a mess.
-    #$DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
-    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
-    #$DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
+    $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
+    if [ -f $DOCUMENTS/apps/qutebrowser/quickmarks ]; then
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
+    fi
+    if [ -f $DOCUMENTS/apps/qutebrowser/bookmarks ]; then
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
+    fi
     if [ ! -d $XDG_DATA_HOME/nvim/black ]; then
       $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/nvim/black
       $DRY_RUN_CMD python3 -m venv $XDG_DATA_HOME/nvim/black
