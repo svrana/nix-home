@@ -240,6 +240,7 @@
       $DRY_RUN_CMD $XDG_DATA_HOME/nvim/black/bin/pip3 install black
     fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
+    # i.e., gpg --import private.key ... then gpg --edit-key {KEY} trust quit, where key is output from the previous import
   '';
   home.activation.copyAercAccounts =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
