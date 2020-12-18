@@ -43,7 +43,7 @@
     font-2 = UbuntuMono Nerd Font Mono:style=regular:size=${config.settings.polybar.font2Size}
     modules-left = i3
     modules-center = date
-    modules-right = pulseaudio xbacklight battery wlan powermenu
+    modules-right = pulseaudio xbacklight battery wlan eth powermenu
     ; disable systray
     tray-position = none
     cursor-click = pointer
