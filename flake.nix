@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.09";
-    nixpkgs-unstable.url = "github.NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github.com:nix-community/home-manager/release-20.09";
+      url = "github:nix-community/home-manager/release-20.09";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -21,15 +21,6 @@
       in {
         "${name}" = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            util = import ./util {
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ myoverlay ];
-                config.allowUnfree = true;
-              };
-            };
-          };
           modules = [
             {
               nixpkgs.overlays = [ myoverlay ];
@@ -47,4 +38,6 @@
     in {}
     // (system-config "richland" "x86_64-linux")
     ;
+    overlay = mkOverlay "x86_64-linux";
+  };
 }
