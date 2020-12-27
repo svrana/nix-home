@@ -4,6 +4,7 @@
   imports = [
     ./bluetooth.nix
     ./docker.nix
+    ./home.nix
     ./printing.nix
     ./sound.nix
   ];
