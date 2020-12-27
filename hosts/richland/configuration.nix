@@ -101,15 +101,14 @@
   #   shell = pkgs.bash;
   # };
 
-  # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    wget
-    vim
-    firefox
-    gnome3.adwaita-icon-theme
-    pavucontrol
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   wget
+  #   vim
+  #   firefox
+  #   gnome3.adwaita-icon-theme
+  #   pavucontrol
+  # ];
 
   # fonts.fonts = with pkgs; [
   #   corefonts
@@ -131,22 +130,22 @@
   # List services that you want to enable:
 
   # enabling for standard-notes which uses libsecret
-  services.gnome3.gnome-keyring.enable = true;
-  services.dbus.packages = [ pkgs.gcr ]; # fixes pinentry-gnome3 from working on none-Gnome systems.
-  services.blueman.enable = true;
-  services.openssh.enable = true;
-  services.accounts-daemon.enable = true;
+  #services.gnome3.gnome-keyring.enable = true;
+  #services.dbus.packages = [ pkgs.gcr ]; # fixes pinentry-gnome3 from working on none-Gnome systems.
+  #services.blueman.enable = true;
+  #services.openssh.enable = true;
+  #services.accounts-daemon.enable = true;
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.enableOnBoot = true;
-  # Required because /run/user/1000 tempfs is too small for docker
-  services.logind.extraConfig = ''
-    RuntimeDirectorySize=8G
-  '';
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.enableOnBoot = true;
+  # # Required because /run/user/1000 tempfs is too small for docker
+  # services.logind.extraConfig = ''
+  #   RuntimeDirectorySize=8G
+  # '';
 
-  security.sudo.wheelNeedsPassword = false;
+  #security.sudo.wheelNeedsPassword = false;
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09";
+#  system.stateVersion = "20.09";
 }

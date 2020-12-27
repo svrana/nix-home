@@ -11,33 +11,34 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager }:
-  let
-    mkOverlay = system: import ./overlay { };
-  in rec {
-    nixosConfigurations = let
-      system-config = name: system:
-      let
-        myoverlay = mkOverlay system;
-      in {
-        "${name}" = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            {
-              nixpkgs.overlays = [ myoverlay ];
-              nixpkgs.config.allowUnfree = true;
-              nix.registry.nixpkgs.flake = nixpkgs;
-            }
-            home-manager.nixosModules.home-manager
-            { home-manager.useGlobalPkgs = true; }
-            #(import (./hosts + "/${name}/default.nix"))
-            (import (./hosts + "/${name}/configuration.nix"))
-            (import (./hosts + "/${name}/hardware-configuration.nix"))
-          ];
+    let
+      mkOverlay = system: import ./overlays {};
+    in rec {
+      nixosConfigurations = let
+        system-config = name: system:
+        let
+          myoverlay = mkOverlay system;
+        in {
+          "${name}" = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              {
+                nixpkgs.overlays = [ myoverlay ];
+                nixpkgs.config.allowUnfree = true;
+                nix.registry.nixpkgs.flake = nixpkgs;
+              }
+              home-manager.nixosModules.home-manager
+              { home-manager.useGlobalPkgs = true; }
+              #(import (./hosts + "/${name}/default.nix"))
+              (import (./hosts + "/${name}/configuration.nix"))
+              (import (./hosts + "/${name}/hardware-configuration.nix"))
+            ];
+          };
         };
-      };
-    in {}
-    // (system-config "richland" "x86_64-linux")
-    ;
-    overlay = mkOverlay "x86_64-linux";
-  };
+      in {}
+      // (system-config "richland" "x86_64-linux")
+      #// (system-config "bocana" "x86_64-linux")
+      ;
+      overlay = mkOverlay "x86_64-linux";
+    };
 }
