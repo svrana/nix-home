@@ -12,7 +12,7 @@
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager }:
     let
-      mkOverlay = system: import ./overlays {};
+      mkOverlay = system: import ./overlays;
     in rec {
       nixosConfigurations = let
         system-config = name: system:
