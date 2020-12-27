@@ -58,13 +58,11 @@
     ws-icon-1 = 2;
     ws-icon-2 = 3;
     ws-icon-3 = 4;
-    ;ws-icon-4 = 5;
-    ;ws-icon-4 = 5;
     ; polybar refused to load the next one
     ws-icon-4 = 5;
-    ;ws-icon-4 = 5;a
     ws-icon-5 = 6;
-    ws-icon-default = 
+    ws-icon-6 = 7;
+    ws-icon-default = ﮆ
     ; Only show workspaces on the same output as the bar
     ;pin-workspaces = true
     label-mode-padding = 2
@@ -101,14 +99,15 @@
 
     [module/eth]
     type = internal/network
-    interface = eno1
+    interface = ${config.settings.polybar.wiredInterface}
     interval = 3.0
     format-connected-prefix = " "
     format-connected-prefix-foreground = ''${colors.foreground}
     label-connected = %ifname%
     label-disconnected = " "
     format-disconnected = <label-disconnected>
-    label-disconnected-foreground = ''${colors.foreground-alt}
+    #label-disconnected-foreground = ''${colors.foreground-alt}
+    label-disconnected-foreground = ''${colors.foreground}
 
     [module/date]
     type = internal/date

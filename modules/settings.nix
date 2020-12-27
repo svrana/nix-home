@@ -38,6 +38,10 @@ with lib;
           default = "wlp2s0";
           type = types.str;
         };
+        wiredInterface = mkOption {
+          default = "eno1";
+          type = types.str;
+        };
       };
     };
   };

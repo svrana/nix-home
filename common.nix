@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  pkgsUnstable = import <nixpkgs-unstable> {};
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -55,6 +58,7 @@
     autocutsel
     autotiling
     cachix
+#    ctlptl
     cmus
     ctags
     dante
@@ -63,6 +67,7 @@
     docker-compose
     dunst libnotify
     fd
+    file
     firefox
     gcalcli
     gcc
@@ -70,8 +75,10 @@
     gopass
     gnumake
     gnupg
+    kubernetes-helm
     hsetroot
     htop
+    #pkgsUnstable.python37Packages.goobook
     gitAndTools.hub
     i3lock-color
     insync
@@ -82,8 +89,10 @@
     kubectl
     kubectx
     k9s
+    libreoffice
     lesspipe
     lsof
+    lshw
     man
     neofetch
     openssl
@@ -91,6 +100,8 @@
 #    pulumi-bin
     gnome3.nautilus
     gnome3.eog
+#    khard
+    pkgsUnstable.minikube
 #    manix
     nixfmt
     nodejs-12_x
@@ -100,6 +111,7 @@
     pciutils
     powerline-go
     psmisc
+    prototool
     python3
     ranger
     readline
@@ -115,6 +127,7 @@
     ssh-agents
 #    standardnotes
     system-san-francisco-font
+    pkgsUnstable.tilt
     tmate
     tmuxinator
     usbutils
@@ -180,6 +193,13 @@
   #   type = [ "secrets" ];
   # };
 
+  # Compositor to prevent screen tearing until modesetting gets it, perhaps here:
+  #   https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/24
+  services.picom = {
+    enable = true;
+    vSync = true;
+  };
+
   # see overlay
   programs.neovim = {
     enable = true;
@@ -241,6 +261,13 @@
     fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
     # i.e., gpg --import private.key ... then gpg --edit-key {KEY} trust quit, where key is output from the previous import
+    if [ ! -d $APPS/solarized-everything-css ]; then
+      git clone git@github.com:alphapapa/solarized-everything-css.git $APPS/solarized-everything-css
+    fi
+    if [ ! -d $APPS/aerc ]; then
+      # remove after nixifying aerch config
+      git clone https://git.sr.ht/~sircmpwn/aerc $APPS/aerc
+    fi
   '';
   home.activation.copyAercAccounts =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -284,6 +311,10 @@
       init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
     '';
   };
+  xdg.configFile."fd/ignore".text = ''
+    vendor
+    pb
+  '';
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
   xdg.configFile."k9s/skin.yml" = { source = ./config/k9s/skin.yml; };
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
@@ -309,4 +340,13 @@
       ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
     };
   };
+  # systemd.user.services.minikube = {
+  #   Unit.Descrption = "minikube development cluster";
+  #   Service = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = "yes";
+  #     ExecStart = "${pkgsUnstable.minikube}/bin/minikube start";
+  #     ExecStop = "${pkgsUnstable.minikube}/bin/minikube stop";
+  #   };
+  # };
 }

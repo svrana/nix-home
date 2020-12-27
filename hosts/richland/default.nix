@@ -11,7 +11,8 @@ in {
       font0Size = "10;2";
       font1Size = "12;0";
       font2Size = "22;4";
-      wirelessInterface = "wlp4s0";
+      wirelessInterface = "wlp0s20f3";
+      wiredInterface = "eno1";
     };
   };
 

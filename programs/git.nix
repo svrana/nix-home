@@ -28,12 +28,12 @@
       lg =
         "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       latest = "diff HEAD~1 HEAD";
-      work = ''config user.email "shaw@synthesis.ai"'';
       home = ''config user.email "shaw@vranix.com"'';
       hg =
         "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-      fr = "!f() { git fetch origin master && git rebase origin/master; }; f";
-      new = ''!f() { git checkout -b "$@" --track origin/master ; }; f'';
+      fr = "!f() { git fetch origin main && git rebase origin/main; }; f";
+      fro = "!f() { git fetch origin master && git rebase origin/master; }; f";
+      new = ''!f() { git checkout -b "$@" --track origin/main; }; f'';
       patch = "!git --no-pager diff --no-color";
     };
     lfs = { enable = true; };
@@ -83,6 +83,7 @@
       ".envrc"
       ".direnv"
       ".*@neomake*"
+      ".ignore"
     ];
     attributes = [
       "*.c     diff=cpp"

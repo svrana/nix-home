@@ -83,6 +83,8 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
 Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-jdaddy'
+Plug 'preservim/nerdtree'
+Plug 'scrooloose/nerdtree-project-plugin'
 
 call plug#end()
 
@@ -116,7 +118,7 @@ let g:airline#extensions#coc#enabled = 0
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_verbose = 0
 let g:peekaboo_delay=300
-let g:formatterpath = ["/home/shaw/Projects/aws-infra/node_modules/.bin"]
+"let g:formatterpath = ["/home/shaw/Projects/aws-infra/node_modules/.bin"]
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:SuperTabCrMapping = 0
 let g:SuperTabDefaultCompletionType = '<c-n>'
@@ -128,11 +130,8 @@ let g:go_list_type = "quickfix"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin', 'coc-snippets']
-let g:netrw_banner=0
-let g:netrw_winsize=20
-let g:netrw_liststyle=3
-let g:netrw_localrmdir='rm -r'
 let g:rooter_cd_cmd = 'lcd'
+
 
 colorscheme solarized
 highlight IncSearch ctermbg=LightYellow ctermfg=Red
@@ -172,6 +171,9 @@ augroup qs_colors
     autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=81 cterm=underline
 augroup END
 
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * silent NERDTreeMirror
+
 cmap w!! %!sudo tee > /dev/null %
 
 noremap  <leader>w :w<CR>
@@ -198,6 +200,7 @@ nnoremap <leader>gs :Magit<CR>
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :Gbrowse<CR>
 nnoremap <leader>dn :set relativenumber!<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 
 nmap <silent> <leader>cd <Plug>(coc-definition)
 nmap <silent> <leader>cc <Plug>(coc-references)

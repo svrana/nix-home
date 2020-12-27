@@ -106,8 +106,10 @@
 
       "v" = "nvim";
       "k" = "kubectl";
+      "r" = "ranger";
       "pl" = "pulumi";
       "pass" = "gopass";
+      "glow" = "glow -p";
 
       "ls" = "ls $LS_DFLT_ARGS";
       "ll" = "ls -al";
