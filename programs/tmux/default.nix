@@ -16,6 +16,7 @@
       tmuxPlugins.urlview
       tmuxPlugins.open
       tmuxPlugins.copycat
+      tmuxPlugins.fingers
       {
         plugin = tmuxPlugins.resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
