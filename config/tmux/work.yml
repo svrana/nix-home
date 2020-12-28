@@ -47,7 +47,7 @@ windows:
       panes:
         - ls
         - ls
-  - tools:
+  - dev-tools:
       layout: even-horizontal
       root: ~/Projects/c1
       panes:
