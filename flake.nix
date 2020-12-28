@@ -10,7 +10,7 @@
     };
     #personal.url = "github:svrana/personal/master";
     #personal.flake = false;
-    personal.url = "./personal";
+    #personal.url = "./personal";
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager }:
