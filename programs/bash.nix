@@ -8,8 +8,6 @@
     historyFile = "$XDG_DATA_HOME/bash/history";
     shellOptions = [ "histappend" "checkwinsize" "autocd" "cdspell" ];
     sessionVariables = {
-      AWS_VAULT_BACKEND = "pass";
-      AWS_VAULT_PASS_PREFIX = "vault";
       # for docker-compose/dev/fixuid
       BUILDUID = "$(id -u $USER)";
       EDITOR = "nvim";
@@ -17,9 +15,6 @@
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       PYTHONDONTWRITEBYTECODE = 1;
 
-      # home directory cleanup
-      AWS_SHARED_CREDENTIALS_FILE = "$XDG_CONFIG_HOME/aws/credentials";
-      AWS_CONFIG_FILE = "$XDG_CONFIG_HOME/aws/config";
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       GEM_HOME = "$XDG_DATA_HOME/gem";
@@ -27,20 +22,17 @@
       #GNUPGHOME = "$XDG_DATA_HOME/gnupg";
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";
-      K9SCONFIG = "$XDG_CONFIG_HOME/k9s";
-      KUBECONFIG = "$XDG_CONFIG_HOME/kube/config";
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
-      PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
-      AWS_VAULT_PASS_PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+
+      MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
+      TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
 
       PSQLRC = "$XDG_CONFIG_HOME/psql/config";
       PYLINTHOME = "$XDG_CACHE_HOME/pylint";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       SQLITE_HISTORY = "$XDG_DATA_HOME/sqlite_history";
-      TLDEXTRACT_CACHE = "$XDG_CACHE_HOME/tldextract.cache";
-      WEECHAT_HOME = "$XDG_CONFIG_HOME/weechat";
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
       #XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
@@ -83,14 +75,9 @@
       # hm readline module does not support moving it out of the home dir, so we manage
       # the config ourselves and bootstraped here
       bind -f $INPUTRC
-
-      source ${pkgs.kubectl}/share/bash-completion/completions/kubectl
-      complete -F __start_kubectl k
     '';
     bashrcExtra = ''
       source "$RCS/functions.sh"
-      source "$PERSONAL/synthesis/functions.sh"
-
       PATH_append "$BIN_DIR:$CARGO_PATH/bin"
     '';
     profileExtra = "";
@@ -105,11 +92,8 @@
       "P" = "popd";
 
       "v" = "nvim";
-      "k" = "kubectl";
       "r" = "ranger";
       "pl" = "pulumi";
-      "pass" = "gopass";
-      "glow" = "glow -p";
 
       "ls" = "ls $LS_DFLT_ARGS";
       "ll" = "ls -al";

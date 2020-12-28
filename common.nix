@@ -4,7 +4,6 @@ let
   pkgsUnstable = import <nixpkgs-unstable> {};
 in
 {
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   # Home Manager needs a bit of information about you and the
@@ -30,7 +29,10 @@ in
     # pkg configurations below it.
     ./modules/settings.nix
     ./personal/programs/work.nix
+    ./programs/aerc.nix
     ./programs/alacritty.nix
+    ./programs/aws-cli.nix
+    ./programs/aws-vault.nix
     ./programs/bat.nix
     ./programs/cdp.nix
     ./programs/dircolors
@@ -38,21 +40,26 @@ in
     ./programs/dunst.nix
     ./programs/gruf.nix
     ./programs/go.nix
+    ./programs/gopass.nix
+    ./programs/k9s.nix
     ./programs/keychain.nix
+    ./programs/kubectl.nix
     ./programs/i3.nix
     ./programs/polybar.nix
     ./programs/tmux
+    ./programs/glow.nix
     ./programs/git.nix
     ./programs/fzf.nix
     ./programs/bash.nix
+    ./programs/rofi.nix
     ./programs/spotify.nix
+    ./programs/qutebrowser.nix
+    ./programs/weechat.nix
+    ./programs/zathura.nix
   ];
 
   home.packages = with pkgs; [
-    aerc
     alacritty
-    awscli
-    aws-vault
     autocutsel
     autotiling
     cmus
@@ -63,17 +70,13 @@ in
     docker-compose
     dunst
     gcalcli
-    glow
-    gopass
     gnupg
     kubernetes-helm
     hsetroot
     gitAndTools.hub
     i3lock-color
     insync
-    kubectl
     kubectx
-    k9s
     libreoffice
     lesspipe
     neofetch
@@ -89,9 +92,7 @@ in
     python3
     ranger
     readline
-    gnome3.rhythmbox
     gnome3.gnome-screenshot
-    rofi
     rnix-lsp
     shellcheck
     shfmt
@@ -99,9 +100,7 @@ in
     ssh-agents
     system-san-francisco-font
     pkgsUnstable.tilt
-    tmate
     tmuxinator
-    weechat
     w3m
     wmctrl
     xautolock
@@ -113,14 +112,6 @@ in
 
   gtk = {
     enable = true;
-    # theme = {
-    #   package = pkgs.numix-solarized-gtk-theme;
-    #   name = "NumixSolarizedDarkCyan";
-    # };
-    # iconTheme = {
-    #   package = pkgs.paper-icon-theme;
-    #   name = "Paper";
-    # };
     gtk3 = {
       bookmarks = [
         "file:///home/shaw/Documents"
@@ -143,7 +134,6 @@ in
     enable = true;
     vSync = true;
   };
-
   # see overlay
   programs.neovim = {
     enable = true;
@@ -164,14 +154,6 @@ in
       max-width = 65;
       priority = "root,perms,venv,git-branch,exit,cwd";
     };
-  };
-  programs.qutebrowser = {
-    enable = true;
-    extraConfig = builtins.readFile ./config/qutebrowser/config.py;
-  };
-  programs.zathura = {
-    enable = true;
-    extraConfig = builtins.readFile ./config/zathura-solarized-dark.rc;
   };
   home.file.".local/bin" = {
     source = ./scripts;
@@ -213,12 +195,6 @@ in
       git clone https://git.sr.ht/~sircmpwn/aerc $APPS/aerc
     fi
   '';
-  home.activation.copyAercAccounts =
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      install -D -m600 ${
-        ./personal/aerc/accounts.conf
-      } $XDG_CONFIG_HOME/aerc/accounts.conf
-    '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
@@ -227,25 +203,8 @@ in
     source = ./config/ranger;
     recursive = true;
   };
-  xdg.dataFile."qutebrowser/userscripts/qute-pass-mod".source =
-    ./config/qutebrowser/qute-pass-mod.py;
-  xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
-  xdg.configFile."rofi/config" = {
-    text = ''
-      rofi.theme: solarized
-      rofi.font: SFNS ${toString config.settings.rofiFontSize}
-      rofi.columns: 1
-      rofi.bw: 0
-      rofi.eh: 1
-      rofi.hide-scrollbar: true
-    '';
-  };
-  xdg.configFile."aerc" = {
-    source = ./config/aerc;
-    recursive = true;
-  };
   xdg.configFile."npm/npmrc" = {
     text = ''
       python=python
@@ -260,7 +219,6 @@ in
     pb
   '';
   xdg.configFile."cmus/rc".source = ./config/cmus.rc;
-  xdg.configFile."k9s/skin.yml" = { source = ./config/k9s/skin.yml; };
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
   xdg.mimeApps = {
     enable = true;
@@ -284,13 +242,4 @@ in
       ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
     };
   };
-  # systemd.user.services.minikube = {
-  #   Unit.Descrption = "minikube development cluster";
-  #   Service = {
-  #     Type = "oneshot";
-  #     RemainAfterExit = "yes";
-  #     ExecStart = "${pkgsUnstable.minikube}/bin/minikube start";
-  #     ExecStop = "${pkgsUnstable.minikube}/bin/minikube stop";
-  #   };
-  # };
 }
