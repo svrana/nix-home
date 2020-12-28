@@ -51,97 +51,64 @@ in
   home.packages = with pkgs; [
     aerc
     alacritty
-    appimage-run
-    # amazon-ecr-credential-helper, where the binary?
     awscli
     aws-vault
     autocutsel
     autotiling
-    cachix
-#    ctlptl
     cmus
     ctags
     dante
     dbeaver
     gitAndTools.diff-so-fancy
     docker-compose
-    dunst libnotify
-    fd
-    file
-    firefox
+    dunst
     gcalcli
-    gcc
     glow
     gopass
-    gnumake
     gnupg
     kubernetes-helm
     hsetroot
-    htop
-    #pkgsUnstable.python37Packages.goobook
     gitAndTools.hub
     i3lock-color
     insync
-    jq
-    kbfs
-    keybase
-    keybase-gui
     kubectl
     kubectx
     k9s
     libreoffice
     lesspipe
-    lsof
-    lshw
-    man
     neofetch
-    openssl
-    # couldn't get the override working so forked nixpkgs and installed with nix-env after adding directory to .nix-defexpr
-#    pulumi-bin
     gnome3.nautilus
     gnome3.eog
-#    khard
     pkgsUnstable.minikube
-#    manix
     nixfmt
     nodejs-12_x
     nodePackages.eslint
-    openvpn
     packer
-    pciutils
     powerline-go
-    psmisc
     prototool
     python3
     ranger
     readline
     gnome3.rhythmbox
     gnome3.gnome-screenshot
-    ripgrep
     rofi
     rnix-lsp
     shellcheck
     shfmt
     slack
-#    spotify-tui
     ssh-agents
-#    standardnotes
     system-san-francisco-font
     pkgsUnstable.tilt
     tmate
     tmuxinator
-    usbutils
     weechat
     w3m
-    wirelesstools
     wmctrl
     xautolock
     xclip
     xdg_utils
     zoom-us
-    unzip
     yarn
-    zip
   ];
 
   gtk = {
@@ -164,35 +131,12 @@ in
     };
   };
 
-  services.keybase.enable = true;
   services.unclutter.enable = true;
-  services.kbfs = {
-    enable = true;
-    mountPoint = ".cache/keybase";
-  };
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
     pinentryFlavor = "gnome3";
   };
-  # password prompt doesn't come up
-  # services.spotifyd = {
-  #   enable = true;
-  #   settings = {
-  #     global = {
-  #       username = "shaversports";
-  #       # don't get prompted for password...
-  #       password_cmd = "${pkgs.gopass}/bin/gopass show spotify.com | ${pkgs.coreutils}/bin/head -1";
-  #     };
-  #   };
-  # };
-
-  # do i need this? pass seems faster after adding
-  # systemd.user.services.gnome-keyring = {
-  #   enable = true;
-  #   type = [ "secrets" ];
-  # };
-
   # Compositor to prevent screen tearing until modesetting gets it, perhaps here:
   #   https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/24
   services.picom = {

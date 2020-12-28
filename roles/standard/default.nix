@@ -4,6 +4,7 @@
   imports = [
     ./fonts.nix
     ./nix.nix
+    ./pkgs.nix
     ./users.nix
   ];
   # Use the systemd-boot EFI boot loader.
@@ -14,7 +15,6 @@
 
   time.timeZone = "America/Los_Angeles";
 
-  # can be removed when we move to flakes
   nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "20.09";
@@ -25,11 +25,6 @@
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
-
-  environment.systemPackages = with pkgs; [
-    wget
-    vim
-  ];
 
   services.openssh.enable = true;
   services.accounts-daemon.enable = true;
