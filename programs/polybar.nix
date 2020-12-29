@@ -101,7 +101,8 @@
     type = internal/network
     interface = ${config.settings.polybar.wiredInterface}
     interval = 3.0
-    format-connected-prefix = " "
+    ;format-connected-prefix = " "
+    format-connected-prefix = " "
     format-connected-prefix-foreground = ''${colors.foreground}
     label-connected = %ifname%
     label-disconnected = " "
