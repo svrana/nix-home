@@ -17,7 +17,8 @@ limit=$((100 - inc))
 maxlimit=$((maxvol - inc))
 
 reloadSink() {
-    active_sink=$(pacmd list-sinks | awk '/* index:/{print $3}')
+    #active_sink=$(pacmd list-sinks | awk '/* index:/{print $3}')
+    active_sink=$(pacmd list-sinks | grep -B 4 RUNNING | grep index | awk ' { print $NF } ')
 }
 
 function volUp {
@@ -42,11 +43,6 @@ function volUp {
 
     getCurVol
 
-    if [ ${osd} = 'yes' ]
-    then
-        qdbus org.kde.kded /modules/kosd showVolume "$curVol" 0
-    fi
-
     if [ ${autosync} = 'yes' ]
     then
         volSync
@@ -57,11 +53,6 @@ function volDown {
 
     pactl set-sink-volume "$active_sink" "-$inc%"
     getCurVol
-
-    if [ ${osd} = 'yes' ]
-    then
-        qdbus org.kde.kded /modules/kosd showVolume "$curVol" 0
-    fi
 
     if [ ${autosync} = 'yes' ]
     then
@@ -101,12 +92,6 @@ function volMute {
             status=0
             ;;
     esac
-
-    if [ ${osd} = 'yes' ]
-    then
-        qdbus org.kde.kded /modules/kosd showVolume ${curVol} ${status}
-    fi
-
 }
 
 function volMuteStatus {

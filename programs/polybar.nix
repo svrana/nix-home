@@ -1,8 +1,10 @@
 { config, pkgs, lib, ... }:
-
+let
+  path = "PATH=$PATH:${pkgs.gawk}/bin:${pkgs.pulseaudio}/bin:${pkgs.bash}/bin:${pkgs.gnugrep}/bin:${pkgs.gnused}/bin:${pkgs.coreutils}/bin";
+in
 {
   services.polybar = {
-    script = "polybar top &";
+    script = "${path} polybar top &";
     enable = true;
     package = pkgs.polybar.override {
       i3GapsSupport = true;
@@ -17,8 +19,6 @@
     foreground-alt = #555
     primary = #ffb52a
     secondary = #e60053
-    # red v-
-    #alert = #bd2c40
     # solarized cyan v--
     alert = #2aa198
 
@@ -34,18 +34,17 @@
     line-color = #f00
     border-size = 0
     border-color = #00000000
-    padding-left = 0
-    padding-right = 1
-    module-margin-left = 1
-    module-margin-right = 2
+    padding-right = 2
+    module-margin = 2
     font-0 = System San Francisco Display:style=regular:size=${config.settings.polybar.font0Size}
     font-1 = Font Awesome:style=regular:size=${config.settings.polybar.font1Size}
     font-2 = UbuntuMono Nerd Font Mono:style=regular:size=${config.settings.polybar.font2Size}
     modules-left = i3
     modules-center = date
+    #modules-right = volume xbacklight battery wlan eth powermenu
     modules-right = pulseaudio xbacklight battery wlan eth powermenu
     ; disable systray
-    tray-position = none
+    ;tray-position = none
     cursor-click = pointer
     cursor-scroll = ns-resize
 
@@ -130,6 +129,15 @@
     ramp-volume-0 = 
     ramp-volume-1 = 
     ramp-volume-2 = 
+
+    [module/volume]
+    type = custom/script
+    tail = true
+    label-foreground = ''${colors.foreground}
+    exec = $BIN_DIR/vol.sh --listen &
+    click-left = $BIN_DIR/vol.sh --togmute
+    scroll-up = $BIN_DIR/vol.sh --up
+    scroll-down = $BIN_DIR/vol.sh --down
 
     [module/battery]
     type = internal/battery
