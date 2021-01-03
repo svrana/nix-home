@@ -24,6 +24,7 @@ in
     extraConfig = ''
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
       config.bind("<Escape>", "leave-mode", mode="passthrough")
+      config.load_autoconfig()
     '';
     searchEngines = {
         DEFAULT ="https://duckduckgo.com/html?q={}";
@@ -77,9 +78,15 @@ in
     settings =  {
       auto_save.session = true;
       completion.height = "35%";
-      content.javascript = {
-        can_access_clipboard = true;
-        can_open_tabs_automatically = true;
+      content = {
+        cookies = {
+          accept = "no-3rdparty";
+        };
+        notifications = false;
+        javascript = {
+          can_access_clipboard = true;
+          can_open_tabs_automatically = true;
+        };
       };
       downloads = {
         location.directory = "/home/shaw/Downloads";
@@ -114,7 +121,9 @@ in
       };
       scrolling.smooth = true;
       editor = {
-        command = ["${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim {}"];
+        # pulling in from non-overlay
+        #command = ["${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim {}"];
+        command = ["${pkgs.alacritty}/bin/alacritty" "-e" "nvim {}"];
       };
       statusbar.show = "in-mode";
       tabs = {
@@ -123,6 +132,7 @@ in
         last_close = "close";
         pinned.shrink = true;
       };
+      hints.leave_on_load = false;
       colors = {
         downloads = {
           bar = {
