@@ -229,6 +229,14 @@ in
       "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
     };
   };
+  xdg.configFile."networkmanager-dmenu/config.ini".text = ''
+    [dmenu]
+      dmenu_command = rofi -dmenu
+      compact = true
+      rofi_highlight = True
+      wifi_chars = ▂▄▆█
+  '';
+
   systemd.user.services.autocutsel = {
     Unit.Description = "AutoCutSel";
     Install = {
