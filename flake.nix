@@ -8,9 +8,6 @@
       url = "github:nix-community/home-manager/release-20.09";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #personal.url = "github:svrana/personal/master";
-    #personal.flake = false;
-    #personal.url = "./personal";
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager }:
