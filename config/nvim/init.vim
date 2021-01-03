@@ -38,7 +38,6 @@ let g:polyglot_disabled = ['typescript']
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Style
-Plug 'svrana/solarize'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -61,15 +60,16 @@ Plug 'justinmk/vim-sneak'
 " Programming (general)
 Plug 'ervandew/supertab'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'svrana/neomake'
+Plug 'neomake/neomake'
 Plug 'wellle/tmux-complete.vim'
 Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter'
-Plug 'fatih/vim-go', { 'tag': 'v1.23', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.24', 'do': ':GoUpdateBinaries' }
 Plug 'wsdjeg/vim-fetch'
 Plug 'psf/black'
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'uber/prototool', { 'rtp': 'vim/prototool' }
 " File handling
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -129,7 +129,7 @@ let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
 let g:go_list_type = "quickfix"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
-let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin', 'coc-snippets']
+let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin', 'coc-snippets', 'coc-protobuf']
 let g:rooter_cd_cmd = 'lcd'
 
 
@@ -140,6 +140,10 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 autocmd! BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.py execute ':Black'
 autocmd BufWrite *.ts :Autoformat
+"let g:formatdef_my_proto = '"prototool format -w"'
+"let g:formatters_proto = ['my_proto']
+"let g:formatters_proto = ['"prototool format -w"'] wtf
+autocmd BufWritePost *.proto :call PrototoolFormat()
 "autocmd BufWrite *.nix :Autoformat
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
@@ -186,7 +190,7 @@ noremap! <leader>e <ESC>:wq<CR>
 noremap! <leader>z <ESC>:q!<CR>
 nnoremap Q @@
 nnoremap <leader>nt :tabnew<CR>
-nnoremap <leader>sv :source ~/.vimrc<CR>
+nnoremap <leader>sv :source $XDG_CONFIG_HOME/nvim/init.vim<CR>
 nnoremap \th :set invhls hls?<CR>
 nnoremap <silent> <LocalLeader>t :Files<cr>
 nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
