@@ -59,6 +59,7 @@ in
   ];
 
   home.packages = with pkgs; [
+    pkgsUnstable.aerc
     alacritty
     autocutsel
     autotiling
@@ -68,8 +69,8 @@ in
     dbeaver
     gitAndTools.diff-so-fancy
     docker-compose
+    networkmanager_dmenu
     dunst
-    gcalcli
     gnupg
     kubernetes-helm
     hsetroot
@@ -78,10 +79,10 @@ in
     insync
     kubectx
     libreoffice
-    #lesspipe
     gnome3.nautilus
     gnome3.eog
     pkgsUnstable.minikube
+    maim
     nixfmt
     nodejs-12_x
     nodePackages.eslint
@@ -92,6 +93,7 @@ in
     ranger
     readline
     gnome3.gnome-screenshot
+    rofi-pass
     rnix-lsp
     shellcheck
     shfmt
@@ -223,6 +225,8 @@ in
       "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/slack" = "slack.desktop";
+      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
     };
   };
   systemd.user.services.autocutsel = {
