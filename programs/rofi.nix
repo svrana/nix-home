@@ -1,17 +1,12 @@
 { pkgs, config, ... }:
 {
-  home.packages = with pkgs; [
-    rofi
-  ];
-
-  xdg.configFile."rofi/config" = {
-    text = ''
-      rofi.theme: solarized
-      rofi.font: SFNS ${toString config.settings.rofiFontSize}
-      rofi.columns: 1
-      rofi.bw: 0
-      rofi.eh: 1
-      rofi.hide-scrollbar: true
-    '';
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi.override { plugins = [ pkgs.rofi-calc ]; };
+    theme = "solarized";
+    font = "SFNS ${toString config.settings.rofiFontSize}";
+    borderWidth = 0;
+    rowHeight = 1;
+    scrollbar = false;
   };
 }
