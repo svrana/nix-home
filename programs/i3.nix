@@ -1,5 +1,10 @@
 { config, pkgs, lib, ... }:
-
+let
+  rofi-pass = "${pkgs.rofi-pass}/bin/rofi-pass";
+  maim = "${pkgs.maim}/bin/maim";
+  xclip = "${pkgs.xclip}/bin/xclip";
+  rofi-calc-cmd= ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
+in
 {
   xsession = {
     enable = true;
@@ -84,28 +89,7 @@
             "${mod}+minus" = "scratchpad show";
             "${mod}+Return" = "exec --no-startup-id alacritty";
             "${mod}+Shift+q" = "kill";
-            "${mod}+q" = "kill";
-            "${mod}+d" = ''exec --no-startup-id "rofi -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
-            "${mod}+Tab" = ''exec --no-startup-id "rofi -show window -eh 2 -padding 16 -show-icons"'';
-            "${mod}+u" = ''exec --no-startup-id "alacritty -e ranger"'';
-            "${mod}+x" = "layout toggle splitv splith";
-            "${mod}+h" = "focus left";
-            "${mod}+j" = "focus down";
-            "${mod}+k" = "focus up";
-            "${mod}+l" = "focus right";
-            "${mod}+p" = ''exec --no-startup-id "gopass ls --flat | rofi -dmenu | xargs --no-run-if-empty gopass show"'';
-            "${mod}+Shift+h" = "move left";
-            "${mod}+Shift+j" = "move down";
-            "${mod}+Shift+k" = "move up";
-            "${mod}+Shift+l" = "move right";
-            "${mod}+f" = "fullscreen toggle";
-            "${mod}+s" = "layout stacking";
-            "${mod}+t" = "layout tabbed";
-            "${mod}+e" = "layout toggle split";
-            "${mod}+Shift+space" = "floating toggle";
-            "${mod}+space" = "focus mode_toggle";
-            "${mod}+a" = "focus parent";
-            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmuxinator work";
+            "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
             "${mod}+1" = "workspace 1";
             "${mod}+2" = "workspace 2";
             "${mod}+3" = "workspace 3";
@@ -113,6 +97,34 @@
             "${mod}+5" = "workspace 5";
             "${mod}+6" = "workspace 6";
             "${mod}+7" = "workspace 7";
+            "${mod}+9" = ''[class="Slack"] scratchpad show'';
+            #"${mod}+a" = "focus parent";
+            "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
+            "${mod}+d" = ''exec --no-startup-id "rofi -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
+            "${mod}+e" = "layout toggle split";
+            "${mod}+f" = "fullscreen toggle";
+            "${mod}+q" = "kill";
+            "${mod}+h" = "focus left";
+            "${mod}+i" = "mode split";
+            "${mod}+j" = "focus down";
+            "${mod}+k" = "focus up";
+            "${mod}+l" = "focus right";
+            "${mod}+m" = ''[instance="tmux"] focus'';
+            "${mod}+n" = ''[instance="aerc"] focus'';
+            "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
+            "${mod}+r" = "mode resize";
+            "${mod}+s" = "layout stacking";
+            "${mod}+t" = "layout tabbed";
+            "${mod}+u" = ''exec --no-startup-id "alacritty -e ranger"'';
+            "${mod}+x" = "layout toggle splitv splith";
+            "${mod}+Shift+h" = "move left";
+            "${mod}+Shift+j" = "move down";
+            "${mod}+Shift+k" = "move up";
+            "${mod}+Shift+l" = "move right";
+            "${mod}+Shift+f" = ''exec --no-startup-id "fd | rofi -show find -mode find -dmenu | xargs -r xdg-open"'';
+            "${mod}+Shift+space" = "floating toggle";
+            "${mod}+space" = "focus mode_toggle";
+            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmuxinator work";
             "${mod}+Shift+1" = "move container to workspace 1";
             "${mod}+Shift+2" = "move container to workspace 2";
             "${mod}+Shift+3" = "move container to workspace 3";
@@ -121,15 +133,12 @@
             "${mod}+Shift+6" = "move container to workspace 6";
             "${mod}+Shift+7" = "move container to workspace 7";
             "${mod}+Shift+c" = "reload";
+            "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
             "${mod}+Shift+r" = "restart";
-            "${mod}+r" = "mode resize";
-            "${mod}+i" = "mode split";
-            "${mod}+n" = ''[instance="aerc"] focus'';
-            "${mod}+m" = ''[instance="tmux"] focus'';
+            "${mod}+Shift+s" = ''exec --no-startup-id "${maim} -s | ${xclip} -selection clipboard -t image/png"'';
+            "${mod}+Tab" = ''exec --no-startup-id rofi -show window -eh 2 -padding 16 -show-icons'';
             "${mod}+comma" = ''[class="qutebrowser"] focus'';
             "${mod}+period" = ''[instance="spotify"] focus'';
-            "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
-            "${mod}+9" = ''[class="Slack"] scratchpad show'';
             "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart";
             "Mod1+Control+l" = "exec --no-startup-id $BIN_DIR/i3lockwrapper.sh";
             "Mod1+Control+t" = "exec --no-startup-id alacritty";

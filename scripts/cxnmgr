@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# Requires:
+# 		blueman
+# 		bluez-utils
+# 		networkmanager_dmenu (https://github.com/firecat53/networkmanager-dmenu)
+# 		btmenu               (https://github.com/cdown/btmenu)
+
+[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
+[ -z "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
+
+WIFI=$(printf "%s %s" "${wifiicon}" "$(cat /sys/class/net/w*/operstate | sed "s/down/❎/;s/up/🌐/")")
+
+if [ -n "${WIFI}" ]; then
+	choice=$(printf 'Bluetooth\nNetwork' | rofi -dmenu -i -p "${WIFI}")
+else
+	choice=$(printf 'Bluetooth\nNetwork' | rofi -dmenu -i -p 'Connect:')
+fi
+
+if [ "${choice}" = "Bluetooth" ]; then
+	choice2=$(printf 'Connect\nNew\nManage\nDisable' | rofi -dmenu -i -p 'Bluetooth')
+	[ "${choice2}" = 'Connect' ] && $BIN_DIR/btmenu
+	[ "${choice2}" = 'Disconnect' ] && $BIN_DIR/btmenu -d
+	[ "${choice2}" = 'Manage' ] && blueman-manager
+	[ "${choice2}" = 'Disable' ] && bluetoothctl power off
+	[ "${choice2}" = 'New' ] && blueman-assistant
+fi
+
+if [ "${choice}" = "Network" ]; then
+	networkmanager_dmenu
+fi
+#vim:ft=sh
