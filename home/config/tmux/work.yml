@@ -47,14 +47,18 @@ windows:
       panes:
         - ls
         - ls
+        -
   - dev-tools:
       layout: even-horizontal
       root: ~/Projects/c1
       panes:
         - tilt up --stream
         - xdg-open http://localhost:10350/
+        -
   - dots:
       layout: even-horizontal
       root: ~/Projects/dotfiles
       panes:
         - ls
+        -
+        -
