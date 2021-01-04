@@ -15,5 +15,5 @@ in {
     };
   };
 
-  imports = [ ../../common.nix ];
+  imports = [ ../../home ];
 }

@@ -49,7 +49,7 @@
       PROJECTS = "$HOME/Projects";
       APPS = "$HOME/Apps";
       DOTFILES = "$HOME/Projects/dotfiles";
-      RCS = "$DOTFILES/config";
+      RCS = "$DOTFILES/home/config";
       PERSONAL = "$DOTFILES/personal";
       BIN_DIR = "$HOME/.local/bin";
     };

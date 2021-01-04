@@ -11,6 +11,6 @@ let
 in
 {
   imports = [
-    ../../common.nix
+    ../../home
   ];
 }

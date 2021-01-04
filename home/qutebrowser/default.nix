@@ -227,5 +227,5 @@ in
   };
 
   xdg.dataFile."qutebrowser/userscripts/qute-pass-mod".source =
-    ../config/qutebrowser/qute-pass-mod.py;
+    ./qute-pass-mod.py;
 }

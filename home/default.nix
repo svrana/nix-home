@@ -27,35 +27,37 @@ in
   imports = [
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
-    ./modules/settings.nix
-    ./personal/programs/work.nix
-    ./programs/aerc.nix
-    ./programs/alacritty.nix
-    ./programs/aws-cli.nix
-    ./programs/aws-vault.nix
-    ./programs/bat.nix
-    ./programs/cdp.nix
-    ./programs/dircolors
-    ./programs/direnv
-    ./programs/dunst.nix
-    ./programs/gruf.nix
-    ./programs/go.nix
-    ./programs/gopass.nix
-    ./programs/k9s.nix
-    ./programs/keychain.nix
-    ./programs/kubectl.nix
-    ./programs/i3.nix
-    ./programs/polybar.nix
-    ./programs/tmux
-    ./programs/glow.nix
-    ./programs/git.nix
-    ./programs/fzf.nix
-    ./programs/bash.nix
-    ./programs/rofi.nix
-    ./programs/spotify.nix
-    ./programs/qutebrowser.nix
-    ./programs/weechat.nix
-    ./programs/zathura.nix
+    ../modules/settings.nix
+    ../personal/programs/work.nix
+    ./aerc
+    ./alacritty.nix
+    ./aws-cli.nix
+    ./aws-vault.nix
+    ./bat.nix
+    ./cdp.nix
+    ./cmus
+    ./dircolors
+    ./direnv
+    ./dunst.nix
+    ./gruf.nix
+    ./go.nix
+    ./gopass.nix
+    ./k9s
+    ./keychain.nix
+    ./kubectl.nix
+    ./i3.nix
+    ./polybar.nix
+    ./tmux
+    ./glow.nix
+    ./git.nix
+    ./fzf.nix
+    ./bash.nix
+    ./ranger
+    ./rofi.nix
+    ./spotify.nix
+    ./qutebrowser
+    ./weechat.nix
+    ./zathura.nix
   ];
 
   home.packages = with pkgs; [
@@ -63,7 +65,6 @@ in
     alacritty
     autocutsel
     autotiling
-    cmus
     ctags
     dante
     dbeaver
@@ -164,8 +165,8 @@ in
     source = ./misc/desktop;
     recursive = true;
   };
-  home.file.".ssh/config".source = ./personal/ssh/config;
-  home.file.".pypirc".source = ./personal/pypi/pypirc;
+  home.file.".ssh/config".source = ../personal/ssh/config;
+  home.file.".pypirc".source = ../personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
@@ -193,10 +194,10 @@ in
     source = ./config/nvim;
     recursive = true;
   };
-  xdg.configFile."ranger" = {
-    source = ./config/ranger;
-    recursive = true;
-  };
+  # xdg.configFile."ranger" = {
+  #   source = ./config/ranger;
+  #   recursive = true;
+  # };
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
   xdg.configFile."npm/npmrc" = {
@@ -212,7 +213,6 @@ in
     vendor
     pb
   '';
-  xdg.configFile."cmus/rc".source = ./config/cmus.rc;
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
   xdg.mimeApps = {
     enable = true;

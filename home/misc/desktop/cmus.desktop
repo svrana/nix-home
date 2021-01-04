@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Music Player
+Terminal=false
+Name=cmus
+GenericName=Music Player Text User Interface
+Exec=alacritty --class cmus -t cmus -e cmus
+Type=Application
+Icon=/usr/share/icons/suru/apps/256/music-app.png
