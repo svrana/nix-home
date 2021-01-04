@@ -71,6 +71,7 @@ in
     dunst
     feh
     gnupg
+    hugo
     kubernetes-helm
     gitAndTools.hub
     i3lock-color
