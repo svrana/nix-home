@@ -1,8 +1,7 @@
 { pkgs, lib, ... }:
 {
-  # needs override
-  #
-  # home.packages = with pkgs; [
+
+  # home.packages = with pkgsUnstable; [
   #   aerc
   # ];
 

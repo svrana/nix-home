@@ -62,13 +62,10 @@ in
 
   home.packages = with pkgs; [
     pkgsUnstable.aerc
-    alacritty
-    autocutsel
     autotiling
     ctags
     dante
     dbeaver
-    gitAndTools.diff-so-fancy
     docker-compose
     networkmanager_dmenu
     dunst
@@ -80,7 +77,6 @@ in
     insync
     kubectx
     libreoffice
-    #gnome3.eog
     pkgsUnstable.minikube
     maim
     nixfmt
@@ -91,10 +87,8 @@ in
     perl532Packages.FileMimeInfo
     prototool
     python3
-    ranger
     readline
     gnome3.gnome-screenshot
-    rofi-pass
     rnix-lsp
     shellcheck
     shfmt
@@ -130,7 +124,7 @@ in
     enableSshSupport = true;
     pinentryFlavor = "gnome3";
   };
-  # Compositor to prevent screen tearing until modesetting gets it, perhaps here:
+  # Compositor to prevent screen tearing until modesetting gets in:
   #   https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/24
   services.picom = {
     enable = true;
@@ -194,10 +188,6 @@ in
     source = ./config/nvim;
     recursive = true;
   };
-  # xdg.configFile."ranger" = {
-  #   source = ./config/ranger;
-  #   recursive = true;
-  # };
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
   xdg.configFile."npm/npmrc" = {

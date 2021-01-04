@@ -1,9 +1,12 @@
 { config, pkgs, lib, pkgsUnstable, ... }:
 let
+  rofi = "${pkgs.rofi}/bin/rofi";
   rofi-pass = "${pkgs.rofi-pass}/bin/rofi-pass";
   maim = "${pkgs.maim}/bin/maim";
   xclip = "${pkgs.xclip}/bin/xclip";
-  rofi-calc-cmd= ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
+  ranger = "${pkgs.ranger}/bin/ranger";
+  rofi-calc-cmd = ''${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
+  alacritty = "${pkgs.alacritty}/bin/alacritty";
 in
 {
   xsession = {
@@ -24,9 +27,6 @@ in
       i3 = {
         enable = true;
         package = pkgs.i3-gaps;
-        #extraPackages = with pkgs; [
-        #  autotiling
-        #];
         config = {
           modifier = "Mod4";
           floating = {
@@ -85,9 +85,9 @@ in
           };
           keybindings = let mod = "Mod4";
           in {
-            "${mod}+Shift+minus" = "move scratchpad";
-            "${mod}+minus" = ''[class="alacritty-scratch"] scratchpad show'';
-            "${mod}+Return" = "exec --no-startup-id alacritty";
+            #"${mod}+Shift+minus" = "move scratchpad";
+            "${mod}+minus" = ''[class="termscratch"] scratchpad show'';
+            "${mod}+Return" = "exec --no-startup-id ${alacritty}";
             "${mod}+Shift+q" = "kill";
             "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
             "${mod}+1" = "workspace 1";
@@ -100,7 +100,7 @@ in
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
             #"${mod}+a" = "focus parent";
             "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
-            "${mod}+d" = ''exec --no-startup-id "rofi -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
+            "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
             "${mod}+e" = "layout toggle split";
             "${mod}+f" = "fullscreen toggle";
             "${mod}+q" = "kill";
@@ -115,13 +115,13 @@ in
             "${mod}+r" = "mode resize";
             "${mod}+s" = "layout stacking";
             "${mod}+t" = "layout tabbed";
-            "${mod}+u" = ''exec --no-startup-id "alacritty -e ranger"'';
+            "${mod}+u" = ''exec --no-startup-id "alacritty -e ${ranger}"'';
             "${mod}+x" = "layout toggle splitv splith";
             "${mod}+Shift+h" = "move left";
             "${mod}+Shift+j" = "move down";
             "${mod}+Shift+k" = "move up";
             "${mod}+Shift+l" = "move right";
-            "${mod}+Shift+f" = ''exec --no-startup-id "fd | rofi -show find -mode find -dmenu | xargs -r xdg-open"'';
+            "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
             "${mod}+Shift+space" = "floating toggle";
             "${mod}+space" = "focus mode_toggle";
             "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmuxinator work";
@@ -136,12 +136,11 @@ in
             "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
             "${mod}+Shift+r" = "restart";
             "${mod}+Shift+s" = ''exec --no-startup-id "${maim} -s | ${xclip} -selection clipboard -t image/png"'';
-            "${mod}+Tab" = ''exec --no-startup-id rofi -show window -eh 2 -padding 16 -show-icons'';
+            "${mod}+Tab" = ''exec --no-startup-id ${rofi} -show window -eh 2 -padding 16 -show-icons'';
             "${mod}+comma" = ''[class="qutebrowser"] focus'';
             "${mod}+period" = ''[instance="spotify"] focus'';
             "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart";
             "Mod1+Control+l" = "exec --no-startup-id $BIN_DIR/i3lockwrapper.sh";
-            "Mod1+Control+t" = "exec --no-startup-id alacritty";
             "Mod1+Control+v" = "split horizontal";
             "Mod1+Control+h" = "split vertical";
             "Mod1+Control+u" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
@@ -193,7 +192,7 @@ in
             { command = "${pkgs.qutebrowser}/bin/qutebrowser"; notification = false; }
             { command = "standardnotes"; notification = false; }
             { command = "${pkgs.slack}/bin/slack"; notification = false; }
-            { command = "${pkgs.alacritty}/bin/alacritty --class alacritty-scratch"; notification = false; }
+            { command = "${pkgs.alacritty}/bin/alacritty --class termscratch,termscratch"; notification = false; }
           ];
         };
         extraConfig = ''
@@ -225,7 +224,7 @@ in
 
                   for_window [class="Standard Notes"] move scratchpad, move position 1000 50, resize set 1800 2000
                   for_window [class="Slack"] move scratchpad, move position 1000 50, resize set 1800 2000
-                  for_window [class="alacritty-scratch"] move scratchpad, move position 1000 50, resize set 1800 2000
+                  for_window [class="termscratch"] move scratchpad, move position 1000 50, resize set 1800 2000
 
                   assign [class="qutebrowser"] $ws3
         '';

@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
-
+let
+  diffSoFancy = "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy";
+in
 {
   programs.git = {
     enable = true;
@@ -40,7 +42,7 @@
     extraConfig = {
       url."git@github.com:".insteadOf = "https://github.com";
       diff-so-fancy = { stripLeadingSymbols = false; };
-      core = { pager = "diff-so-fancy | less --tabs=4 -RFX"; };
+      core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
       merge = { tool = "vimdiff"; };
       credential = { helper = "cache"; };
       push = { default = "simple"; };
