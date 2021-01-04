@@ -73,6 +73,7 @@ in
         ",p" = "spawn --userscript qute-pass-mod --mode gopass --password-only --no-insert-mode";
         "{" = "tab-move -";
         "}" = "tab-move +";
+        ",t" = "tab-pin";
       };
     };
     settings =  {
