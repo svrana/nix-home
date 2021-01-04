@@ -71,16 +71,15 @@ in
     docker-compose
     networkmanager_dmenu
     dunst
+    feh
     gnupg
     kubernetes-helm
-    hsetroot
     gitAndTools.hub
     i3lock-color
     insync
     kubectx
     libreoffice
-    gnome3.nautilus
-    gnome3.eog
+    #gnome3.eog
     pkgsUnstable.minikube
     maim
     nixfmt
@@ -88,6 +87,7 @@ in
     nodePackages.eslint
     packer
     powerline-go
+    perl532Packages.FileMimeInfo
     prototool
     python3
     ranger
@@ -188,10 +188,6 @@ in
     fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
     # i.e., gpg --import private.key ... then gpg --edit-key {KEY} trust quit, where key is output from the previous import
-    if [ ! -d $APPS/aerc ]; then
-      # remove after nixifying aerch config
-      git clone https://git.sr.ht/~sircmpwn/aerc $APPS/aerc
-    fi
   '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
