@@ -14,6 +14,7 @@
       MANPAGER = "nvim -c 'set ft=man' -";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       PYTHONDONTWRITEBYTECODE = 1;
+      TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
 
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
