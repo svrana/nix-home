@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgsUnstable, ... }:
 let
   rofi-pass = "${pkgs.rofi-pass}/bin/rofi-pass";
   maim = "${pkgs.maim}/bin/maim";
@@ -25,7 +25,7 @@ in
         enable = true;
         package = pkgs.i3-gaps;
         #extraPackages = with pkgs; [
-        # autotiling
+        #  autotiling
         #];
         config = {
           modifier = "Mod4";
@@ -86,7 +86,7 @@ in
           keybindings = let mod = "Mod4";
           in {
             "${mod}+Shift+minus" = "move scratchpad";
-            "${mod}+minus" = "scratchpad show";
+            "${mod}+minus" = ''[class="alacritty-scratch"] scratchpad show'';
             "${mod}+Return" = "exec --no-startup-id alacritty";
             "${mod}+Shift+q" = "kill";
             "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
@@ -186,13 +186,14 @@ in
           startup = [
             { command = "$BIN_DIR/autotiling-launch.sh"; notification = false; always = true; }
             { command = "systemctl --user restart polybar"; always = true; notification = false; }
-            { command = "insync start"; notification = false; }
-            { command = "dunst"; notification = false; }
-            { command = "xautolock -corners '--00' -time 5 -locker $BIN_DIR/i3lockwrapper.sh"; notification = false; }
-            { command = "hsetroot -solid '#002b36'"; notification = false; }
-            { command = "qutebrowser"; notification = false; }
+            { command = "${pkgs.insync}/bin/insync start"; notification = false; }
+            { command = "${pkgs.dunst}/bin/dunst"; notification = false; }
+            { command = "${pkgs.xautolock}/bin/xautolock -corners '--00' -time 5 -locker $BIN_DIR/i3lockwrapper.sh"; notification = false; }
+            { command = "${pkgs.hsetroot}/bin/hsetroot -solid '#002b36'"; notification = false; }
+            { command = "${pkgs.qutebrowser}/bin/qutebrowser"; notification = false; }
             { command = "standardnotes"; notification = false; }
-            { command = "slack"; notification = false; }
+            { command = "${pkgs.slack}/bin/slack"; notification = false; }
+            { command = "${pkgs.alacritty}/bin/alacritty --class alacritty-scratch"; notification = false; }
           ];
         };
         extraConfig = ''
@@ -224,6 +225,7 @@ in
 
                   for_window [class="Standard Notes"] move scratchpad, move position 1000 50, resize set 1800 2000
                   for_window [class="Slack"] move scratchpad, move position 1000 50, resize set 1800 2000
+                  for_window [class="alacritty-scratch"] move scratchpad, move position 1000 50, resize set 1800 2000
 
                   assign [class="qutebrowser"] $ws3
         '';

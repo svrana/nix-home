@@ -8,5 +8,6 @@
     borderWidth = 0;
     rowHeight = 1;
     scrollbar = false;
+    terminal = "${pkgs.alacritty}/bin/alacritty";
   };
 }
