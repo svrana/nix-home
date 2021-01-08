@@ -7,6 +7,13 @@ let
   ranger = "${pkgs.ranger}/bin/ranger";
   rofi-calc-cmd = ''${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
+  scratch-term = pkgs.writeScript "scratch-term" ''
+    #!${pkgs.bash}/bin/bash
+    while :
+    do
+      ${alacritty} --class scratch-term,scratch-term
+    done
+  '';
 in
 {
   xsession = {
@@ -86,7 +93,7 @@ in
           keybindings = let mod = "Mod4";
           in {
             #"${mod}+Shift+minus" = "move scratchpad";
-            "${mod}+minus" = ''[class="termscratch"] scratchpad show'';
+            "${mod}+minus" = ''[class="scratch-term"] scratchpad show'';
             "${mod}+Return" = "exec --no-startup-id ${alacritty}";
             "${mod}+Shift+q" = "kill";
             "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
@@ -192,7 +199,7 @@ in
             { command = "${pkgs.qutebrowser}/bin/qutebrowser"; notification = false; }
             { command = "standardnotes"; notification = false; }
             { command = "${pkgs.slack}/bin/slack"; notification = false; }
-            { command = "${pkgs.alacritty}/bin/alacritty --class termscratch,termscratch"; notification = false; }
+            { command = "${scratch-term}"; notification = false; }
           ];
         };
         extraConfig = ''
@@ -224,7 +231,7 @@ in
 
                   for_window [class="Standard Notes"] move scratchpad, move position 1000 50, resize set 1800 2000
                   for_window [class="Slack"] move scratchpad, move position 1000 50, resize set 1800 2000
-                  for_window [class="termscratch"] move scratchpad, move position 1000 50, resize set 1800 2000
+                  for_window [class="scratch-term"] move scratchpad, move position 1000 50, resize set 1800 2000
 
                   assign [class="qutebrowser"] $ws3
         '';
