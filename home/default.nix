@@ -131,16 +131,77 @@ in
     enable = true;
     vSync = true;
   };
+
   # see overlay
   programs.neovim = {
     enable = true;
+    #package = pkgsUnstable.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
     withPython = false;
     withPython3 = true;
-    extraPython3Packages = (ps: with ps; [ pynvim ]);
+    withNodeJs = true;
+    extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
+   #extraConfig = builtins.readFile ./nvim/init.vim;
+    #prototool', { 'rtp': 'vim/prototool' }
+    # need a later coc.nvim than unstable
+#    plugins = with pkgsUnstable.vimPlugins; [
+#       vim-colors-solarized
+#       vim-airline
+#       vim-airline-themes
+#       vim-obsession
+#       vim-peekaboo
+#       quick-scope
+#       vim-fugitive
+#       {
+#         plugin = vim-gitgutter;
+#         config = "let g:gitgutter_git_executable = ${pkgs.git}/bin/git";
+#       }
+#       vimagit
+#       vim-rhubarb
+#       vim-surround
+#       vim-commentary
+#       vim-sort-motion
+#       vim-sneak
+#       supertab
+#       coc-nvim
+#       coc-json
+#       coc-yaml
+#       coc-python
+#       coc-git
+#       coc-tsserver
+#       coc-tslint-plugin
+#       coc-snippets
+#       #coc-protobuf
+#       neomake
+#       tmux-complete-vim
+#       vim-snippets
+#       vim-autoformat
+#       vim-rooter
+#       vim-go
+#       vim-fetch
+#       fzf-vim
+#       {
+#         plugin = vim-polyglot;
+#         config = "let g:polyglot_disabled = ['typescript']";
+#       }
+#       vim-lastplace
+#       {
+#         plugin = vim-markdown-composer;
+#         config = "let g:markdown_composer_autostart = 0";
+#         config = "let g:markdown_composer_browser="epiphany-browser";
+#       }
+#       vim-python-pep8-indent
+#       vim-packer
+#       vim-jsonnet
+#       vim-tmux
+#       vim-nix
+#       typescript-vim
+#       nerdtree
+#    ];
   };
+
   # see overlay
   programs.powerline-go = {
     enable = true;
@@ -184,6 +245,12 @@ in
     fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
     # i.e., gpg --import private.key ... then gpg --edit-key {KEY} trust quit, where key is output from the previous import
+
+    if [ ! -z $XDG_DATA_HOME ]; then
+      if [ ! -d $XDG_DATA_HOME/bash ]; then
+        $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/bash
+      fi
+    fi
   '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;

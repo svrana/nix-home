@@ -50,7 +50,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'jreybert/vimagit'
 Plug 'tpope/vim-rhubarb'
-Plug 'stsewd/fzf-checkout.vim'
+"Plug 'stsewd/fzf-checkout.vim'
 " Text processing
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -59,7 +59,7 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'justinmk/vim-sneak'
 " Programming (general)
 Plug 'ervandew/supertab'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neomake/neomake'
 Plug 'wellle/tmux-complete.vim'
 Plug 'honza/vim-snippets'
@@ -67,8 +67,10 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter'
 Plug 'fatih/vim-go', { 'tag': 'v1.24', 'do': ':GoUpdateBinaries' }
 Plug 'wsdjeg/vim-fetch'
-Plug 'psf/black'
-Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'psf/black'
+"Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug "fisadev/vim-isort"
+" shaw todo
 Plug 'uber/prototool', { 'rtp': 'vim/prototool' }
 " File handling
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -82,9 +84,10 @@ Plug 'google/vim-jsonnet'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
 Plug 'leafgarland/typescript-vim'
+" shaw todo
 Plug 'tpope/vim-jdaddy'
 Plug 'preservim/nerdtree'
-Plug 'scrooloose/nerdtree-project-plugin'
+"Plug 'scrooloose/nerdtree-project-plugin'
 
 call plug#end()
 
@@ -104,6 +107,7 @@ let g:airline_exclude_filetypes = ["list"]
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t' "no path,only filename
+"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
@@ -213,6 +217,7 @@ nmap <silent> <leader>cp <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>cn <Plug>(coc-diagnostic-next
 nmap <silent> <leader>ct <Plug>(coc-type-definitio)
 nmap <silent> <leader>cr <Plug>(coc-rename)
+nmap <silent> <leader>cl <esc>(coc-list-location)<CR><CR>
 nmap <silent> <leader>cs <esc>:CocRestart<CR><CR>
 
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
@@ -286,3 +291,23 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" https://github.com/neoclide/coc-tsserver/issues/244
+function! OpenZippedFile(f)
+  " get number of new (empty) buffer
+  let l:b = bufnr('%')
+  " construct full path
+  let l:f = substitute(a:f, '.zip/', '.zip::', '')
+  let l:f = substitute(l:f, '/zip:', 'zipfile:', '')
+
+  " swap back to original buffer
+  b #
+  " delete new one
+  exe 'bd! ' . l:b
+  " open buffer with correct path
+  sil exe 'e ' . l:f
+  " read in zip data
+  call zip#Read(l:f, 1)
+endfunction
+
+au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
