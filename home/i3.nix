@@ -5,7 +5,7 @@ let
   maim = "${pkgs.maim}/bin/maim";
   xclip = "${pkgs.xclip}/bin/xclip";
   ranger = "${pkgs.ranger}/bin/ranger";
-  rofi-calc-cmd = ''${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
+  rofi-calc-cmd = ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
   scratch-term = pkgs.writeScript "scratch-term" ''
     #!${pkgs.bash}/bin/bash
@@ -50,8 +50,7 @@ in
             followMouse = false;
             newWindow = "focus";
           };
-          #menu = "rofi -show drun -modi drun,run -eh 2 -padding 16 -show-icons";
-          fonts = [ "System San Francisco Display 12" ];
+          fonts = [ "${config.settings.i3.font}" ];
           colors = {
             focused = {
               border = "#4c7899";
@@ -92,7 +91,6 @@ in
           };
           keybindings = let mod = "Mod4";
           in {
-            #"${mod}+Shift+minus" = "move scratchpad";
             "${mod}+minus" = ''[class="scratch-term"] scratchpad show'';
             "${mod}+Return" = "exec --no-startup-id ${alacritty}";
             "${mod}+Shift+q" = "kill";
@@ -105,33 +103,32 @@ in
             "${mod}+6" = "workspace 6";
             "${mod}+7" = "workspace 7";
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
-            #"${mod}+a" = "focus parent";
             "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
             "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
             "${mod}+e" = "layout toggle split";
             "${mod}+f" = "fullscreen toggle";
-            "${mod}+q" = "kill";
             "${mod}+h" = "focus left";
-            "${mod}+i" = "mode split";
+            "${mod}+i" = "layout toggle stacking tabbed normal";
             "${mod}+j" = "focus down";
             "${mod}+k" = "focus up";
             "${mod}+l" = "focus right";
             "${mod}+m" = ''[instance="tmux"] focus'';
             "${mod}+n" = ''[instance="aerc"] focus'';
             "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
+            "${mod}+q" = "kill";
             "${mod}+r" = "mode resize";
             "${mod}+s" = "layout stacking";
             "${mod}+t" = "layout tabbed";
             "${mod}+u" = ''exec --no-startup-id "alacritty -e ${ranger}"'';
             "${mod}+x" = "layout toggle splitv splith";
+            "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
             "${mod}+Shift+h" = "move left";
             "${mod}+Shift+j" = "move down";
             "${mod}+Shift+k" = "move up";
             "${mod}+Shift+l" = "move right";
-            "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
             "${mod}+Shift+space" = "floating toggle";
             "${mod}+space" = "focus mode_toggle";
-            "${mod}+Shift+t" = "exec --no-startup-id alacritty --class tmux -e tmuxinator work";
+            "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
             "${mod}+Shift+1" = "move container to workspace 1";
             "${mod}+Shift+2" = "move container to workspace 2";
             "${mod}+Shift+3" = "move container to workspace 3";
@@ -146,7 +143,7 @@ in
             "${mod}+Tab" = ''exec --no-startup-id ${rofi} -show window -eh 2 -padding 16 -show-icons'';
             "${mod}+comma" = ''[class="qutebrowser"] focus'';
             "${mod}+period" = ''[instance="spotify"] focus'';
-            "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart";
+            "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate";
             "Mod1+Control+l" = "exec --no-startup-id $BIN_DIR/i3lockwrapper.sh";
             "Mod1+Control+v" = "split horizontal";
             "Mod1+Control+h" = "split vertical";
@@ -172,13 +169,7 @@ in
               "Return" = "mode default";
               "Escape" = "mode default";
             };
-            split = {
-              "v" = "mode default, split horizontal";
-              "h" = "mode default, split vertical";
-              "Return" = "mode default";
-              "Escape" = "mode default";
-            };
-            "exit: l)ogout r)eboot s)hutdown su)spend h)ibernate n)etworking restart" = {
+            "exit: l)ogout r)eboot s)hutdown su)spend h)ibernate" = {
               "l" = "exec i3-msg exit";
               "r" = "exec sudo systemctl reboot";
               "s" = "exec sudo systemctl poweroff";
@@ -203,37 +194,37 @@ in
           ];
         };
         extraConfig = ''
-                  set $ws1 1
-                  set $ws2 2
-                  set $ws3 3
-                  set $ws4 4
-                  set $ws5 5
-                  set $ws6 6
+          set $ws1 1
+          set $ws2 2
+          set $ws3 3
+          set $ws4 4
+          set $ws5 5
+          set $ws6 6
 
-                  set $base03 #002b36
-                  set $base02 #073642
-                  set $base01 #586e75
-                  set $base00 #657b83
-                  set $base0 #839496
-                  set $base1 #93a1a1
-                  set $base2 #eee8d5
-                  set $base3 #fdf6e3
-                  set $yellow #b58900
-                  set $orange #cb4b16
-                  set $red #dc322f
-                  set $magenta #d33682
-                  set $violet #6c71c4
-                  set $blue #268bd2
-                  set $cyan #2aa198
-                  set $green #859900
+          set $base03 #002b36
+          set $base02 #073642
+          set $base01 #586e75
+          set $base00 #657b83
+          set $base0 #839496
+          set $base1 #93a1a1
+          set $base2 #eee8d5
+          set $base3 #fdf6e3
+          set $yellow #b58900
+          set $orange #cb4b16
+          set $red #dc322f
+          set $magenta #d33682
+          set $violet #6c71c4
+          set $blue #268bd2
+          set $cyan #2aa198
+          set $green #859900
 
-                  default_border pixel 2
+          default_border pixel 2
 
-                  for_window [class="Standard Notes"] move scratchpad, move position 1000 50, resize set 1800 2000
-                  for_window [class="Slack"] move scratchpad, move position 1000 50, resize set 1800 2000
-                  for_window [class="scratch-term"] move scratchpad, move position 1000 50, resize set 1800 2000
+          for_window [class="Standard Notes"] move scratchpad, move position 1000 50, resize set 1800 2000
+          for_window [class="Slack"] move scratchpad, move position 1000 50, resize set 1800 2000
+          for_window [class="scratch-term"] move scratchpad, move position 1000 50, resize set 1800 2000
 
-                  assign [class="qutebrowser"] $ws3
+          assign [class="qutebrowser"] $ws3
         '';
       };
     };
