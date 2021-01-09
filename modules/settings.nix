@@ -5,6 +5,12 @@ with lib;
 {
   options = {
     settings = {
+      i3 = {
+        font = mkOption {
+          default = "System San Francisco Display 12";
+          type = types.str;
+        };
+      };
       alacrittyFontSize = mkOption {
         default = 14;
         type = types.int;
