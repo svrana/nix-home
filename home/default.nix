@@ -80,6 +80,7 @@ in
     libreoffice
     pkgsUnstable.minikube
     maim
+    mpv
     nixfmt
     nodejs-12_x
     nodePackages.eslint
