@@ -185,7 +185,7 @@ in
             { command = "systemctl --user restart polybar"; always = true; notification = false; }
             { command = "${pkgs.insync}/bin/insync start"; notification = false; }
             { command = "${pkgs.dunst}/bin/dunst"; notification = false; }
-            { command = "${pkgs.xautolock}/bin/xautolock -corners '--00' -time 5 -locker $BIN_DIR/i3lockwrapper.sh"; notification = false; }
+            { command = "${pkgs.xautolock}/bin/xautolock -corners '--00' -time 5 -cornersize 20 -locker $BIN_DIR/i3lockwrapper.sh"; notification = false; }
             { command = "${pkgs.hsetroot}/bin/hsetroot -solid '#002b36'"; notification = false; }
             { command = "${pkgs.qutebrowser}/bin/qutebrowser"; notification = false; }
             { command = "standardnotes"; notification = false; }
