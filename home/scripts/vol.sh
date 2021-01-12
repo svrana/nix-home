@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
-# finds the active sink for pulse audio and increments the volume. useful when you have multiple audio outputs and have a key bound to vol-up and down
+# Finds the active sink for pulse audio and increments the volume. useful when
+# you have multiple audio outputs and have a key bound to vol-up and down.
 
 osd='no'
 inc='2'
 capvol='no'
 maxvol='200'
-autosync='yes'
-
-# Muted status
-# yes: muted
-# no : not muted
-curStatus="no"
+autosync='no'
+isMuted="no"
 active_sink=""
 limit=$((100 - inc))
 maxlimit=$((maxvol - inc))
@@ -95,7 +92,7 @@ function volMute {
 }
 
 function volMuteStatus {
-    curStatus=$(pacmd list-sinks | grep -A 15 "index: $active_sink" | awk '/muted/{ print $2}')
+    isMuted=$(pacmd list-sinks | grep -A 15 "index: $active_sink" | awk '/muted/{ print $2}')
 }
 
 # Prints output for bar
@@ -132,11 +129,18 @@ function output() {
     reloadSink
     getCurVol
     volMuteStatus
-    if [ "${curStatus}" = 'yes' ]
+    if [ "${isMuted}" = 'yes' ]
     then
-        echo " $curVol%"
+        # need a better muted
+        echo " $curVol%"
     else
-        echo " $curVol%"
+        if [ "$curVol" -ge 50 ]; then
+            echo " $curVol%"
+        elif [ "$curVol" -ge 30 ]; then
+            echo " $curVol%"
+        else
+            echo " $curVol%"
+        fi
     fi
 } #}}}
 
@@ -150,7 +154,7 @@ case "$1" in
         ;;
     --togmute)
         volMuteStatus
-        if [ "$curStatus" = 'yes' ]
+        if [ "$isMuted" = 'yes' ]
         then
             volMute unmute
         else
