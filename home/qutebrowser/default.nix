@@ -61,7 +61,7 @@ in
         "<Ctrl-b>" = "config-source";
         "<Ctrl-m>" = "spawn --detach mpv --force-window yes {url}";
         "<Ctrl-y>" = "hint links spawn --detach mpv --force-window yes {hint-url}";
-        "<Ctrl-Shift-I>" = "inspector";
+        "<Ctrl-Shift-I>" = "devtools";
         "<Ctrl-R>" = "config-cycle content.user_stylesheets '${solCSS}/solarized-dark-all-sites.css' '${solCSS}/solarized-light-all-sites.css' ''";
         "c" = "back";
         "]" = "tab-next";
