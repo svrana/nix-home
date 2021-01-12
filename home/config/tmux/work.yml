@@ -53,7 +53,7 @@ windows:
       root: ~/Projects/c1
       panes:
         - tilt up --stream
-        - xdg-open http://localhost:10350/
+        -
         -
   - dots:
       layout: even-horizontal

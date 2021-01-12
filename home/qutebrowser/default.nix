@@ -17,6 +17,7 @@ let
   blue = "#268bd2";
   cyan = "#2aa198";
   green = "#859900";
+  solCSS = "${pkgs.solarized-everything-css}/share/css";
 in
 {
   programs.qutebrowser = {
@@ -61,7 +62,7 @@ in
         "<Ctrl-m>" = "spawn --detach mpv --force-window yes {url}";
         "<Ctrl-y>" = "hint links spawn --detach mpv --force-window yes {hint-url}";
         "<Ctrl-Shift-I>" = "inspector";
-        "<Ctrl-R>" = "config-cycle content.user_stylesheets '${pkgs.solarized-everything-css}/share/css/solarized-dark-all-sites.css' '${pkgs.solarized-everything-css}/share/css/solarized-light-all-sites.css' ''";
+        "<Ctrl-R>" = "config-cycle content.user_stylesheets '${solCSS}/solarized-dark-all-sites.css' '${solCSS}/solarized-light-all-sites.css' ''";
         "c" = "back";
         "]" = "tab-next";
         "[" = "tab-prev";
@@ -126,7 +127,7 @@ in
         #command = ["${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim {}"];
         command = ["${pkgs.alacritty}/bin/alacritty" "-e" "nvim {}"];
       };
-      statusbar.show = "in-mode";
+      #statusbar.show = "in-mode";
       tabs = {
         background = true;
         close_mouse_button = "right";
