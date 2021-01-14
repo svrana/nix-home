@@ -1,13 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
-  # services.dunst = {
-  #   enable = true;
-  # };
+  services.dunst = {
+    enable = true;
+  };
 
+  # todo convert
   xdg.configFile."dunst/dunstrc" = {
     text = ''
-      [global]
+      # the [global] flag is added by the home-manager so excluded here
+      #[global]
         geometry = "500x50-30+35"
         indicate_hidden = yes
         shrink = no
@@ -19,10 +21,8 @@
 
         separator_color = frame
         sort = yes
-
         idle_threshold = 0
 
-        ### Text ###
         font = System San Francisco Display "${toString config.settings.dunstFontSize}"
         line_height = 4
         markup = full
@@ -45,28 +45,10 @@
         hide_duplicate_count = false
         show_indicators = yes
 
-        ### Icons ###
-
         # Align icons left/right/off
         icon_position = left
         max_icon_size = 128
-        icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
-        ### History ###
-        sticky_history = yes
-        history_length = 20
-
-        ### Misc/Advanced ###
-        dmenu = /usr/bin/dmenu -p dunst:
-        browser = /usr/bin/firefox -new-tab
-        title = Dunst
-        class = Dunst
-        startup_notification = false
-
-      [shortcuts]
-        close = ctrl+space
-        close_all = ctrl+shift+space
-        context = ctrl+shift+period
 
       [urgency_low]
         background = "#002b36"
