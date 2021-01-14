@@ -218,7 +218,6 @@ in
               "r" = "exec sudo systemctl reboot";
               "s" = "exec sudo systemctl poweroff";
               "u" = "exec sudo systemctl suspend";
-              "n" = "exec sudo systemctl restart NetworkManager ; mode default";
               "h" = "exec sudo systemctl hibernate; mode default";
               "Escape" = "mode default";
               "Return" = "mode default";
