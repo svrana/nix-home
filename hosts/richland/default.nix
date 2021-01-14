@@ -5,7 +5,7 @@ let
 in {
   config.settings = {
     rofiFontSize = 12;
-    dunstFontSize = 14;
+    dunstFontSize = 12;
     alacrittyFontSize = 8;
     cursorSize = 14;
     polybar = {
