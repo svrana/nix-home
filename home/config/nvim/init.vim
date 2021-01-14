@@ -103,11 +103,11 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_b='' "Disable showing branch cause it crowds the filename
 let g:airline_section_y='' "Disable filetype cause it's mostly useless
 " Exclude overwrite statusline of list filetype
-let g:airline_exclude_filetypes = ["list"]
+"let g:airline_exclude_filetypes = ["list"]
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t' "no path,only filename
-"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+"let g:airline#extensions#tabline#fnamemod = ':t' "no path,only filename
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
