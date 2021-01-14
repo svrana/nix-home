@@ -90,7 +90,6 @@ in
     prototool
     python3
     readline
-    gnome3.gnome-screenshot
     rnix-lsp
     shellcheck
     shfmt
