@@ -46,6 +46,8 @@ in
     ./keychain.nix
     ./kubectl.nix
     ./i3.nix
+    ./i3lock-color.nix
+    ./insync.nix
     ./polybar.nix
     ./tmux
     ./glow.nix
@@ -74,8 +76,6 @@ in
     hugo
     kubernetes-helm
     gitAndTools.hub
-    i3lock-color
-    insync
     kubectx
     libreoffice
     pkgsUnstable.minikube

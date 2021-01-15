@@ -14,8 +14,12 @@ limit=$((100 - inc))
 maxlimit=$((maxvol - inc))
 
 reloadSink() {
-    #active_sink=$(pacmd list-sinks | awk '/* index:/{print $3}')
-    active_sink=$(pacmd list-sinks | grep -B 4 RUNNING | grep index | awk ' { print $NF } ')
+    new_sink=$(pacmd list-sinks | grep -B 4 RUNNING | grep index | awk ' { print $NF } ')
+    # hack hack, if we fail to get the sink out, just bail
+    if [[ ! $new_sink =~ ^-?[0-9]+$ ]]; then
+        return
+    fi
+    active_sink=$new_sink
 }
 
 function volUp {
