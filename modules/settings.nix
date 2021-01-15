@@ -11,34 +11,48 @@ with lib;
           type = types.str;
         };
       };
-      alacrittyFontSize = mkOption {
-        default = 14;
-        type = types.int;
+      alacritty = {
+        fontSize = mkOption {
+          default = 14;
+          type = types.int;
+        };
       };
-      rofiFontSize = mkOption {
-        default = 18;
-        type = types.int;
+      rofi = {
+        fontSize = mkOption {
+          default = 18;
+          type = types.int;
+        };
       };
-      dunstFontSize = mkOption {
-        default = 16;
-        type = types.int;
+      dunst = {
+        fontSize = mkOption {
+          default = 16;
+          type = types.int;
+        };
       };
-      cursorSize = mkOption {
-        default = 14;
-        type = types.int;
+      x = {
+        cursorSize = mkOption {
+          default = 14;
+          type = types.int;
+        };
       };
       polybar = {
-        font0Size = mkOption {
-          default = "18;3";
-          type = types.str;
+        font0 =  {
+          size = mkOption {
+            default = "18;3";
+            type = types.str;
+          };
         };
-        font1Size = mkOption {
-          default = "18;4";
-          type = types.str;
+        font1= {
+          size = mkOption {
+            default = "18;4";
+            type = types.str;
+          };
         };
-        font2Size = mkOption {
-          default = "26;7"; # untested
-          type = types.str;
+        font2 = {
+          size = mkOption {
+            default = "26;7"; # untested
+            type = types.str;
+          };
         };
         wirelessInterface = mkOption {
           default = "wlp2s0";
@@ -46,6 +60,10 @@ with lib;
         };
         wiredInterface = mkOption {
           default = "eno1";
+          type = types.str;
+        };
+        modules-right = mkOption {
+          default = "volume xbacklight battery wlan eth powermenu";
           type = types.str;
         };
       };

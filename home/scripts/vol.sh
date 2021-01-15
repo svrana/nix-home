@@ -5,6 +5,7 @@
 
 osd='no'
 inc='2'
+curVol=3
 capvol='no'
 maxvol='200'
 autosync='no'
@@ -14,12 +15,9 @@ limit=$((100 - inc))
 maxlimit=$((maxvol - inc))
 
 reloadSink() {
-    new_sink=$(pacmd list-sinks | grep -B 4 RUNNING | grep index | awk ' { print $NF } ')
-    # hack hack, if we fail to get the sink out, just bail
-    if [[ ! $new_sink =~ ^-?[0-9]+$ ]]; then
-        return
-    fi
-    active_sink=$new_sink
+    # this will return '' if there is no active sink, then when we get the volume we get all
+    # the volumes and we pick the last one
+    active_sink=$(pacmd list-sinks | grep -B 4 RUNNING | grep index | awk ' { print $NF } ')
 }
 
 function volUp {
@@ -77,7 +75,7 @@ function volSync {
 }
 
 function getCurVol {
-    curVol=$(pacmd list-sinks | grep -A 15 'index: '"$active_sink"'' | grep 'volume:' | grep -E -v 'base volume:' | awk -F : '{print $3}' | grep -o -P '.{0,3}%'| sed s/.$// | tr -d ' ')
+    curVol=$(pacmd list-sinks | grep -A 15 'index: '"$active_sink"'' | grep 'volume:' | grep -E -v 'base volume:' | awk -F : '{print $3}' | grep -o -P '.{0,3}%'| sed s/.$// | tr -d ' ' | tail -n1)
 }
 
 function volMute {
@@ -133,6 +131,11 @@ function output() {
     reloadSink
     getCurVol
     volMuteStatus
+
+    if [ -z "$curVol" ]; then
+        return
+    fi
+
     if [ "${isMuted}" = 'yes' ]
     then
         # need a better muted

@@ -1,5 +1,6 @@
 { config, pkgs, lib, pkgsUnstable, ... }:
 let
+  i3 = config.settings.i3;
   rofi = "${pkgs.rofi}/bin/rofi";
   rofi-pass = "${pkgs.rofi-pass}/bin/rofi-pass";
   maim = "${pkgs.maim}/bin/maim";
@@ -51,7 +52,7 @@ in
             followMouse = false;
             newWindow = "focus";
           };
-          fonts = [ "${config.settings.i3.font}" ];
+          fonts = [ "${i3.font}" ];
           colors = {
             focused = {
               border = "#4c7899";

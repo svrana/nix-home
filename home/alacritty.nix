@@ -31,7 +31,7 @@
             family = "UbuntuMono Nerd Font Mono";
             style = "Italic";
           };
-          size = config.settings.alacrittyFontSize;
+          size = config.settings.alacritty.fontSize;
           offset.x = 0;
           offset.y = 0;
           gliph_offset.x = 0;
