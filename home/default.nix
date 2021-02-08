@@ -66,17 +66,21 @@ in
     pkgsUnstable.aerc
     autotiling
     ctags
+    ctlptl
     dante
     dbeaver
+    discord
     docker-compose
     networkmanager_dmenu
     dunst
+    entr
     feh
     gnupg
     hugo
     kubernetes-helm
     gitAndTools.hub
     kubectx
+    lm_sensors
     libreoffice
     pkgsUnstable.minikube
     maim
@@ -94,6 +98,7 @@ in
     shellcheck
     shfmt
     slack
+    spotify-tui
     ssh-agents
     system-san-francisco-font
     pkgsUnstable.tilt
@@ -291,6 +296,7 @@ in
       wifi_chars = ▂▄▆█
   '';
 
+  #services.spotifyd.enable = true;
   systemd.user.services.autocutsel = {
     Unit.Description = "AutoCutSel";
     Install = {
@@ -304,4 +310,11 @@ in
       ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
     };
   };
+
+  # # Move ~/.Xauthority out of $HOME (setting XAUTHORITY early isn't enough)
+  # environment.extraInit = ''
+  #   export XAUTHORITY=/tmp/Xauthority
+  #   [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
+  # '';
+
 }
