@@ -1,4 +1,27 @@
 { pkgs, ... }:
+# The following qutebrowser modes are available:
+#
+#   normal: Default mode, where most commands are invoked.
+#
+#   insert: Entered when an input field is focused on a website, or by pressing i in normal mode. Passes through
+#           almost all keypresses to the website, but has some bindings like <Ctrl-e> to open an external editor.
+#           Note that single keys can’t be bound in this mode.
+#
+#   hint: Entered when f is pressed to select links with the keyboard. Note that single keys can't be bound in this mode.
+#
+#   passthrough: Similar to insert mode, but passes through all keypresses except <Escape> to leave the mode.
+#                It might be useful to bind <Escape> to some other key in this mode if you want to be able to send an Escape
+#                key to the website as well. Note that single keys can’t be bound in this mode.
+#
+#   command: Entered when pressing the : key in order to enter a command. Note that single keys can't be bound in this mode.
+#
+#   prompt: Entered when there’s a prompt to display, like for download locations or when invoked from JavaScript.
+#
+#   yesno: Entered when there’s a yes/no prompt displayed.
+#
+#   caret: Entered when pressing the v mode, used to select text using the keyboard.
+#
+#   register: Entered when qutebrowser is waiting for a register name/key for commands like :set-mark.
 let
   # Solarize it
   base03 = "#002b36";
@@ -22,6 +45,7 @@ in
 {
   programs.qutebrowser = {
     enable = true;
+    #package = pkgsUnstable.qutebrowser;
     extraConfig = ''
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
       config.bind("<Escape>", "leave-mode", mode="passthrough")
@@ -37,6 +61,9 @@ in
     keyBindings = {
       command = {
         ",q" = "leave-mode";
+        # these don't seem to work :(
+        #"<Ctrl-j>" = "completion-item-focus --history next";
+        #"<Ctrl-k>" = "completion-item-focus --history prev";
       };
       hint = {
         ",q" = "leave-mode";
@@ -53,16 +80,19 @@ in
       register = {
         ",q" = "leave-mode";
       };
+      insert = {
+        "<Ctrl-;>" = "open-editor";
+      };
       normal = {
-        "<Ctrl-D>" = "scroll-page 0 -0.5";
-        "<Ctrl-F>" = "scroll-page 0 0.5";
+        "<Ctrl-d>" = "scroll-page 0 -0.5";
+        "<Ctrl-f>" = "scroll-page 0 0.5";
         "<Ctrl-h>" = "tab-next";
         "<Ctrl-s>" = "tab-prev";
         "<Ctrl-b>" = "config-source";
         "<Ctrl-m>" = "spawn --detach mpv --force-window yes {url}";
         "<Ctrl-y>" = "hint links spawn --detach mpv --force-window yes {hint-url}";
-        "<Ctrl-Shift-I>" = "devtools";
-        "<Ctrl-R>" = "config-cycle content.user_stylesheets '${solCSS}/solarized-dark-all-sites.css' '${solCSS}/solarized-light-all-sites.css' ''";
+        "<Ctrl-Shift-i>" = "devtools window";
+        "<Ctrl-r>" = "config-cycle content.user_stylesheets '${solCSS}/solarized-dark-all-sites.css' '${solCSS}/solarized-light-all-sites.css' ''";
         "c" = "back";
         "]" = "tab-next";
         "[" = "tab-prev";
