@@ -20,6 +20,7 @@
     man
     openvpn
     ripgrep
+    tailscale
     wget
     wirelesstools
     unzip
