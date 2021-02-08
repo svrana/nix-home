@@ -36,8 +36,6 @@
       SQLITE_HISTORY = "$XDG_DATA_HOME/sqlite_history";
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
-      #XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-      #XAUTHORITY = "$XDG_CONFIG_HOME/Xauthority";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
 
       TMP = "/tmp";
@@ -79,7 +77,7 @@
     '';
     bashrcExtra = ''
       source "$RCS/functions.sh"
-      PATH_append "$BIN_DIR:$CARGO_PATH/bin"
+      PATH_append "$BIN_DIR"
     '';
     profileExtra = "";
     shellAliases = {
