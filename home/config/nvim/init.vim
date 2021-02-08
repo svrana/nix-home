@@ -64,6 +64,7 @@ Plug 'neomake/neomake'
 Plug 'wellle/tmux-complete.vim'
 Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat'
 Plug 'airblade/vim-rooter'
 Plug 'fatih/vim-go', { 'tag': 'v1.24', 'do': ':GoUpdateBinaries' }
 Plug 'wsdjeg/vim-fetch'
@@ -84,6 +85,7 @@ Plug 'google/vim-jsonnet'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 " shaw todo
 Plug 'tpope/vim-jdaddy'
 Plug 'preservim/nerdtree'
@@ -91,13 +93,16 @@ Plug 'preservim/nerdtree'
 
 call plug#end()
 
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
 
 let mapleader = ","
 let maplocalleader = ","
 let g:autoswap_detect_tmux = 1
 let g:markdown_composer_autostart = 0
 let g:markdown_composer_browser="epiphany-browser"
-let g:typescript_indent_disable = 1
+" this was for vim-autoformat
+"let g:typescript_indent_disable = 1
 " Statusline stetup
 let g:airline_powerline_fonts = 1
 let g:airline_section_b='' "Disable showing branch cause it crowds the filename
@@ -143,7 +148,17 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 
 autocmd! BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.py execute ':Black'
-autocmd BufWrite *.ts :Autoformat
+
+"autocmd BufWrite *.ts :Autoformat
+augroup fmt
+  autocmd!
+  autocmd BufWritePre *.tsx undojoin | Neoformat
+  autocmd BufWritePre *.ts undojoin | Neoformat
+  autocmd BufWritePre *.js undojoin | Neoformat
+  autocmd BufWritePre *.jsx undojoin | Neoformat
+augroup END
+
+
 "let g:formatdef_my_proto = '"prototool format -w"'
 "let g:formatters_proto = ['my_proto']
 "let g:formatters_proto = ['"prototool format -w"'] wtf
@@ -197,6 +212,7 @@ nnoremap <leader>nt :tabnew<CR>
 nnoremap <leader>sv :source $XDG_CONFIG_HOME/nvim/init.vim<CR>
 nnoremap \th :set invhls hls?<CR>
 nnoremap <silent> <LocalLeader>t :Files<cr>
+nnoremap <silent> <LocalLeader>b :Buffers<cr>
 nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
 nnoremap <silent> <LocalLeader>f :call FZFGitRoot()<cr>
 nnoremap <silent> <LocalLeader>r :RG<cr>
