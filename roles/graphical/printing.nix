@@ -3,6 +3,7 @@
 {
   services.printing = {
     enable = true;
+    drivers = with pkgs; [ brlaser ];
   };
   # for printer discovery
   services.avahi.enable = true;
