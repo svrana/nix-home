@@ -12,6 +12,6 @@
       } $XDG_CONFIG_HOME/aerc/accounts.conf
     '';
 
-  #home.file.".local/share/applications/aerc.desktop".source = ./aerc.desktop;
-  #home.file.".local/share/applications/cmus.desktop".source = ./cmus.desktop;
+  xdg.configFile."aerc/aerc.conf".source = ../config/aerc/aerc.conf;
+  xdg.configFile."aerc/binds.conf".source = ../config/aerc/binds.conf;
 }
