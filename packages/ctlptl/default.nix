@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "ctlptl";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "tilt-dev";
@@ -13,7 +13,9 @@ buildGoModule rec {
 
   vendorSha256 = "18fb09xjknq3gz5z990qwpqnxhnpzrydyq95aax5ldab9q7in1i1";
 
-  doCheck = false;
+  buildFlagsArray = [
+    "-ldflags=-s -w -X main.version=${version}"
+  ];
 
   meta = with stdenv.lib; {
     description = "CLI for declaratively setting up local Kubernetes clusters.";
