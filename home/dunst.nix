@@ -12,7 +12,9 @@
         padding = 16;
         horizontal_padding = 16;
         frame_width = 2;
-        frame_color = "#93a1a1";
+        #frame_color = "#93a1a1";
+        frame_color = "#2aa198";
+
         separator_color = "frame";
         sort = "yes";
         idle_threshold = 0;
