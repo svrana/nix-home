@@ -52,7 +52,7 @@ windows:
       layout: even-horizontal
       root: ~/Projects/c1
       panes:
-        - tilt up --stream
+        -
         -
         -
   - dots:
