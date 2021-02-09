@@ -138,9 +138,10 @@ let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
 let g:go_list_type = "quickfix"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+" disable mapping of K to godoc. We remap for coc for the same purpose but prettier
+let g:go_doc_keywordprg_enabled = 0
 let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin', 'coc-snippets', 'coc-protobuf']
 let g:rooter_cd_cmd = 'lcd'
-
 
 colorscheme solarized
 highlight IncSearch ctermbg=LightYellow ctermfg=Red
@@ -148,7 +149,6 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 
 autocmd! BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.py execute ':Black'
-
 "autocmd BufWrite *.ts :Autoformat
 augroup fmt
   autocmd!
@@ -165,7 +165,8 @@ augroup END
 autocmd BufWritePost *.proto :call PrototoolFormat()
 "autocmd BufWrite *.nix :Autoformat
 
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" remapped to list buffers
+"autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType * setlocal formatoptions+=croq
 autocmd BufRead gitcommit setlocal spell spelllang=en_US textwidth=72
@@ -231,7 +232,7 @@ nmap <silent> <leader>cc <Plug>(coc-references)
 nmap <silent> <leader>ci <Plug>(coc-implementation)
 nmap <silent> <leader>cp <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>cn <Plug>(coc-diagnostic-next
-nmap <silent> <leader>ct <Plug>(coc-type-definitio)
+nmap <silent> <leader>ct <Plug>(coc-type-definition)
 nmap <silent> <leader>cr <Plug>(coc-rename)
 nmap <silent> <leader>cl <esc>(coc-list-location)<CR><CR>
 nmap <silent> <leader>cs <esc>:CocRestart<CR><CR>
@@ -287,12 +288,18 @@ function! s:build_go_files()
 endfunction
 
 function! s:show_documentation()
-    if &filetype == 'vim'
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
 endfunction
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Show signature help on placeholder jump
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 if !empty($GRUF_CONFIG)
     source ${GRUF_CONFIG}/gruf.vimrc
