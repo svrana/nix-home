@@ -179,6 +179,7 @@ autocmd BufNewFile,BufRead,BufEnter *.feature setf ruby
 autocmd BufNewFile,BufRead,BufEnter *.gradle setf groovy
 autocmd BufNewFile,BufRead,BufEnter *.json setf json
 autocmd BufNewFile,BufRead,BufEnter *.gjs setf javascript
+autocmd BufRead Tiltfile set filetype=python
 autocmd BufWritePost,BufEnter * Neomake
 autocmd FileType terraform setlocal commentstring=#%s
 autocmd! FileType fzf
