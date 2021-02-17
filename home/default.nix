@@ -69,6 +69,7 @@ in
     ctlptl
     dante
     dbeaver
+    diffstat
     discord
     docker-compose
     networkmanager_dmenu
@@ -77,12 +78,12 @@ in
     feh
     gnupg
     hugo
+    pkgsUnstable.kind
     kubernetes-helm
     gitAndTools.hub
     kubectx
     lm_sensors
     libreoffice
-    pkgsUnstable.minikube
     maim
     mpv
     nixfmt
@@ -277,17 +278,18 @@ in
     pb
   '';
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "text/html" = "org.qutebrowser.qutebrowser.desktop";
-      "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
-      "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
-      "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
-      "x-scheme-handler/slack" = "slack.desktop";
-      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
-    };
-  };
+
+ xdg.mimeApps = {
+   enable = true;
+   defaultApplications = {
+     "text/html" = "org.qutebrowser.qutebrowser.desktop";
+     "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
+     "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
+     "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
+     "x-scheme-handler/slack" = "slack.desktop";
+     "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
+   };
+ };
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]
       dmenu_command = rofi -dmenu
