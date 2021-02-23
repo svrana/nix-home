@@ -24,6 +24,9 @@ in
 
   fonts.fontconfig.enable = true;
 
+  # how can pass unstable into go.nix
+  programs.go.package = pkgsUnstable.go_1_16;
+
   imports = [
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
