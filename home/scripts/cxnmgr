@@ -18,7 +18,7 @@ else
 fi
 
 if [ "${choice}" = "Bluetooth" ]; then
-	choice2=$(printf 'Connect\nNew\nManage\nDisable' | rofi -dmenu -i -p 'Bluetooth')
+	choice2=$(printf 'Connect\nDisconnect\nNew\nManage\nDisable' | rofi -dmenu -i -p 'Bluetooth')
 	[ "${choice2}" = 'Connect' ] && $BIN_DIR/btmenu
 	[ "${choice2}" = 'Disconnect' ] && $BIN_DIR/btmenu -d
 	[ "${choice2}" = 'Manage' ] && blueman-manager
