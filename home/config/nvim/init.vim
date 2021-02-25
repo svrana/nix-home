@@ -95,6 +95,13 @@ call plug#end()
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
+function C1GolangCITweak()
+    if (expand("$C1") == FindRootDirectory())
+        let g:neomake_go_golangci_lint_exe="lint.sh"
+        let g:neomake_go_golangci_lint_args="run --fast --modules-download-mode=vendor --out-format=line-number --print-issued-lines=false --timeout 3m0s"
+        let g:neomake_go_golangci_lint_cwd="$C1"
+    endif
+endfunction
 
 let mapleader = ","
 let maplocalleader = ","
@@ -179,6 +186,8 @@ autocmd BufNewFile,BufRead,BufEnter *.feature setf ruby
 autocmd BufNewFile,BufRead,BufEnter *.gradle setf groovy
 autocmd BufNewFile,BufRead,BufEnter *.json setf json
 autocmd BufNewFile,BufRead,BufEnter *.gjs setf javascript
+autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
+
 autocmd BufRead Tiltfile set filetype=python
 autocmd BufWritePost,BufEnter * Neomake
 autocmd FileType terraform setlocal commentstring=#%s

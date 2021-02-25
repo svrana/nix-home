@@ -84,6 +84,7 @@ in
     pkgsUnstable.kind
     kubernetes-helm
     gitAndTools.hub
+    pkgsUnstable.golangci-lint
     kubectx
     lm_sensors
     libreoffice
@@ -260,6 +261,8 @@ in
         $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/bash
       fi
     fi
+
+    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $PERSONAL/c1/lint.sh $HOME/.local/bin/lint.sh
   '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
