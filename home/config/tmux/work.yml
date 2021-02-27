@@ -62,3 +62,6 @@ windows:
         - ls
         -
         -
+  - irc:
+      root: ~/
+      panes: weechat
