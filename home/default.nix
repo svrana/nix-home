@@ -94,7 +94,6 @@ in
     nodejs-12_x
     nodePackages.eslint
     packer
-    powerline-go
     perl532Packages.FileMimeInfo
     prototool
     python3
@@ -212,15 +211,17 @@ in
 #    ];
   };
 
-  # see overlay
-  programs.powerline-go = {
+  programs.starship = {
     enable = true;
-    modules = [ "perms" "venv" "gitlite" "ssh" "cwd" ];
-    newline = false;
     settings = {
-      cwd-mode = "dironly";
-      max-width = 65;
-      priority = "root,perms,venv,git-branch,exit,cwd";
+      # Disable the newline at the start of the prompt
+      add_newline = false;
+      golang.disabled = true;
+      nodejs.disabled = true;
+      kubernetes = {
+        disabled = false;
+        context_aliases.kind-kind = "dev";
+      };
     };
   };
   home.file.".local/bin" = {
@@ -324,5 +325,4 @@ in
   #   export XAUTHORITY=/tmp/Xauthority
   #   [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
   # '';
-
 }
