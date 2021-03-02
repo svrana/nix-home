@@ -24,8 +24,9 @@ in
 
   fonts.fontconfig.enable = true;
 
-  # how can pass unstable into go.nix
+  # ugh, how do we pass in pkgsUnstable ?
   programs.go.package = pkgsUnstable.go_1_16;
+  programs.qutebrowser.package = pkgsUnstable.qutebrowser;
 
   imports = [
     # settings has to go first as the config there controls aspects of the
