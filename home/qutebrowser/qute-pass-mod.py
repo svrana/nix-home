@@ -258,7 +258,7 @@ def main(arguments):
         qute_command('fake-key <Tab>')
 
     if arguments.insert_mode:
-        qute_command('enter-mode insert')
+        qute_command('mode-enter insert')
 
     return ExitCodes.SUCCESS
 

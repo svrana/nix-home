@@ -46,6 +46,7 @@ in
   programs.qutebrowser = {
     enable = true;
     #package = pkgsUnstable.qutebrowser;
+    #loadAutoConfig = true;
     extraConfig = ''
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
       config.bind("<Escape>", "leave-mode", mode="passthrough")
