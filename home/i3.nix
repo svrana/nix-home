@@ -30,8 +30,8 @@ in
       "RCS"
       "BIN_DIR"
     ];
-    # oddly this breaks i3-gaps if changed
-    #scriptPath = ".config/X11/xsession-hm";
+    # NOTE: This has to match the path set roles/graphical/x.nix
+    scriptPath = ".config/X11/xsession";
     windowManager = {
       i3 = {
         enable = true;
