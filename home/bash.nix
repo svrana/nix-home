@@ -1,5 +1,12 @@
 { pkgs, lib, ... }:
-
+let
+    # disable .python_history file. Might want to just move it somewhere else
+    # if I start using python again.
+    pythonstartup = pkgs.writeScript "python_readline" ''
+      import readline
+      readline.set_auto_history(False)
+    '';
+in
 {
   programs.bash = {
     enable = true;
@@ -13,7 +20,6 @@
       EDITOR = "nvim";
       MANPAGER = "nvim -c 'set ft=man' -";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
-      PYTHONDONTWRITEBYTECODE = 1;
       TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
 
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
@@ -32,6 +38,8 @@
 
       PSQLRC = "$XDG_CONFIG_HOME/psql/config";
       PYLINTHOME = "$XDG_CACHE_HOME/pylint";
+      PYTHONSTARTUP="${pythonstartup}";
+      PYTHONDONTWRITEBYTECODE = 1;
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       SQLITE_HISTORY = "$XDG_DATA_HOME/sqlite_history";
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
