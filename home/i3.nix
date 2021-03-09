@@ -105,6 +105,7 @@ in
             "${mod}+6" = "workspace 6";
             "${mod}+7" = "workspace 7";
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
+            "${mod}+a" = "focus parent";
             "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
             "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
             "${mod}+e" = "layout toggle split";
