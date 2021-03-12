@@ -53,8 +53,8 @@ in
       config.load_autoconfig()
     '';
     searchEngines = {
-        DEFAULT ="https://duckduckgo.com/html?q={}";
-        d = "https://duckduckgo.com/html?q={}";
+        DEFAULT ="https://duckduckgo.com/?q={}";
+        d = "https://duckduckgo.com/?q={}";
         g = "http://www.google.com/search?hl=en&q={}";
         gh = "https://github.com/search?q={}";
         yt = "https://www.youtube.com/results?search_query={}";
@@ -100,6 +100,7 @@ in
         "x" = "tab-close";
         ",q"= "tab-close";
         ",nt" = "open -t";
+        ",nw" = "open -w";
         ",l" = "spawn --userscript qute-pass-mod --mode gopass";
         ",u" =  "spawn --userscript qute-pass-mod --mode gopass --username-only --no-insert-mode";
         ",p" = "spawn --userscript qute-pass-mod --mode gopass --password-only --no-insert-mode";
@@ -261,4 +262,9 @@ in
 
   xdg.dataFile."qutebrowser/userscripts/qute-pass-mod".source =
     ./qute-pass-mod.py;
+
+  xdg.configFile."qutebrowser/greasemonkey" = {
+    source = ./greasemonkey;
+    recursive = true;
+  };
 }
