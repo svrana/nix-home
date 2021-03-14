@@ -49,7 +49,7 @@ in
     #loadAutoConfig = true;
     extraConfig = ''
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
-      config.bind("<Escape>", "leave-mode", mode="passthrough")
+      config.bind("<Escape>", "mode-leave", mode="passthrough")
       config.load_autoconfig()
     '';
     searchEngines = {
@@ -61,25 +61,25 @@ in
     };
     keyBindings = {
       command = {
-        ",q" = "leave-mode";
+        ",q" = "mode-leave";
         # these don't seem to work :(
         #"<Ctrl-j>" = "completion-item-focus --history next";
         #"<Ctrl-k>" = "completion-item-focus --history prev";
       };
       hint = {
-        ",q" = "leave-mode";
+        ",q" = "mode-leave";
       };
       caret = {
-        ",q" = "leave-mode";
+        ",q" = "mode-leave";
       };
       passthrough = {
-        "<ESCAPE>" = "leave-mode";
+        "<ESCAPE>" = "mode-leave";
       };
       prompt = {
-        ",q" = "leave-mode";
+        ",q" = "mode-leave";
       };
       register = {
-        ",q" = "leave-mode";
+        ",q" = "mode-leave";
       };
       insert = {
         "<Ctrl-;>" = "open-editor";
@@ -251,6 +251,10 @@ in
           match = {
             fg = "${magenta}";
           };
+        };
+        webpage = {
+          prefers_color_scheme_dark = true;
+          #preferred_color_scheme = "dark";
         };
       };
     };
