@@ -53,7 +53,8 @@ Plug 'tpope/vim-rhubarb'
 "Plug 'stsewd/fzf-checkout.vim'
 " Text processing
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'vim-scripts/matchit.zip'
 Plug 'justinmk/vim-sneak'
@@ -94,6 +95,10 @@ Plug 'preservim/nerdtree'
 call plug#end()
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+" Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
+let g:tcomment#filetype#guess_typescriptreact = 1
+
 
 function C1GolangCITweak()
     if (expand("$C1") == FindRootDirectory())
@@ -344,3 +349,4 @@ function! OpenZippedFile(f)
 endfunction
 
 au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
+
