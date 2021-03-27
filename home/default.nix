@@ -69,6 +69,7 @@ in
   home.packages = with pkgs; [
     pkgsUnstable.aerc
     autotiling
+    pkgsUnstable.calibre
     ctags
     ctlptl
     dante
@@ -121,6 +122,14 @@ in
 
   gtk = {
     enable = true;
+    iconTheme = {
+      package = pkgs.arc-icon-theme;
+      name = "Arc-Dark";
+    };
+    theme = {
+      package = pkgs.arc-theme;
+      name = "Arc-Dark";
+    };
     gtk3 = {
       bookmarks = [
         "file:///home/shaw/Documents"
