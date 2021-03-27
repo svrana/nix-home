@@ -47,6 +47,8 @@ in
     enable = true;
     #package = pkgsUnstable.qutebrowser;
     #loadAutoConfig = true;
+    # no per website configuratble stylesheets yet
+    #config.set('content.user_stylesheets', '${solCSS}/solarized-dark-github.css', '*://github.com/')
     extraConfig = ''
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
       config.bind("<Escape>", "mode-leave", mode="passthrough")

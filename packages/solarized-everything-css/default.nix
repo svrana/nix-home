@@ -15,8 +15,9 @@ stdenv.mkDerivation rec {
   '';
   installPhase = ''
     mkdir -p $out/share/css
-    cp css/solarized-dark/solarized-dark-all-sites.css $out/share/css
-    cp css/solarized-light/solarized-light-all-sites.css $out/share/css
+
+    cp css/solarized-dark/*.css $out/share/css
+    cp css/solarized-light/*.css $out/share/css
   '';
 
   meta = {
