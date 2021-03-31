@@ -89,8 +89,10 @@ in
     gitAndTools.hub
     pkgsUnstable.golangci-lint
     kubectx
+    ledger-live-desktop
     lm_sensors
     libreoffice
+    pkgsUnstable.i3-ratiosplit
     maim
     mpv
     nixfmt
@@ -110,6 +112,7 @@ in
     ssh-agents
     system-san-francisco-font
     pkgsUnstable.tilt
+    tdesktop
     tmuxinator
     w3m
     wmctrl
