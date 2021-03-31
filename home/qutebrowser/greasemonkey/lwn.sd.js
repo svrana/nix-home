@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        github Solarized Dark Theme
 // @namespace   https://lwn.net/
-// @match       https://lwn.net/
+// @match       https://lwn.net/*
 // @grant       none
 // @version     1.0
 // @author      @alphapaper
