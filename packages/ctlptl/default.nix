@@ -8,7 +8,7 @@ buildGoModule rec {
     owner = "tilt-dev";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0x4vrirwyagrwpccy1spwl38zcbs7sc0xivrhq1jhwkn654837xd";
+    sha256 = "1fagxd1wgnfq452la4na49hz9kss2sgh6ljkpwi0x54viyxbja5b";
   };
 
   vendorSha256 = "18fb09xjknq3gz5z990qwpqnxhnpzrydyq95aax5ldab9q7in1i1";
