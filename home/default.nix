@@ -310,28 +310,44 @@ in
      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
    };
  };
-  xdg.configFile."networkmanager-dmenu/config.ini".text = ''
-    [dmenu]
-      dmenu_command = rofi -dmenu
-      compact = true
-      rofi_highlight = True
-      wifi_chars = ▂▄▆█
-  '';
+ xdg.configFile."networkmanager-dmenu/config.ini".text = ''
+   [dmenu]
+     dmenu_command = rofi -dmenu
+     compact = true
+     rofi_highlight = True
+     wifi_chars = ▂▄▆█
+ '';
 
-  #services.spotifyd.enable = true;
-  systemd.user.services.autocutsel = {
-    Unit.Description = "AutoCutSel";
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "forking";
-      Restart = "always";
-      RestartSec = 2;
-      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
-      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
-    };
-  };
+ #services.spotifyd.enable = true;
+ systemd.user.services.autocutsel = {
+   Unit.Description = "AutoCutSel";
+   Install = {
+     WantedBy = [ "graphical-session.target" ];
+   };
+   Service = {
+     Type = "forking";
+     Restart = "always";
+     RestartSec = 2;
+     ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
+     ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+   };
+ };
+
+ systemd.user.services.i3-ratiosplit = {
+   Unit = {
+     Description = "i3-ratiosplit";
+     After = [ "graphical-session-pre.target" ];
+     PartOf = [ "graphical-session.target" ];
+   };
+   Install = { WantedBy = [ "graphical-session.target" ]; };
+   Service = {
+     Type = "simple";
+     ExecStart="${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgsUnstable.i3-ratiosplit}/bin/i3-ratiosplit'";
+     RestartSec = 2;
+     Restart = "always";
+   };
+ };
+
 
   # # Move ~/.Xauthority out of $HOME (setting XAUTHORITY early isn't enough)
   # environment.extraInit = ''
