@@ -118,7 +118,7 @@ in
         cookies = {
           accept = "no-3rdparty";
         };
-        notifications = false;
+        notifications.enabled = false;
         javascript = {
           can_access_clipboard = true;
           can_open_tabs_automatically = true;
@@ -255,7 +255,8 @@ in
           };
         };
         webpage = {
-          prefers_color_scheme_dark = true;
+          #prefers_color_scheme_dark = true;
+          preferred_color_scheme = "dark";
           #preferred_color_scheme = "dark";
         };
       };
