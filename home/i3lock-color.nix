@@ -6,7 +6,7 @@ let
   i3-msg = "${pkgs.i3-gaps}/bin/i3-msg";
   sleep-noti = pkgs.writeScript "sleep-noti" ''
     #! ${pkgs.bash}/bin/bash
-    ${pkgs.libnotify}/bin/notify-send -t 1000 'Sleeping in 60 seconds..'
+    ${pkgs.libnotify}/bin/notify-send 'Sleeping in 60 seconds..'
   '';
   i3lock-color = "${pkgs.i3lock-color}/bin/i3lock-color";
   i3lockwrapper = pkgs.writeScript "i3lockwrapper" ''
