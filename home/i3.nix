@@ -24,6 +24,10 @@ in
       package = pkgs.vanilla-dmz;
       name = "Vanilla-DMZ";
     };
+
+    # Environment variables to import into the user systemd
+    # session. The will be available for use by graphical
+    # services.
     importedVariables = [
       "INPUTRC"
       "DOTFILES"
@@ -103,6 +107,7 @@ in
             "${mod}+4" = "workspace 4";
             "${mod}+5" = "workspace 5";
             "${mod}+6" = "workspace 6";
+            "${mod}+slash" = "workspace 6";
             "${mod}+7" = "workspace 7";
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
             "${mod}+a" = "focus parent";
