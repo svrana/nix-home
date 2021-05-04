@@ -2,13 +2,11 @@
 
 ## Installation
 
-Need a nix with flake support for this part.
+
 
 ```
-nix-env -iA nixpkgs.nixFlakes
-
 sudo chown shaw:users /etc/nixos
 git clone --recursive https://github.com/svrana/nix-home.git /etc/nixos
 cd /etc/nixos
-sudo nixos-rebuild --flake . switch
+sudo nixos-rebuild . switch
 ```
