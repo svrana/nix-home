@@ -114,6 +114,7 @@ in
     pkgsUnstable.tilt
     tdesktop
     tmuxinator
+    tree
     w3m
     wmctrl
     xautolock
