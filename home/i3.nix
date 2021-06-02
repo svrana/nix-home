@@ -143,7 +143,8 @@ in
             "${mod}+Shift+l" = "move right";
             "${mod}+Shift+space" = "floating toggle";
             "${mod}+space" = "focus mode_toggle";
-            "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING";
+            "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux";
+            #"${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
             "${mod}+Shift+1" = "move container to workspace 1";
             "${mod}+Shift+2" = "move container to workspace 2";
             "${mod}+Shift+3" = "move container to workspace 3";

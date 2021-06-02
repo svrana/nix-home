@@ -136,7 +136,7 @@ in
     system-san-francisco-font
     pkgsUnstable.tilt
     tdesktop
-    tmuxinator
+    pkgsUnstable.tmuxinator
     tree
     urlview
     w3m
