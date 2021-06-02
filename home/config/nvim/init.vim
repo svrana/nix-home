@@ -26,6 +26,9 @@ set tagfunc=CocTagFunc
 set background=dark
 set pyx=3
 
+" prior to plugins
+"let g:ale_disable_lsp = 1
+
 function! BuildComposer(info)
     if a:info.status != 'unchanged' || a:info.force
         !cargo build --release
@@ -67,13 +70,16 @@ Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
 Plug 'sbdchd/neoformat'
 Plug 'airblade/vim-rooter'
-Plug 'fatih/vim-go', { 'tag': 'v1.24', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.25', 'do': ':GoUpdateBinaries' }
 Plug 'wsdjeg/vim-fetch'
 "Plug 'psf/black'
 "Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug "fisadev/vim-isort"
 " shaw todo
 Plug 'uber/prototool', { 'rtp': 'vim/prototool' }
+"Plug 'dense-analysis/ale'
+"Plug 'w0rp/ale'
+"Plug 'bufbuild/vim-buf'
 " File handling
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -95,6 +101,12 @@ Plug 'preservim/nerdtree'
 call plug#end()
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+" let g:ale_linters = {
+" \   'proto': ['buf-lint',],
+" \}
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_linters_explicit = 1
 
 " Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
 let g:tcomment#filetype#guess_typescriptreact = 1
@@ -152,7 +164,17 @@ let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 " disable mapping of K to godoc. We remap for coc for the same purpose but prettier
 let g:go_doc_keywordprg_enabled = 0
-let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-python', 'coc-git', 'coc-tsserver', 'coc-tslint-plugin', 'coc-snippets', 'coc-protobuf']
+let g:coc_global_extensions =
+\ [
+            \ 'coc-json',
+            \ 'coc-yaml',
+            \ 'coc-python',
+            \ 'coc-git',
+            \ 'coc-tsserver',
+            \ 'coc-tslint-plugin',
+            \ 'coc-snippets',
+            \ 'coc-protobuf'
+\ ]
 let g:rooter_cd_cmd = 'lcd'
 
 colorscheme solarized

@@ -8,6 +8,7 @@ let
   ranger = "${pkgs.ranger}/bin/ranger";
   rofi-calc-cmd = ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
+  email_client = "${alacritty} --class email -e neomutt";
   scratch-term = pkgs.writeScript "scratch-term" ''
     #!${pkgs.bash}/bin/bash
     while :
@@ -121,7 +122,7 @@ in
             "${mod}+k" = "focus up";
             "${mod}+l" = "focus right";
             "${mod}+m" = ''[instance="tmux"] focus'';
-            "${mod}+n" = ''[instance="aerc"] focus'';
+            "${mod}+n" = ''[instance="email"] focus'';
             "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
             "${mod}+q" = "kill";
             "${mod}+r" = "mode resize";
@@ -129,14 +130,20 @@ in
             "${mod}+t" = "layout tabbed";
             "${mod}+u" = ''exec --no-startup-id "alacritty -e ${ranger}"'';
             "${mod}+x" = "layout toggle splitv splith";
+            "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
+            "${mod}+Shift+c" = "reload";
+            "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate";
             "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
             "${mod}+Shift+h" = "move left";
+            "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
+            "${mod}+Shift+r" = "restart";
+            "${mod}+Shift+s" = ''exec --no-startup-id "${maim} -s | ${xclip} -selection clipboard -t image/png"'';
             "${mod}+Shift+j" = "move down";
             "${mod}+Shift+k" = "move up";
             "${mod}+Shift+l" = "move right";
             "${mod}+Shift+space" = "floating toggle";
             "${mod}+space" = "focus mode_toggle";
-            "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
+            "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING";
             "${mod}+Shift+1" = "move container to workspace 1";
             "${mod}+Shift+2" = "move container to workspace 2";
             "${mod}+Shift+3" = "move container to workspace 3";
@@ -144,14 +151,9 @@ in
             "${mod}+Shift+5" = "move container to workspace 5";
             "${mod}+Shift+6" = "move container to workspace 6";
             "${mod}+Shift+7" = "move container to workspace 7";
-            "${mod}+Shift+c" = "reload";
-            "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
-            "${mod}+Shift+r" = "restart";
-            "${mod}+Shift+s" = ''exec --no-startup-id "${maim} -s | ${xclip} -selection clipboard -t image/png"'';
             "${mod}+Tab" = ''exec --no-startup-id ${rofi} -show window -eh 2 -padding 16 -show-icons'';
             "${mod}+comma" = ''[class="qutebrowser"] focus'';
             "${mod}+period" = ''[instance="spotify"] focus'';
-            "${mod}+Shift+e" = "mode exit: l)ogout r)eboot s)hutdown su)spend h)ibernate";
             "Mod1+Control+l" = "exec --no-startup-id loginctl lock-session";
             "Mod1+Control+v" = "split horizontal";
             "Mod1+Control+h" = "split vertical";

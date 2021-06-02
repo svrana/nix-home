@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ pkgs, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "solarized-everything-css";
@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Solarize the web";
     homepage =  "https://github.com/alphapapa/solarized-everything-css";
-    license = stdenv.lib.licenses.gpl2;
-    platforms = stdenv.lib.platforms.all;
+    license = pkgs.lib.licenses.gpl2;
+    platforms = pkgs.lib.platforms.all;
     maintainers = [];
   };
 }

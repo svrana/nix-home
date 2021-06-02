@@ -4,8 +4,8 @@ self: super:
     src = super.fetchFromGitHub {
       owner = "svrana";
       repo = "powerline-go";
-      rev = "6c70514d7c69129df50603242674459e04a06f46";
-      sha256 = "1qgap9f0q9lswm7rnfi6r0wxq4myqzbnd76y4ni4ga6q4a77grny";
+      rev = "6645ee9525c377e35b8aa6968e22e539883c16ab";
+      sha256 = "0i357gpbrd4sf45nhd8pn0c239idfrx0x59hcnr93ah59j28svi8";
     };
   });
 }

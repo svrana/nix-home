@@ -1,8 +1,8 @@
-{ stdenv, fetchurl }:
+{ pkgs, fetchurl }:
 
 # https://github.com/ZulwiyozaPutra/SF-Mono-Font
 
-stdenv.mkDerivation rec {
+pkgs.lib.mkDerivation rec {
   version = "2018-06-07";
   name = "font-mono-san-francisco-${version}";
   at = "1409ae79074d204c284507fef9e479248d5367c1";
@@ -92,8 +92,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "San Francisco Mono Font by Apple";
     homepage = https://github.com/ZulwiyozaPutra/SF-Mono-Font;
-    license = stdenv.lib.licenses.asl20;
-    platforms = stdenv.lib.platforms.all;
+    license = pkgs.lib.licenses.asl20;
+    platforms = pkgs.lib.platforms.all;
     maintainers = [];
   };
 }

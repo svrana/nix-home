@@ -12,6 +12,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
+  services.openssh.enable = true;
 
   time.timeZone = "America/Los_Angeles";
 
@@ -26,10 +27,12 @@
     keyMap = "us";
   };
 
-  services.openssh.enable = true;
+  # users.users.shaw.openssh.keyFiles = [
+  #     ../../personal/ssh/vranix/id_rsa.pub
+  # ];
+  #
   services.accounts-daemon.enable = true;
   security.sudo.wheelNeedsPassword = false;
-
 
   services.tailscale.enable = false;
   # networking.firewall = {

@@ -76,7 +76,6 @@
           double_click.threshold = 300;
           triple_click.threshold = 300;
           hide_when_typing = true;
-          url.launcher = "xdg-open";
         };
         selection = {
           semantic_escape_chars = ",│`|:\"' ()[]{}<>";

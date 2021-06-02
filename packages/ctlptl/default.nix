@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub }:
+{ pkgs, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ctlptl";
@@ -17,7 +17,7 @@ buildGoModule rec {
     "-ldflags=-s -w -X main.version=${version}"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with pkgs.lib; {
     description = "CLI for declaratively setting up local Kubernetes clusters.";
     license = licenses.asl20;
     platforms = platforms.unix;

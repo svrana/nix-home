@@ -28,12 +28,33 @@ in
   programs.go.package = pkgsUnstable.go_1_16;
   programs.qutebrowser.package = pkgsUnstable.qutebrowser;
 
+  #   accounts = {
+  #     "vranix" = {
+  #       flavor = "gmail.com";
+  #       address = "shaw@vranix.com";
+  #       userName = "shaw@vranix.com";
+  #       realName = "Shaw Vrana";
+  #       passwordCommand = "${pkgs.gopass}/bin/gopass show vranix.com.imap.passwd";
+  #       primary = true;
+  #       neomutt = {
+  #         enable = true;
+  #         extraConfig = ''
+  #           #set imap_user = "shaw@vranix.com"
+  #           #set folder = "imaps://imap.gmail.com"
+  #           unset record                # Gmail auto-stores in "+[Gmail].Sent Mail"
+  #           unset trash                 # Unset, deletion will remove labels
+  #           set postponed = "+[Gmail].Drafts"
+  #         '';
+  #       };
+  #     };
+  #   };
+  # };
+
   imports = [
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
     ../modules/settings.nix
     ../personal/programs/work.nix
-    ./aerc
     ./alacritty.nix
     ./aws-cli.nix
     ./aws-vault.nix
@@ -69,16 +90,17 @@ in
   home.packages = with pkgs; [
     pkgsUnstable.aerc
     autotiling
+    pkgsUnstable.buf
     pkgsUnstable.calibre
     ctags
     ctlptl
     dante
     dbeaver
     diffstat
-    discord
     docker-compose
     networkmanager_dmenu
     dunst
+    element-desktop
     entr
     feh
     gimp
@@ -95,6 +117,7 @@ in
     pkgsUnstable.i3-ratiosplit
     maim
     mpv
+    neomutt
     nixfmt
     nodejs-12_x
     nodePackages.eslint
@@ -115,6 +138,7 @@ in
     tdesktop
     tmuxinator
     tree
+    urlview
     w3m
     wmctrl
     xautolock
@@ -164,11 +188,10 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    withPython = false;
     withPython3 = true;
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
-   #extraConfig = builtins.readFile ./nvim/init.vim;
+    #extraConfig = builtins.readFile ./nvim/init.vim;
     #prototool', { 'rtp': 'vim/prototool' }
     # need a later coc.nvim than unstable
 #    plugins = with pkgsUnstable.vimPlugins; [
@@ -277,12 +300,15 @@ in
       fi
     fi
 
+    rm -rf ~/.config/nvim
+    cp -r ~/Projects/dotfiles/home/config/nvim ~/.config
+
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $PERSONAL/c1/lint.sh $HOME/.local/bin/lint.sh
   '';
-  xdg.configFile."nvim" = {
-    source = ./config/nvim;
-    recursive = true;
-  };
+  #xdg.configFile."nvim" = {
+  #  source = ./config/nvim;
+  #  recursive = true;
+  #};
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
   xdg.configFile."npm/npmrc" = {
@@ -309,6 +335,7 @@ in
      "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
      "x-scheme-handler/slack" = "slack.desktop";
      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
+     "x-scheme-handler/element" = "element-desktop.desktop";
    };
  };
  xdg.configFile."networkmanager-dmenu/config.ini".text = ''
@@ -319,7 +346,6 @@ in
      wifi_chars = ▂▄▆█
  '';
 
- #services.spotifyd.enable = true;
  systemd.user.services.autocutsel = {
    Unit.Description = "AutoCutSel";
    Install = {
@@ -348,7 +374,6 @@ in
      Restart = "always";
    };
  };
-
 
   # # Move ~/.Xauthority out of $HOME (setting XAUTHORITY early isn't enough)
   # environment.extraInit = ''

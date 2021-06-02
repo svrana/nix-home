@@ -7,7 +7,7 @@
       KUBECONFIG = "$XDG_CONFIG_HOME/kube/config";
   };
   programs.bash.initExtra = ''
-      source ${pkgs.kubectl}/share/bash-completion/completions/kubectl
+      source ${pkgs.kubectl}/share/bash-completion/completions/kubectl.bash
       complete -F __start_kubectl k
   '';
   programs.bash.shellAliases = {
