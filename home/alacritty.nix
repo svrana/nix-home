@@ -8,8 +8,8 @@
         window = {
           dimensions.columns = 140;
           dimensions.lines = 140;
-          padding.x = 2;
-          padding.y = 2;
+          padding.x = 0;
+          padding.y = 0;
           decorations = "full";
           #title = true;
         };
