@@ -309,6 +309,10 @@ in
   #  source = ./config/nvim;
   #  recursive = true;
   #};
+  xdg.configFile."neomutt" = {
+    source = ./config/neomutt;
+    recursive = true;
+  };
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
   xdg.configFile."npm/npmrc" = {
