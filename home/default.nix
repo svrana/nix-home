@@ -101,7 +101,6 @@ in
     dunst
     element-desktop
     entr
-    feh
     gimp
     gnupg
     hugo
@@ -111,7 +110,7 @@ in
     pkgsUnstable.golangci-lint
     kubectx
     ledger-live-desktop
-    lm_sensors
+    #lm_sensors
     libreoffice
     pkgsUnstable.i3-ratiosplit
     maim
@@ -182,7 +181,6 @@ in
   # see overlay
   programs.neovim = {
     enable = true;
-    #package = pkgsUnstable.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -298,9 +296,7 @@ in
       fi
     fi
 
-    # rm -rf ~/.config/nvim
-    # cp -r ~/Projects/dotfiles/home/config/nvim ~/.config
-
+    $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $PERSONAL/c1/lint.sh $HOME/.local/bin/lint.sh
   '';
   xdg.configFile."nvim" = {

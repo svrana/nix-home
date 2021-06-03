@@ -17,8 +17,8 @@ in
     sessionVariables = {
       # for docker-compose/dev/fixuid
       BUILDUID = "$(id -u $USER)";
-      EDITOR = "nvim";
-      MANPAGER = "nvim -c 'set ft=man' -";
+      EDITOR = "vim";
+      MANPAGER = "vim -c 'set ft=man' -";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
 
