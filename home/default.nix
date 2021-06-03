@@ -88,7 +88,6 @@ in
   ];
 
   home.packages = with pkgs; [
-    pkgsUnstable.aerc
     autotiling
     pkgsUnstable.buf
     pkgsUnstable.calibre
