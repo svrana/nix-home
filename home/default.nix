@@ -131,7 +131,6 @@ in
     shellcheck
     shfmt
     slack
-    spotify-tui
     ssh-agents
     system-san-francisco-font
     pkgsUnstable.tilt
