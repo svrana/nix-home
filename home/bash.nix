@@ -62,6 +62,7 @@ in
     # only run for interactive sessions
     initExtra = ''
       set -o vi
+      stty -ixon
 
       hm() {
         home-manager -f "$DOTFILES/hosts/$HOSTNAME" $@
