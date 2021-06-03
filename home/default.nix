@@ -190,7 +190,7 @@ in
     withPython3 = true;
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
-    #extraConfig = builtins.readFile ./nvim/init.vim;
+    extraConfig = builtins.readFile ./config/init.vim;
     #prototool', { 'rtp': 'vim/prototool' }
     # need a later coc.nvim than unstable
 #    plugins = with pkgsUnstable.vimPlugins; [
@@ -299,15 +299,15 @@ in
       fi
     fi
 
-    rm -rf ~/.config/nvim
-    cp -r ~/Projects/dotfiles/home/config/nvim ~/.config
+    # rm -rf ~/.config/nvim
+    # cp -r ~/Projects/dotfiles/home/config/nvim ~/.config
 
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $PERSONAL/c1/lint.sh $HOME/.local/bin/lint.sh
   '';
-  #xdg.configFile."nvim" = {
-  #  source = ./config/nvim;
-  #  recursive = true;
-  #};
+  xdg.configFile."nvim" = {
+    source = ./config/nvim;
+    recursive = true;
+  };
   xdg.configFile."neomutt" = {
     source = ./config/neomutt;
     recursive = true;
