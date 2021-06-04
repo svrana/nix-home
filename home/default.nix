@@ -28,28 +28,6 @@ in
   programs.go.package = pkgsUnstable.go_1_16;
   programs.qutebrowser.package = pkgsUnstable.qutebrowser;
 
-  #   accounts = {
-  #     "vranix" = {
-  #       flavor = "gmail.com";
-  #       address = "shaw@vranix.com";
-  #       userName = "shaw@vranix.com";
-  #       realName = "Shaw Vrana";
-  #       passwordCommand = "${pkgs.gopass}/bin/gopass show vranix.com.imap.passwd";
-  #       primary = true;
-  #       neomutt = {
-  #         enable = true;
-  #         extraConfig = ''
-  #           #set imap_user = "shaw@vranix.com"
-  #           #set folder = "imaps://imap.gmail.com"
-  #           unset record                # Gmail auto-stores in "+[Gmail].Sent Mail"
-  #           unset trash                 # Unset, deletion will remove labels
-  #           set postponed = "+[Gmail].Drafts"
-  #         '';
-  #       };
-  #     };
-  #   };
-  # };
-
   imports = [
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
@@ -110,7 +88,6 @@ in
     pkgsUnstable.golangci-lint
     kubectx
     ledger-live-desktop
-    #lm_sensors
     libreoffice
     pkgsUnstable.i3-ratiosplit
     maim
