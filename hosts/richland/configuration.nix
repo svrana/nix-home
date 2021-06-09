@@ -105,5 +105,5 @@
   # still deafaults to onboard audio, maybe b/c the above speakers go into low power mode?
   # hack hack. This was when the Vanatoos were connected, so not sure the status of this now, but since I'm not sure what
   # to set the default card-profile to, leaving it.
-  boot.blacklistedKernelModules = [ "snd_hda_intel" ];
+  #boot.blacklistedKernelModules = [ "snd_hda_intel" ];
 }
