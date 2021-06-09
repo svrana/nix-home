@@ -69,6 +69,7 @@ in
     autotiling
     pkgsUnstable.buf
     pkgsUnstable.calibre
+    cloudflared
     ctags
     ctlptl
     dante
