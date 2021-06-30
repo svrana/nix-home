@@ -18,8 +18,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  system.stateVersion = "20.09";
-
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
