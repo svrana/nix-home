@@ -174,7 +174,7 @@ sf() {
     fi
     printf -v search "%q" "$*"
 
-    exclude="tags,.config,.git,node_modules,vendor,pb,build,yarn.lock,*.sty,*.bst,*.coffee,dist,.berkshelf"
+    exclude="tags,.config,.git,.yarn,node_modules,vendor,pb,build,yarn.lock,*.sty,*.bst,*.coffee,dist,.berkshelf"
     rg_command='rg --smart-case --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --color "always" -g "!{'$exclude'}"'
     #echo "rg_commmand: $rg_command"
     files=$(eval "$rg_command" "$search" 2>/dev/null | fzf --height 80% --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}')
