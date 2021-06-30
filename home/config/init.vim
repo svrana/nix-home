@@ -97,6 +97,9 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'tpope/vim-jdaddy'
 Plug 'preservim/nerdtree'
 "Plug 'scrooloose/nerdtree-project-plugin'
+" v--- only on .5
+"Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
+"nmap <leader>p :Glow<CR>
 
 call plug#end()
 
