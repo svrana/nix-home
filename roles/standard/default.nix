@@ -34,7 +34,7 @@
   services.accounts-daemon.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
-  services.tailscale.enable = false;
+  services.tailscale.enable = true;
   # networking.firewall = {
   #   # enable the firewall
   #   enable = true;
