@@ -3,5 +3,4 @@ self: super: rec {
   san-francisco-mono-font = super.callPackage ../packages/san-francisco-mono-font { };
   ctlptl = super.callPackage ../packages/ctlptl { };
   solarized-everything-css = super.callPackage ../packages/solarized-everything-css { };
-  cloudflared = super.callPackage ../packages/cloudflared { };
 }
