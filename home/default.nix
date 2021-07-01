@@ -83,6 +83,7 @@ in
     gimp
     gnupg
     hugo
+    insync
     pkgsUnstable.kind
     kubernetes-helm
     gitAndTools.hub
@@ -108,6 +109,7 @@ in
     shfmt
     slack
     ssh-agents
+    standardnotes
     system-san-francisco-font
     pkgsUnstable.tilt
     tdesktop
@@ -272,6 +274,15 @@ in
       if [ ! -d $XDG_DATA_HOME/bash ]; then
         $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/bash
       fi
+    fi
+
+    if [ ! -f $XDG_DATA_HOME/nvim/site/autoload/plug.vim ]; then
+      sh -c 'curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    fi
+
+    if [ ! -d $PASSWORD_STORE_DIR ]; then
+      git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
     fi
 
     $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}
