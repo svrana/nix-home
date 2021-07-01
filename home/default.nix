@@ -277,12 +277,14 @@ in
     fi
 
     if [ ! -f $XDG_DATA_HOME/nvim/site/autoload/plug.vim ]; then
-      sh -c 'curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
+      $DRY_RUN_CMD echo "Installing plug for neovim.."
+      $DRY_RUN_CMD sh -c 'curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     fi
 
     if [ ! -d $PASSWORD_STORE_DIR ]; then
-      git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
+      $DRY_RUN_CMD echo "Cloning password-store.."
+      $DRY_RUN_CMD git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
     fi
 
     $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}
