@@ -161,6 +161,7 @@ in
   # see overlay
   programs.neovim = {
     enable = true;
+    package = pkgsUnstable.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
