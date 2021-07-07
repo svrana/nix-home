@@ -9,6 +9,7 @@
     gdb
     gnumake
     htop
+    nfs-utils
     openssl
     usbutils
     pciutils
