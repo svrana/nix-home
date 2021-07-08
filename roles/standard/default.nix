@@ -31,10 +31,6 @@
     keyMap = "us";
   };
 
-  # users.users.shaw.openssh.keyFiles = [
-  #     ../../personal/ssh/vranix/id_rsa.pub
-  # ];
-  #
   services.accounts-daemon.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
