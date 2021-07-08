@@ -61,6 +61,9 @@ in
     };
     # only run for interactive sessions
     initExtra = ''
+      source "$RCS/functions.sh"
+      PATH_append "$BIN_DIR"
+
       set -o vi
       stty -ixon
 
@@ -84,10 +87,7 @@ in
       # the config ourselves and bootstraped here
       bind -f $INPUTRC
     '';
-    bashrcExtra = ''
-      source "$RCS/functions.sh"
-      PATH_append "$BIN_DIR"
-    '';
+    bashrcExtra = ""; # run prior to the interactive session check
     profileExtra = "";
     shellAliases = {
       "cd.." = "cd ..";
