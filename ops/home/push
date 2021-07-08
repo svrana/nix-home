@@ -1,0 +1,16 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p morph -i bash
+
+set -e
+
+# Build the system configurations for every machine in this network and
+# register them as garbage collector roots so `nix-collect-garbage` doesn't
+# sweep them away.
+morph build --keep-result ./network.nix
+
+# Push the config to the hosts.
+morph push ./network.nix
+
+# Activate the NixOS configuration on the network.
+morph deploy ./network.nix switch
+

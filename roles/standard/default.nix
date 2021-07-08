@@ -10,9 +10,15 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.cleanTmpDir = true;
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
+  # Limit the systemd journal to 100 MB of disk or the last 7 days of logs whichever happens first.
+  services.journald.extraConfig = ''
+    SystemMaxUse=100M
+    MaxFileSec=7day
+  '';
 
   time.timeZone = "America/Los_Angeles";
 
