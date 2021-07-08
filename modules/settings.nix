@@ -2,30 +2,77 @@
 
 with lib;
 
+let
+  # from home-manager i3-swap/lib/options.nix
+  fontOptions = types.submodule {
+    options = {
+      names = mkOption {
+        type = types.listOf types.str;
+        default = [ "monospace" ];
+        defaultText = literalExample ''[ "monospace" ]'';
+        description = ''
+          List of font names list used for window titles. Only FreeType fonts are supported.
+          The order here is important (e.g. icons font should go before the one used for text).
+        '';
+        example = literalExample ''[ "FontAwesome" "Terminus" ]'';
+      };
+
+      style = mkOption {
+        type = types.str;
+        default = "";
+        description = ''
+          The font style to use for window titles.
+        '';
+        example = "Bold Semi-Condensed";
+      };
+
+      size = mkOption {
+        type = types.float;
+        default = 8.0;
+        description = ''
+          The font size to use for window titles.
+        '';
+        example = 11.5;
+      };
+    };
+  };
+in
 {
   options = {
     settings = {
       i3 = {
-        font = mkOption {
-          default = "System San Francisco Display 12";
-          type = types.str;
+        fonts = mkOption {
+          type = with types; either (listOf str) fontOptions;
+          default = {
+            names = [ "System San Francisco Display" ];
+            style = "";
+            size = 12.0;
+          };
+          example = literalExample ''
+            {
+            names = [ "DejaVu Sans Mono" "FontAwesome5Free" ];
+            style = "Bold Semi-Condensed";
+            size = 11.0;
+            }
+          '';
+          description = "Font configuration for window titles, nagbar...";
         };
       };
       alacritty = {
         fontSize = mkOption {
-          default = 14;
+          default = 8;
           type = types.int;
         };
       };
       rofi = {
         fontSize = mkOption {
-          default = 18;
+          default = 12;
           type = types.int;
         };
       };
       dunst = {
         fontSize = mkOption {
-          default = 16;
+          default = 12;
           type = types.int;
         };
       };
@@ -38,19 +85,19 @@ with lib;
       polybar = {
         font0 =  {
           size = mkOption {
-            default = "18;3";
+            default = "10;2";
             type = types.str;
           };
         };
         font1= {
           size = mkOption {
-            default = "18;4";
+            default = "12;0";
             type = types.str;
           };
         };
         font2 = {
           size = mkOption {
-            default = "26;7"; # untested
+            default = "22;4"; # untested
             type = types.str;
           };
         };

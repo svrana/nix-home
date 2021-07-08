@@ -57,7 +57,7 @@ in
             followMouse = false;
             newWindow = "focus";
           };
-          fonts = [ "${i3.font}" ];
+          fonts = config.settings.i3.fonts;
           colors = {
             focused = {
               border = "#4c7899";

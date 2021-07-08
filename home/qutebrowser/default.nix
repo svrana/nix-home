@@ -56,7 +56,9 @@ in
     '';
     searchEngines = {
         DEFAULT ="https://duckduckgo.com/?q={}";
+        #DEFAULT = "https://neeva.com/search?q={}";
         d = "https://duckduckgo.com/?q={}";
+        n = "https://neeva.com/search?q={}";
         g = "http://www.google.com/search?hl=en&q={}";
         gh = "https://github.com/search?q={}";
         yt = "https://www.youtube.com/results?search_query={}";
