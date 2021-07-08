@@ -254,6 +254,30 @@ gr() {
   cut -d$'\t' -f1
 }
 
+# Usage: clone "github org name" "project name"
+clone() {
+    local org="svrana" # default org if not specified
+
+    if [[ $1 == */* ]]; then
+        org=$(printf '%s' "${1%%/*}")
+    fi
+    local project=${1##*/}
+    local source="git@github.com:$org/$project.git"
+    local dest="$PROJECTS/$project"
+
+    if [ -d "$dest" ]; then
+        echo "directory $PROJECTS/$project already exists.."
+        return 1
+    fi
+
+    echo "Cloning $source into $dest.."
+
+    if ! git clone "$source" "$dest"; then
+        return 1
+    fi
+
+    cd "$dest" || return 1
+}
 
 bind '"\er": redraw-current-line'
 bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
