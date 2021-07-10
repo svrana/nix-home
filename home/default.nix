@@ -365,10 +365,6 @@ in
    };
  };
 
-  # # Move ~/.Xauthority out of $HOME (setting XAUTHORITY early isn't enough)
-  # environment.extraInit = ''
-  #   export XAUTHORITY=/tmp/Xauthority
-  #   [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
-  # '';
-
+ # upstream
+ # xresources.path = "${config.home.homeDirectory}/.config/Xresources";
 }

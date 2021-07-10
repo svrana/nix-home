@@ -17,4 +17,20 @@
   networking.interfaces.wlp4s0.useDHCP = true;
 
   system.stateVersion = "20.09";
+
+
+
+
+  ## adguard home
+  environment.systemPackages = with pkgs; [
+    adguardhome
+  ];
+
+  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 ];
+
+  services.adguardhome = {
+    enable = true;
+    openFirewall = true;
+  };
 }
