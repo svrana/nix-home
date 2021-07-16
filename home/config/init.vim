@@ -219,7 +219,7 @@ autocmd BufNewFile,BufRead,BufEnter *.gjs setf javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
 
 autocmd BufRead Tiltfile set filetype=python
-autocmd BufWritePost,BufEnter * Neomake
+autocmd BufWritePost,BufAdd * Neomake
 autocmd FileType terraform setlocal commentstring=#%s
 autocmd! FileType fzf
 autocmd FileType json syntax match Comment +\/\/.\+$+
