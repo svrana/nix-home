@@ -17,8 +17,6 @@
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
-  programs.dconf.enable = true;
-
   # Set the default card used by pa, appending to /etc/pulse/default.pa
 
   # When Vanatoo connected directly to PC via USB:
