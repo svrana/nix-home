@@ -114,6 +114,30 @@ in
           type = types.str;
         };
       };
+      qutebrowser = {
+        fonts = {
+          size = mkOption {
+            default = "13pt";
+            type = types.str;
+          };
+          web = {
+            size = {
+              default = mkOption {
+                default = 19;
+                type = types.int;
+              };
+              default_fixed = mkOption {
+                default = 16;
+                type = types.int;
+              };
+              minimum = mkOption {
+                default = 14;
+                type = types.int;
+              };
+            };
+          };
+        };
+      };
     };
   };
 }

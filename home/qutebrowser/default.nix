@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 # The following qutebrowser modes are available:
 #
 #   normal: Default mode, where most commands are invoked.
@@ -131,7 +131,7 @@ in
         remove_finished = 10;
       };
       fonts = {
-        default_size = "13pt";
+        default_size = config.settings.qutebrowser.fonts.size;
         default_family = "DejaVu Sans Mono";
         completion = {
           entry = "default_size 'DejaVu Sans Mono'";
@@ -147,11 +147,7 @@ in
           warning = "default_size 'DejaVu Sans Mono'";
         };
         prompts = "default_size 'System San Francisco Display Regular'";
-        web.size = {
-          default = 19;
-          default_fixed = 16;
-          minimum = 14;
-        };
+        web.size = config.settings.qutebrowser.fonts.web.size;
       };
       scrolling.smooth = true;
       editor = {
