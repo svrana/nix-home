@@ -147,10 +147,6 @@ in
           warning = "default_size 'DejaVu Sans Mono'";
         };
         prompts = "default_size 'System San Francisco Display Regular'";
-        tabs = {
-          selected = "default_size 'System San Francisco Display Bold'";
-          unselected = "default_size 'System San Francisco Display Regular'";
-        };
         web.size = {
           default = 19;
           default_fixed = 16;
