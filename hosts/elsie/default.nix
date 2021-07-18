@@ -14,11 +14,21 @@ in
     alacritty.fontSize = 6;
     x.cursorSize = 14;
     polybar = {
-      font0.size = "18;3";
-      font1.size = "18;4";
+      font0.size = "14;3";
+      font1.size = "16;4";
       font2.size = "26;7";
       wirelessInterface = "wlp2s0";
       modules-right = "volume xbacklight battery wlan powermenu";
+    };
+    qutebrowser = {
+      fonts = {
+        size = "18pt";
+        web.size = {
+          default = 23;
+          default_fixed = 21;
+          minimum = 21;
+        };
+      };
     };
   };
 
