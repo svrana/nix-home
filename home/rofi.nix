@@ -9,5 +9,6 @@
     rowHeight = 1;
     scrollbar = false;
     terminal = "${pkgs.alacritty}/bin/alacritty";
+    padding = 16;
   };
 }

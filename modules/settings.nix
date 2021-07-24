@@ -69,6 +69,10 @@ in
           default = 12;
           type = types.int;
         };
+        iconSize = mkOption {
+          default = "1.8ch";
+          type = types.str;
+        };
       };
       dunst = {
         fontSize = mkOption {

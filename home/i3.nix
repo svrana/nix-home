@@ -3,6 +3,7 @@ let
   i3 = config.settings.i3;
   rofi = "${pkgs.rofi}/bin/rofi";
   rofi-pass = "${pkgs.rofi-pass}/bin/rofi-pass";
+  rofi-icon-size = config.settings.rofi.iconSize;
   maim = "${pkgs.maim}/bin/maim";
   xclip = "${pkgs.xclip}/bin/xclip";
   ranger = "${pkgs.ranger}/bin/ranger";
@@ -113,7 +114,7 @@ in
             "${mod}+9" = ''[class="Slack"] scratchpad show'';
             "${mod}+a" = "focus parent";
             "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
-            "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -eh 2 -padding 16 -show-icons"'';
+            "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};}'"'';
             "${mod}+e" = "layout toggle split";
             "${mod}+f" = "fullscreen toggle";
             "${mod}+h" = "focus left";
