@@ -38,7 +38,7 @@ let
         ${i3-msg} workspace 7
 
         screenblank_enable
-        ${pkgs.i3lock-color}/bin/i3lock-color -c 002b36 --ignore-empty-password --no-unlock-indicator --clock --nofork --datestr="%A, %B %d %G" --timesize=48 --datesize=24
+        ${pkgs.i3lock-color}/bin/i3lock-color -c 002b36 --ignore-empty-password --no-unlock-indicator --clock --nofork --date-str="%A, %B %d %G" --time-size=48 --date-size=24
         screenblank_disable
 
         # go to previous workspace
