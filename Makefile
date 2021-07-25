@@ -12,6 +12,14 @@ UNAME_S 	:= $(shell uname -s | tr A-Z a-z)
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[/.a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+.PHONY: system
+system: ## Build system
+	nixos-rebuild-pretty switch
+
+.PHONY: home
+home: ## Build home-manager
+	hm switch
+
 .PHONY:
 vnet: ## Push configs to machines on home network
 	@ops/home/push
