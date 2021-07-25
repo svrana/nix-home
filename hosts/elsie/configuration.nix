@@ -3,7 +3,10 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let
+  sources = import ../../nix/sources.nix;
+  pkgs = import sources.nixpkgs;
+in
 {
   imports =
     [ # Include the results of the hardware scan.

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
-
 let
-  pkgsUnstable = import <nixpkgs-unstable> {};
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs { };
 in
 {
   programs.home-manager.enable = true;
@@ -23,10 +23,6 @@ in
   };
 
   fonts.fontconfig.enable = true;
-
-  # ugh, how do we pass in pkgsUnstable ?
-  programs.go.package = pkgsUnstable.go_1_16;
-  programs.qutebrowser.package = pkgsUnstable.qutebrowser;
 
   imports = [
     # settings has to go first as the config there controls aspects of the
@@ -67,8 +63,7 @@ in
 
   home.packages = with pkgs; [
     autotiling
-    pkgsUnstable.buf
-    pkgsUnstable.calibre
+    buf
     cloudflared
     ctags
     ctlptl
@@ -77,21 +72,20 @@ in
     diffstat
     docker-compose
     networkmanager_dmenu
-    dunst
+    niv
     element-desktop
     entr
     gimp
     gnupg
     hugo
     insync
-    pkgsUnstable.kind
+    kind
     kubernetes-helm
     gitAndTools.hub
-    pkgsUnstable.golangci-lint
+    golangci-lint
     kubectx
     ledger-live-desktop
-    libreoffice
-    pkgsUnstable.i3-ratiosplit
+    i3-ratiosplit
     maim
     mpv
     neomutt
@@ -111,9 +105,9 @@ in
     ssh-agents
     standardnotes
     system-san-francisco-font
-    pkgsUnstable.tilt
+    tilt
     tdesktop
-    pkgsUnstable.tmuxinator
+    tmuxinator
     tree
     urlview
     w3m
@@ -161,17 +155,21 @@ in
   # see overlay
   programs.neovim = {
     enable = true;
-    package = pkgsUnstable.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
     withPython3 = true;
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
-    extraConfig = builtins.readFile ./config/init.vim;
+    extraConfig = ''
+      if !exists("homemanagerbug")
+        let homemanagerbug = "yes"
+        source $DOTFILES/home/config/init.vim
+      endif
+    '';
     #prototool', { 'rtp': 'vim/prototool' }
     # need a later coc.nvim than unstable
-#    plugins = with pkgsUnstable.vimPlugins; [
+#    plugins = with pkgs.vimPlugins; [
 #       vim-colors-solarized
 #       vim-airline
 #       vim-airline-themes
@@ -359,7 +357,7 @@ in
    Install = { WantedBy = [ "graphical-session.target" ]; };
    Service = {
      Type = "simple";
-     ExecStart="${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgsUnstable.i3-ratiosplit}/bin/i3-ratiosplit'";
+     ExecStart="${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
      RestartSec = 2;
      Restart = "always";
    };

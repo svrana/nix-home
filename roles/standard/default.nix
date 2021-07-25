@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../modules/niv.nix
     ./fonts.nix
     ./nix.nix
     ./pkgs.nix

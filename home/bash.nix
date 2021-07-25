@@ -22,6 +22,7 @@ in
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
 
+      NIXPKGS_ALLOW_UNFREE = 1;
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       GEM_HOME = "$XDG_DATA_HOME/gem";
@@ -66,10 +67,6 @@ in
 
       set -o vi
       stty -ixon
-
-      hm() {
-        home-manager -f "$DOTFILES/hosts/$HOSTNAME" $@
-      }
 
       is() {
         if [ -z "$1" ]; then

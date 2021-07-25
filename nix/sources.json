@@ -1,0 +1,39 @@
+{
+    "home-manager": {
+        "branch": "release-21.05",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "9c0abed5228d54aad120b4bc757b6f5935aeda1c",
+        "sha256": "05pfa26p9k1gpir9sniwg195cqqc9v6yp9b5f9hrjhlh3jm14bgq",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/9c0abed5228d54aad120b4bc757b6f5935aeda1c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
+        "version": "21.05"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "e0ca65c81a2d7a4d82a189f1e23a48d59ad42070",
+        "sha256": "1pq9nh1d8nn3xvbdny8fafzw87mj7gsmp6pxkdl65w2g18rmcmzx",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/e0ca65c81a2d7a4d82a189f1e23a48d59ad42070.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixpkgs-unstable",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9aec01027f7ea2bca07bb51d5ed83e78088871c1",
+        "sha256": "0ncv708sffpd0yhmnhpii4hplz343ykkcf1ldayiaxgda59c6mfw",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/9aec01027f7ea2bca07bb51d5ed83e78088871c1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
