@@ -1,16 +1,15 @@
 {
     "home-manager": {
-        "branch": "release-21.05",
+        "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9c0abed5228d54aad120b4bc757b6f5935aeda1c",
-        "sha256": "05pfa26p9k1gpir9sniwg195cqqc9v6yp9b5f9hrjhlh3jm14bgq",
+        "rev": "0423a7b40cd29aec0bb02fa30f61ffe60f5dfc19",
+        "sha256": "03xza6ln56sx1qamr0nw06m3smk0kd2iyac9sr4vzwyha9y7acj7",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/9c0abed5228d54aad120b4bc757b6f5935aeda1c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
-        "version": "21.05"
+        "url": "https://github.com/nix-community/home-manager/archive/0423a7b40cd29aec0bb02fa30f61ffe60f5dfc19.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
         "branch": "master",
