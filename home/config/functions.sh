@@ -16,7 +16,7 @@ ask() {
 
 # Add newlines to path for readability
 alias path='echo -e ${PATH//:/\\n}'
-alias perlinc='perl -le "print for @INC"'
+alias nix-path='echo -e ${NIX_PATH//:/\\n}'
 alias svi='sudo vi'
 alias bzip='bzip2'
 alias bunzip='bunzip2'
