@@ -86,7 +86,6 @@ in
       ".direnv"
       ".*@neomake*"
       ".ignore"
-      "shell.nix"
     ];
     attributes = [
       "*.c     diff=cpp"
