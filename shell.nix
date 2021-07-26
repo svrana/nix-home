@@ -13,8 +13,7 @@ pkgs.stdenv.mkDerivation {
     pkgs.niv
     (import sources.home-manager { inherit pkgs; }).home-manager
     (pkgs.writeShellScriptBin "nixos-rebuild-pretty" ''
-
-      # prettier than nixos-rebuild switch
+      # prettier than nixos-rebuild switch (this courtesty github.com/meatcar/dots)
       sudo -E sh -c "nix build --no-link -f '<nixpkgs/nixos>' config.system.build.toplevel && nixos-rebuild $@"
     '')
     (pkgs.writeShellScriptBin "hm" ''
