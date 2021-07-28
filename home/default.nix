@@ -44,6 +44,7 @@ in
     ./k9s
     ./keychain.nix
     ./kubectl.nix
+    ./nvim
     ./i3.nix
     ./i3lock-color.nix
     ./insync.nix
@@ -150,79 +151,6 @@ in
   services.picom = {
     enable = true;
     vSync = true;
-  };
-
-  # see overlay
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    withPython3 = true;
-    withNodeJs = true;
-    extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
-    extraConfig = ''
-      if !exists("homemanagerbug")
-        let homemanagerbug = "yes"
-        source $DOTFILES/home/config/init.vim
-      endif
-    '';
-    #prototool', { 'rtp': 'vim/prototool' }
-    # need a later coc.nvim than unstable
-#    plugins = with pkgs.vimPlugins; [
-#       vim-colors-solarized
-#       vim-airline
-#       vim-airline-themes
-#       vim-obsession
-#       vim-peekaboo
-#       quick-scope
-#       vim-fugitive
-#       {
-#         plugin = vim-gitgutter;
-#         config = "let g:gitgutter_git_executable = ${pkgs.git}/bin/git";
-#       }
-#       vimagit
-#       vim-rhubarb
-#       vim-surround
-#       vim-commentary
-#       vim-sort-motion
-#       vim-sneak
-#       supertab
-#       coc-nvim
-#       coc-json
-#       coc-yaml
-#       coc-python
-#       coc-git
-#       coc-tsserver
-#       coc-tslint-plugin
-#       coc-snippets
-#       #coc-protobuf
-#       neomake
-#       tmux-complete-vim
-#       vim-snippets
-#       vim-autoformat
-#       vim-rooter
-#       vim-go
-#       vim-fetch
-#       fzf-vim
-#       {
-#         plugin = vim-polyglot;
-#         config = "let g:polyglot_disabled = ['typescript']";
-#       }
-#       vim-lastplace
-#       {
-#         plugin = vim-markdown-composer;
-#         config = "let g:markdown_composer_autostart = 0";
-#         config = "let g:markdown_composer_browser="epiphany-browser";
-#       }
-#       vim-python-pep8-indent
-#       vim-packer
-#       vim-jsonnet
-#       vim-tmux
-#       vim-nix
-#       typescript-vim
-#       nerdtree
-#    ];
   };
 
   # see overlay
