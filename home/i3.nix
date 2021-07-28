@@ -38,6 +38,7 @@ in
     ];
     # NOTE: This has to match the path set roles/graphical/x.nix
     scriptPath = ".config/X11/xsession";
+    profilePath = ".config/X11/xprofile-hm";
     windowManager = {
       i3 = {
         enable = true;

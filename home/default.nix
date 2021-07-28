@@ -363,6 +363,5 @@ in
    };
  };
 
- # upstream
- # xresources.path = "${config.home.homeDirectory}/.config/Xresources";
+ xresources.path = "${config.home.homeDirectory}/.config/X11/Xresources";
 }
