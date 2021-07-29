@@ -8,6 +8,7 @@
     ../../arch/intel
     ../../roles/standard
     ../../roles/graphical
+    ../../roles/work
   ];
 
   networking.hostName = "prentiss";

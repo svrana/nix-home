@@ -265,7 +265,7 @@ in
         config = ''
           " Open the existing NERDTree on each new tab.
           autocmd BufWinEnter * silent NERDTreeMirror
-          nnoremap <leader>tf :NERDTreeToggle<CR>
+          nnoremap <leader>nt :NERDTreeToggle<CR>
         '';
       }
     ];
