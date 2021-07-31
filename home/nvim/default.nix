@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
+  gopls = "${pkgs.gopls}/bin/gopls";
   initialConfig = ''
 
     " hack, hack, hack:  this is the first config written to init.vim, but I need these
@@ -21,7 +22,7 @@ in
       settings = {
         languageserver = {
           golang = {
-            command = "gopls";
+            command = gopls;
             rootPatterns = [ "go.mod" ".git/" ];
             filetypes = [ "go" ];
           };
@@ -242,7 +243,13 @@ in
        fzf-vim
        {
          plugin = vim-polyglot;
-         config = ''let g:polyglot_disabled = ['typescript']'';
+         # delay loading until after vim-go or polyglot will override the nix patched
+         # vim bin path in the vim-go plugin.
+         optional = true;
+         config = ''
+           let g:polyglot_disabled = ['typescript']
+           packadd vim-polyglot
+         '';
        }
        vim-lastplace
        {
@@ -270,4 +277,17 @@ in
       }
     ];
   };
+
+  # xdg.configFile."nvim/init.vim" = lib.mkMerge [
+  #   (lib.mkBefore {
+  #     text = ''
+  #       " prepend some config
+  #     '';
+  #   })
+  #   (lib.mkAfter {
+  #     text = ''
+  #       " append some config
+  #     '';
+  #   })
+  # ];
 }
