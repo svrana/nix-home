@@ -98,6 +98,7 @@ in
     perl532Packages.FileMimeInfo
     prototool
     python3
+    pulumi-bin
     readline
     rnix-lsp
     shellcheck
