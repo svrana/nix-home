@@ -74,6 +74,7 @@ in
     dbeaver
     diffstat
     docker-compose
+    elixir
     networkmanager_dmenu
     niv
     element-desktop
