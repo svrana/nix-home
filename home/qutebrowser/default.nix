@@ -86,13 +86,14 @@ in
         ",q" = "mode-leave";
       };
       insert = {
-        "<Ctrl-;>" = "open-editor";
+        "<Ctrl-;>" = "edit-text";
       };
       normal = {
         "<Ctrl-d>" = "scroll-page 0 -0.5";
         "<Ctrl-f>" = "scroll-page 0 0.5";
         "<Ctrl-h>" = "tab-next";
         "<Ctrl-s>" = "tab-prev";
+
         "<Ctrl-b>" = "config-source";
         "<Ctrl-m>" = "spawn --detach mpv --force-window yes {url}";
         "<Ctrl-y>" = "hint links spawn --detach mpv --force-window yes {hint-url}";
@@ -151,9 +152,7 @@ in
       };
       scrolling.smooth = true;
       editor = {
-        # pulling in from non-overlay
-        #command = ["${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim {}"];
-        command = ["${pkgs.alacritty}/bin/alacritty" "-e" "nvim {}"];
+        command = ["${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim" "{file}"];
       };
       #statusbar.show = "in-mode";
       tabs = {
@@ -161,6 +160,7 @@ in
         close_mouse_button = "right";
         last_close = "close";
         pinned.shrink = true;
+        select_on_remove = "last-used";
       };
       hints.leave_on_load = false;
       colors = {
