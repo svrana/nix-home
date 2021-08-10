@@ -12,6 +12,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.cleanTmpDir = true;
 
+
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
   # Limit the systemd journal to 100 MB of disk or the last 7 days of logs whichever happens first.
@@ -35,6 +36,11 @@
   security.sudo.wheelNeedsPassword = false;
 
   services.tailscale.enable = true;
+
+  services.resolved = {
+      enable = true;
+      dnssec = "false";
+    };
   # networking.firewall = {
   #   # enable the firewall
   #   enable = true;

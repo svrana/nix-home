@@ -22,6 +22,7 @@
     openvpn
     ripgrep
     tailscale
+    tcpdump
     wget
     wirelesstools
     unzip
