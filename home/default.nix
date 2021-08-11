@@ -161,12 +161,12 @@ in
   # see overlay
   programs.powerline-go = {
     enable = true;
-    modules = [ "perms" "venv" "gitlite" "ssh" "cwd" ];
+    modules = [ "ssh" "perms" "venv" "gitlite" "cwd" ];
     newline = false;
     settings = {
       cwd-mode = "dironly";
       max-width = 65;
-      priority = "root,perms,venv,git-branch,exit,cwd";
+      priority = "ssh,perms,venv,gitlite,cwd";
     };
   };
   home.file.".local/bin" = {
