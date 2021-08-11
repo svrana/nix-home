@@ -193,7 +193,6 @@ in
             };
           };
           startup = [
-            { command = "$BIN_DIR/autotiling-launch.sh"; notification = false; always = true; }
             { command = "systemctl --user restart polybar"; always = true; notification = false; }
             { command = "${pkgs.hsetroot}/bin/hsetroot -solid '#002b36'"; notification = false; }
             { command = "standardnotes"; notification = false; }

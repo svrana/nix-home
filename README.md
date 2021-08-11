@@ -7,9 +7,12 @@
 I manage my user configuration with [home-manager](https://github.com/nix-community/home-manager). I do not configure
 home-manager as a module as I frequently make configuration changes for which I do not want boot entries.
 
+## Versioning
+
+Packages are pinned with with [niv](https://github.com/nmattia/niv).
+
 ## Operations
 
-[nixpkgs](https://github.com/nix-community/nixpkgs) is pinned with [niv](https://github.com/nmattia/niv).
 
 All operations are documented in the [Makefile](./Makefile)
 

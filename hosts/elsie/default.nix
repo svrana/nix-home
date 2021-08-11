@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 #
-# elsie is a xps 13", 4k. Defaults are for 27" 4k so fonts need some help here.
+# elsie is a xps 13", 4k. Defaults are for 27" 4k. I chose to increase font-size instead of
+# scaling. Not sure what the support for fractional scaling is at this point, but that would
+# be cleaner.
 #
 let
   imports = [ ../../modules/settings.nix ];
