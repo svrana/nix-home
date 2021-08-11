@@ -7,9 +7,9 @@ let
 in
 {
   imports = [
-    <nixos-hardware/dell/xps/13-9370>
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    (sources.nixos-hardware + "/dell/xps/13-9370")
+    # Include the results of the hardware scan.
     ../../arch/intel
     ../../roles/standard
     ../../roles/graphical
