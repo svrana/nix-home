@@ -43,6 +43,7 @@ in
     '';
     #prototool', { 'rtp': 'vim/prototool' }
     plugins = with pkgs.vimPlugins; [
+       plenary-nvim
        {
          plugin = vim-colors-solarized;
          config = ''colorscheme solarized ${initialConfig} '';
@@ -84,8 +85,9 @@ in
          plugin = vim-fugitive;
          config = ''
           nnoremap <silent><LocalLeader>gb :Git blame<CR>
-          " Open visual selection in the browser (with rhubarb handler)
-          nnoremap <silent> <LocalLeader>gl :GBrowse<CR>
+          " Open visual selection in the browser (with rhubarb handler for github)
+          xnoremap <silent> <LocalLeader>gh :'<,'>GBrowse<CR>
+          nnoremap <silent> <LocalLeader>gh :GBrowse<CR>
          '';
        }
        rhubarb
@@ -93,7 +95,10 @@ in
          plugin = vim-gitgutter;
          config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
        }
-       vimagit
+       {
+         plugin = vimagit;
+         config = ''nnoremap <silent> <LocalLeader>gt :Magit<CR>'';
+       }
        vim-surround
        {
          plugin = tcomment_vim;
@@ -220,7 +225,6 @@ in
                    call go#cmd#Build(0)
                endif
            endfunction
-
           '';
        }
        vim-fetch
@@ -232,12 +236,12 @@ in
             call fzf#vim#files(root)
           endfunction
 
-          nnoremap <silent> <LocalLeader>t :Files<cr>
-          nnoremap <silent> <LocalLeader>b :Buffers<cr>
-          nnoremap <silent> <LocalLeader>p :FZF $DOTFILES<cr>
-          nnoremap <silent> <LocalLeader>f :call FZFGitRoot()<cr>
-          nnoremap <silent> <LocalLeader>r :RG<cr>
-          nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
+          nnoremap <silent> <LocalLeader>fd :FZF $DOTFILES<cr>
+          nnoremap <silent> <LocalLeader>ff :Files<cr>
+          nnoremap <silent> <LocalLeader>fb :Buffers<cr>
+          nnoremap <silent> <LocalLeader>fg :call FZFGitRoot()<cr>
+
+          nnoremap <silent> <LocalLeader>sf :RG<cr>
          '';
        }
        fzf-vim
@@ -268,11 +272,17 @@ in
        vim-nix
        typescript-vim
        {
+         plugin = vim-nerdtree-tabs;
+         config = ''
+            map <silent> <leader>ft <plug>NERDTreeTabsToggle<CR>
+         '';
+       }
+       {
         plugin = nerdtree;
         config = ''
           " Open the existing NERDTree on each new tab.
-          autocmd BufWinEnter * silent NERDTreeMirror
-          nnoremap <leader>nt :NERDTreeToggle<CR>
+          "autocmd BufWinEnter * silent NERDTreeMirror
+          "nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
         '';
       }
     ];
