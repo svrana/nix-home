@@ -43,6 +43,7 @@ in
     '';
     #prototool', { 'rtp': 'vim/prototool' }
     plugins = with pkgs.vimPlugins; [
+       nvim-web-devicons
        plenary-nvim
        {
          plugin = vim-colors-solarized;
@@ -231,17 +232,14 @@ in
        {
          plugin = fzfWrapper;
          config = ''
-          function FZFGitRoot()
-            let root = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
-            call fzf#vim#files(root)
-          endfunction
-
-          nnoremap <silent> <LocalLeader>fd :FZF $DOTFILES<cr>
           nnoremap <silent> <LocalLeader>ff :Files<cr>
           nnoremap <silent> <LocalLeader>fb :Buffers<cr>
-          nnoremap <silent> <LocalLeader>fg :call FZFGitRoot()<cr>
+          " root
+          nnoremap <silent> <LocalLeader>fr :GFiles<cr>
+          " nix configs
+          nnoremap <silent> <LocalLeader>fn :FZF $DOTFILES<cr>
 
-          nnoremap <silent> <LocalLeader>sf :RG<cr>
+          nnoremap <silent> <LocalLeader>sf :Rg<cr>
          '';
        }
        fzf-vim
@@ -271,6 +269,18 @@ in
        vim-tmux
        vim-nix
        typescript-vim
+       # {
+       #   plugin = nvim-tree-lua;
+       #   config = ''
+       #     let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
+       #     let g:nvim_tree_auto_open = 1
+       #     let g:nvim_tree_tab_open = 1
+       #     let g:nvim_tree_auto_close = 1
+       #     let g:nvim_tree_follow = 1
+       #
+       #     nnoremap <silent><leader>ft :NvimTreeToggle<CR>
+       #   '';
+       # }
        {
          plugin = vim-nerdtree-tabs;
          config = ''
@@ -278,11 +288,16 @@ in
          '';
        }
        {
+         plugin = nerdtree-git-plugin;
+         config = ''
+           let g:NERDTreeGitStatusConcealBrackets = 1
+         '';
+       }
+       {
         plugin = nerdtree;
         config = ''
-          " Open the existing NERDTree on each new tab.
-          "autocmd BufWinEnter * silent NERDTreeMirror
-          "nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
+          let NERDTreeMinimalUI = 1
+          let NERDTreeStatusline=""
         '';
       }
     ];
