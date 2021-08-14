@@ -44,15 +44,15 @@ source ./bindings.rc
 source ./accounts/vranix
 # Here we use the $folder variable that has just been set in the sourced file.
 # We must set it right now otherwise the 'folder' variable will change in the next sourced file.
-folder-hook $folder 'source ./accounts/vranix'
+folder-hook $folder 'source ~/.config/neomutt/accounts/vranix'
 
 source ./accounts/personal
-folder-hook $folder 'source /.accounts/personal'
+folder-hook $folder 'source ~/.config/neomutt/accounts/personal'
 
 source ./accounts/work
-folder-hook $folder 'source ./accounts/work'
+folder-hook $folder 'source ~/.config/neomutt/accounts/work'
 
 # Account switching
-macro index,pager ,v '<sync-mailbox><enter-command>source ./accounts/vranix<enter><change-folder>!<enter>'
-macro index,pager ,p '<sync-mailbox><enter-command>source ./accounts/personal<enter><change-folder>!<enter>'
-macro index,pager ,w '<sync-mailbox><enter-command>source ./accounts/work<enter><change-folder>!<enter>'
+macro index,pager ,v '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/vranix<enter><change-folder>!<enter>'
+macro index,pager ,p '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/personal<enter><change-folder>!<enter>'
+macro index,pager ,w '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/work<enter><change-folder>!<enter>'

@@ -10,7 +10,6 @@
     ../../roles/graphical
   ];
 
-
   networking.hostName = "bocana";
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.enp2s0.useDHCP = true;
@@ -18,16 +17,17 @@
 
   system.stateVersion = "20.09";
 
-
-
-
   ## adguard home
   environment.systemPackages = with pkgs; [
     adguardhome
   ];
 
-  networking.firewall.allowedUDPPorts = [ 53 ];
-  networking.firewall.allowedTCPPorts = [ 53 ];
+  networking.firewall = {
+    allowedUDPPorts = [ 53 ];
+    allowedTCPPorts = [
+      53    # dns / adguard
+      631   # cups server
+    ];
 
   services.adguardhome = {
     enable = true;

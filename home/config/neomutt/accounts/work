@@ -21,6 +21,6 @@ set trash = "+[Gmail]/Trash"
 
 set imap_check_subscribed
 
-mailboxes =INBOX =[Gmail]/Sent\ Mail =[Gmail]/Drafts =[Gmail]/Spam =[Gmail]/Trash
+mailboxes =INBOX =[Gmail]/Sent\ Mail =[Gmail]/Drafts
 
 account-hook $folder "set imap_user=shaw.vrana@conductorone.com set imap_pass=`gopass show c1.com.imap.passwd`";
