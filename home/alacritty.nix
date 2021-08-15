@@ -5,6 +5,9 @@
     enable = true;
     settings =
       {
+        env = {
+          TERM = "xterm-256color";
+        };
         window = {
           dimensions.columns = 140;
           dimensions.lines = 140;

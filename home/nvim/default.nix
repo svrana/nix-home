@@ -40,41 +40,33 @@ in
     ];
     extraConfig = ''
         source $DOTFILES/home/nvim/init.vim
-    '';
+    ''i;
     #prototool', { 'rtp': 'vim/prototool' }
     plugins = with pkgs.vimPlugins; [
-       nvim-web-devicons
-       plenary-nvim
        {
-         plugin = vim-colors-solarized;
-         config = ''colorscheme solarized ${initialConfig} '';
+        plugin = nvim-web-devicons;
+        config = ''colorscheme NeoSolarized ${initialConfig} '';
        }
+       plenary-nvim
        {
         plugin = glow-nvim;
         config = "nnoremap <silent><LocalLeader>mg :Glow<CR>";
        }
        {
-          plugin = vim-airline;
-          config = ''
-            let g:airline_powerline_fonts = 1
-            let g:airline_section_b="" "Disable showing branch cause it crowds the filename
-            let g:airline_section_y="" "Disable filetype cause it's mostly useless
-            "let g:airline#extensions#tabline#fnamemod = ':t' "no path,only filename
-            let g:airline_skip_empty_sections = 1
-            let g:airline#extensions#tabline#enabled = 1
-            let g:airline#extensions#tabline#formatter = 'unique_tail'
-            let g:airline#extensions#tabline#tab_min_count = 2
-            let g:airline#extensions#tabline#show_tab_type = 0
-            let g:airline#extensions#tabline#show_close_button = 0
-            let g:airline#extensions#tabline#show_tab_nr = 0
-            let g:airline#extensions#tabline#show_splits = 0
-            let g:airline#extensions#tabline#show_buffers = 0
-            let g:airline#extensions#tabline#buffer_min_count = 2
-            let g:airline#extensions#virtualenv#enabled = 1
-            let g:airline#extensions#coc#enabled = 0
+         plugin = lualine-nvim;
+         config = ''
+         lua << EOF
+           require('lualine').setup {
+            options = {
+              icons_enabled = true,
+              theme = 'solarized_dark',
+            },
+            tabline = {},
+            extensions = {'nerdtree', 'fugitive', 'fzf'}
+           }
+         EOF
           '';
        }
-       vim-airline-themes
        vim-jsx-typescript
        vim-obsession
        {
@@ -239,7 +231,7 @@ in
           " nix configs
           nnoremap <silent> <LocalLeader>fn :FZF $DOTFILES<cr>
 
-          nnoremap <silent> <LocalLeader>sf :Rg<cr>
+          nnoremap <silent> <LocalLeader>fs :Rg<cr>
          '';
        }
        fzf-vim
@@ -269,37 +261,43 @@ in
        vim-tmux
        vim-nix
        typescript-vim
-       # {
-       #   plugin = nvim-tree-lua;
-       #   config = ''
-       #     let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
-       #     let g:nvim_tree_auto_open = 1
-       #     let g:nvim_tree_tab_open = 1
-       #     let g:nvim_tree_auto_close = 1
-       #     let g:nvim_tree_follow = 1
-       #
-       #     nnoremap <silent><leader>ft :NvimTreeToggle<CR>
-       #   '';
-       # }
        {
-         plugin = vim-nerdtree-tabs;
+         plugin = nvim-tree-lua;
          config = ''
-            map <silent> <leader>ft <plug>NERDTreeTabsToggle<CR>
+           let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
+           let g:nvim_tree_gitignore = 1
+           "let g:nvim_tree_lsp_diagnostics = 1
+           "let g:nvim_tree_auto_open = 1
+           " unforunately takes control of the cursor too
+           " let g:nvim_tree_tab_open = 1
+           let g:nvim_tree_group_empty = 1
+           let g:nvim_tree_auto_close = 1
+           " needed for fugitive GBrowse
+           let g:nvim_tree_disable_netrw = 0
+           let g:nvim_tree_follow = 1
+
+           nnoremap <silent><leader>ft :NvimTreeToggle<CR>
          '';
        }
-       {
-         plugin = nerdtree-git-plugin;
-         config = ''
-           let g:NERDTreeGitStatusConcealBrackets = 1
-         '';
-       }
-       {
-        plugin = nerdtree;
-        config = ''
-          let NERDTreeMinimalUI = 1
-          let NERDTreeStatusline=""
-        '';
-      }
+      # {
+      #    plugin = vim-nerdtree-tabs;
+      #    config = ''
+      #       map <silent> <leader>ft <plug>NERDTreeTabsToggle<CR>
+      #    '';
+      #  }
+      #  {
+      #    plugin = nerdtree-git-plugin;
+      #    config = ''
+      #      let g:NERDTreeGitStatusConcealBrackets = 1
+      #    '';
+      #  }
+      #  {
+      #   plugin = nerdtree;
+      #   config = ''
+      #     let NERDTreeMinimalUI = 1
+      #     let NERDTreeStatusline=""
+      #   '';
+      # }
     ];
   };
 
