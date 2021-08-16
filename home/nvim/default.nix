@@ -61,8 +61,17 @@ in
               icons_enabled = true,
               theme = 'solarized_dark',
             },
+            sections = {
+              lualine_c = {
+                {
+                  'filename',
+                  file_status = true, -- displays file status (readonly status, modified status)
+                  path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+                }
+              }
+            },
             tabline = {},
-            extensions = {'nerdtree', 'fugitive', 'fzf'}
+            extensions = {'nvim-tree', 'fugitive', 'fzf'}
            }
          EOF
           '';
@@ -91,6 +100,10 @@ in
        {
          plugin = vimagit;
          config = ''nnoremap <silent> <LocalLeader>gt :Magit<CR>'';
+       }
+       {
+         plugin = minimap-vim;
+         config = ''nnoremap <silent> <LocalLeader>fm :MinimapToggle<cr>'';
        }
        vim-surround
        {
