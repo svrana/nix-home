@@ -19,6 +19,8 @@ in
       BUILDUID = "$(id -u $USER)";
       EDITOR = "vim";
       MANPAGER = "vim -c 'set ft=man' -";
+
+      EXA_DFLT_ARGS = "--icons --group-directories-first";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
 
@@ -100,7 +102,8 @@ in
       "r" = "ranger";
       "pl" = "pulumi";
 
-      "ls" = "ls $LS_DFLT_ARGS";
+      #"ls" = "ls $LS_DFLT_ARGS";
+      "ls" = "exa $EXA_DFLT_ARGS";
       "ll" = "ls -al";
       "lsd" = "ls -d */";
 

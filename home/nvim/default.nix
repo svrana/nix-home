@@ -40,7 +40,7 @@ in
     ];
     extraConfig = ''
         source $DOTFILES/home/nvim/init.vim
-    ''i;
+    '';
     #prototool', { 'rtp': 'vim/prototool' }
     plugins = with pkgs.vimPlugins; [
        {

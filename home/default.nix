@@ -75,6 +75,7 @@ in
     diffstat
     docker-compose
     elixir
+    exa
     networkmanager_dmenu
     niv
     element-desktop
