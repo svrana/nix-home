@@ -28,6 +28,7 @@
       53    # dns / adguard
       631   # cups server
     ];
+  };
 
   services.adguardhome = {
     enable = true;
