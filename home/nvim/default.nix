@@ -71,6 +71,8 @@ in
            " nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
            "nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
 
+           nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
+
            lua << EOF
            local actions = require('telescope.actions')
            require('telescope').setup{
@@ -83,6 +85,7 @@ in
              }
            }
            EOF
+
          '';
        }
        {
