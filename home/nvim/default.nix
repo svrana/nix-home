@@ -17,15 +17,15 @@ in
     withPython3 = true;
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
-    extraPackages = [
-      pkgs.shfmt
-      pkgs.nixfmt
-      pkgs.gopls
-      pkgs.nodePackages.bash-language-server
-      pkgs.nodePackages.typescript-language-server
-      pkgs.nodePackages.yaml-language-server
-      pkgs.nodePackages.json-server
-      pkgs.nodePackages.dockerfile-language-server-nodejs
+    extraPackages = with pkgs; [
+      shfmt
+      nixfmt
+      gopls
+      nodePackages.bash-language-server
+      nodePackages.typescript-language-server
+      nodePackages.yaml-language-server
+      nodePackages.json-server
+      nodePackages.dockerfile-language-server-nodejs
     ];
     extraConfig = ''
         source $DOTFILES/home/nvim/init.vim
@@ -49,7 +49,7 @@ in
           require'nvim-treesitter.configs'.setup {
             ensure_installed = "maintained",
             highlight = {
-              enable = false,
+              enable = true,
             },
           }
           local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
