@@ -12,7 +12,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.cleanTmpDir = true;
 
-
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
   # Limit the systemd journal to 100 MB of disk or the last 7 days of logs whichever happens first.
@@ -37,10 +36,12 @@
 
   services.tailscale.enable = true;
 
-  services.resolved = {
-      enable = true;
-      dnssec = "false";
-    };
+  # Will run a caching dns server on :53 which conflicts with adguardhome
+  # services.resolved = {
+  #     enable = true;
+  #     dnssec = "false";
+  #   };
+
   # networking.firewall = {
   #   # enable the firewall
   #   enable = true;
@@ -49,9 +50,13 @@
   #   trustedInterfaces = [ "tailscale0" ];
 
   #   # allow the Tailscale UDP port through the firewall
-  #   allowedUDPPorts = [ config.services.tailscale.port ];
+  #   allowedUDPPorts = [
+  #     config.services.tailscale.port
+  #   ];
 
   #   # allow you to SSH in over the public internet
-  #   allowedTCPPorts = [ 22 ];
+  #   allowedTCPPorts = [
+  #     22
+  #   ];
   # };
 }

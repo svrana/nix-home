@@ -13,6 +13,6 @@
     # The user you will SSH into the machine as. This defaults to your current
     # username, however for this example we will just SSH in as root.
     #deployment.targetUser = "root";
-    deployment.targetHost = "bocana";
+    deployment.targetHost = "100.121.133.71";
   };
 }
