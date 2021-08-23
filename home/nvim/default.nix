@@ -21,14 +21,18 @@ in
       shfmt
       nixfmt
       gopls
+      nodePackages.prettier
+      nodePackages.eslint_d
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
       nodePackages.json-server
       nodePackages.dockerfile-language-server-nodejs
+      nodePackages.diagnostic-languageserver
     ];
     extraConfig = ''
         source $DOTFILES/home/nvim/init.vim
+        luafile $DOTFILES/home/nvim/lua/diagnostics.lua
     '';
     #prototool', { 'rtp': 'vim/prototool' }
     plugins = with pkgs.vimPlugins; [
@@ -103,6 +107,8 @@ in
          nnoremap <silent><leader>cf :Lspsaga lsp_finder<CR>
          nnoremap <silent><leader>ca :Lspsaga code_action<CR>
          vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+         nnoremap <silent><leader>cj :Lspsaga diagnostic_jump_next<CR>
+
          lua << EOF
          local saga = require 'lspsaga'
          saga.init_lsp_saga {
