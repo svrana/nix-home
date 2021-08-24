@@ -4,14 +4,15 @@ function M.dots()
   require("telescope.builtin").find_files {
     shorten_path = false,
     cwd = "$DOTFILES",
-    prompt = "~ dotfiles ~",
+    prompt_title = "~ dotfiles ~",
     hidden = false,
-
-    layout_strategy = "horizontal",
-    layout_config = {
-      preview_width = 0.55,
-    },
   }
+end
+
+M.project_files = function()
+  local opts = {}
+  local ok = pcall(require'telescope.builtin'.git_files, opts)
+  if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
 return M

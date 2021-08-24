@@ -96,7 +96,7 @@ map <m-o> :copen<CR>
 map <c-x> :bdelete<CR>
 map <c-s> :tabp<CR>
 map <c-h> :tabn<CR>
-map <c-c> :make<CR>
+"map <c-c> :make<CR>
 map - <C-W>-
 map + <C-W>+
 

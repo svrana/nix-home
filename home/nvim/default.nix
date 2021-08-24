@@ -65,27 +65,47 @@ in
          plugin = telescope-nvim;
          config = ''
            nnoremap <silent>fh <cmd>Telescope help_tags<cr>
-           " default bindings overlap the emacs command line bindings,
-           "nnoremap <silent> <leader>ff <cmd>Telescope find_files<cr>
+           nnoremap <silent> <leader>ff <cmd>lua require('svrana.telescope').project_files()<CR>
            " too slow
-           " nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
-           "nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
-
+           "nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
+           nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
+           " nixos-configs (thus the 'n')
            nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
 
            lua << EOF
            local actions = require('telescope.actions')
            require('telescope').setup{
              defaults = {
+              layout_strategy = 'vertical',
+              set_env = { ['COLORTERM'] = 'truecolor' },
                mappings = {
+                 i = {
+                     ["<C-j>"] = actions.move_selection_next,
+                     ["<C-k>"] = actions.move_selection_previous,
+                     ["<esc>"] = actions.close
+                 },
                  n = {
                    ["q"] = actions.close
                  },
                },
+             },
+             pickers = {
+               buffers = {
+                 sort_lastused = true,
+                 theme = "dropdown",
+                 previewer = false,
+                 mappings = {
+                   i = {
+                     ["<c-d>"] = actions.delete_buffer,
+                   },
+                   n = {
+                     ["<c-d>"] = actions.delete_buffer,
+                   }
+                 }
+               }
              }
            }
            EOF
-
          '';
        }
        {
@@ -480,12 +500,12 @@ in
        {
          plugin = fzfWrapper;
          config = ''
-          nnoremap <silent> <leader>ff :Files<cr>
-          nnoremap <silent> <leader>fb :Buffers<cr>
+          "nnoremap <silent> <leader>ff :Files<cr>
+          "nnoremap <silent> <leader>fb :Buffers<cr>
           " root
           nnoremap <silent> <leader>fr :GFiles<cr>
           " nix configs
-          nnoremap <silent> <leader>fn :FZF $DOTFILES<cr>
+          "nnoremap <silent> <leader>fn :FZF $DOTFILES<cr>
 
           nnoremap <silent> <leader>fs :Rg<cr>
          '';
