@@ -150,7 +150,8 @@ in
     enable = true;
     enableSshSupport = true;
     pinentryFlavor = "gnome3";
-    maxCacheTtl = 6 * 60;
+    defaultCacheTtl = 8 * 60 * 60;
+    maxCacheTtl = 8 * 60 * 60;
   };
   # Compositor to prevent screen tearing until modesetting gets in:
   #   https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/24
