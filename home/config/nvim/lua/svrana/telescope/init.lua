@@ -15,4 +15,9 @@ M.project_files = function()
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
+M.clear_prompt = function(prompt_bufnr)
+  local action_state = require'telescope.actions.state'
+  action_state.get_current_picker(prompt_bufnr):reset_prompt()
+end
+
 return M

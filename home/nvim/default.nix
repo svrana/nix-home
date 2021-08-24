@@ -78,6 +78,8 @@ in
 
            lua << EOF
            local actions = require('telescope.actions')
+           local svrana = require('svrana.telescope')
+
            require('telescope').setup{
              defaults = {
               layout_strategy = 'vertical',
@@ -86,7 +88,8 @@ in
                  i = {
                      ["<C-j>"] = actions.move_selection_next,
                      ["<C-k>"] = actions.move_selection_previous,
-                     ["<esc>"] = actions.close
+                     ["<esc>"] = actions.close,
+                     ["<C-u>"] = svrana.clear_prompt
                  },
                  n = {
                    ["q"] = actions.close
