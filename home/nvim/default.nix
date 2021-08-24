@@ -75,7 +75,6 @@ in
            nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
 
            " Highlight characters your input matches
-           highlight TelescopeMatching       guibg=blue
 
            lua << EOF
            local actions = require('telescope.actions')
@@ -121,6 +120,15 @@ in
            require('telescope').load_extension('fzf')
            EOF
          '';
+       }
+       {
+       plugin = nvim-colorizer-lua;
+       config = ''
+        set termguicolors
+        lua << EOF
+        require 'colorizer'.setup();
+        EOF
+       '';
        }
        {
          plugin = lsp-colors-nvim;

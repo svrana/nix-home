@@ -260,3 +260,5 @@ set completeopt=menuone,noselect
 "have neoformat handle typescript formatting
 "autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 5000)
 "autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 5000)
+
+highlight TelescopeMatching guibg=lightcyan
