@@ -60,11 +60,12 @@ in
       };
       alacritty = {
         fontFamily = mkOption {
-          default = "UbuntuMono Nerd Font Mono";
+          #default = "UbuntuMono Nerd Font Mono";
+          default = "Hack";
           type = types.str;
         };
         fontSize = mkOption {
-          default = 8.00;
+          default = 7.00;
           type = types.float;
         };
       };

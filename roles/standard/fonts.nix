@@ -5,6 +5,7 @@
     ubuntu_font_family
     powerline-fonts
     font-awesome
+    hack-font
     #jetbrains-mono
     #source-code-pro
     #mononoki
