@@ -61,6 +61,8 @@ in
           EOF
          '';
        }
+       popup-nvim
+       telescope-fzf-native-nvim
        {
          plugin = telescope-nvim;
          config = ''
@@ -71,6 +73,9 @@ in
            nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
            " nixos-configs (thus the 'n')
            nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
+
+           " Highlight characters your input matches
+           highlight TelescopeMatching       guibg=blue
 
            lua << EOF
            local actions = require('telescope.actions')
@@ -103,8 +108,17 @@ in
                    }
                  }
                }
+             },
+             extensions = {
+               fzf = {
+                 fuzzy = true,                    -- false will only do exact matching
+                 override_generic_sorter = false, -- override the generic sorter
+                 override_file_sorter = true,     -- override the file sorter
+               }
              }
            }
+
+           require('telescope').load_extension('fzf')
            EOF
          '';
        }

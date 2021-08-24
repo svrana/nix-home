@@ -23,15 +23,15 @@
         draw_bold_text_with_bright_colors = true;
         font = {
           normal = {
-            family = "UbuntuMono Nerd Font Mono";
+            family = config.settings.alacritty.fontFamily;
             style = "Regular";
           };
           bold = {
-            family = "UbuntuMono Nerd Font Mono";
+            family = config.settings.alacritty.fontFamily;
             style = "Bold";
           };
           italic = {
-            family = "UbuntuMono Nerd Font Mono";
+            family = config.settings.alacritty.fontFamily;
             style = "Italic";
           };
           size = config.settings.alacritty.fontSize;

@@ -59,9 +59,13 @@ in
         };
       };
       alacritty = {
+        fontFamily = mkOption {
+          default = "UbuntuMono Nerd Font Mono";
+          type = types.str;
+        };
         fontSize = mkOption {
-          default = 8;
-          type = types.int;
+          default = 8.00;
+          type = types.float;
         };
       };
       rofi = {
