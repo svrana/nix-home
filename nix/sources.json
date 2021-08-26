@@ -11,6 +11,18 @@
         "url": "https://github.com/nix-community/home-manager/archive/ae8cb242f2e450c525274732af58b3050399f5bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "neovim": {
+        "branch": "master",
+        "description": "Vim-fork focused on extensibility and usability",
+        "homepage": "https://neovim.io",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "10d7d73b2dc6db081a8a1f405204d35cccb85196",
+        "sha256": "1j787j9wc9ypy95wmfy1lbq2kk7ivl2hhgpd1k0jriasapvdn5cn",
+        "type": "tarball",
+        "url": "https://github.com/neovim/neovim/archive/10d7d73b2dc6db081a8a1f405204d35cccb85196.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
