@@ -3,6 +3,8 @@
   services.xserver = {
     enable = true;
     xkbOptions = "ctrl:nocaps";
+    # TODO: should be configurable per host
+    dpi = 96;
     layout = "us";
     displayManager = {
       defaultSession = "home-manager";

@@ -44,8 +44,8 @@ in
         fonts = mkOption {
           type = with types; either (listOf str) fontOptions;
           default = {
-            names = [ "System San Francisco Display" ];
-            style = "";
+            names = [ "SFNS Display" ];
+            style = "Regular";
             size = 12.0;
           };
           example = literalExample ''
@@ -60,12 +60,11 @@ in
       };
       alacritty = {
         fontFamily = mkOption {
-          #default = "UbuntuMono Nerd Font Mono";
           default = "Hack";
           type = types.str;
         };
         fontSize = mkOption {
-          default = 7.00;
+          default = 11.50;
           type = types.float;
         };
       };
@@ -89,6 +88,10 @@ in
         cursorSize = mkOption {
           default = 14;
           type = types.int;
+        };
+        dpi = mkOption {
+          default = "96";
+          type = types.str;
         };
       };
       polybar = {

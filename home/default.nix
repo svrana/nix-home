@@ -131,6 +131,7 @@ in
     xautolock
     xclip
     xdg_utils
+    xorg.xdpyinfo
     zoom-us
     yarn
   ];
@@ -301,6 +302,9 @@ in
    };
  };
 
- xresources.path = "${config.home.homeDirectory}/.config/X11/Xresources";
+ xresources = {
+   extraConfig = "Xft.dpi: ${config.settings.x.dpi}";
+   path = "${config.home.homeDirectory}/.config/X11/Xresources";
+ };
  programs.neovim.package = neovim-nightly;
 }

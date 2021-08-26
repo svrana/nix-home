@@ -147,7 +147,7 @@ in
           info = "default_size 'DejaVu Sans Mono'";
           warning = "default_size 'DejaVu Sans Mono'";
         };
-        prompts = "default_size 'System San Francisco Display Regular'";
+        prompts = "default_size 'SFNS Display Regular'";
         web.size = config.settings.qutebrowser.fonts.web.size;
       };
       scrolling.smooth = true;
