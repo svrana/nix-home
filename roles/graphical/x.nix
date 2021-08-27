@@ -13,6 +13,8 @@
         enable = true;
         greeters.gtk = {
           enable = true;
+          # Bad upstream defaults https://github.com/Xubuntu/lightdm-gtk-greeter/issues/85.
+          indicators = [ "~host" "~spacer" "~session" "~a11y" "~clock" "~power" ];
         };
         # move .Xauthority out of home directory. Unfortunately appimages
         # don't seem be able able to get to the Xauthority file.
