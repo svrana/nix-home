@@ -90,8 +90,8 @@ in
           type = types.int;
         };
         dpi = mkOption {
-          default = "96";
-          type = types.str;
+          default = 96;
+          type = types.int;
         };
       };
       polybar = {

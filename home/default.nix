@@ -303,7 +303,7 @@ in
  };
 
  xresources = {
-   extraConfig = "Xft.dpi: ${config.settings.x.dpi}";
+   extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
    path = "${config.home.homeDirectory}/.config/X11/Xresources";
  };
  programs.neovim.package = neovim-nightly;
