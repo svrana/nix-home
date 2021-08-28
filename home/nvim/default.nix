@@ -21,7 +21,6 @@ in
       shfmt
       nixfmt
       gopls
-      nodePackages.prettier
       nodePackages.eslint_d
       nodePackages.bash-language-server
       nodePackages.typescript-language-server

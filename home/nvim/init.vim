@@ -197,7 +197,6 @@ local log = require 'vim.lsp.log'
 local vim = vim
 
 -- Ref (in Japanese): https://daisuzu.hatenablog.com/entry/2019/12/06/005543
--- Ref: https://qrunch.net/@igrep/entries/K6sUDofcmvtnRqzk
 function tagfunc_nvim_lsp(pattern, flags, info)
  local result = {}
  local isSearchingFromNormalMode = flags == "c"
@@ -261,4 +260,4 @@ set completeopt=menuone,noselect
 "autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 5000)
 "autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 5000)
 
-highlight TelescopeMatching guibg=darkcyan
+highlight TelescopeMatching guifg=orange
