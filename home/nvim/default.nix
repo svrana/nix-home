@@ -21,6 +21,9 @@ in
       shfmt
       nixfmt
       gopls
+      rnix-lsp
+      sumneko-lua-language-server
+      nodePackages.vim-language-server
       nodePackages.eslint_d
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
@@ -54,9 +57,14 @@ in
             highlight = {
               enable = true,
             },
+            -- for language in language in support, i.e., update commentstring based on line position
+            -- see also nvim-ts-context-commentstring
+            context_commentstring = {
+             enable = true
+           }
           }
-          local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-          parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
+          -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+          -- parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
           EOF
          '';
        }
@@ -449,12 +457,13 @@ in
          config = ''nnoremap <silent> <LocalLeader>fm :MinimapToggle<cr>'';
        }
        vim-surround
-       {
-         plugin = tcomment_vim;
-         #Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
-         config = "let g:tcomment#filetype#guess_typescriptreact = 1";
-       }
-       #vim-commentary
+       # {
+       #   plugin = tcomment_vim;
+       #   #Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
+       #   config = "let g:tcomment#filetype#guess_typescriptreact = 1";
+       # }
+       nvim-ts-context-commentstring
+       vim-commentary
        vim-sort-motion
        vim-sneak
        {
@@ -489,7 +498,6 @@ in
        }
        tmux-complete-vim
        vim-snippets
-       #vim-autoformat
        {
          plugin = vim-rooter;
          config = "let g:rooter_cd_cmd = 'lcd'";

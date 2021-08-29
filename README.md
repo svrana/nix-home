@@ -33,3 +33,11 @@ To deploy the other machines on my home network, I use [morph](https://github.co
 ```
 make vnet
 ```
+
+## Updating
+
+git log --oneline nix.sources.json.nixpkgs.version..proposed.nixpkgs.update, i.e.,
+
+```
+git log --oneline  --ancestry-path 14b0f20fa1f56438b7..21c937f8cb1e6adcfeb36
+```
