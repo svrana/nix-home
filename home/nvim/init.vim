@@ -1,3 +1,5 @@
+lua << EOF
+EOF
 set notimeout
 set ttimeoutlen=100
 set backspace=indent,eol,start
@@ -26,6 +28,7 @@ set rtp+=$RCS/nvim/vimsnips
 set background=dark
 set pyx=3
 set termguicolors
+set clipboard=unnamed,unnamedplus
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
@@ -84,6 +87,7 @@ nnoremap <silent> <LocalLeader>hs :!make home<cr>
 nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
 nnoremap <leader>dn :set relativenumber!<CR>
+nnoremap <leader>qc :cclose<CR>
 
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
 
