@@ -1,39 +1,16 @@
-lua << EOF
-EOF
-set notimeout
-set ttimeoutlen=100
-set backspace=indent,eol,start
-set nowrap
-set ignorecase
-set smartcase
-set incsearch
-set nohlsearch
-set inccommand=split
-set backupcopy=yes
-set tags=tags,${GRUF_PROJECT}/tags
-set showmatch
-set backupext=.bak
+luafile $DOTFILES/home/nvim/init.lua
+
 set backupdir=~/.config/nvim/bak
-set noerrorbells
-set noshowmode
-set visualbell
-set ruler
-set laststatus=2
+
 set go=ia
-set noequalalways
-set updatetime=100
-set lazyredraw
 set rtp+=$RCS/nvim/vimsnips
-"set tagfunc=CocTagFunc
-set background=dark
-set pyx=3
-set termguicolors
-set clipboard=unnamed,unnamedplus
+set backupcopy=yes
+let g:autoswap_detect_tmux = 1
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
-let g:autoswap_detect_tmux = 1
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 highlight IncSearch ctermbg=LightYellow ctermfg=Red
 highlight WhiteOnRed ctermfg=white ctermbg=red
@@ -194,74 +171,8 @@ endfunction
 
 set tabline=%!MyTabLine()
 
-lua << EOF
-local lsp = require 'vim.lsp'
-local util = require 'vim.lsp.util'
-local log = require 'vim.lsp.log'
-local vim = vim
-
--- Ref (in Japanese): https://daisuzu.hatenablog.com/entry/2019/12/06/005543
-function tagfunc_nvim_lsp(pattern, flags, info)
- local result = {}
- local isSearchingFromNormalMode = flags == "c"
-
- local method
- local params
- if isSearchingFromNormalMode then
-   -- Jump to the definition of the symbol under the cursor
-   -- when called by CTRL-]
-   method = 'textDocument/definition'
-   params = util.make_position_params()
- else
-   -- NOTE: Currently I'm not sure how this clause is tested
-   --       because `:tag` command doesn't seem to use `tagfunc`.
-
-   -- Search with `pattern` when called by ex command (e.g. `:tag`)
-   method = 'workspace/symbol'
-
-   -- Delete "\<" from `pattern` when prepended.
-   -- Perhaps the server doesn't support regex in vim!
-   params = {}
-   if string.find(flags, 'i') then
-     params.query = string.sub(pattern, '^\\<', '')
-   else
-     params.query = pattern
-   end
- end
- local client_id_to_results, err = lsp.buf_request_sync(0, method, params, 800)
- if err then
-   print('Error when calling tagfunc: ' .. err)
-   return result
- end
-
- for _client_id, results in pairs(client_id_to_results) do
-   for i, lsp_result in ipairs(results.result) do
-     local name
-     local location
-     if isSearchingFromNormalMode then
-       name = pattern
-       location = lsp_result
-     else
-       name = lsp_result.name
-       location = lsp_result.location
-     end
-     local location_for_tagfunc = {
-       name = name,
-       filename = vim.uri_to_fname(location.uri),
-       cmd = tostring(location.range.start.line + 1)
-     }
-     table.insert(result, location_for_tagfunc)
- end
- end
- return result
-end
-EOF
 setlocal tagfunc=v:lua.tagfunc_nvim_lsp
 " nvim-compe
 set completeopt=menuone,noselect
-
-"have neoformat handle typescript formatting
-"autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 5000)
-"autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 5000)
 
 highlight TelescopeMatching guifg=orange

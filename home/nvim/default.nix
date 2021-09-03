@@ -22,6 +22,7 @@ in
       nixfmt
       gopls
       rnix-lsp
+      buf
       sumneko-lua-language-server
       nodePackages.vim-language-server
       nodePackages.eslint_d
@@ -30,13 +31,10 @@ in
       nodePackages.yaml-language-server
       nodePackages.json-server
       nodePackages.dockerfile-language-server-nodejs
-      nodePackages.diagnostic-languageserver
     ];
     extraConfig = ''
         source $DOTFILES/home/nvim/init.vim
-        luafile $DOTFILES/home/nvim/lua/diagnostics.lua
     '';
-    #prototool', { 'rtp': 'vim/prototool' }
     plugins = with pkgs.vimPlugins; [
        {
         plugin = nvim-web-devicons;
@@ -47,6 +45,28 @@ in
        {
         plugin = glow-nvim;
         config = "nnoremap <silent><LocalLeader>mg :Glow<CR>";
+       }
+       {
+         plugin = null-ls-nvim;
+         config = ''
+         augroup fmt
+            autocmd!
+            autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync()
+            autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync()
+         augroup END
+
+         lua << EOF
+         local null_ls = require("null-ls")
+         local sources = {
+           null_ls.builtins.diagnostics.eslint_d,
+           null_ls.builtins.formatting.prettier.with({
+             filetypes = { "typescript", "typescriptreact", "markdown", "json" },
+           }),
+         }
+
+         null_ls.config({ sources = sources })
+         EOF
+         '';
        }
        {
          plugin = nvim-treesitter;
@@ -367,7 +387,7 @@ in
 
         -- Use a loop to conveniently call 'setup' on multiple servers and
         -- map buffer local keybindings when the language server attaches
-        local servers = { 'gopls', 'bashls', 'yamlls', 'rnix', 'dockerls', 'jsonls'}
+        local servers = { 'gopls', 'bashls', 'yamlls', 'rnix', 'dockerls', 'jsonls', 'null-ls'}
         for _, lsp in ipairs(servers) do
           nvim_lsp[lsp].setup {
             on_attach = on_attach,
@@ -378,11 +398,17 @@ in
         end
 
         nvim_lsp.tsserver.setup {
-          on_attach = on_attach,
           filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
           flags = {
               debounce_text_changes = 150,
-          }
+          },
+          -- let null-ls (w/ prettier) handle formatting. This stops lsp
+          -- from prompting which lsp client should handle the formatting.
+          on_attach = function(client)
+              client.resolved_capabilities.document_formatting = false
+              client.resolved_capabilities.document_range_formatting = false
+              on_attach()
+          end,
         }
 
         local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
@@ -421,12 +447,11 @@ in
           },
         }
 
-        require'lspconfig'.vls.setup {
+        require'lspconfig'.vimls.setup {
           on_attach = on_attach,
           flags = {
             debounce_text_changes = 150,
           },
-          cmd = { "${pkgs.nodePackages.vim-language-server}/bin/vim-language-server" }
         }
         EOF
        '';
@@ -510,18 +535,6 @@ in
        vim-commentary
        vim-sort-motion
        vim-sneak
-       {
-         plugin = neoformat;
-         config = ''
-            augroup fmt
-              autocmd!
-              autocmd BufWritePre *.tsx undojoin | Neoformat
-              autocmd BufWritePre *.ts undojoin | Neoformat
-              autocmd BufWritePre *.js undojoin | Neoformat
-              autocmd BufWritePre *.jsx undojoin | Neoformat
-            augroup END
-         '';
-       }
        {
          plugin = neomake;
          config = ''
