@@ -57,14 +57,39 @@ in
 
          lua << EOF
          local null_ls = require("null-ls")
+         local methods = require("null-ls.methods")
+         local helpers = require("null-ls.helpers")
+
+         local bufcheck = {
+           method = methods.DIAGNOSTICS,
+           filetypes = { "proto" },
+           generator = null_ls.generator({
+             command = "buf",
+             args = { "lint", "--log-format", "text", "--path", "$FILENAME" },
+             format = "line",
+             to_stderr = true,
+             check_exit_code = function(code)
+                return code <= 1
+             end,
+             on_output = helpers.diagnostics.from_pattern(
+                [[[%w/.]+:(%d+):(%d+):(.*)]],
+                { "row", "col", "message" }
+             ),
+           }),
+         }
+
          local sources = {
+           bufcheck,
            null_ls.builtins.diagnostics.eslint_d,
            null_ls.builtins.formatting.prettier.with({
              filetypes = { "typescript", "typescriptreact", "markdown", "json" },
            }),
          }
 
-         null_ls.config({ sources = sources })
+         null_ls.config({
+           sources = sources,
+           debug = false
+         })
          EOF
          '';
        }
@@ -538,7 +563,7 @@ in
        {
          plugin = neomake;
          config = ''
-           let g:neomake_javascript_enabled_makers = ['eslint']
+           "let g:neomake_javascript_enabled_makers = ['eslint']
            let g:neomake_verbose = 0
 
            function C1GolangCITweak()
@@ -550,7 +575,7 @@ in
            endfunction
 
            autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
-           autocmd BufWritePost,BufAdd * Neomake
+           "autocmd BufWritePost,BufAdd * Neomake
          '';
        }
        tmux-complete-vim
