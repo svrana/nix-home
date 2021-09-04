@@ -1,11 +1,9 @@
 { pkgs, lib, ... }:
-let
-  initialConfig = ''
-    " hack, hack, hack:  this is the first config written to init.vim but this needs to be set first
+{
+  xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
   '';
-in
-{
+
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -33,12 +31,7 @@ in
       source $DOTFILES/home/nvim/init.vim
     '';
     plugins = with pkgs.vimPlugins; [
-      {
-        plugin = nvim-web-devicons;
-        config = ''
-          ${initialConfig}
-        '';
-      }
+      nvim-web-devicons
       plenary-nvim
       {
         plugin = glow-nvim;
@@ -667,17 +660,4 @@ in
       }
     ];
   };
-
-  # xdg.configFile."nvim/init.vim" = lib.mkMerge [
-  #   (lib.mkBefore {
-  #     text = ''
-  #       " prepend some config
-  #     '';
-  #   })
-  #   (lib.mkAfter {
-  #     text = ''
-  #       " append some config
-  #     '';
-  #   })
-  # ];
 }
