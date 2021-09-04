@@ -23,3 +23,11 @@ home: ## Build home-manager
 .PHONY:
 vnet: ## Push configs to machines on home network
 	@ops/home/push
+
+.PHONY:
+diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)
+	@current=$(shell jq -r .nixpkgs.rev < nix/sources.json)
+	@latest=$(shell curl --silent https://channels.nix.gsc.io/nixos-unstable/latest | cut -f1 -d" ")
+	@pushd $$PROJECTS/nixpkgs > /dev/null
+	@git log --oneline --ancestry-path $$current..$$latest | grep -v "Merge pull request" | less
+	@popd > /dev/null
