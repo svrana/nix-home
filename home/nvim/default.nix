@@ -1,11 +1,8 @@
 { pkgs, lib, ... }:
 let
   initialConfig = ''
-
-    " hack, hack, hack:  this is the first config written to init.vim, but I need these
-    " defined before I start using them below..
+    " hack, hack, hack:  this is the first config written to init.vim but this needs to be set first
     let mapleader = ","
-    let maplocalleader = ","
   '';
 in
 {
@@ -38,21 +35,22 @@ in
     plugins = with pkgs.vimPlugins; [
       {
         plugin = nvim-web-devicons;
-        config = ''colorscheme NeoSolarized ${initialConfig} '';
-        #config = ''${initialConfig} '';
+        config = ''
+          ${initialConfig}
+        '';
       }
       plenary-nvim
       {
         plugin = glow-nvim;
-        config = "nnoremap <silent><LocalLeader>mg :Glow<CR>";
+        config = "nnoremap <silent><Leader>mg :Glow<CR>";
       }
       {
         plugin = null-ls-nvim;
         config = ''
           lua << EOF
-          local null_ls = require("null-ls")
-          local methods = require("null-ls.methods")
-          local helpers = require("null-ls.helpers")
+          local null_ls = require('null-ls')
+          local methods = require('null-ls.methods')
+          local helpers = require('null-ls.helpers')
 
           local bufcheck = {
             method = methods.DIAGNOSTICS,
@@ -91,7 +89,7 @@ in
         plugin = nvim-treesitter;
         config = ''
           lua << EOF
-          require'nvim-treesitter.configs'.setup {
+          require('nvim-treesitter.configs').setup {
             ensure_installed = "maintained",
             highlight = {
               enable = true,
@@ -102,8 +100,6 @@ in
              enable = true
            }
           }
-          -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-          -- parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
           EOF
         '';
       }
@@ -175,7 +171,7 @@ in
         config = ''
           set termguicolors
           lua << EOF
-          require 'colorizer'.setup();
+          require('colorizer').setup();
           EOF
         '';
       }
@@ -204,8 +200,7 @@ in
           nnoremap <silent><leader>cj :Lspsaga diagnostic_jump_next<CR>
 
           lua << EOF
-          local saga = require 'lspsaga'
-          saga.init_lsp_saga {
+          require('lspsaga').init_lsp_saga {
             error_sign = '',
             warn_sign = '',
             hint_sign = '',
@@ -220,7 +215,7 @@ in
         plugin = nvim-compe;
         config = ''
           lua << EOF
-          require'compe'.setup {
+          require('compe').setup {
             enabled = true;
             autocomplete = true;
             debug = false;
@@ -337,7 +332,7 @@ in
         config = ''
           lua << EOF
           local nvim_lsp = require('lspconfig')
-          local protocol = require'vim.lsp.protocol'
+          local protocol = require('vim.lsp.protocol')
 
           -- Use an on_attach function to only map the following keys
           -- after the language server attaches to the current buffer
@@ -375,7 +370,7 @@ in
             buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
             buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-            require "lsp_signature".on_attach({
+            require('lsp_signature').on_attach({
               bind = true,
               toggle_key='<C-x>'
             })
@@ -411,7 +406,16 @@ in
 
           -- Use a loop to conveniently call 'setup' on multiple servers and
           -- map buffer local keybindings when the language server attaches
-          local servers = { 'gopls', 'bashls', 'yamlls', 'rnix', 'dockerls', 'jsonls', 'null-ls'}
+          local servers = {
+            'gopls',
+            'bashls',
+            'yamlls',
+            'rnix',
+            'dockerls',
+            'jsonls',
+            'null-ls',
+            'vimls',
+          }
           for _, lsp in ipairs(servers) do
             nvim_lsp[lsp].setup {
               on_attach = on_attach,
@@ -441,7 +445,7 @@ in
           table.insert(runtime_path, "lua/?.lua")
           table.insert(runtime_path, "lua/?/init.lua")
 
-          require'lspconfig'.sumneko_lua.setup {
+          require('lspconfig').sumneko_lua.setup {
             on_attach = on_attach,
             flags = {
               debounce_text_changes = 150,
@@ -468,13 +472,6 @@ in
                   enable = false,
                 },
               },
-            },
-          }
-
-          require'lspconfig'.vimls.setup {
-            on_attach = on_attach,
-            flags = {
-              debounce_text_changes = 150,
             },
           }
           EOF
@@ -530,10 +527,10 @@ in
       {
         plugin = vim-fugitive;
         config = ''
-          nnoremap <silent><LocalLeader>gb :Git blame<CR>
+          nnoremap <silent><Leader>gb :Git blame<CR>
           " Open visual selection in the browser (with rhubarb handler for github)
-          xnoremap <silent> <LocalLeader>gh :'<,'>GBrowse<CR>
-          nnoremap <silent> <LocalLeader>gh :GBrowse<CR>
+          xnoremap <silent> <Leader>gh :'<,'>GBrowse<CR>
+          nnoremap <silent> <Leader>gh :GBrowse<CR>
         '';
       }
       rhubarb
@@ -543,11 +540,11 @@ in
       }
       {
         plugin = vimagit;
-        config = ''nnoremap <silent> <LocalLeader>gt :Magit<CR>'';
+        config = ''nnoremap <silent> <Leader>gt :Magit<CR>'';
       }
       {
         plugin = minimap-vim;
-        config = ''nnoremap <silent> <LocalLeader>fm :MinimapToggle<cr>'';
+        config = ''nnoremap <silent> <Leader>fm :MinimapToggle<cr>'';
       }
       vim-surround
       # {
@@ -641,7 +638,7 @@ in
           let g:markdown_composer_autostart = 0
           let g:markdown_composer_browser="firefox"
 
-          nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
+          nnoremap <silent> <Leader>ms :ComposerStart<cr>
         '';
       }
       vim-python-pep8-indent
@@ -665,7 +662,7 @@ in
           let g:nvim_tree_disable_netrw = 0
           let g:nvim_tree_follow = 1
 
-          nnoremap <silent><leader>ft :NvimTreeToggle<CR>
+          nnoremap <silent><Leader>ft :NvimTreeToggle<CR>
         '';
       }
     ];
