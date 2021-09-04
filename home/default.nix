@@ -1,16 +1,17 @@
 { config, pkgs, lib, ... }:
 let
   sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs { };
+  pkgs = import sources.nixpkgs {};
   # https://github.com/nix-community/neovim-nightly-overlay
   # cachix use nix-community
   neovim-nightly = pkgs.neovim-unwrapped.overrideAttrs (
-   _: {
-     version = "master";
-     src = pkgs.fetchFromGitHub {
-       inherit (sources.neovim) owner repo rev sha256;
-     };
-   });
+    _: {
+      version = "master";
+      src = pkgs.fetchFromGitHub {
+        inherit (sources.neovim) owner repo rev sha256;
+      };
+    }
+  );
 in
 {
   programs.home-manager.enable = true;
@@ -252,59 +253,59 @@ in
     vendor
     pb
   '';
- xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
- xdg.mimeApps = {
-   enable = true;
-   defaultApplications = {
-     "text/html" = "org.qutebrowser.qutebrowser.desktop";
-     "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
-     "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
-     "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
-     "x-scheme-handler/slack" = "slack.desktop";
-     "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
-     "x-scheme-handler/element" = "element-desktop.desktop";
-   };
- };
- xdg.configFile."networkmanager-dmenu/config.ini".text = ''
-   [dmenu]
-     dmenu_command = rofi -dmenu
-     compact = true
-     rofi_highlight = True
-     wifi_chars = ▂▄▆█
- '';
+  xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
+      "x-scheme-handler/slack" = "slack.desktop";
+      "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
+      "x-scheme-handler/element" = "element-desktop.desktop";
+    };
+  };
+  xdg.configFile."networkmanager-dmenu/config.ini".text = ''
+    [dmenu]
+      dmenu_command = rofi -dmenu
+      compact = true
+      rofi_highlight = True
+      wifi_chars = ▂▄▆█
+  '';
 
- systemd.user.services.autocutsel = {
-   Unit.Description = "AutoCutSel";
-   Install = {
-     WantedBy = [ "graphical-session.target" ];
-   };
-   Service = {
-     Type = "forking";
-     Restart = "always";
-     RestartSec = 2;
-     ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
-     ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
-   };
- };
+  systemd.user.services.autocutsel = {
+    Unit.Description = "AutoCutSel";
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "forking";
+      Restart = "always";
+      RestartSec = 2;
+      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
+      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+    };
+  };
 
- systemd.user.services.i3-ratiosplit = {
-   Unit = {
-     Description = "i3-ratiosplit";
-     After = [ "graphical-session-pre.target" ];
-     PartOf = [ "graphical-session.target" ];
-   };
-   Install = { WantedBy = [ "graphical-session.target" ]; };
-   Service = {
-     Type = "simple";
-     ExecStart="${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
-     RestartSec = 2;
-     Restart = "always";
-   };
- };
+  systemd.user.services.i3-ratiosplit = {
+    Unit = {
+      Description = "i3-ratiosplit";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
+      RestartSec = 2;
+      Restart = "always";
+    };
+  };
 
- xresources = {
-   extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
-   path = "${config.home.homeDirectory}/.config/X11/Xresources";
- };
- programs.neovim.package = neovim-nightly;
+  xresources = {
+    extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
+    path = "${config.home.homeDirectory}/.config/X11/Xresources";
+  };
+  programs.neovim.package = neovim-nightly;
 }

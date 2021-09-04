@@ -33,69 +33,69 @@ in
       nodePackages.dockerfile-language-server-nodejs
     ];
     extraConfig = ''
-        source $DOTFILES/home/nvim/init.vim
+      source $DOTFILES/home/nvim/init.vim
     '';
     plugins = with pkgs.vimPlugins; [
-       {
+      {
         plugin = nvim-web-devicons;
         config = ''colorscheme NeoSolarized ${initialConfig} '';
         #config = ''${initialConfig} '';
-       }
-       plenary-nvim
-       {
+      }
+      plenary-nvim
+      {
         plugin = glow-nvim;
         config = "nnoremap <silent><LocalLeader>mg :Glow<CR>";
-       }
-       {
-         plugin = null-ls-nvim;
-         config = ''
-         augroup fmt
-            autocmd!
-            autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync()
-            autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync()
-         augroup END
+      }
+      {
+        plugin = null-ls-nvim;
+        config = ''
+          augroup fmt
+             autocmd!
+             autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync()
+             autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync()
+          augroup END
 
-         lua << EOF
-         local null_ls = require("null-ls")
-         local methods = require("null-ls.methods")
-         local helpers = require("null-ls.helpers")
+          lua << EOF
+          local null_ls = require("null-ls")
+          local methods = require("null-ls.methods")
+          local helpers = require("null-ls.helpers")
 
-         local bufcheck = {
-           method = methods.DIAGNOSTICS,
-           filetypes = { "proto" },
-           generator = null_ls.generator({
-             command = "buf",
-             args = { "lint", "--log-format", "text", "--path", "$FILENAME" },
-             format = "line",
-             to_stderr = true,
-             check_exit_code = function(code)
-                return code <= 1
-             end,
-             on_output = helpers.diagnostics.from_pattern(
-                [[[%w/.]+:(%d+):(%d+):(.*)]],
-                { "row", "col", "message" }
-             ),
-           }),
-         }
+          local bufcheck = {
+            method = methods.DIAGNOSTICS,
+            filetypes = { "proto" },
+            generator = null_ls.generator({
+              command = "buf",
+              args = { "lint", "--log-format", "text", "--path", "$FILENAME" },
+              format = "line",
+              to_stderr = true,
+              check_exit_code = function(code)
+                 return code <= 1
+              end,
+              on_output = helpers.diagnostics.from_pattern(
+                 [[[%w/.]+:(%d+):(%d+):(.*)]],
+                 { "row", "col", "message" }
+              ),
+            }),
+          }
 
-         local sources = {
-           bufcheck,
-           null_ls.builtins.diagnostics.eslint_d,
-           null_ls.builtins.formatting.prettier.with({
-             filetypes = { "typescript", "typescriptreact", "markdown", "json" },
-           }),
-         }
+          local sources = {
+            bufcheck,
+            null_ls.builtins.diagnostics.eslint_d,
+            null_ls.builtins.formatting.prettier.with({
+              filetypes = { "typescript", "typescriptreact", "markdown", "json" },
+            }),
+          }
 
-         null_ls.config({
-           sources = sources,
-           debug = false
-         })
-         EOF
-         '';
-       }
-       {
-         plugin = nvim-treesitter;
-         config = ''
+          null_ls.config({
+            sources = sources,
+            debug = false
+          })
+          EOF
+        '';
+      }
+      {
+        plugin = nvim-treesitter;
+        config = ''
           lua << EOF
           require'nvim-treesitter.configs'.setup {
             ensure_installed = "maintained",
@@ -111,120 +111,120 @@ in
           -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
           -- parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
           EOF
-         '';
-       }
-       popup-nvim
-       telescope-fzf-native-nvim
-       {
-         plugin = telescope-nvim;
-         config = ''
-           nnoremap <silent>fh <cmd>Telescope help_tags<cr>
-           nnoremap <silent> <leader>ff <cmd>lua require('svrana.telescope').project_files()<CR>
-           " too slow
-           "nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
-           nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
-           " nixos-configs (thus the 'n')
-           nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
+        '';
+      }
+      popup-nvim
+      telescope-fzf-native-nvim
+      {
+        plugin = telescope-nvim;
+        config = ''
+          nnoremap <silent>fh <cmd>Telescope help_tags<cr>
+          nnoremap <silent> <leader>ff <cmd>lua require('svrana.telescope').project_files()<CR>
+          " too slow
+          "nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
+          nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
+          " nixos-configs (thus the 'n')
+          nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
 
-           " Highlight characters your input matches
+          " Highlight characters your input matches
 
-           lua << EOF
-           local actions = require('telescope.actions')
-           local svrana = require('svrana.telescope')
+          lua << EOF
+          local actions = require('telescope.actions')
+          local svrana = require('svrana.telescope')
 
-           require('telescope').setup{
-             defaults = {
-              layout_strategy = 'vertical',
-              set_env = { ['COLORTERM'] = 'truecolor' },
-               mappings = {
-                 i = {
-                     ["<C-j>"] = actions.move_selection_next,
-                     ["<C-k>"] = actions.move_selection_previous,
-                     ["<esc>"] = actions.close,
-                     ["<C-u>"] = svrana.clear_prompt
-                 },
-                 n = {
-                   ["q"] = actions.close
-                 },
-               },
-             },
-             pickers = {
-               buffers = {
-                 sort_lastused = true,
-                 theme = "dropdown",
-                 previewer = false,
-                 mappings = {
-                   i = {
-                     ["<c-d>"] = actions.delete_buffer,
-                   },
-                   n = {
-                     ["<c-d>"] = actions.delete_buffer,
-                   }
-                 }
-               }
-             },
-             extensions = {
-               fzf = {
-                 fuzzy = true,                    -- false will only do exact matching
-                 override_generic_sorter = false, -- override the generic sorter
-                 override_file_sorter = true,     -- override the file sorter
-               }
-             }
-           }
+          require('telescope').setup{
+            defaults = {
+             layout_strategy = 'vertical',
+             set_env = { ['COLORTERM'] = 'truecolor' },
+              mappings = {
+                i = {
+                    ["<C-j>"] = actions.move_selection_next,
+                    ["<C-k>"] = actions.move_selection_previous,
+                    ["<esc>"] = actions.close,
+                    ["<C-u>"] = svrana.clear_prompt
+                },
+                n = {
+                  ["q"] = actions.close
+                },
+              },
+            },
+            pickers = {
+              buffers = {
+                sort_lastused = true,
+                theme = "dropdown",
+                previewer = false,
+                mappings = {
+                  i = {
+                    ["<c-d>"] = actions.delete_buffer,
+                  },
+                  n = {
+                    ["<c-d>"] = actions.delete_buffer,
+                  }
+                }
+              }
+            },
+            extensions = {
+              fzf = {
+                fuzzy = true,                    -- false will only do exact matching
+                override_generic_sorter = false, -- override the generic sorter
+                override_file_sorter = true,     -- override the file sorter
+              }
+            }
+          }
 
-           require('telescope').load_extension('fzf')
-           EOF
-         '';
-       }
-       {
-       plugin = nvim-colorizer-lua;
-       config = ''
-        set termguicolors
-        lua << EOF
-        require 'colorizer'.setup();
-        EOF
-       '';
-       }
-       {
-         plugin = lsp-colors-nvim;
-         config = ''
-         lua << EOF
-         require("lsp-colors").setup({
-           Error = "#db4b4b",
-           Warning = "#e0af68",
-           Information = "#0db9d7",
-           Hint = "#10B981"
-         })
-         EOF
-         '';
-       }
-       {
-       plugin = lspsaga-nvim;
-       config = ''
-         nnoremap <silent> K :Lspsaga hover_doc<CR>
-         nnoremap <silent><leader>cr :Lspsaga rename<CR>
-         nnoremap <silent><leader>cp :Lspsaga preview_definition<CR>
-         nnoremap <silent><leader>cf :Lspsaga lsp_finder<CR>
-         nnoremap <silent><leader>ca :Lspsaga code_action<CR>
-         vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-         nnoremap <silent><leader>cj :Lspsaga diagnostic_jump_next<CR>
+          require('telescope').load_extension('fzf')
+          EOF
+        '';
+      }
+      {
+        plugin = nvim-colorizer-lua;
+        config = ''
+          set termguicolors
+          lua << EOF
+          require 'colorizer'.setup();
+          EOF
+        '';
+      }
+      {
+        plugin = lsp-colors-nvim;
+        config = ''
+          lua << EOF
+          require("lsp-colors").setup({
+            Error = "#db4b4b",
+            Warning = "#e0af68",
+            Information = "#0db9d7",
+            Hint = "#10B981"
+          })
+          EOF
+        '';
+      }
+      {
+        plugin = lspsaga-nvim;
+        config = ''
+          nnoremap <silent> K :Lspsaga hover_doc<CR>
+          nnoremap <silent><leader>cr :Lspsaga rename<CR>
+          nnoremap <silent><leader>cp :Lspsaga preview_definition<CR>
+          nnoremap <silent><leader>cf :Lspsaga lsp_finder<CR>
+          nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+          vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+          nnoremap <silent><leader>cj :Lspsaga diagnostic_jump_next<CR>
 
-         lua << EOF
-         local saga = require 'lspsaga'
-         saga.init_lsp_saga {
-           error_sign = '',
-           warn_sign = '',
-           hint_sign = '',
-           infor_sign = '',
-           border_style = "round",
-         }
-         EOF
-       '';
-       }
-       lsp_signature-nvim
-       {
-         plugin = nvim-compe;
-         config = ''
+          lua << EOF
+          local saga = require 'lspsaga'
+          saga.init_lsp_saga {
+            error_sign = '',
+            warn_sign = '',
+            hint_sign = '',
+            infor_sign = '',
+            border_style = "round",
+          }
+          EOF
+        '';
+      }
+      lsp_signature-nvim
+      {
+        plugin = nvim-compe;
+        config = ''
           lua << EOF
           require'compe'.setup {
             enabled = true;
@@ -336,284 +336,284 @@ in
               vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
           end
           EOF
-         '';
-       }
-       {
-       plugin = nvim-lspconfig;
-       config = ''
-        lua << EOF
-        local nvim_lsp = require('lspconfig')
-        local protocol = require'vim.lsp.protocol'
+        '';
+      }
+      {
+        plugin = nvim-lspconfig;
+        config = ''
+          lua << EOF
+          local nvim_lsp = require('lspconfig')
+          local protocol = require'vim.lsp.protocol'
 
-        -- Use an on_attach function to only map the following keys
-        -- after the language server attaches to the current buffer
-        local on_attach = function(client, bufnr)
-          local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-          local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+          -- Use an on_attach function to only map the following keys
+          -- after the language server attaches to the current buffer
+          local on_attach = function(client, bufnr)
+            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+            local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-          --Enable completion triggered by <c-x><c-o>
-          buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+            --Enable completion triggered by <c-x><c-o>
+            buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-          -- Mappings.
-          local opts = { noremap=true, silent=true }
+            -- Mappings.
+            local opts = { noremap=true, silent=true }
 
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
-          buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-          buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-          --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-          buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-          buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-          buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-          buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-          buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-          buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-          buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-          buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-          --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-          buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-          buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-          buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-          buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-          buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+            -- See `:help vim.lsp.*` for documentation on any of the below functions
+            buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+            buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+            --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+            buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+            buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+            buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+            buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+            buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+            buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+            buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+            buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+            --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+            buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+            buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+            buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+            buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+            buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-          require "lsp_signature".on_attach({
-            bind = true,
-            toggle_key='<C-x>'
-          })
+            require "lsp_signature".on_attach({
+              bind = true,
+              toggle_key='<C-x>'
+            })
 
-          protocol.CompletionItemKind = {
-            '', -- Text
-            '', -- Method
-            '', -- Function
-            '', -- Constructor
-            '', -- Field
-            '', -- Variable
-            '', -- Class
-            'ﰮ', -- Interface
-            '', -- Module
-            '', -- Property
-            '', -- Unit
-            '', -- Value
-            '', -- Enum
-            '', -- Keyword
-            '﬌', -- Snippet
-            '', -- Color
-            '', -- File
-            '', -- Reference
-            '', -- Folder
-            '', -- EnumMember
-            '', -- Constant
-            '', -- Struct
-            '', -- Event
-            'ﬦ', -- Operator
-            '', -- TypeParameter
-           }
-        end
+            protocol.CompletionItemKind = {
+              '', -- Text
+              '', -- Method
+              '', -- Function
+              '', -- Constructor
+              '', -- Field
+              '', -- Variable
+              '', -- Class
+              'ﰮ', -- Interface
+              '', -- Module
+              '', -- Property
+              '', -- Unit
+              '', -- Value
+              '', -- Enum
+              '', -- Keyword
+              '﬌', -- Snippet
+              '', -- Color
+              '', -- File
+              '', -- Reference
+              '', -- Folder
+              '', -- EnumMember
+              '', -- Constant
+              '', -- Struct
+              '', -- Event
+              'ﬦ', -- Operator
+              '', -- TypeParameter
+             }
+          end
 
-        -- Use a loop to conveniently call 'setup' on multiple servers and
-        -- map buffer local keybindings when the language server attaches
-        local servers = { 'gopls', 'bashls', 'yamlls', 'rnix', 'dockerls', 'jsonls', 'null-ls'}
-        for _, lsp in ipairs(servers) do
-          nvim_lsp[lsp].setup {
+          -- Use a loop to conveniently call 'setup' on multiple servers and
+          -- map buffer local keybindings when the language server attaches
+          local servers = { 'gopls', 'bashls', 'yamlls', 'rnix', 'dockerls', 'jsonls', 'null-ls'}
+          for _, lsp in ipairs(servers) do
+            nvim_lsp[lsp].setup {
+              on_attach = on_attach,
+              flags = {
+                debounce_text_changes = 150,
+              }
+            }
+          end
+
+          nvim_lsp.tsserver.setup {
+            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+            flags = {
+                debounce_text_changes = 150,
+            },
+            -- let null-ls (w/ prettier) handle formatting. This stops lsp
+            -- from prompting which lsp client should handle the formatting.
+            on_attach = function(client)
+                client.resolved_capabilities.document_formatting = false
+                client.resolved_capabilities.document_range_formatting = false
+                on_attach()
+            end,
+          }
+
+          local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
+          local sumneko_binary = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server"
+          local runtime_path = vim.split(package.path, ';')
+          table.insert(runtime_path, "lua/?.lua")
+          table.insert(runtime_path, "lua/?/init.lua")
+
+          require'lspconfig'.sumneko_lua.setup {
             on_attach = on_attach,
             flags = {
               debounce_text_changes = 150,
-            }
-          }
-        end
-
-        nvim_lsp.tsserver.setup {
-          filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-          flags = {
-              debounce_text_changes = 150,
-          },
-          -- let null-ls (w/ prettier) handle formatting. This stops lsp
-          -- from prompting which lsp client should handle the formatting.
-          on_attach = function(client)
-              client.resolved_capabilities.document_formatting = false
-              client.resolved_capabilities.document_range_formatting = false
-              on_attach()
-          end,
-        }
-
-        local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
-        local sumneko_binary = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server"
-        local runtime_path = vim.split(package.path, ';')
-        table.insert(runtime_path, "lua/?.lua")
-        table.insert(runtime_path, "lua/?/init.lua")
-
-        require'lspconfig'.sumneko_lua.setup {
-          on_attach = on_attach,
-          flags = {
-            debounce_text_changes = 150,
-          },
-          cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-          settings = {
-            Lua = {
-              runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = runtime_path,
-              },
-              diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
-              },
-              workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-              },
-              -- Do not send telemetry data containing a randomized but unique identifier
-              telemetry = {
-                enable = false,
-              },
             },
-          },
-        }
-
-        require'lspconfig'.vimls.setup {
-          on_attach = on_attach,
-          flags = {
-            debounce_text_changes = 150,
-          },
-        }
-        EOF
-       '';
-       }
-       {
-         plugin = lualine-nvim;
-         config = ''
-         lua << EOF
-           require('lualine').setup {
-            options = {
-              icons_enabled = true,
-              theme = 'solarized_dark',
-              section_separators = {'', ''},
-              component_separators = {'', ''},
-              disabled_filetypes = {}
-            },
-            sections = {
-              lualine_a = {'mode'},
-              lualine_b = {'branch'},
-              lualine_c = {
-                {
-                  'filename',
-                  file_status = true, -- displays file status (readonly status, modified status)
-                  path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
-                }
-              },
-              lualine_x = {
-                {
-                  'diagnostics',
-                  sources = {"nvim_lsp"},
-                  symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
+            cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+            settings = {
+              Lua = {
+                runtime = {
+                  -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                  version = 'LuaJIT',
+                  -- Setup your lua path
+                  path = runtime_path,
                 },
-                'encoding',
-                'filetype'
+                diagnostics = {
+                  -- Get the language server to recognize the `vim` global
+                  globals = {'vim'},
+                },
+                workspace = {
+                  -- Make the server aware of Neovim runtime files
+                  library = vim.api.nvim_get_runtime_file("", true),
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                  enable = false,
+                },
               },
-              lualine_y = {'progress'},
-              lualine_z = {'location'}
             },
-            tabline = {},
-            extensions = {'nvim-tree', 'fugitive', 'fzf'}
-           }
-         EOF
-          '';
-       }
-       vim-jsx-typescript
-       vim-obsession
-       {
-         plugin = vim-peekaboo;
-         config = "let g:peekaboo_delay=300";
-       }
-       quick-scope
-       {
-         plugin = vim-fugitive;
-         config = ''
+          }
+
+          require'lspconfig'.vimls.setup {
+            on_attach = on_attach,
+            flags = {
+              debounce_text_changes = 150,
+            },
+          }
+          EOF
+        '';
+      }
+      {
+        plugin = lualine-nvim;
+        config = ''
+          lua << EOF
+            require('lualine').setup {
+             options = {
+               icons_enabled = true,
+               theme = 'solarized_dark',
+               section_separators = {'', ''},
+               component_separators = {'', ''},
+               disabled_filetypes = {}
+             },
+             sections = {
+               lualine_a = {'mode'},
+               lualine_b = {'branch'},
+               lualine_c = {
+                 {
+                   'filename',
+                   file_status = true, -- displays file status (readonly status, modified status)
+                   path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+                 }
+               },
+               lualine_x = {
+                 {
+                   'diagnostics',
+                   sources = {"nvim_lsp"},
+                   symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
+                 },
+                 'encoding',
+                 'filetype'
+               },
+               lualine_y = {'progress'},
+               lualine_z = {'location'}
+             },
+             tabline = {},
+             extensions = {'nvim-tree', 'fugitive', 'fzf'}
+            }
+          EOF
+        '';
+      }
+      vim-jsx-typescript
+      vim-obsession
+      {
+        plugin = vim-peekaboo;
+        config = "let g:peekaboo_delay=300";
+      }
+      quick-scope
+      {
+        plugin = vim-fugitive;
+        config = ''
           nnoremap <silent><LocalLeader>gb :Git blame<CR>
           " Open visual selection in the browser (with rhubarb handler for github)
           xnoremap <silent> <LocalLeader>gh :'<,'>GBrowse<CR>
           nnoremap <silent> <LocalLeader>gh :GBrowse<CR>
-         '';
-       }
-       rhubarb
-       {
-         plugin = vim-gitgutter;
-         config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
-       }
-       {
-         plugin = vimagit;
-         config = ''nnoremap <silent> <LocalLeader>gt :Magit<CR>'';
-       }
-       {
-         plugin = minimap-vim;
-         config = ''nnoremap <silent> <LocalLeader>fm :MinimapToggle<cr>'';
-       }
-       vim-surround
-       # {
-       #   plugin = tcomment_vim;
-       #   #Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
-       #   config = "let g:tcomment#filetype#guess_typescriptreact = 1";
-       # }
-       nvim-ts-context-commentstring
-       vim-commentary
-       vim-sort-motion
-       vim-sneak
-       {
-         plugin = neomake;
-         config = ''
-           "let g:neomake_javascript_enabled_makers = ['eslint']
-           let g:neomake_verbose = 0
+        '';
+      }
+      rhubarb
+      {
+        plugin = vim-gitgutter;
+        config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
+      }
+      {
+        plugin = vimagit;
+        config = ''nnoremap <silent> <LocalLeader>gt :Magit<CR>'';
+      }
+      {
+        plugin = minimap-vim;
+        config = ''nnoremap <silent> <LocalLeader>fm :MinimapToggle<cr>'';
+      }
+      vim-surround
+      # {
+      #   plugin = tcomment_vim;
+      #   #Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
+      #   config = "let g:tcomment#filetype#guess_typescriptreact = 1";
+      # }
+      nvim-ts-context-commentstring
+      vim-commentary
+      vim-sort-motion
+      vim-sneak
+      {
+        plugin = neomake;
+        config = ''
+          "let g:neomake_javascript_enabled_makers = ['eslint']
+          let g:neomake_verbose = 0
 
-           function C1GolangCITweak()
-               if (expand("$C1") == FindRootDirectory())
-                   let g:neomake_go_golangci_lint_exe="lint.sh"
-                   let g:neomake_go_golangci_lint_args="run --fast --modules-download-mode=vendor --out-format=line-number --print-issued-lines=false --timeout 3m0s"
-                   let g:neomake_go_golangci_lint_cwd="$C1"
-               endif
-           endfunction
+          function C1GolangCITweak()
+              if (expand("$C1") == FindRootDirectory())
+                  let g:neomake_go_golangci_lint_exe="lint.sh"
+                  let g:neomake_go_golangci_lint_args="run --fast --modules-download-mode=vendor --out-format=line-number --print-issued-lines=false --timeout 3m0s"
+                  let g:neomake_go_golangci_lint_cwd="$C1"
+              endif
+          endfunction
 
-           autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
-           "autocmd BufWritePost,BufAdd * Neomake
-         '';
-       }
-       tmux-complete-vim
-       vim-snippets
-       {
-         plugin = vim-rooter;
-         config = "let g:rooter_cd_cmd = 'lcd'";
-       }
-       {
-         plugin = vim-go;
-         config = ''
-           let g:go_fmt_command = "goimports"
-           let g:go_fmt_autosave = 1
-           let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
-           let g:go_list_type = "quickfix"
-           let g:go_info_mode='gopls'
-           " let lsp handle ctrl-]
-           let g:go_def_mapping_enabled=0
-           " pin our versions with nix
-           let g:go_get_update=0
-           " disable mapping of K to godoc
-           let g:go_doc_keywordprg_enabled = 0
+          autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
+          "autocmd BufWritePost,BufAdd * Neomake
+        '';
+      }
+      tmux-complete-vim
+      vim-snippets
+      {
+        plugin = vim-rooter;
+        config = "let g:rooter_cd_cmd = 'lcd'";
+      }
+      {
+        plugin = vim-go;
+        config = ''
+          let g:go_fmt_command = "goimports"
+          let g:go_fmt_autosave = 1
+          let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
+          let g:go_list_type = "quickfix"
+          let g:go_info_mode='gopls'
+          " let lsp handle ctrl-]
+          let g:go_def_mapping_enabled=0
+          " pin our versions with nix
+          let g:go_get_update=0
+          " disable mapping of K to godoc
+          let g:go_doc_keywordprg_enabled = 0
 
-           " run :GoBuild or :GoTestCompile based on the go file
-           function! s:build_go_files()
-              let l:file = expand('%')
-               if l:file =~# '^\f\+_test\.go$'
-                   call go#cmd#Test(0, 1)
-               elseif l:file =~# '^\f\+\.go$'
-                   call go#cmd#Build(0)
-               endif
-           endfunction
-          '';
-       }
-       vim-fetch
-       {
-         plugin = fzfWrapper;
-         config = ''
+          " run :GoBuild or :GoTestCompile based on the go file
+          function! s:build_go_files()
+             let l:file = expand('%')
+              if l:file =~# '^\f\+_test\.go$'
+                  call go#cmd#Test(0, 1)
+              elseif l:file =~# '^\f\+\.go$'
+                  call go#cmd#Build(0)
+              endif
+          endfunction
+        '';
+      }
+      vim-fetch
+      {
+        plugin = fzfWrapper;
+        config = ''
           "nnoremap <silent> <leader>ff :Files<cr>
           "nnoremap <silent> <leader>fb :Buffers<cr>
           " root
@@ -622,53 +622,53 @@ in
           "nnoremap <silent> <leader>fn :FZF $DOTFILES<cr>
 
           nnoremap <silent> <leader>fs :Rg<cr>
-         '';
-       }
-       fzf-vim
-       {
-         plugin = vim-polyglot;
-         # delay loading until after vim-go or polyglot will override the nix patched
-         # vim bin path in the vim-go plugin.
-         optional = true;
-         config = ''
-           let g:polyglot_disabled = ['typescript']
-           packadd vim-polyglot
-         '';
-       }
-       vim-lastplace
-       {
-         plugin = vim-markdown-composer;
-         config = ''
-           let g:markdown_composer_autostart = 0
-           let g:markdown_composer_browser="firefox"
+        '';
+      }
+      fzf-vim
+      {
+        plugin = vim-polyglot;
+        # delay loading until after vim-go or polyglot will override the nix patched
+        # vim bin path in the vim-go plugin.
+        optional = true;
+        config = ''
+          let g:polyglot_disabled = ['typescript']
+          packadd vim-polyglot
+        '';
+      }
+      vim-lastplace
+      {
+        plugin = vim-markdown-composer;
+        config = ''
+          let g:markdown_composer_autostart = 0
+          let g:markdown_composer_browser="firefox"
 
-           nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
-         '';
-       }
-       vim-python-pep8-indent
-       vim-packer
-       vim-jsonnet
-       vim-tmux
-       vim-nix
-       typescript-vim
-       {
-         plugin = nvim-tree-lua;
-         config = ''
-           let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
-           let g:nvim_tree_gitignore = 1
-           "let g:nvim_tree_lsp_diagnostics = 1
-           "let g:nvim_tree_auto_open = 1
-           " unforunately takes control of the cursor too
-           " let g:nvim_tree_tab_open = 1
-           let g:nvim_tree_group_empty = 1
-           let g:nvim_tree_auto_close = 1
-           " needed for fugitive GBrowse
-           let g:nvim_tree_disable_netrw = 0
-           let g:nvim_tree_follow = 1
+          nnoremap <silent> <LocalLeader>ms :ComposerStart<cr>
+        '';
+      }
+      vim-python-pep8-indent
+      vim-packer
+      vim-jsonnet
+      vim-tmux
+      vim-nix
+      typescript-vim
+      {
+        plugin = nvim-tree-lua;
+        config = ''
+          let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
+          let g:nvim_tree_gitignore = 1
+          "let g:nvim_tree_lsp_diagnostics = 1
+          "let g:nvim_tree_auto_open = 1
+          " unforunately takes control of the cursor too
+          " let g:nvim_tree_tab_open = 1
+          let g:nvim_tree_group_empty = 1
+          let g:nvim_tree_auto_close = 1
+          " needed for fugitive GBrowse
+          let g:nvim_tree_disable_netrw = 0
+          let g:nvim_tree_follow = 1
 
-           nnoremap <silent><leader>ft :NvimTreeToggle<CR>
-         '';
-       }
+          nnoremap <silent><leader>ft :NvimTreeToggle<CR>
+        '';
+      }
     ];
   };
 
