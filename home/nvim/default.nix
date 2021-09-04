@@ -49,12 +49,6 @@ in
       {
         plugin = null-ls-nvim;
         config = ''
-          augroup fmt
-             autocmd!
-             autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync()
-             autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync()
-          augroup END
-
           lua << EOF
           local null_ls = require("null-ls")
           local methods = require("null-ls.methods")
@@ -351,8 +345,13 @@ in
             local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
             local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-            --Enable completion triggered by <c-x><c-o>
+            -- Enable completion triggered by <c-x><c-o>
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+            -- Format prior to save if supported
+            if client.resolved_capabilities.document_formatting then
+              vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+            end
 
             -- Mappings.
             local opts = { noremap=true, silent=true }
