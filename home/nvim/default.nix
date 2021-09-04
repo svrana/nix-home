@@ -345,8 +345,8 @@ in
 
             -- Format prior to save if supported
             if client.resolved_capabilities.document_formatting then
-              vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-            end
+               vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+             end
 
             -- Mappings.
             local opts = { noremap=true, silent=true }
@@ -435,7 +435,7 @@ in
             on_attach = function(client)
                 client.resolved_capabilities.document_formatting = false
                 client.resolved_capabilities.document_range_formatting = false
-                on_attach()
+                on_attach(client)
             end,
           }
 
