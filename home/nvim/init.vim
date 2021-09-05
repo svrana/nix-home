@@ -11,7 +11,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
-
 highlight IncSearch ctermbg=LightYellow ctermfg=Red
 highlight WhiteOnRed ctermfg=white ctermbg=red
 
@@ -48,24 +47,14 @@ augroup END
 
 cmap w!! %!sudo tee > /dev/null %
 
-noremap  <leader>w :w<CR>
-noremap  <leader>q :q<CR>
-noremap  <leader>e :wq<CR>
-noremap  <leader>z :q!<CR>
 noremap! <leader>w <ESC>:w<CR>
 noremap! <leader>q <ESC>:q<CR>
 noremap! <leader>e <ESC>:wq<CR>
 noremap! <leader>z <ESC>:q!<CR>
 nnoremap Q @@
-nnoremap <leader>nt :tabnew<CR>
-nnoremap <leader>sv :source $XDG_CONFIG_HOME/nvim/init.vim<CR>
 nnoremap \th :set invhls hls?<CR>
-nnoremap <silent> <Leader>hs :!make home<cr>
 nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
-nnoremap <leader>dn :set relativenumber!<CR>
-nnoremap <leader>qc :cclose<CR>
-
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
 
 map <c-d> <c-b>

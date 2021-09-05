@@ -13,12 +13,9 @@
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
     extraPackages = with pkgs; [
-      shfmt
-      nixfmt
-      gopls
-      rnix-lsp
       buf
-      sumneko-lua-language-server
+      gopls
+      nixfmt
       nodePackages.vim-language-server
       nodePackages.eslint_d
       nodePackages.bash-language-server
@@ -26,17 +23,18 @@
       nodePackages.yaml-language-server
       nodePackages.json-server
       nodePackages.dockerfile-language-server-nodejs
+      rnix-lsp
+      shfmt
+      sumneko-lua-language-server
     ];
     extraConfig = ''
       source $DOTFILES/home/nvim/init.vim
     '';
     plugins = with pkgs.vimPlugins; [
+      diffview-nvim
+      glow-nvim
       nvim-web-devicons
       plenary-nvim
-      {
-        plugin = glow-nvim;
-        config = "nnoremap <silent><Leader>mg :Glow<CR>";
-      }
       {
         plugin = null-ls-nvim;
         config = ''
@@ -120,12 +118,6 @@
         config = ''
           lua << EOF
             require('telescope').load_extension('project')
-            vim.api.nvim_set_keymap(
-              'n',
-              '<leader>fp',
-              ":lua require('telescope').extensions.project.project({})<CR>",
-              {noremap = true, silent = true}
-            )
           EOF
         '';
       }
@@ -136,19 +128,8 @@
       {
         plugin = telescope-nvim;
         config = ''
-          nnoremap <silent>fh <cmd>Telescope help_tags<cr>
-          nnoremap <silent> <leader>ff <cmd>lua require('svrana.telescope').project_files()<CR>
-          " too slow
-          "nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
-          nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
-          " nixos-configs (thus the 'n')
-          nnoremap <silent> <leader>fn <cmd>lua require('svrana.telescope').dots()<CR>
-
-          " Highlight characters your input matches
-
           lua << EOF
           local actions = require('telescope.actions')
-          local svrana = require('svrana.telescope')
 
           require('telescope').setup{
             defaults = {
@@ -535,34 +516,36 @@
           EOF
         '';
       }
-      #vim-jsx-typescript
-      vim-obsession
       {
         plugin = vim-peekaboo;
         config = "let g:peekaboo_delay=300";
       }
-      quick-scope
       {
         plugin = vim-fugitive;
         config = ''
-          nnoremap <silent><Leader>gb :Git blame<CR>
           " Open visual selection in the browser (with rhubarb handler for github)
           xnoremap <silent> <Leader>gh :'<,'>GBrowse<CR>
-          nnoremap <silent> <Leader>gh :GBrowse<CR>
         '';
       }
+      # for fugitive, opening github links in browser
       rhubarb
       {
         plugin = vim-gitgutter;
         config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
       }
+      minimap-vim
       {
-        plugin = vimagit;
-        config = ''nnoremap <silent> <Leader>gt :Magit<CR>'';
-      }
-      {
-        plugin = minimap-vim;
-        config = ''nnoremap <silent> <Leader>fm :MinimapToggle<cr>'';
+        plugin = neogit;
+        config = ''
+          lua << EOF
+            require('neogit').setup {
+              disable_commit_confirmation = false,
+              integrations = {
+                diffview = true,
+              }
+            }
+          EOF
+        '';
       }
       vim-surround
       nvim-ts-context-commentstring
@@ -615,19 +598,7 @@
         '';
       }
       vim-fetch
-      {
-        plugin = fzfWrapper;
-        config = ''
-          "nnoremap <silent> <leader>ff :Files<cr>
-          "nnoremap <silent> <leader>fb :Buffers<cr>
-          " root
-          nnoremap <silent> <leader>fr :GFiles<cr>
-          " nix configs
-          "nnoremap <silent> <leader>fn :FZF $DOTFILES<cr>
-
-          nnoremap <silent> <leader>fs :Rg<cr>
-        '';
-      }
+      fzfWrapper
       fzf-vim
       {
         plugin = vim-polyglot;
@@ -645,8 +616,6 @@
         config = ''
           let g:markdown_composer_autostart = 0
           let g:markdown_composer_browser="firefox"
-
-          nnoremap <silent> <Leader>ms :ComposerStart<cr>
         '';
       }
       vim-tmux
@@ -664,8 +633,64 @@
           " needed for fugitive GBrowse
           let g:nvim_tree_disable_netrw = 0
           let g:nvim_tree_follow = 1
-
-          nnoremap <silent><Leader>ft :NvimTreeToggle<CR>
+        '';
+      }
+      {
+        plugin = which-key-nvim;
+        config = ''
+          lua << EOF
+            wk = require("which-key")
+            wk.setup{}
+            wk.register({
+              ["<leader>"] = {
+                c = { "<cmd>cclose<cr>", "Close quickfix" },
+                d = {
+                  name = "display",
+                  h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
+                  m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
+                  n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
+                  t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
+                },
+                e = { "<cmd>wq<cr>" },
+                f = {
+                  name = "file/fuzzy",
+                  b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers"},
+                  f = { "<cmd>lua require('svrana.telescope').project_files()<cr>", "Find" },
+                  h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Help" },
+                  n = { "<cmd>lua require('svrana.telescope').dots()<cr>", "dotfiles" },
+                  p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>", "Project change" },
+                  r = { "<cmd>Rg<cr>", "Search file contents" }, -- fzf
+                  s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Search file contents" },
+                },
+                g = {
+                  name = "git",
+                  t = { "<cmd>lua require('neogit').open({ kind='vsplit' })<cr>", "Toggle git" },
+                  h = { "<cmd>GBrowse<cr>", "gitHub view" }, -- fugitive
+                  b = { "<cmd>Git blame<cr>", "Blame" }, -- fugitive
+                },
+                h = {
+                  name = "home-manager",
+                  s = { "<cmd>make home<cr>", "Switch" },
+                },
+                m = {
+                  name = "markdown",
+                  s = { "<cmd>ComposerStart<cr>", "Start composer" }, --vim-markdown-composer
+                  g = { "<cmd>Glow<cr>", "Glow" }, -- glow-nvim
+                },
+                n = {
+                  name = "new",
+                  t = { "<cmd>tabnew<cr>", "Tab" },
+                },
+                s = {
+                  name = "source",
+                  v = { "<cmd>source $XDG_CONFIG_HOME/nvim/init.vim<cr>", "Vimrc" },
+                },
+                w = { "<cmd>w<cr>", "Write file" },
+                q = { "<cmd>q<cr>", "Quit" },
+                z = { "<cmd>q!<cr>" },
+              }
+            })
+          EOF
         '';
       }
     ];
