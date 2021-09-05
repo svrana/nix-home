@@ -60,7 +60,7 @@ nnoremap Q @@
 nnoremap <leader>nt :tabnew<CR>
 nnoremap <leader>sv :source $XDG_CONFIG_HOME/nvim/init.vim<CR>
 nnoremap \th :set invhls hls?<CR>
-nnoremap <silent> <LocalLeader>hs :!make home<cr>
+nnoremap <silent> <Leader>hs :!make home<cr>
 nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
 nnoremap <leader>dn :set relativenumber!<CR>

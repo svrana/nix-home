@@ -45,12 +45,9 @@
           local methods = require('null-ls.methods')
           local helpers = require('null-ls.helpers')
 
-          local bufcheck = {
-            method = methods.DIAGNOSTICS,
-            filetypes = { "proto" },
-            generator = null_ls.generator({
+          generator_opts = {
               command = "buf",
-              args = { "lint", "--log-format", "text", "--path", "$FILENAME" },
+              args = { "lint", "--error-format", "text", "--path", "$FILENAME" },
               format = "line",
               to_stderr = true,
               check_exit_code = function(code)
@@ -60,20 +57,41 @@
                  [[[%w/.]+:(%d+):(%d+):(.*)]],
                  { "row", "col", "message" }
               ),
-            }),
           }
 
-          local sources = {
-            bufcheck,
-            null_ls.builtins.diagnostics.eslint_d,
-            null_ls.builtins.formatting.prettier.with({
-              filetypes = { "typescript", "typescriptreact", "markdown", "json" },
-            }),
+          local buflint = {
+            name = "buf",
+            filetypes = { "proto" },
+            method = methods.DIAGNOSTICS,
+            generator = null_ls.generator(generator_opts),
           }
+          -- filetypes not set error?
+          -- null_ls.register(buflint)
+
+          local prototool = helpers.make_builtin({
+            method = methods.FORMATTING,
+            filetypes = { "proto" },
+            generator_opts = {
+              command = "prototool",
+              args = {
+                "format",
+                "$FILENAME",
+                "--fix",
+              },
+              to_stdin = true,
+            },
+            factory = helpers.formatter_factory,
+          })
+          --null_ls.register(prototool)
 
           null_ls.config({
-            sources = sources,
-            debug = false
+            sources = {
+              null_ls.builtins.diagnostics.eslint_d,
+              null_ls.builtins.formatting.prettier.with({
+                filetypes = { "typescript", "typescriptreact", "markdown", "json" },
+              }),
+            },
+            debug = false,
           })
           EOF
         '';
@@ -82,22 +100,39 @@
         plugin = nvim-treesitter;
         config = ''
           lua << EOF
-          require('nvim-treesitter.configs').setup {
-            ensure_installed = "maintained",
-            highlight = {
-              enable = true,
-            },
-            -- for language in language in support, i.e., update commentstring based on line position
-            -- see also nvim-ts-context-commentstring
-            context_commentstring = {
-             enable = true
-           }
-          }
+             require('nvim-treesitter.configs').setup {
+                 ensure_installed = "maintained",
+                 highlight = {
+                   enable = true,
+                 },
+                 -- see nvim-ts-context-commentstring
+                 context_commentstring = {
+                   enable = true,
+                 }
+               }
           EOF
         '';
       }
       popup-nvim
       telescope-fzf-native-nvim
+      {
+        plugin = telescope-project-nvim;
+        config = ''
+          lua << EOF
+            require('telescope').load_extension('project')
+            vim.api.nvim_set_keymap(
+              'n',
+              '<leader>fp',
+              ":lua require('telescope').extensions.project.project({})<CR>",
+              {noremap = true, silent = true}
+            )
+          EOF
+        '';
+      }
+      {
+        plugin = vim-rooter;
+        config = "let g:rooter_cd_cmd = 'lcd'";
+      }
       {
         plugin = telescope-nvim;
         config = ''
@@ -124,7 +159,7 @@
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<esc>"] = actions.close,
-                    ["<C-u>"] = svrana.clear_prompt
+                    ["<C-u>"] = false,
                 },
                 n = {
                   ["q"] = actions.close
@@ -151,10 +186,17 @@
                 fuzzy = true,                    -- false will only do exact matching
                 override_generic_sorter = false, -- override the generic sorter
                 override_file_sorter = true,     -- override the file sorter
+              },
+              project = {
+                base_dirs = {
+                  '~/Projects/ductone/c1',
+                  '~/Projects/ductone/ops',
+                  '~/Projects/nixpkgs',
+                  '~/Projects/dotfiles',
+                }
               }
             }
           }
-
           require('telescope').load_extension('fzf')
           EOF
         '';
@@ -164,7 +206,15 @@
         config = ''
           set termguicolors
           lua << EOF
-          require('colorizer').setup();
+            require('colorizer').setup();
+          EOF
+        '';
+      }
+      {
+        plugin = lspkind-nvim;
+        config = ''
+          lua << EOF
+            require('lspkind').init()
           EOF
         '';
       }
@@ -172,7 +222,7 @@
         plugin = lsp-colors-nvim;
         config = ''
           lua << EOF
-          require("lsp-colors").setup({
+          require('lsp-colors').setup({
             Error = "#db4b4b",
             Warning = "#e0af68",
             Information = "#0db9d7",
@@ -191,15 +241,16 @@
           nnoremap <silent><leader>ca :Lspsaga code_action<CR>
           vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
           nnoremap <silent><leader>cj :Lspsaga diagnostic_jump_next<CR>
+          nnoremap <silent><leader>cs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 
           lua << EOF
-          require('lspsaga').init_lsp_saga {
+          require('lspsaga').init_lsp_saga({
             error_sign = '',
             warn_sign = '',
             hint_sign = '',
             infor_sign = '',
             border_style = "round",
-          }
+          })
           EOF
         '';
       }
@@ -224,10 +275,10 @@
             documentation = {
               border = { ''', ''' ,''', ' ', ''', ''', ''', ' ' }, -- the border option is the same as `|help nvim_open_win|`
               winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-              max_width = 120,
-              min_width = 60,
-              max_height = math.floor(vim.o.lines * 0.3),
-              min_height = 1,
+              --max_width = 120,
+              --min_width = 60,
+              --max_height = math.floor(vim.o.lines * 0.3),
+              --min_height = 1,
             };
             source = {
               path = true;
@@ -305,16 +356,18 @@
 
               local diagnostics = params.diagnostics
 
-              for i, v in ipairs(diagnostics) do
-                diagnostics[i].message = string.format("%s: %s", v.source, v.message)
-              end
-
               vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
 
               if not vim.api.nvim_buf_is_loaded(bufnr) then
                 return
               end
 
+              -- don't mutate the original diagnostic because it would interfere with
+              -- code action (and probably other stuff, too)
+              local prefixed_diagnostics = vim.deepcopy(diagnostics)
+              for i, v in ipairs(diagnostics) do
+                diagnostics[i].message = string.format("%s: %s", v.source, v.message)
+              end
               vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
           end
           EOF
@@ -356,8 +409,8 @@
             buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
             buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
             buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-            --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-            buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+            buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+            buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
             buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
             buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
             buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -367,34 +420,6 @@
               bind = true,
               toggle_key='<C-x>'
             })
-
-            protocol.CompletionItemKind = {
-              '', -- Text
-              '', -- Method
-              '', -- Function
-              '', -- Constructor
-              '', -- Field
-              '', -- Variable
-              '', -- Class
-              'ﰮ', -- Interface
-              '', -- Module
-              '', -- Property
-              '', -- Unit
-              '', -- Value
-              '', -- Enum
-              '', -- Keyword
-              '﬌', -- Snippet
-              '', -- Color
-              '', -- File
-              '', -- Reference
-              '', -- Folder
-              '', -- EnumMember
-              '', -- Constant
-              '', -- Struct
-              '', -- Event
-              'ﬦ', -- Operator
-              '', -- TypeParameter
-             }
           end
 
           -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -410,12 +435,12 @@
             'vimls',
           }
           for _, lsp in ipairs(servers) do
-            nvim_lsp[lsp].setup {
+            nvim_lsp[lsp].setup({
               on_attach = on_attach,
               flags = {
                 debounce_text_changes = 150,
               }
-            }
+            })
           end
 
           nvim_lsp.tsserver.setup {
@@ -510,7 +535,7 @@
           EOF
         '';
       }
-      vim-jsx-typescript
+      #vim-jsx-typescript
       vim-obsession
       {
         plugin = vim-peekaboo;
@@ -540,11 +565,6 @@
         config = ''nnoremap <silent> <Leader>fm :MinimapToggle<cr>'';
       }
       vim-surround
-      # {
-      #   plugin = tcomment_vim;
-      #   #Couldn't get vim-commentary to work with ts/react, but tcomment works with this line:
-      #   config = "let g:tcomment#filetype#guess_typescriptreact = 1";
-      # }
       nvim-ts-context-commentstring
       vim-commentary
       vim-sort-motion
@@ -568,11 +588,6 @@
         '';
       }
       tmux-complete-vim
-      vim-snippets
-      {
-        plugin = vim-rooter;
-        config = "let g:rooter_cd_cmd = 'lcd'";
-      }
       {
         plugin = vim-go;
         config = ''
@@ -634,12 +649,7 @@
           nnoremap <silent> <Leader>ms :ComposerStart<cr>
         '';
       }
-      vim-python-pep8-indent
-      vim-packer
-      vim-jsonnet
       vim-tmux
-      vim-nix
-      typescript-vim
       {
         plugin = nvim-tree-lua;
         config = ''
