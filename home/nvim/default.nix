@@ -367,6 +367,7 @@
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
             -- Format prior to save if supported
+            -- TODO: add ability to disable this on the fly.
             if client.resolved_capabilities.document_formatting then
                vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
              end
@@ -529,7 +530,7 @@
         plugin = vim-gitgutter;
         config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
       }
-      minimap-vim
+      #minimap-vim
       {
         plugin = neogit;
         config = ''
