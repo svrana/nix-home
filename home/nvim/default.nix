@@ -32,6 +32,7 @@
     '';
     plugins = with pkgs.vimPlugins; [
       diffview-nvim
+      direnv-vim
       glow-nvim
       nvim-web-devicons
       plenary-nvim
@@ -123,7 +124,10 @@
       }
       {
         plugin = vim-rooter;
-        config = "let g:rooter_cd_cmd = 'lcd'";
+        config = ''
+          let g:rooter_cd_cmd = 'lcd'";
+          let g:rooter_silent_chdir = 1
+        '';
       }
       {
         plugin = telescope-nvim;
@@ -167,14 +171,6 @@
                 fuzzy = true,                    -- false will only do exact matching
                 override_generic_sorter = false, -- override the generic sorter
                 override_file_sorter = true,     -- override the file sorter
-              },
-              project = {
-                base_dirs = {
-                  '~/Projects/ductone/c1',
-                  '~/Projects/ductone/ops',
-                  '~/Projects/nixpkgs',
-                  '~/Projects/dotfiles',
-                }
               }
             }
           }
@@ -539,7 +535,7 @@
         config = ''
           lua << EOF
             require('neogit').setup {
-              disable_commit_confirmation = false,
+              disable_commit_confirmation = true,
               integrations = {
                 diffview = true,
               }
@@ -553,9 +549,8 @@
       vim-sort-motion
       vim-sneak
       {
-        plugin = neomake;
+        plugin = neomake; # move to null-ls
         config = ''
-          "let g:neomake_javascript_enabled_makers = ['eslint']
           let g:neomake_verbose = 0
 
           function C1GolangCITweak()
@@ -567,7 +562,6 @@
           endfunction
 
           autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
-          "autocmd BufWritePost,BufAdd * Neomake
         '';
       }
       tmux-complete-vim
@@ -597,6 +591,7 @@
           endfunction
         '';
       }
+      quick-scope
       vim-fetch
       fzfWrapper
       fzf-vim

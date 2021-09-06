@@ -41,8 +41,8 @@ augroup END
 
 augroup qs_colors
     autocmd!
-    autocmd ColorScheme * highlight QuickScopePrimary ctermfg=155 cterm=underline
-    autocmd ColorScheme * highlight QuickScopeSecondary ctermfg=81 cterm=underline
+    autocmd ColorScheme * highlight QuickScopePrimary gui=underline ctermfg=155 cterm=underline
+    autocmd ColorScheme * highlight QuickScopeSecondary gui=underline ctermfg=81 cterm=underline
 augroup END
 
 cmap w!! %!sudo tee > /dev/null %
