@@ -33,6 +33,7 @@
     plugins = with pkgs.vimPlugins; [
       diffview-nvim
       direnv-vim
+      editorconfig-nvim
       glow-nvim
       nvim-web-devicons
       plenary-nvim
