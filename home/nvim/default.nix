@@ -14,6 +14,7 @@
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
     extraPackages = with pkgs; [
       buf
+      code-minimap
       gopls
       nixfmt
       nodePackages.vim-language-server
@@ -531,7 +532,7 @@
         plugin = vim-gitgutter;
         config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
       }
-      #minimap-vim
+      minimap-vim
       {
         plugin = neogit;
         config = ''
