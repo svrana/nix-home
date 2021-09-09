@@ -98,7 +98,7 @@
         '';
       }
       {
-        plugin = nvim-treesitter;
+        plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
         config = ''
           lua << EOF
              require('nvim-treesitter.configs').setup {
