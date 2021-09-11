@@ -53,7 +53,7 @@ in
             inner = 25;
             smartGaps = true;
           };
-          bars = [ ];
+          bars = [];
           window = { hideEdgeBorders = "smart"; };
           focus = {
             followMouse = false;
@@ -117,7 +117,7 @@ in
               "${mod}+9" = ''[class="Slack"] scratchpad show'';
               "${mod}+a" = "focus parent";
               "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
-              "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};}, window {width: 25;}'"'';
+              "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%;}'"'';
               "${mod}+e" = "layout toggle split";
               "${mod}+f" = "fullscreen toggle";
               "${mod}+h" = "focus left";
