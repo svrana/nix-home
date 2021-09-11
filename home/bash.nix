@@ -102,6 +102,7 @@ in
       "r" = "ranger";
       "pl" = "pulumi";
 
+      "cat" = "${pkgs.bat}/bin/bat";
       "ls" = "exa $EXA_DFLT_ARGS";
       "ll" = "ls -al";
       "lsd" = "ls -d */";
