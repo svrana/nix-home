@@ -214,13 +214,7 @@
         plugin = lspsaga-nvim;
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
-          nnoremap <silent><leader>cr :Lspsaga rename<CR>
-          nnoremap <silent><leader>cp :Lspsaga preview_definition<CR>
-          nnoremap <silent><leader>cf :Lspsaga lsp_finder<CR>
-          nnoremap <silent><leader>ca :Lspsaga code_action<CR>
           vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-          nnoremap <silent><leader>cj :Lspsaga diagnostic_jump_next<CR>
-          nnoremap <silent><leader>cs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 
           lua << EOF
           require('lspsaga').init_lsp_saga({
@@ -362,8 +356,7 @@
           -- Use an on_attach function to only map the following keys
           -- after the language server attaches to the current buffer
           local on_attach = function(client, bufnr)
-            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-            local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
             -- Enable completion triggered by <c-x><c-o>
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -378,23 +371,25 @@
             local opts = { noremap=true, silent=true }
 
             -- See `:help vim.lsp.*` for documentation on any of the below functions
-            buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-            buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-            --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
             buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
             buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-            buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-            buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-            buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
             buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-            buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-            buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-            buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-            buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
             buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
             buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-            buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-            buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+            buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+
+            --buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+            --buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+            --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+            --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+            --buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+            --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+            --buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+            --buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+            --buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+            -- this is nice
+            --buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+            --buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
             require('lsp_signature').on_attach({
               bind = true,
@@ -550,7 +545,7 @@
       nvim-ts-context-commentstring
       vim-commentary
       vim-sort-motion
-      vim-sneak
+      # vim-sneak
       {
         plugin = neomake; # move to null-ls
         config = ''
@@ -641,7 +636,18 @@
             wk.setup{}
             wk.register({
               ["<leader>"] = {
-                c = { "<cmd>cclose<cr>", "Close quickfix" },
+                c = {
+                  name = "code",
+                  -- buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+                  -- buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+                  a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
+                  -- d = { taken by buffer map lsp }
+                  f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
+                  j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
+                  p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
+                  r = { "<cmd>Lspsaga rename<cr>", "Rename" },
+                  s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
+                },
                 d = {
                   name = "display",
                   h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
@@ -649,7 +655,6 @@
                   n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
                   t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
                 },
-                e = { "<cmd>wq<cr>" },
                 f = {
                   name = "file/fuzzy",
                   b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers"},
@@ -659,6 +664,7 @@
                   p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>", "Project change" },
                   r = { "<cmd>Rg<cr>", "Search file contents" }, -- fzf
                   s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Search file contents" },
+                  z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "brancheZ" },
                 },
                 g = {
                   name = "git",
