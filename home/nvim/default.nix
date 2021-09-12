@@ -197,6 +197,7 @@
           EOF
         '';
       }
+      nvim-solarized-lua
       {
         plugin = lsp-colors-nvim;
         config = ''
