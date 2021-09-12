@@ -63,7 +63,7 @@
               ),
             })
           }
-          null_ls.register(buf)
+          --null_ls.register(buf)
 
           local prototool = helpers.make_builtin({
            method = null_ls.methods.FORMATTING,
@@ -73,12 +73,14 @@
              args = {
                "format",
                "$FILENAME",
-               "--fix",
+               "--overwrite",
              },
              to_stdin = true,
            },
            factory = helpers.formatter_factory,
           })
+          -- TODO: pass diff to null_lsp
+          -- need a prototool.yaml in proto/ root for it to figure out paths
           --null_ls.register(prototool)
 
           null_ls.config({
