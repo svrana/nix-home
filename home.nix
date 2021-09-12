@@ -1,2 +1,1 @@
-# set in bashrc using $HOSTNAME
-throw "Use a specific profile i.e. home-manager -f ./hosts/bocana switch"
+throw "Use the Makefile"
