@@ -631,9 +631,16 @@
       {
         plugin = which-key-nvim;
         config = ''
+          " uses NormalFloat by default
+          "autocmd ColorScheme * highlight WhichKeyFloat guibg=#073642
+          autocmd ColorScheme * highlight WhichKeyFloat guibg=#002b36
           lua << EOF
             wk = require("which-key")
-            wk.setup{}
+            wk.setup{
+              window = {
+                border = "single"
+              }
+            }
             wk.register({
               ["<leader>"] = {
                 c = {
