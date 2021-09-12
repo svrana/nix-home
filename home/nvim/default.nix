@@ -43,45 +43,41 @@
         config = ''
           lua << EOF
           local null_ls = require('null-ls')
-          local methods = require('null-ls.methods')
           local helpers = require('null-ls.helpers')
 
-          generator_opts = {
+          local buf = {
+            name = "buf",
+            filetypes = { "proto" },
+            method = null_ls.methods.DIAGNOSTICS,
+            generator = null_ls.generator({
               command = "buf",
               args = { "lint", "--error-format", "text", "--path", "$FILENAME" },
               format = "line",
-              to_stderr = true,
+              from_stderr = true,
               check_exit_code = function(code)
-                 return code <= 1
+                return code <= 1
               end,
               on_output = helpers.diagnostics.from_pattern(
-                 [[[%w/.]+:(%d+):(%d+):(.*)]],
-                 { "row", "col", "message" }
+                [[[%w/.]+:(%d+):(%d+):(.*)]],
+                { "row", "col", "message" }
               ),
+            })
           }
-
-          local buflint = {
-            name = "buf",
-            filetypes = { "proto" },
-            method = methods.DIAGNOSTICS,
-            generator = null_ls.generator(generator_opts),
-          }
-          -- filetypes not set error?
-          -- null_ls.register(buflint)
+          null_ls.register(buf)
 
           local prototool = helpers.make_builtin({
-            method = methods.FORMATTING,
-            filetypes = { "proto" },
-            generator_opts = {
-              command = "prototool",
-              args = {
-                "format",
-                "$FILENAME",
-                "--fix",
-              },
-              to_stdin = true,
-            },
-            factory = helpers.formatter_factory,
+           method = null_ls.methods.FORMATTING,
+           filetypes = { "proto" },
+           generator_opts = {
+             command = "prototool",
+             args = {
+               "format",
+               "$FILENAME",
+               "--fix",
+             },
+             to_stdin = true,
+           },
+           factory = helpers.formatter_factory,
           })
           --null_ls.register(prototool)
 
@@ -92,7 +88,7 @@
                 filetypes = { "typescript", "typescriptreact", "markdown", "json" },
               }),
             },
-            debug = false,
+            debug = true,
           })
           EOF
         '';
@@ -312,7 +308,7 @@
           -- (typescript)
           vim.lsp.handlers["textDocument/publishDiagnostics"] =
             function(_, _, params, client_id, _)
-              local config = { -- your config
+              local config = {
                 underline = true,
                 virtual_text = {
                   prefix = "■ ",
