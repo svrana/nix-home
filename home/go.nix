@@ -4,7 +4,7 @@
   programs.go = {
     enable = true;
     goPath = ".cache/go";
-    package = pkgs.go_1_16;
+    package = pkgs.go_1_17;
   };
 
   programs.bash.initExtra = ''
