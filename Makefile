@@ -20,6 +20,10 @@ system: ## Build system
 home: ## Build home-manager
 	hm switch
 
+.PHONY: update
+update: ## Update nixpkgs
+	niv update nixpkgs && touch .envrc
+
 .PHONY:
 vnet: ## Push configs to machines on home network
 	@ops/home/push
