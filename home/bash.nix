@@ -61,6 +61,7 @@ in
       RCS = "$DOTFILES/home/config";
       PERSONAL = "$DOTFILES/personal";
       BIN_DIR = "$HOME/.local/bin";
+      SCRIPTS = "$DOTFILES/home/scripts";
     };
     # only run for interactive sessions
     initExtra = ''
@@ -110,6 +111,8 @@ in
       "sctl" = "systemctl";
       "jctl" = "journalctl";
       "nctl" = "networkctl";
+
+      "make" = "make -j12";
     };
   };
 }

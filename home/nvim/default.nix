@@ -1,4 +1,11 @@
 { pkgs, lib, ... }:
+let
+  lua = text: ''
+    lua << EOF
+      ${text}
+    EOF
+  '';
+in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
@@ -40,8 +47,7 @@
       plenary-nvim
       {
         plugin = null-ls-nvim;
-        config = ''
-          lua << EOF
+        config = lua ''
           local null_ls = require('null-ls')
           local helpers = require('null-ls.helpers')
 
@@ -92,34 +98,29 @@
             },
             debug = true,
           })
-          EOF
         '';
       }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
-        config = ''
-          lua << EOF
-             require('nvim-treesitter.configs').setup {
-                 ensure_installed = "maintained",
-                 highlight = {
-                   enable = true,
-                 },
-                 -- see nvim-ts-context-commentstring
-                 context_commentstring = {
-                   enable = true,
-                 }
-               }
-          EOF
+        config = lua ''
+          require('nvim-treesitter.configs').setup {
+              ensure_installed = "maintained",
+              highlight = {
+                enable = true,
+              },
+              -- see nvim-ts-context-commentstring
+              context_commentstring = {
+                enable = true,
+              }
+            }
         '';
       }
       popup-nvim
       telescope-fzf-native-nvim
       {
         plugin = telescope-project-nvim;
-        config = ''
-          lua << EOF
-            require('telescope').load_extension('project')
-          EOF
+        config = lua ''
+          require('telescope').load_extension('project')
         '';
       }
       {
@@ -131,8 +132,7 @@
       }
       {
         plugin = telescope-nvim;
-        config = ''
-          lua << EOF
+        config = lua ''
           local actions = require('telescope.actions')
 
           require('telescope').setup{
@@ -175,7 +175,6 @@
             }
           }
           require('telescope').load_extension('fzf')
-          EOF
         '';
       }
       {
@@ -189,24 +188,20 @@
       }
       {
         plugin = lspkind-nvim;
-        config = ''
-          lua << EOF
-            require('lspkind').init()
-          EOF
+        config = lua ''
+          require('lspkind').init()
         '';
       }
       nvim-solarized-lua
       {
         plugin = lsp-colors-nvim;
-        config = ''
-          lua << EOF
+        config = lua ''
           require('lsp-colors').setup({
             Error = "#db4b4b",
             Warning = "#e0af68",
             Information = "#0db9d7",
             Hint = "#10B981"
           })
-          EOF
         '';
       }
       {
@@ -229,8 +224,7 @@
       lsp_signature-nvim
       {
         plugin = nvim-compe;
-        config = ''
-          lua << EOF
+        config = lua ''
           require('compe').setup {
             enabled = true;
             autocomplete = true;
@@ -302,9 +296,7 @@
           --This line is important for auto-import
           vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
           vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
-          EOF
 
-          lua << EOF
           -- show the source of the diagnostic, useful if you have more than
           -- one lsp server for the filetype, i.e., a linter as well as a compiler
           -- (typescript)
@@ -342,13 +334,11 @@
               end
               vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
           end
-          EOF
         '';
       }
       {
         plugin = nvim-lspconfig;
-        config = ''
-          lua << EOF
+        config = lua ''
           local nvim_lsp = require('lspconfig')
           local protocol = require('vim.lsp.protocol')
 
@@ -466,47 +456,44 @@
               },
             },
           }
-          EOF
         '';
       }
       {
         plugin = lualine-nvim;
-        config = ''
-          lua << EOF
-            require('lualine').setup {
-             options = {
-               icons_enabled = true,
-               theme = 'solarized_dark',
-               section_separators = {'', ''},
-               component_separators = {'', ''},
-               disabled_filetypes = {}
+        config = lua ''
+          require('lualine').setup {
+           options = {
+             icons_enabled = true,
+             theme = 'solarized_dark',
+             section_separators = {'', ''},
+             component_separators = {'', ''},
+             disabled_filetypes = {}
+           },
+           sections = {
+             lualine_a = {'mode'},
+             lualine_b = {'branch'},
+             lualine_c = {
+               {
+                 'filename',
+                 file_status = true, -- displays file status (readonly status, modified status)
+                 path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+               }
              },
-             sections = {
-               lualine_a = {'mode'},
-               lualine_b = {'branch'},
-               lualine_c = {
-                 {
-                   'filename',
-                   file_status = true, -- displays file status (readonly status, modified status)
-                   path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
-                 }
+             lualine_x = {
+               {
+                 'diagnostics',
+                 sources = {"nvim_lsp"},
+                 symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
                },
-               lualine_x = {
-                 {
-                   'diagnostics',
-                   sources = {"nvim_lsp"},
-                   symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
-                 },
-                 'encoding',
-                 'filetype'
-               },
-               lualine_y = {'progress'},
-               lualine_z = {'location'}
+               'encoding',
+               'filetype'
              },
-             tabline = {},
-             extensions = {'nvim-tree', 'fugitive', 'fzf'}
-            }
-          EOF
+             lualine_y = {'progress'},
+             lualine_z = {'location'}
+           },
+           tabline = {},
+           extensions = {'nvim-tree', 'fugitive', 'fzf'}
+          }
         '';
       }
       {
@@ -529,15 +516,13 @@
       minimap-vim
       {
         plugin = neogit;
-        config = ''
-          lua << EOF
-            require('neogit').setup {
-              disable_commit_confirmation = true,
-              integrations = {
-                diffview = true,
-              }
+        config = lua ''
+          require('neogit').setup {
+            disable_commit_confirmation = true,
+            integrations = {
+              diffview = true,
             }
-          EOF
+          }
         '';
       }
       vim-surround
