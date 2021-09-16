@@ -11,18 +11,6 @@
         "url": "https://github.com/nix-community/home-manager/archive/ae8cb242f2e450c525274732af58b3050399f5bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "neovim": {
-        "branch": "master",
-        "description": "Vim-fork focused on extensibility and usability",
-        "homepage": "https://neovim.io",
-        "owner": "neovim",
-        "repo": "neovim",
-        "rev": "10d7d73b2dc6db081a8a1f405204d35cccb85196",
-        "sha256": "1j787j9wc9ypy95wmfy1lbq2kk7ivl2hhgpd1k0jriasapvdn5cn",
-        "type": "tarball",
-        "url": "https://github.com/neovim/neovim/archive/10d7d73b2dc6db081a8a1f405204d35cccb85196.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
@@ -53,10 +41,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f6e9e908ccbcabb365cb5434a4a38dd8c996fc72",
-        "sha256": "02khmh36c2qq4nf5nl8apgjhz8aszc9xva7my6jjncrfxm27aksy",
+        "rev": "47eaf6727bd362dac94eab91b7fdc876642d578b",
+        "sha256": "0dpmwnwqh6km6b23h9vljadvac0ac3ab4hqv9az12cccrh4jcfp8",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/f6e9e908ccbcabb365cb5434a4a38dd8c996fc72.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/47eaf6727bd362dac94eab91b7fdc876642d578b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-stable": {

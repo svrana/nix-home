@@ -2,16 +2,6 @@
 let
   sources = import ../nix/sources.nix;
   pkgs = import sources.nixpkgs {};
-  # https://github.com/nix-community/neovim-nightly-overlay
-  # cachix use nix-community
-  neovim-nightly = pkgs.neovim-unwrapped.overrideAttrs (
-    _: {
-      version = "master";
-      src = pkgs.fetchFromGitHub {
-        inherit (sources.neovim) owner repo rev sha256;
-      };
-    }
-  );
 in
 {
   programs.home-manager.enable = true;
@@ -307,5 +297,4 @@ in
     extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
     path = "${config.home.homeDirectory}/.config/X11/Xresources";
   };
-  programs.neovim.package = neovim-nightly;
 }
