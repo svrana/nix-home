@@ -682,6 +682,12 @@ in
                 },
                 w = { "<cmd>w<cr>", "Write file" },
                 q = { "<cmd>q<cr>", "Quit" },
+                u = {
+                  name = "quickfix",
+                  c = { "<cmd>cclose<cr>", "Close" },
+                  n = { "<cmd>cnext<cr>", "Next" },
+                  p = { "<cmd>cprev<cr>", "Previous" },
+                },
                 z = { "<cmd>q!<cr>" },
               }
             })
