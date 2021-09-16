@@ -58,12 +58,13 @@ in
             method = null_ls.methods.DIAGNOSTICS,
             generator = null_ls.generator({
               command = "buf",
-              args = { "lint", "--error-format", "text", "--path", "$FILENAME" },
+              args = { "lint", "--error-format", "text" },
               format = "line",
               from_stderr = true,
               check_exit_code = function(code)
                 return code <= 1
               end,
+              to_stdin = true,
               on_output = helpers.diagnostics.from_pattern(
                 [[[%w/.]+:(%d+):(%d+):(.*)]],
                 { "row", "col", "message" }
@@ -80,13 +81,12 @@ in
              args = {
                "format",
                "$FILENAME",
-               "--overwrite",
              },
              to_stdin = true,
+             from_stderr = true,
            },
            factory = helpers.formatter_factory,
           })
-          -- TODO: pass diff to null_lsp
           -- need a prototool.yaml in proto/ root for it to figure out paths
           --null_ls.register(prototool)
 
