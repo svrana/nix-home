@@ -44,6 +44,7 @@ in
       editorconfig-nvim
       glow-nvim
       nvim-web-devicons
+      lexima-vim
       plenary-nvim
       {
         plugin = null-ls-nvim;
@@ -547,32 +548,6 @@ in
         '';
       }
       tmux-complete-vim
-      {
-        plugin = vim-go;
-        config = ''
-          let g:go_fmt_command = "goimports"
-          let g:go_fmt_autosave = 1
-          let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
-          let g:go_list_type = "quickfix"
-          let g:go_info_mode='gopls'
-          " let lsp handle ctrl-]
-          let g:go_def_mapping_enabled=0
-          " pin our versions with nix
-          let g:go_get_update=0
-          " disable mapping of K to godoc
-          let g:go_doc_keywordprg_enabled = 0
-
-          " run :GoBuild or :GoTestCompile based on the go file
-          function! s:build_go_files()
-             let l:file = expand('%')
-              if l:file =~# '^\f\+_test\.go$'
-                  call go#cmd#Test(0, 1)
-              elseif l:file =~# '^\f\+\.go$'
-                  call go#cmd#Build(0)
-              endif
-          endfunction
-        '';
-      }
       quick-scope
       vim-fetch
       fzfWrapper
