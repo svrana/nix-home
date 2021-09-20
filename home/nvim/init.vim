@@ -56,7 +56,6 @@ nnoremap \th :set invhls hls?<CR>
 nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
-inoremap <C-e> <C-o>$
 
 map <c-d> <c-b>
 map <m-n> :cn<CR>
