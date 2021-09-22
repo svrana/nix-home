@@ -189,6 +189,7 @@ in
       {
         plugin = lspkind-nvim;
         config = lua ''
+          -- vscode icons on lsp completion
           require('lspkind').init()
         '';
       }
@@ -272,6 +273,23 @@ in
                { name = 'nvim_lsp' },
                { name = 'luasnip' },
              },
+             formatting = {
+               deprecated = true,
+               format = function(entry, vim_item)
+               -- fancy icons and a name of kind
+               vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+
+               -- set a name for each source
+               vim_item.menu = ({
+                 buffer = "[Buffer]",
+                 nvim_lsp = "[LSP]",
+                 luasnip = "[LuaSnip]",
+                 nvim_lua = "[Lua]",
+                 latex_symbols = "[Latex]",
+               })[entry.source.name]
+               return vim_item
+               end,
+             }
            }
 
           -- show the source of the diagnostic, useful if you have more than
