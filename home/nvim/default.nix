@@ -352,6 +352,8 @@ in
             require('lsp_signature').on_attach()
           end
 
+          local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
           -- Use a loop to conveniently call 'setup' on multiple servers and
           -- map buffer local keybindings when the language server attaches
           local servers = {
@@ -367,7 +369,7 @@ in
           for _, lsp in ipairs(servers) do
             nvim_lsp[lsp].setup({
               on_attach = on_attach,
-              capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+              capabilities = capabilities,
               flags = {
                 debounce_text_changes = 150,
               }
@@ -386,7 +388,7 @@ in
                 client.resolved_capabilities.document_range_formatting = false
                 on_attach(client)
             end,
-            capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            capabilities = capabilities,
           }
 
           local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
@@ -397,7 +399,7 @@ in
 
           require('lspconfig').sumneko_lua.setup {
             on_attach = on_attach,
-            capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            capabilities = capabiltiies,
             flags = {
               debounce_text_changes = 150,
             },
