@@ -104,7 +104,7 @@ in
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
         config = lua ''
           require('nvim-treesitter.configs').setup {
-              ensure_installed = "maintained",
+              --ensure_installed = "maintained",
               highlight = {
                 enable = true,
               },
@@ -225,110 +225,84 @@ in
       lsp_signature-nvim
       luasnip
       cmp_luasnip
-      #cmp_path
-      #cmp_buffer
+      cmp-path
+      cmp-buffer
       cmp-nvim-lsp
       {
         plugin = nvim-cmp;
         config = lua ''
-           local luasnip = require 'luasnip'
-           local cmp = require 'cmp'
-           cmp.setup {
-             snippet = {
-               expand = function(args)
-                 require('luasnip').lsp_expand(args.body)
-               end,
-             },
-             mapping = {
-               ['<C-p>'] = cmp.mapping.select_prev_item(),
-               ['<C-n>'] = cmp.mapping.select_next_item(),
-               ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-               ['<C-f>'] = cmp.mapping.scroll_docs(4),
-               ['<C-Space>'] = cmp.mapping.complete(),
-               ['<C-e>'] = cmp.mapping.close(),
-               ['<CR>'] = cmp.mapping.confirm {
-                 behavior = cmp.ConfirmBehavior.Replace,
-                 select = true,
-               },
-               ['<Tab>'] = function(fallback)
-                 if vim.fn.pumvisible() == 1 then
-                   vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
-                 elseif luasnip.expand_or_jumpable() then
-                   vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), "")
-                 else
-                   fallback()
-                 end
-               end,
-               ['<S-Tab>'] = function(fallback)
-                 if vim.fn.pumvisible() == 1 then
-                   vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
-                 elseif luasnip.jumpable(-1) then
-                   vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), "")
-                 else
-                   fallback()
-                 end
-               end,
-             },
-             sources = {
-               { name = 'nvim_lsp' },
-               { name = 'luasnip' },
-             },
-             formatting = {
-               deprecated = true,
-               format = function(entry, vim_item)
-               -- fancy icons and a name of kind
-               vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+          local luasnip = require('luasnip')
+          local cmp = require('cmp')
+          cmp.setup {
+            snippet = {
+              expand = function(args)
+                require('luasnip').lsp_expand(args.body)
+              end,
+            },
+            mapping = {
+              ['<C-p>'] = cmp.mapping.select_prev_item(),
+              ['<C-n>'] = cmp.mapping.select_next_item(),
+              ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+              ['<C-f>'] = cmp.mapping.scroll_docs(4),
+              ['<C-Space>'] = cmp.mapping.complete(),
+              ['<C-e>'] = cmp.mapping.close(),
+              ['<CR>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+              },
+              ['<Tab>'] = function(fallback)
+                if vim.fn.pumvisible() == 1 then
+                  vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+                elseif luasnip.expand_or_jumpable() then
+                  vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), "")
+                else
+                  fallback()
+                end
+              end,
+              ['<S-Tab>'] = function(fallback)
+                if vim.fn.pumvisible() == 1 then
+                  vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+                elseif luasnip.jumpable(-1) then
+                  vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), "")
+                else
+                  fallback()
+                end
+              end,
+            },
+            sources = {
+              { name = 'nvim_lsp' },
+              { name = 'luasnip' },
+              { name = 'buffer' },
+              { name = 'path' },
+            },
+            formatting = {
+              deprecated = true,
+              format = function(entry, vim_item)
+              -- fancy icons and a name of kind
+              vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
 
-               -- set a name for each source
-               vim_item.menu = ({
-                 buffer = "[Buffer]",
-                 nvim_lsp = "[LSP]",
-                 luasnip = "[LuaSnip]",
-                 nvim_lua = "[Lua]",
-                 latex_symbols = "[Latex]",
-               })[entry.source.name]
-               return vim_item
-               end,
-             }
-           }
+              -- set a name for each source
+              vim_item.menu = ({
+                buffer = "[Buffer]",
+                nvim_lsp = "[LSP]",
+                luasnip = "[LuaSnip]",
+                nvim_lua = "[Lua]",
+                latex_symbols = "[Latex]",
+              })[entry.source.name]
+              return vim_item
+              end,
+            }
+          }
 
-          -- show the source of the diagnostic, useful if you have more than
-          -- one lsp server for the filetype, i.e., a linter as well as a compiler
-          -- (typescript)
-          vim.lsp.handlers["textDocument/publishDiagnostics"] =
-            function(_, _, params, client_id, _)
-              local config = {
-                underline = true,
-                virtual_text = {
-                  prefix = "■ ",
-                  spacing = 4,
-                },
-                signs = true,
-                update_in_insert = false,
-              }
-              local uri = params.uri
-              local bufnr = vim.uri_to_bufnr(uri)
-
-              if not bufnr then
-                return
-              end
-
-              local diagnostics = params.diagnostics
-
-              vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
-
-              if not vim.api.nvim_buf_is_loaded(bufnr) then
-                return
-              end
-
-              -- don't mutate the original diagnostic because it would interfere with
-              -- code action (and probably other stuff, too)
-              local prefixed_diagnostics = vim.deepcopy(diagnostics)
-              for i, v in ipairs(diagnostics) do
-                diagnostics[i].message = string.format("%s: %s", v.source, v.message)
-              end
-              vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
-          end
+          vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = {
+                 prefix = "■ ",
+                 spacing = 4,
+            },
+            signs = true,
+            underline = false,
+            update_in_insert = false,
+          })
         '';
       }
       {
@@ -375,10 +349,7 @@ in
             --buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
             --buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-            require('lsp_signature').on_attach({
-              bind = true,
-              toggle_key='<C-x>'
-            })
+            require('lsp_signature').on_attach()
           end
 
           -- Use a loop to conveniently call 'setup' on multiple servers and
