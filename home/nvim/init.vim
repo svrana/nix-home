@@ -57,6 +57,8 @@ nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
 
+inoremap <c-e> <esc>$a
+inoremap <c-a> <esc>^i
 map <c-d> <c-b>
 map <m-n> :cn<CR>
 map <m-p> :cp<CR>
