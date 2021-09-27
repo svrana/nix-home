@@ -5,10 +5,20 @@ let
       ${text}
     EOF
   '';
+  goimpl-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "goimpl";
+    src = pkgs.fetchFromGitHub {
+      owner = "edolphin-ydf";
+      repo = "goimpl.nvim";
+      rev = "597fbe50c8e3d32fba7746f60f2bae3d80c505c9";
+      sha256 = "1h41pgxjqdql7cj4rs0iig3mciyical06rvj6vr53hb37nvl3d1c";
+    };
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
+    set pumblend=20
   '';
 
   programs.neovim = {
@@ -43,6 +53,7 @@ in
       direnv-vim
       editorconfig-nvim
       glow-nvim
+      goimpl-nvim
       nvim-web-devicons
       plenary-nvim
       {
@@ -104,7 +115,6 @@ in
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
         config = lua ''
           require('nvim-treesitter.configs').setup {
-              --ensure_installed = "maintained",
               highlight = {
                 enable = true,
               },
@@ -175,6 +185,7 @@ in
             }
           }
           require('telescope').load_extension('fzf')
+          require('telescope').load_extension('goimpl')
         '';
       }
       {
@@ -314,7 +325,8 @@ in
           -- Use an on_attach function to only map the following keys
           -- after the language server attaches to the current buffer
           local on_attach = function(client, bufnr)
-            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+            local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
             -- Enable completion triggered by <c-x><c-o>
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -521,9 +533,14 @@ in
       {
         plugin = vim-go;
         config = ''
+          let g:go_gopls_enabled = 0
+          let g:go_diagnostics_enabled = 0
+          let g:go_code_completion_enabled = 0
+          let g:go_fmt_autosave = 0
+
           let g:go_fmt_command = "goimports"
-          let g:go_fmt_autosave = 1
-          let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
+          "let g:go_fmt_autosave = 0
+          "let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
           let g:go_list_type = "quickfix"
           let g:go_info_mode='gopls'
           " let lsp handle ctrl-]
@@ -609,6 +626,7 @@ in
                   p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
                   r = { "<cmd>Lspsaga rename<cr>", "Rename" },
                   s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
+                  i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
                 },
                 d = {
                   name = "display",
