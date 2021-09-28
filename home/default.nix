@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
+  pkgs = import sources.nixpkgs { };
 in
 {
   programs.home-manager.enable = true;
@@ -89,6 +89,7 @@ in
     kubernetes-helm
     gitAndTools.hub
     golangci-lint
+    grpcurl
     kubectx
     ledger-live-desktop
     i3-ratiosplit
