@@ -14,6 +14,18 @@ let
       sha256 = "1h41pgxjqdql7cj4rs0iig3mciyical06rvj6vr53hb37nvl3d1c";
     };
   };
+  go-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "go-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "ray-x";
+      repo = "go.nvim";
+      rev = "7feb745e6c2f5f48c6994863f57fcdde4f71f45b";
+      sha256 = "04isg30k2s8yg4w3r276nqms0bq9pl8dqzwxnpgd52xssnq4853z";
+    };
+    configurePhase = ''
+      rm Makefile
+    '';
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -52,6 +64,13 @@ in
       diffview-nvim
       direnv-vim
       editorconfig-nvim
+      {
+        plugin = go-nvim;
+        config = lua ''
+          require('go').setup()
+          vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+        '';
+      }
       glow-nvim
       goimpl-nvim
       nvim-web-devicons
@@ -530,37 +549,6 @@ in
         '';
       }
       tmux-complete-vim
-      {
-        plugin = vim-go;
-        config = ''
-          let g:go_gopls_enabled = 0
-          let g:go_diagnostics_enabled = 0
-          let g:go_code_completion_enabled = 0
-          let g:go_fmt_autosave = 0
-
-          let g:go_fmt_command = "goimports"
-          "let g:go_fmt_autosave = 0
-          "let g:go_metalinter_autosave_enabled = ['gopls', 'vet']
-          let g:go_list_type = "quickfix"
-          let g:go_info_mode='gopls'
-          " let lsp handle ctrl-]
-          let g:go_def_mapping_enabled=0
-          " pin our versions with nix
-          let g:go_get_update=0
-          " disable mapping of K to godoc
-          let g:go_doc_keywordprg_enabled = 0
-
-          " run :GoBuild or :GoTestCompile based on the go file
-          function! s:build_go_files()
-             let l:file = expand('%')
-              if l:file =~# '^\f\+_test\.go$'
-                  call go#cmd#Test(0, 1)
-              elseif l:file =~# '^\f\+\.go$'
-                  call go#cmd#Build(0)
-              endif
-          endfunction
-        '';
-      }
       quick-scope
       vim-fetch
       fzfWrapper
