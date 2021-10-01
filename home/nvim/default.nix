@@ -26,6 +26,15 @@ let
       rm Makefile
     '';
   };
+  lspsaga-nvim-fork = pkgs.vimUtils.buildVimPlugin {
+    name = "lspsaga-nvim-fork";
+    src = pkgs.fetchFromGitHub {
+      owner = "tami5";
+      repo = "lspsaga.nvim";
+      rev = "bafeddfb148b205652ad5bf539f3c6cab1032c27";
+      sha256 = "14wx9qf0iav5351gar96bv5i400a7ps7r13iilhysb4pf8dhq4zb";
+    };
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -236,7 +245,7 @@ in
         '';
       }
       {
-        plugin = lspsaga-nvim;
+        plugin = lspsaga-nvim-fork;
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
           vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
