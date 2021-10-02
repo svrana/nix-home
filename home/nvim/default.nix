@@ -76,7 +76,6 @@ in
       {
         plugin = go-nvim;
         config = lua ''
-          require('go').setup()
           vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
         '';
       }
@@ -249,6 +248,8 @@ in
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
           vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+          nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
+          nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
 
           lua << EOF
           require('lspsaga').init_lsp_saga({
@@ -350,11 +351,26 @@ in
           local nvim_lsp = require('lspconfig')
           local protocol = require('vim.lsp.protocol')
 
+          local diagnostic_map = function(bufnr)
+            local opts = {noremap = true, silent = true}
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "]O", ":lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+          end
+
           -- Use an on_attach function to only map the following keys
           -- after the language server attaches to the current buffer
           local on_attach = function(client, bufnr)
-            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-            local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+            local function buf_set_keymap(...)
+              vim.api.nvim_buf_set_keymap(bufnr, ...)
+            end
+            local function buf_set_option(...)
+              vim.api.nvim_buf_set_option(bufnr, ...)
+            end
+
+            local uri = vim.uri_from_bufnr(bufnr)
+            if uri == "file://" or uri == "file:///" or #uri < 11 then
+              return {error = "invalid file", result = nil}
+            end
+            diagnostic_map(bufnr)
 
             -- Enable completion triggered by <c-x><c-o>
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -363,7 +379,7 @@ in
             -- TODO: add ability to disable this on the fly.
             if client.resolved_capabilities.document_formatting then
                vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-             end
+            end
 
             -- Mappings.
             local opts = { noremap=true, silent=true }
@@ -377,7 +393,6 @@ in
             buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
             buf_set_keymap('n', '<leader>cn', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
-            --buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
             --buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
             --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
             --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -397,7 +412,6 @@ in
           -- Use a loop to conveniently call 'setup' on multiple servers and
           -- map buffer local keybindings when the language server attaches
           local servers = {
-            'gopls',
             'bashls',
             'yamlls',
             'rnix',
@@ -415,6 +429,11 @@ in
               }
             })
           end
+
+          require('go').setup({
+            lsp_cfg = true, -- setup gopls for us
+            on_attach = on_attach, -- but use our own on_attach
+          })
 
           nvim_lsp.tsserver.setup {
             filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
@@ -437,7 +456,7 @@ in
           table.insert(runtime_path, "lua/?.lua")
           table.insert(runtime_path, "lua/?/init.lua")
 
-          require('lspconfig').sumneko_lua.setup {
+          nvim_lsp.sumneko_lua.setup {
             on_attach = on_attach,
             capabilities = capabiltiies,
             flags = {
@@ -615,9 +634,8 @@ in
                 c = {
                   name = "code",
                   -- buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-                  -- buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+                  d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
                   a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
-                  -- d = { taken by buffer map lsp }
                   f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
                   j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
                   p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
