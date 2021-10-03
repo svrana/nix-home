@@ -54,6 +54,7 @@ in
       buf
       code-minimap
       gopls
+      goimports
       nixfmt
       nodePackages.vim-language-server
       nodePackages.eslint_d
@@ -376,7 +377,6 @@ in
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
             -- Format prior to save if supported
-            -- TODO: add ability to disable this on the fly.
             if client.resolved_capabilities.document_formatting then
                vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
             end

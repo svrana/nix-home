@@ -53,7 +53,7 @@ in
             inner = 25;
             smartGaps = true;
           };
-          bars = [];
+          bars = [ ];
           window = { hideEdgeBorders = "smart"; };
           focus = {
             followMouse = false;
@@ -98,9 +98,10 @@ in
             };
             background = "#ffffff";
           };
-          keybindings = let
-            mod = "Mod4";
-          in
+          keybindings =
+            let
+              mod = "Mod4";
+            in
             {
               "${mod}+minus" = ''[class="scratch-term"] scratchpad show'';
               "${mod}+Return" = "exec --no-startup-id ${alacritty}";
