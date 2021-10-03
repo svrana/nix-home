@@ -432,7 +432,8 @@ in
 
           require('go').setup({
             lsp_cfg = true, -- setup gopls for us
-            on_attach = on_attach, -- but use our own on_attach
+            on_attach = on_attach,
+            --on_attach = true,
           })
 
           nvim_lsp.tsserver.setup {
