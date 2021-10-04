@@ -542,7 +542,12 @@ in
       rhubarb
       {
         plugin = vim-gitgutter;
-        config = ''let g:gitgutter_git_executable = "${pkgs.git}/bin/git"'';
+        config = ''
+          let g:gitgutter_map_keys = 0
+          nmap ]h <Plug>(GitGutterNextHunk)
+          nmap [h <Plug>(GitGutterPrevHunk)
+          let g:gitgutter_git_executable = "${pkgs.git}/bin/git"
+        '';
       }
       minimap-vim
       {
