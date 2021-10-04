@@ -161,11 +161,6 @@ function MyTabLabel(n)
 endfunction
 
 set tabline=%!MyTabLine()
-
-setlocal tagfunc=v:lua.tagfunc_nvim_lsp
-" nvim-compe
 set completeopt=menuone,noselect
-
 highlight TelescopeMatching guifg=orange
-
 colorscheme NeoSolarized

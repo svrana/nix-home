@@ -35,6 +35,15 @@ let
       sha256 = "14wx9qf0iav5351gar96bv5i400a7ps7r13iilhysb4pf8dhq4zb";
     };
   };
+  nvim-lsp-smag = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-lsp-smag";
+    src = pkgs.fetchFromGitHub {
+      owner = "weilbith";
+      repo = "nvim-lsp-smag";
+      rev = "649ef139027f44f013b487bdaee3d5723bb0f916";
+      sha256 = "02rd8202pxmq5m8ms8wbdv63by8jqc26mg042m5hbisz0ybv1z57";
+    };
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -82,6 +91,12 @@ in
       }
       glow-nvim
       goimpl-nvim
+      {
+        plugin = nvim-lsp-smag;
+        config = lua ''
+          require('lsp_smag')
+        '';
+      }
       nvim-web-devicons
       plenary-nvim
       {
