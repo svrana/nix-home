@@ -14,7 +14,8 @@ in
       ciaa = "commit -a --amend";
       cia = "commit --amend";
       st = "status";
-      f = "fetch";
+      ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
+      pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
       cat = "cat-file";
       b = "branch --color -v";
       changes = "diff --name-status -r";
@@ -29,6 +30,7 @@ in
         "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`";
       lg =
         "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      llog = ''log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative'';
       latest = "diff HEAD~1 HEAD";
       home = ''config user.email "shaw@vranix.com"'';
       hg =
@@ -40,6 +42,7 @@ in
     };
     lfs = { enable = true; };
     extraConfig = {
+      hub = { protocol = "ssh"; };
       url."git@github.com:".insteadOf = "https://github.com";
       diff-so-fancy = { stripLeadingSymbols = false; };
       core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
