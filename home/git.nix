@@ -42,7 +42,6 @@ in
     };
     lfs = { enable = true; };
     extraConfig = {
-      hub = { protocol = "ssh"; };
       url."git@github.com:".insteadOf = "https://github.com";
       diff-so-fancy = { stripLeadingSymbols = false; };
       core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
