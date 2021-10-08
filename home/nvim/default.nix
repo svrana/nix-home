@@ -19,8 +19,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "7feb745e6c2f5f48c6994863f57fcdde4f71f45b";
-      sha256 = "04isg30k2s8yg4w3r276nqms0bq9pl8dqzwxnpgd52xssnq4853z";
+      rev = "b09f8354bf6c209baf1cab52d8d0a78ed2f87af5";
+      sha256 = "0mmalijp3yg5450bqp7llpa42h7aziabf7s1f9jz2vzqqc7p4q09";
     };
     configurePhase = ''
       rm Makefile
@@ -31,8 +31,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "tami5";
       repo = "lspsaga.nvim";
-      rev = "bafeddfb148b205652ad5bf539f3c6cab1032c27";
-      sha256 = "14wx9qf0iav5351gar96bv5i400a7ps7r13iilhysb4pf8dhq4zb";
+      rev = "f3139a0cca91d1341aadf676940a5532dc9c3330";
+      sha256 = "1xqcp0p42j9wfp455cf881li7awikdmw3wi5g04sxjz13p5n9zsb";
     };
   };
   nvim-lsp-smag = pkgs.vimUtils.buildVimPlugin {
