@@ -163,4 +163,4 @@ endfunction
 set tabline=%!MyTabLine()
 set completeopt=menuone,noselect
 highlight TelescopeMatching guifg=orange
-colorscheme NeoSolarized
+""colorscheme NeoSolarized

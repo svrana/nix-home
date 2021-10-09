@@ -247,7 +247,12 @@ in
           require('lspkind').init()
         '';
       }
-      nvim-solarized-lua
+      {
+        plugin = nvim-solarized-lua;
+        #config = "colorscheme solarized";
+        # neosolarized until https://github.com/ishan9299/nvim-solarized-lua/issues/26
+        config = "colorscheme NeoSolarized";
+      }
       {
         plugin = lsp-colors-nvim;
         config = lua ''
@@ -447,8 +452,8 @@ in
 
           require('go').setup({
             lsp_cfg = true, -- setup gopls for us
-            on_attach = on_attach,
-            --on_attach = true,
+            --on_attach = on_attach,
+            on_attach = true,
           })
 
           nvim_lsp.tsserver.setup {
@@ -626,15 +631,16 @@ in
         config = ''
           let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
           let g:nvim_tree_gitignore = 1
-          "let g:nvim_tree_lsp_diagnostics = 1
-          "let g:nvim_tree_auto_open = 1
-          " unforunately takes control of the cursor too
-          " let g:nvim_tree_tab_open = 1
           let g:nvim_tree_group_empty = 1
-          let g:nvim_tree_auto_close = 1
-          " needed for fugitive GBrowse
-          let g:nvim_tree_disable_netrw = 0
-          let g:nvim_tree_follow = 1
+          lua << EOF
+            require('nvim-tree').setup({
+              -- needed for fugitive GBrowse
+              disable_netrw = false,
+              auto_close = true,
+              hijack_cursor = true,
+              tree_follow = 1,
+            })
+          EOF
         '';
       }
       {
