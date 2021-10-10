@@ -72,6 +72,7 @@ in
       nodePackages.yaml-language-server
       nodePackages.json-server
       nodePackages.dockerfile-language-server-nodejs
+      protocol-buffers-language-server
       rnix-lsp
       shfmt
       sumneko-lua-language-server
@@ -429,6 +430,7 @@ in
           -- Use a loop to conveniently call 'setup' on multiple servers and
           -- map buffer local keybindings when the language server attaches
           local servers = {
+            --'protocol-buffers-language_server',
             'bashls',
             'yamlls',
             'rnix',
