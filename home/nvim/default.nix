@@ -10,8 +10,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "edolphin-ydf";
       repo = "goimpl.nvim";
-      rev = "597fbe50c8e3d32fba7746f60f2bae3d80c505c9";
-      sha256 = "1h41pgxjqdql7cj4rs0iig3mciyical06rvj6vr53hb37nvl3d1c";
+      rev = "06b19734077dbe79f6082f6e02b3ed197c444a9a";
+      sha256 = "1vrhgm1z1x815zy50gmhdfzx72al5byx87r6xwnhylzvyg42wgq9";
     };
   };
   go-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -113,11 +113,8 @@ in
               command = "buf",
               args = { "lint", "--error-format", "text" },
               format = "line",
-              from_stderr = true,
-              check_exit_code = function(code)
-                return code <= 1
-              end,
               to_stdin = true,
+              check_exit_code = { 0, 100 },
               on_output = helpers.diagnostics.from_pattern(
                 [[[%w/.]+:(%d+):(%d+):(.*)]],
                 { "row", "col", "message" }
