@@ -596,6 +596,14 @@ in
           endfunction
 
           autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
+
+          let g:neomake_proto_maker = {
+            \ 'exe': 'buf',
+            \ 'args': ['lint', '--path'],
+            \ 'errorformat': '%f:%l:%c:%m',
+          \ }
+
+          autocmd BufEnter,BufWritePost *.proto Neomake proto
         '';
       }
       tmux-complete-vim
