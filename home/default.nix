@@ -113,6 +113,7 @@ in
     ssh-agents
     standardnotes
     system-san-francisco-font
+    sysz
     tilt
     tdesktop
     tmuxinator
