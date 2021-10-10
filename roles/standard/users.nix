@@ -2,7 +2,13 @@
 {
   users.users.shaw = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "video" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "networkmanager"
+      "video"
+      "plugdev"
+    ];
     shell = pkgs.bash;
     openssh.authorizedKeys.keys = [
       # Replace this with your SSH key!

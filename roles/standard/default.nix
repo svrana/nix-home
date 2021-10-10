@@ -5,7 +5,9 @@
     ./fonts.nix
     ./nix.nix
     ./pkgs.nix
+    ./groups.nix
     ./users.nix
+    ./udev.nix
   ];
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
