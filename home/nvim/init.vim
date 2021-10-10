@@ -16,7 +16,6 @@ highlight WhiteOnRed ctermfg=white ctermbg=red
 
 autocmd! BufWritePre * :%s/\s\+$//e
 
-"autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType * setlocal formatoptions+=croq
 autocmd BufRead gitcommit setlocal spell spelllang=en_US textwidth=72
 autocmd BufRead gitcommit setlocal fo+=t
@@ -31,7 +30,7 @@ autocmd BufNewFile,BufRead,BufEnter *.gjs setf javascript
 
 autocmd BufRead Tiltfile set filetype=python
 autocmd FileType terraform setlocal commentstring=#%s
-autocmd! FileType fzf
+"autocmd! FileType fzf
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 augroup highlight_yank
@@ -163,4 +162,3 @@ endfunction
 set tabline=%!MyTabLine()
 set completeopt=menuone,noselect
 highlight TelescopeMatching guifg=orange
-""colorscheme NeoSolarized
