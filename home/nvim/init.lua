@@ -28,7 +28,7 @@ opt.lazyredraw = true
 opt.background = "dark"
 opt.pyx = 3
 opt.termguicolors = true
-opt.clipboard = "unnamed,unnamedplus"
-
---local g = vim.g
---local cmd = vim.cmd
+-- opt.clipboard = "unnamed,unnamedplus"
+-- opt.clipboard = "unnamed"
+-- local g = vim.g
+-- local cmd = vim.cmd
