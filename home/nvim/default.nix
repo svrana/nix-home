@@ -35,15 +35,6 @@ let
       sha256 = "1xqcp0p42j9wfp455cf881li7awikdmw3wi5g04sxjz13p5n9zsb";
     };
   };
-  nvim-lsp-smag = pkgs.vimUtils.buildVimPlugin {
-    name = "nvim-lsp-smag";
-    src = pkgs.fetchFromGitHub {
-      owner = "weilbith";
-      repo = "nvim-lsp-smag";
-      rev = "649ef139027f44f013b487bdaee3d5723bb0f916";
-      sha256 = "02rd8202pxmq5m8ms8wbdv63by8jqc26mg042m5hbisz0ybv1z57";
-    };
-  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -70,7 +61,6 @@ in
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
-      nodePackages.json-server
       nodePackages.dockerfile-language-server-nodejs
       protocol-buffers-language-server
       rnix-lsp
@@ -92,12 +82,6 @@ in
       }
       glow-nvim
       goimpl-nvim
-      {
-        plugin = nvim-lsp-smag;
-        config = lua ''
-          require('lsp_smag')
-        '';
-      }
       nvim-web-devicons
       plenary-nvim
       {
@@ -430,12 +414,10 @@ in
           -- Use a loop to conveniently call 'setup' on multiple servers and
           -- map buffer local keybindings when the language server attaches
           local servers = {
-            --'protocol-buffers-language_server',
             'bashls',
             'yamlls',
             'rnix',
             'dockerls',
-            'jsonls',
             'null-ls',
             'vimls',
           }
@@ -454,7 +436,7 @@ in
             lsp_on_attach = on_attach,
           })
 
-          nvim_lsp.tsserver.setup {
+          nvim_lsp.tsserver.setup({
             filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
             flags = {
                 debounce_text_changes = 150,
@@ -467,7 +449,7 @@ in
                 on_attach(client)
             end,
             capabilities = capabilities,
-          }
+          })
 
           local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
           local sumneko_binary = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server"
