@@ -549,6 +549,10 @@ in
           let g:gitgutter_git_executable = "${pkgs.git}/bin/git"
         '';
       }
+      {
+        plugin = vim-bbye;
+        config = "map <c-x> :Bdelete<CR>";
+      }
       minimap-vim
       {
         plugin = neogit;

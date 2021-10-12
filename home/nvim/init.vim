@@ -64,7 +64,7 @@ map <m-p> :cp<CR>
 map <m-f> :cfirst<CR>
 map <m-l> :clist<CR>
 map <m-o> :copen<CR>
-map <c-x> :bdelete<CR>
+"map <c-x> :bdelete<CR>
 map <c-s> :tabp<CR>
 map <c-h> :tabn<CR>
 "map <c-c> :make<CR>
