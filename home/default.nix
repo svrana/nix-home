@@ -166,13 +166,31 @@ in
 
   # see overlay
   programs.powerline-go = {
-    enable = true;
+    enable = false;
     modules = [ "ssh" "perms" "venv" "gitlite" "cwd" ];
     newline = false;
     settings = {
       cwd-mode = "dironly";
       max-width = 65;
       priority = "ssh,perms,venv,gitlite,cwd";
+    };
+  };
+  programs.starship = {
+    enable = true;
+    settings = {
+      format = lib.concatStrings [
+        "$all"
+      ];
+      character = {
+        success_symbol = "➜";
+        error_symbol = "[➜](bold red)";
+      };
+      kubernetes = {
+        disabled = false;
+        context_aliases = {
+          kind-kind = "dev";
+        };
+      };
     };
   };
   home.file.".local/bin" = {
