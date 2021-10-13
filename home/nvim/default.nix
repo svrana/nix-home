@@ -71,6 +71,29 @@ in
       source $DOTFILES/home/nvim/init.vim
     '';
     plugins = with pkgs.vimPlugins; [
+      {
+        plugin = barbar-nvim;
+        config = lua ''
+          local map = vim.api.nvim_set_keymap
+          local opts = { noremap = true, silent = true }
+
+          map('n', '<C-p>', ':BufferPick<CR>', opts)
+          map('n', '<C-s>', ':BufferPrevious<CR>', opts)
+          map('n', '<C-h>', ':BufferNext<CR>', opts)
+
+          vim.g.bufferline = {
+            animation = false;
+            -- Enable/disable auto-hiding the tab bar when there is a single buffer
+            auto_hide = true,
+            -- Enable/disable close button
+            closable = false,
+            -- Sets the name of unnamed buffers. By default format is "[Buffer X]"
+            no_name_title = "[Buffer]",
+           -- Enable/disable current/total tabpages indicator (top right corner)
+            tabpages = false,
+          }
+        '';
+      }
       diffview-nvim
       direnv-vim
       editorconfig-nvim
@@ -655,7 +678,7 @@ in
               ["<leader>"] = {
                 c = {
                   name = "code",
-                  -- buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+                  -- buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
                   d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
                   a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
                   f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },

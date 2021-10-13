@@ -65,8 +65,9 @@ map <m-f> :cfirst<CR>
 map <m-l> :clist<CR>
 map <m-o> :copen<CR>
 "map <c-x> :bdelete<CR>
-map <c-s> :tabp<CR>
-map <c-h> :tabn<CR>
+" see barbar config
+"map <c-s> :tabp<CR>
+"map <c-h> :tabn<CR>
 "map <c-c> :make<CR>
 map - <C-W>-
 map + <C-W>+
@@ -159,6 +160,6 @@ function MyTabLabel(n)
   return len(label) == 0 ? '[No Name]' : label
 endfunction
 
-set tabline=%!MyTabLine()
+"set tabline=%!MyTabLine()
 set completeopt=menuone,noselect
 highlight TelescopeMatching guifg=orange
