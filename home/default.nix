@@ -191,6 +191,9 @@ in
           kind-kind = "dev";
         };
       };
+      terraform = {
+        disabled = true;
+      };
     };
   };
   home.file.".local/bin" = {
