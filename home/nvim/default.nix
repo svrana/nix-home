@@ -213,6 +213,7 @@ in
           require('telescope').load_extension('goimpl')
         '';
       }
+      nvim-bqf
       {
         plugin = nvim-colorizer-lua;
         config = ''
@@ -661,6 +662,7 @@ in
                   r = { "<cmd>Lspsaga rename<cr>", "Rename" },
                   s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
                   i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
+                  l = { "<cmd>GoFillStruct<cr>", "Fill golang struct" },
                 },
                 d = {
                   name = "display",
