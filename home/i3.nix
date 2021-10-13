@@ -118,7 +118,7 @@ in
               "${mod}+9" = ''[class="Slack"] scratchpad show'';
               "${mod}+a" = "focus parent";
               "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
-              "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%;}'"'';
+              "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: $cyan;}'"'';
               "${mod}+e" = "layout toggle split";
               "${mod}+f" = "fullscreen toggle";
               "${mod}+h" = "focus left";
@@ -157,8 +157,8 @@ in
               "${mod}+Shift+5" = "move container to workspace 5";
               "${mod}+Shift+6" = "move container to workspace 6";
               "${mod}+Shift+7" = "move container to workspace 7";
-              "${mod}+Tab" = ''exec --no-startup-id ${rofi} -show window -eh 2 -padding 16 -show-icons'';
-              "${mod}+comma" = ''[class="qutebrowser"] focus'';
+              "${mod}+Tab" = ''exec --no-startup-id "${rofi} -show window -eh 2 -padding 16 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: $cyan;}'"'';
+              "${mod}+comma" = '' [ class="qutebrowser" ] focus'';
               "${mod}+period" = ''[instance="spotify"] focus'';
               "Mod1+Control+l" = "exec --no-startup-id loginctl lock-session";
               "Mod1+Control+v" = "split horizontal";
