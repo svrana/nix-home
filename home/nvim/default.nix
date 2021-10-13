@@ -62,7 +62,7 @@ in
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
-      protocol-buffers-language-server
+      #protocol-buffers-language-server
       rnix-lsp
       shfmt
       sumneko-lua-language-server
@@ -170,8 +170,10 @@ in
         config = lua ''
           local actions = require('telescope.actions')
 
+          defaults =
           require('telescope').setup{
             defaults = {
+             file_ignore_patterns = { 'vendor' },
              layout_strategy = 'vertical',
              set_env = { ['COLORTERM'] = 'truecolor' },
               mappings = {
