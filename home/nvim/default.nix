@@ -694,7 +694,7 @@ in
                   h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
                   m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                   n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
-                  t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
+                  t = { "<cmd>lua require('svrana.tree').toggle()<cr>", "Tree explorer" }, --nvim-tree-lua
                 },
                 f = {
                   name = "file/fuzzy",
