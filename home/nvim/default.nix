@@ -695,6 +695,7 @@ in
                   m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                   n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
                   t = { "<cmd>lua require('svrana.tree').toggle()<cr>", "Tree explorer" }, --nvim-tree-lua
+                  g = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
                 },
                 f = {
                   name = "file/fuzzy",
@@ -709,7 +710,7 @@ in
                 },
                 g = {
                   name = "git",
-                  t = { "<cmd>lua require('neogit').open({ kind='vsplit' })<cr>", "Toggle git" },
+                  t = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
                   h = { "<cmd>GBrowse<cr>", "gitHub view" }, -- fugitive
                   b = { "<cmd>Git blame<cr>", "Blame" }, -- fugitive
                 },
