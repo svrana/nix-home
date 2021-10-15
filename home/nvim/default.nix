@@ -71,29 +71,6 @@ in
       source $DOTFILES/home/nvim/init.vim
     '';
     plugins = with pkgs.vimPlugins; [
-      {
-        plugin = barbar-nvim;
-        config = lua ''
-          local map = vim.api.nvim_set_keymap
-          local opts = { noremap = true, silent = true }
-
-          map('n', '<C-p>', ':BufferPick<CR>', opts)
-          map('n', '<C-s>', ':BufferPrevious<CR>', opts)
-          map('n', '<C-h>', ':BufferNext<CR>', opts)
-
-          vim.g.bufferline = {
-            animation = false;
-            -- Enable/disable auto-hiding the tab bar when there is a single buffer
-            auto_hide = true,
-            -- Enable/disable close button
-            closable = false,
-            -- Sets the name of unnamed buffers. By default format is "[Buffer X]"
-            no_name_title = "[Buffer]",
-           -- Enable/disable current/total tabpages indicator (top right corner)
-            tabpages = false,
-          }
-        '';
-      }
       diffview-nvim
       direnv-vim
       editorconfig-nvim
@@ -694,7 +671,7 @@ in
                   h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
                   m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                   n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
-                  t = { "<cmd>lua require('svrana.tree').toggle()<cr>", "Tree explorer" }, --nvim-tree-lua
+                  t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
                   g = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
                 },
                 f = {
