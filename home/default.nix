@@ -127,6 +127,7 @@ in
     xorg.xdpyinfo
     zoom-us
     yarn
+    z
   ];
 
   gtk = {
@@ -180,6 +181,8 @@ in
     settings = {
       format = lib.concatStrings [
         "$all"
+        "$directory"
+        "$character"
       ];
       character = {
         success_symbol = "➜";
