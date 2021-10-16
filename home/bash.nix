@@ -48,6 +48,7 @@ in
       WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
       WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
+      _ZL_DATA = "$XDG_CACHE_HOME/zlua";
 
       TMP = "/tmp";
       CLOUD_ROOT = "$HOME/Cloud";

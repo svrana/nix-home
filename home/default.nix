@@ -127,7 +127,6 @@ in
     xorg.xdpyinfo
     zoom-us
     yarn
-    z
   ];
 
   gtk = {
@@ -322,5 +321,10 @@ in
   xresources = {
     extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
     path = "${config.home.homeDirectory}/.config/X11/Xresources";
+  };
+
+  programs.z-lua = {
+    enable = true;
+    enableAliases = true;
   };
 }
