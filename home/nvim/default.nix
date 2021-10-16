@@ -35,6 +35,18 @@ let
       sha256 = "1xqcp0p42j9wfp455cf881li7awikdmw3wi5g04sxjz13p5n9zsb";
     };
   };
+  lualine-nvim-fork = pkgs.vimUtils.buildVimPlugin {
+    name = "lualine-nvim-fork";
+    src = pkgs.fetchFromGitHub {
+      owner = "shadmansaleh";
+      repo = "lualine.nvim";
+      rev = "cd08f74bb7058270e9d3cd728f1ef7589dadfbee";
+      sha256 = "1nrvmx9wz9jix0z0j3g907kfyw3hiikf5vr7bqxb5mcaz52x8vhj";
+    };
+    configurePhase = ''
+      rm Makefile
+    '';
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -494,14 +506,14 @@ in
         '';
       }
       {
-        plugin = lualine-nvim;
+        plugin = lualine-nvim-fork;
         config = lua ''
           require('lualine').setup {
            options = {
              icons_enabled = true,
              theme = 'solarized_dark',
-             section_separators = {'', ''},
-             component_separators = {'', ''},
+             section_separators = { left = '', right = '' },
+             component_separators = { left = '', right = ''},
              disabled_filetypes = {}
            },
            sections = {
@@ -512,6 +524,7 @@ in
                  'filename',
                  file_status = true, -- displays file status (readonly status, modified status)
                  path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
+                 'lsp_progress'
                }
              },
              lualine_x = {
