@@ -56,7 +56,7 @@ in
   services.screen-locker = {
     enable = true;
     inactiveInterval = 8;
-    xautolockExtraOptions = [
+    xautolock.extraOptions = [
       "-corners '--00'"
       "-cornersize 20"
       "-notify 60"
