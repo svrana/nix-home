@@ -17,8 +17,8 @@ in
     sessionVariables = {
       # for docker-compose/dev/fixuid
       BUILDUID = "$(id -u $USER)";
-      EDITOR = "vim";
-      MANPAGER = "vim -c 'set ft=man' -";
+      EDITOR = "nvim";
+      MANPAGER = "nvim +Man!";
 
       EXA_DFLT_ARGS = "--icons --group-directories-first";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
