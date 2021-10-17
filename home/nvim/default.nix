@@ -47,6 +47,27 @@ let
       rm Makefile
     '';
   };
+  nvim-tabline = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-tabline";
+    src = pkgs.fetchFromGitHub {
+      owner = "seblj";
+      repo = "nvim-tabline";
+      rev = "1c1927049a4bb0a33df384ad0187f9db8aeefbdb";
+      sha256 = "1srv64rpx77swlq6ir3rxf8ycx6cl124fmkx3ajyngk3925fcl8n";
+    };
+  };
+  luatab-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "luatab-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "alvarosevilla95";
+      repo = "luatab.nvim";
+      rev = "da6a8f709c2a9c133d232aa21147bcf25445a89d";
+      sha256 = "13w4ryqsl3lxxxcrb2dyc0h9kql4cmx0hbhxingrc1cncwgldnj9";
+    };
+    configurePhase = ''
+      rm Makefile
+    '';
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -86,6 +107,7 @@ in
       diffview-nvim
       direnv-vim
       editorconfig-nvim
+      lightspeed-nvim
       {
         plugin = go-nvim;
         config = lua ''
@@ -94,8 +116,29 @@ in
       }
       glow-nvim
       goimpl-nvim
+      # {
+      #   plugin = luatab-nvim;
+      #   config = lua ''
+      #     vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
+      #   '';
+      # }
       lualine-lsp-progress
       nvim-web-devicons
+      # {
+      #   plugin = nvim-tabline;
+      #   config = lua ''
+      #     require('tabline').setup{
+      #         no_name = '[No Name]',    -- Name for buffers with no name
+      #         modified_icon = '',      -- Icon for showing modified buffer
+      #         close_icon = '',         -- Icon for closing tab with mouse
+      #         separator = "▌",          -- Separator icon on the left side
+      #         padding = 3,              -- Prefix and suffix space
+      #         color_all_icons = false,  -- Color devicons in active and inactive tabs
+      #         always_show_tabs = false, -- Always show tabline
+      #         right_separator = false,  -- Show right separator on the last tab
+      #     }
+      #   '';
+      # }
       plenary-nvim
       {
         plugin = null-ls-nvim;
