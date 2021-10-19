@@ -655,7 +655,6 @@ in
         '';
       }
       tmux-complete-vim
-      quick-scope
       vim-fetch
       fzfWrapper
       fzf-vim
