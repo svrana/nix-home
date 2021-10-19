@@ -7,8 +7,15 @@ set rtp+=$RCS/nvim/vimsnips
 set backupcopy=yes
 let g:autoswap_detect_tmux = 1
 
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+highlight IncSearch ctermbg=LightYellow ctermfg=Red
+highlight WhiteOnRed ctermfg=white ctermbg=red
+
 autocmd! BufWritePre * :%s/\s\+$//e
+
 autocmd FileType * setlocal formatoptions+=croq
 autocmd BufRead gitcommit setlocal spell spelllang=en_US textwidth=72
 autocmd BufRead gitcommit setlocal fo+=t
@@ -20,7 +27,8 @@ autocmd BufNewFile,BufRead,BufEnter *.feature setf ruby
 autocmd BufNewFile,BufRead,BufEnter *.gradle setf groovy
 autocmd BufNewFile,BufRead,BufEnter *.json setf json
 autocmd BufNewFile,BufRead,BufEnter *.gjs setf javascript
-autocmd BufRead Tiltfile setf python
+
+autocmd BufRead Tiltfile set filetype=python
 autocmd FileType terraform setlocal commentstring=#%s
 "autocmd! FileType fzf
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -28,6 +36,12 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
+augroup END
+
+augroup qs_colors
+    autocmd!
+    autocmd ColorScheme * highlight QuickScopePrimary gui=underline ctermfg=155 cterm=underline
+    autocmd ColorScheme * highlight QuickScopeSecondary gui=underline ctermfg=81 cterm=underline
 augroup END
 
 cmap w!! %!sudo tee > /dev/null %
