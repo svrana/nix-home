@@ -42,6 +42,9 @@ in
     };
     lfs = { enable = true; };
     extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
       url."git@github.com:".insteadOf = "https://github.com";
       diff-so-fancy = { stripLeadingSymbols = false; };
       core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
