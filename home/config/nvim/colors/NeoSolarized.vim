@@ -458,6 +458,13 @@ exe "hi! Todo"           .s:fmt_bold   .s:fg_magenta.s:bg_none
 "
 "}}}
 
+" Cmp highlighting
+exe "hi! CmpItemKind" .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
+exe "hi! CmpItemMenu" .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
+exe "hi! CmpItemAbbr"    .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
+exe "hi! CmpItemAbbrMatch" .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
+exe "hi! CmpItemAbbrMatchFuzzy"   .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
+
 " Extended highlighting "{{{
 " ---------------------------------------------------------------------
 if  (g:neosolarized_visibility=="high")
