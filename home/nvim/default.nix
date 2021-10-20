@@ -31,8 +31,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "tami5";
       repo = "lspsaga.nvim";
-      rev = "f3139a0cca91d1341aadf676940a5532dc9c3330";
-      sha256 = "1xqcp0p42j9wfp455cf881li7awikdmw3wi5g04sxjz13p5n9zsb";
+      rev = "c884214b57fea2f5f6f04e1245a3e55cc19bbe96";
+      sha256 = "0m2d0cy3bwff3frma2nyaacmxpxqssh3q6fv8813mflfc1c21r6l";
     };
   };
   lualine-nvim-fork = pkgs.vimUtils.buildVimPlugin {
