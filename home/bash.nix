@@ -113,7 +113,7 @@ in
       "jctl" = "journalctl";
       "nctl" = "networkctl";
 
-      "make" = "make -j12";
+      "make" = "make -j$(nproc)";
     };
   };
 }
