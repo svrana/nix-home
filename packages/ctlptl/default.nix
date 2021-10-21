@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "ctlptl";
-  version = "0.4.1";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "tilt-dev";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1fagxd1wgnfq452la4na49hz9kss2sgh6ljkpwi0x54viyxbja5b";
+    sha256 = "0vass9vdrl90q809gf886hijk85653is4v5f249zzif8iy00haj9";
   };
 
-  vendorSha256 = "18fb09xjknq3gz5z990qwpqnxhnpzrydyq95aax5ldab9q7in1i1";
+  vendorSha256 = "0y43mnqshlc6x28v0z7wnb76irz9lf1sg27y332aq9z55sbsgwmc";
 
   buildFlagsArray = [
     "-ldflags=-s -w -X main.version=${version}"
