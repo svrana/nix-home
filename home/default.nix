@@ -149,6 +149,11 @@ in
     };
   };
 
+  programs.gpg = {
+    enable = true;
+    homedir = "${config.home.homeDirectory}/.config/gnupg";
+  };
+
   services.unclutter.enable = true;
   services.gpg-agent = {
     enable = true;

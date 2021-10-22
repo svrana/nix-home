@@ -28,8 +28,6 @@ in
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       GEM_HOME = "$XDG_DATA_HOME/gem";
-      # home-manager doesn't support this until until https://github.com/nix-community/home-manager/pull/887
-      #GNUPGHOME = "$XDG_DATA_HOME/gnupg";
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";
       LESSHISTFILE = "-";
