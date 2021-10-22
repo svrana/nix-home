@@ -45,8 +45,8 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - ls
-        - ls
+        -
+        -
         -
   - dev-tools:
       layout: even-horizontal
@@ -59,7 +59,14 @@ windows:
       layout: even-horizontal
       root: ~/Projects/dotfiles
       panes:
-        - ls
+        -
+        -
+        -
+  - ops:
+      layout: even-horizontal
+      root: ~/Projects/ductone/ops
+      panes:
+        -
         -
         -
   # - irc:
