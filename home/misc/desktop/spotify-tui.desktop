@@ -1,8 +1,0 @@
-[Desktop Entry]
-Comment=spotify console interface
-Terminal=false
-Name=spotify-tui
-GenericName=Music Player Text User Interface
-Exec=/home/shaw/.local/bin/spotify-tui.sh
-Type=Application
-Icon=/usr/share/spotify/icons/spotify-linux-256.png

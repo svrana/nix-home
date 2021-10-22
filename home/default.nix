@@ -109,6 +109,7 @@ in
     rnix-lsp
     shellcheck
     shfmt
+    spotify-tui
     slack
     ssh-agents
     standardnotes

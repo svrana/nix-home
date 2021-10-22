@@ -35,6 +35,8 @@ in
       "DOTFILES"
       "RCS"
       "BIN_DIR"
+      "GNUPGHOME"
+      "PASSWORD_STORE_DIR"
     ];
     # NOTE: This has to match the path set roles/graphical/x.nix
     scriptPath = ".config/X11/xsession";
@@ -158,7 +160,7 @@ in
               "${mod}+Shift+6" = "move container to workspace 6";
               "${mod}+Shift+7" = "move container to workspace 7";
               "${mod}+Tab" = ''exec --no-startup-id "${rofi} -show window -eh 2 -padding 16 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: $cyan;}'"'';
-              "${mod}+comma" = '' [ class="qutebrowser" ] focus'';
+              "${mod}+comma" = ''[class="qutebrowser"] focus'';
               "${mod}+period" = ''[instance="spotify"] focus'';
               "Mod1+Control+l" = "exec --no-startup-id loginctl lock-session";
               "Mod1+Control+v" = "split horizontal";
