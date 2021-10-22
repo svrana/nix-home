@@ -38,7 +38,7 @@ let
   lualine-nvim-fork = pkgs.vimUtils.buildVimPlugin {
     name = "lualine-nvim-fork";
     src = pkgs.fetchFromGitHub {
-      owner = "shadmansaleh";
+      owner = "nvim-lualine";
       repo = "lualine.nvim";
       rev = "cd08f74bb7058270e9d3cd728f1ef7589dadfbee";
       sha256 = "1nrvmx9wz9jix0z0j3g907kfyw3hiikf5vr7bqxb5mcaz52x8vhj";
@@ -309,6 +309,7 @@ in
       cmp-path
       cmp-buffer
       cmp-nvim-lsp
+      cmp-nvim-lua
       {
         plugin = nvim-cmp;
         config = lua ''
@@ -351,21 +352,26 @@ in
               end,
             },
             sources = {
+              { name = 'nvim_lua' },
               { name = 'nvim_lsp' },
               { name = 'luasnip' },
               { name = 'buffer' },
               { name = 'path' },
+            },
+            experimental = {
+              native_menu = false,
+              ghost_text = false,
             },
             formatting = {
               format = require('lspkind').cmp_format(
                 {
                   with_text = true,
                   menu = ({
-                    buffer = "[Buffer]",
+                    path = "[path]",
+                    buffer = "[buf]",
                     nvim_lsp = "[LSP]",
-                    luasnip = "[LuaSnip]",
-                    nvim_lua = "[Lua]",
-                    latex_symbols = "[Latex]",
+                    luasnip = "[snip]",
+                    nvim_lua = "[api]",
                   })
                 }),
             }
