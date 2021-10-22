@@ -372,6 +372,7 @@ in
                     nvim_lsp = "[LSP]",
                     luasnip = "[snip]",
                     nvim_lua = "[api]",
+                    gh_issues = "[issue]",
                   })
                 }),
             }
