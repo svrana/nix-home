@@ -55,7 +55,7 @@ map <m-p> :cp<CR>
 map <m-f> :cfirst<CR>
 map <m-l> :clist<CR>
 map <m-o> :copen<CR>
-"map <c-x> :bdelete<CR>
+map <c-x> :tabclose<CR>
 map <c-s> :tabp<CR>
 map <c-h> :tabn<CR>
 "map <c-c> :make<CR>
@@ -152,4 +152,4 @@ endfunction
 
 set tabline=%!MyTabLine()
 set completeopt=menuone,noselect
-highlight TelescopeMatching guifg=orange
+"highlight TelescopeMatching guifg=orange

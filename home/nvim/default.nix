@@ -73,6 +73,12 @@ in
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
     set pumblend=20
+
+    tnoremap <Esc> <C-\><C-n>
+
+    lua << EOF
+      require('svrana.globals')
+    EOF
   '';
 
   programs.neovim = {
@@ -89,6 +95,7 @@ in
       gopls
       goimports
       nixfmt
+      nodePackages.prettier
       nodePackages.vim-language-server
       nodePackages.eslint_d
       nodePackages.bash-language-server
@@ -99,11 +106,18 @@ in
       rnix-lsp
       shfmt
       sumneko-lua-language-server
+      luaformatter
     ];
     extraConfig = ''
       source $DOTFILES/home/nvim/init.vim
+      lua << EOF
+      n = require('neosolarized').setup({
+          comment_italics = true,
+      })
+      EOF
     '';
     plugins = with pkgs.vimPlugins; [
+      colorbuddy-nvim
       diffview-nvim
       direnv-vim
       editorconfig-nvim
@@ -165,6 +179,11 @@ in
               null_ls.builtins.diagnostics.eslint_d,
               null_ls.builtins.formatting.prettier.with({
                 filetypes = { "typescript", "typescriptreact", "markdown", "json" },
+              }),
+              null_ls.builtins.formatting.lua_format.with({
+                args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
+                "--no-keep_simple_control_block_one_line", "--column-limit=130",
+                "--break-after-table-lb" },
               }),
             },
             debug = true,
@@ -268,23 +287,6 @@ in
         '';
       }
       {
-        plugin = nvim-solarized-lua;
-        #config = "colorscheme solarized";
-        # neosolarized until https://github.com/ishan9299/nvim-solarized-lua/issues/26
-        config = "colorscheme NeoSolarized";
-      }
-      {
-        plugin = lsp-colors-nvim;
-        config = lua ''
-          require('lsp-colors').setup({
-            Error = "#db4b4b",
-            Warning = "#e0af68",
-            Information = "#0db9d7",
-            Hint = "#10B981"
-          })
-        '';
-      }
-      {
         plugin = lspsaga-nvim-fork;
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
@@ -332,24 +334,6 @@ in
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
               },
-              ['<Tab>'] = function(fallback)
-                if cmp.visible() then
-                  cmp.select_next_item()
-                elseif luasnip.expand_or_jumpable() then
-                  luasnip.expand_or_jump()
-                else
-                  fallback()
-                end
-              end,
-              ['<S-Tab>'] = function(fallback)
-                if cmp.visible() then
-                  cmp.select_prev_item()
-                elseif luasnip.jumpable(-1) then
-                  luasnip.jump(-1)
-                else
-                  fallback()
-                end
-              end,
             },
             sources = {
               { name = 'nvim_lua' },
@@ -591,10 +575,6 @@ in
           let g:gitgutter_git_executable = "${pkgs.git}/bin/git"
         '';
       }
-      {
-        plugin = vim-bbye;
-        config = "map <c-x> :Bdelete<CR>";
-      }
       minimap-vim
       {
         plugin = neogit;
@@ -755,6 +735,11 @@ in
                   p = { "<cmd>cprev<cr>", "Previous" },
                 },
                 z = { "<cmd>q!<cr>" },
+                r = {
+                  s = { "<cmd>lua require('svrana.repl').set_job_id()<cr>",       "Set job id" },
+                  c = { "<cmd>lua require('svrana.repl').set_job_command()<cr>",  "set job Command" },
+                  i = { "<cmd>lua require('svrana.repl').send_to_term()<cr>",     "send command"},
+                },
               }
             })
           EOF
