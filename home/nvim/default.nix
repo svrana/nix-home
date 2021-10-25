@@ -123,9 +123,9 @@ in
       set cursorline
 
       lua << EOF
-      n = require('neosolarized').setup({
-          comment_italics = true,
-      })
+      --n = require('neosolarized').setup({
+      --    comment_italics = true,
+      --})
       EOF
     '';
     plugins = with pkgs.vimPlugins; [
