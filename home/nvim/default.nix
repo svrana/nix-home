@@ -68,11 +68,20 @@ let
       rm Makefile
     '';
   };
+  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "luatab-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "svrana";
+      repo = "neosolarized.nvim";
+      rev = "e2c335a7439d386c1117ed91018539e268002753";
+      sha256 = "0hhrlrnjpvwnps44as7fiw3vjb2zf2a4gxnqnp47h0dfpaxrzh0d";
+    };
+  };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
-    set pumblend=20
+    set pumblend=10
 
     tnoremap <Esc> <C-\><C-n>
 
@@ -121,6 +130,14 @@ in
       diffview-nvim
       direnv-vim
       editorconfig-nvim
+      {
+        plugin = neosolarized-nvim;
+        config = lua ''
+          require('neosolarized').setup({
+              comment_italics = true,
+          })
+        '';
+      }
       lightspeed-nvim
       {
         plugin = go-nvim;
@@ -339,12 +356,12 @@ in
               { name = 'nvim_lua' },
               { name = 'nvim_lsp' },
               { name = 'luasnip' },
-              { name = 'buffer' },
+              { name = 'buffer', keyword_length = 5 },
               { name = 'path' },
             },
             experimental = {
-              native_menu = false,
-              ghost_text = false,
+              native_menu = false, -- default
+              ghost_text = false, -- default
             },
             formatting = {
               format = require('lspkind').cmp_format(
