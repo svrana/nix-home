@@ -73,8 +73,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
-      rev = "e2c335a7439d386c1117ed91018539e268002753";
-      sha256 = "0hhrlrnjpvwnps44as7fiw3vjb2zf2a4gxnqnp47h0dfpaxrzh0d";
+      rev = "a0376ce234279c88e166e75331baf202b0039e42";
+      sha256 = "18wqlc696kndnbci2gqcyhfq95w5mchxzjhnkd3bw8ddb0v27kcn";
     };
   };
 in
@@ -127,17 +127,22 @@ in
     '';
     plugins = with pkgs.vimPlugins; [
       colorbuddy-nvim
-      diffview-nvim
-      direnv-vim
-      editorconfig-nvim
       {
-        plugin = neosolarized-nvim;
+        plugin = diffview-nvim;
         config = lua ''
-          require('neosolarized').setup({
-              comment_italics = true,
-          })
+          require('diffview').setup()
         '';
       }
+      direnv-vim
+      editorconfig-nvim
+      # {
+      #   plugin = neosolarized-nvim;
+      #   config = lua ''
+      #     require('neosolarized').setup({
+      #         comment_italics = true,
+      #     })
+      #   '';
+      # }
       lightspeed-nvim
       {
         plugin = go-nvim;
@@ -253,6 +258,8 @@ in
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<esc>"] = actions.close,
                     ["<C-u>"] = false,
+                    ["<C-f>"] = actions.preview_scrolling_up,   -- remap of c-u, b/c I like emacs
+                    ["<C-d>"] = actions.preview_scrolling_down, -- default
                 },
                 n = {
                   ["q"] = actions.close
@@ -703,6 +710,7 @@ in
                 },
                 d = {
                   name = "display",
+                  d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
                   h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
                   m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                   n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
