@@ -119,6 +119,8 @@ in
     ];
     extraConfig = ''
       source $DOTFILES/home/nvim/init.vim
+      set cursorline
+
       lua << EOF
       n = require('neosolarized').setup({
           comment_italics = true,
@@ -150,7 +152,12 @@ in
           vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
         '';
       }
-      glow-nvim
+      {
+        plugin = glow-nvim;
+        config = ''
+          let g:glow_binary_path = "${pkgs.glow}/bin"
+        '';
+      }
       goimpl-nvim
       lualine-lsp-progress
       nvim-web-devicons
@@ -214,17 +221,18 @@ in
       }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
-        config = lua ''
-          require('nvim-treesitter.configs').setup {
-              highlight = {
-                enable = true,
-              },
-              -- see nvim-ts-context-commentstring
-              context_commentstring = {
-                enable = true,
+        config = lua
+          ''
+            require('nvim-treesitter.configs').setup {
+                highlight = {
+                  enable = true,
+                },
+                -- see nvim-ts-context-commentstring
+                context_commentstring = {
+                  enable = true,
+                }
               }
-            }
-        '';
+          '';
       }
       popup-nvim
       telescope-fzf-native-nvim
