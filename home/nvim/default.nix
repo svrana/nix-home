@@ -266,8 +266,8 @@ in
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<esc>"] = actions.close,
                     ["<C-u>"] = false,
-                    ["<C-f>"] = actions.preview_scrolling_up,   -- remap of c-u, b/c I like emacs
-                    ["<C-d>"] = actions.preview_scrolling_down, -- default
+                    ["<C-f>"] = actions.preview_scrolling_down,   -- remap of c-u, b/c I like emacs
+                    ["<C-d>"] = actions.preview_scrolling_up, -- default
                 },
                 n = {
                   ["q"] = actions.close
@@ -727,6 +727,7 @@ in
                 },
                 f = {
                   name = "file/fuzzy",
+                  d = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers"}, -- hard for me to hit b
                   b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers"},
                   f = { "<cmd>lua require('svrana.telescope').project_files()<cr>", "Find" },
                   h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Help" },
