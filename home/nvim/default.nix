@@ -82,6 +82,7 @@ in
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
     set pumblend=10
+    set scrolloff=1
 
     tnoremap <Esc> <C-\><C-n>
 
