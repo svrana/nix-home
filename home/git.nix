@@ -29,7 +29,7 @@ in
       add-unmerged =
         "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`";
       lg =
-        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+        "log --graph --pretty=format:'%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       llog = ''log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative'';
       latest = "diff HEAD~1 HEAD";
       home = ''config user.email "shaw@vranix.com"'';
