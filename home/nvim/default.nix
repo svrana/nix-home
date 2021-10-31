@@ -56,34 +56,22 @@ let
       sha256 = "1srv64rpx77swlq6ir3rxf8ycx6cl124fmkx3ajyngk3925fcl8n";
     };
   };
-  luatab-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "luatab-nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "alvarosevilla95";
-      repo = "luatab.nvim";
-      rev = "da6a8f709c2a9c133d232aa21147bcf25445a89d";
-      sha256 = "13w4ryqsl3lxxxcrb2dyc0h9kql4cmx0hbhxingrc1cncwgldnj9";
-    };
-    configurePhase = ''
-      rm Makefile
-    '';
-  };
-  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "luatab-nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "svrana";
-      repo = "neosolarized.nvim";
-      rev = "a0376ce234279c88e166e75331baf202b0039e42";
-      sha256 = "18wqlc696kndnbci2gqcyhfq95w5mchxzjhnkd3bw8ddb0v27kcn";
-    };
-  };
+  # neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
+  #   name = "neosolarized-nvim";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "svrana";
+  #     repo = "neosolarized.nvim";
+  #     rev = "a0376ce234279c88e166e75331baf202b0039e42";
+  #     sha256 = "18wqlc696kndnbci2gqcyhfq95w5mchxzjhnkd3bw8ddb0v27kcn";
+  #   };
+  # };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
     set pumblend=10
-    set scrolloff=1
 
+    "set cursorline
     tnoremap <Esc> <C-\><C-n>
 
     lua << EOF
@@ -120,12 +108,13 @@ in
     ];
     extraConfig = ''
       source $DOTFILES/home/nvim/init.vim
-      set cursorline
+
+      "set tabline=%!MyTabLine()
 
       lua << EOF
-      --n = require('neosolarized').setup({
-      --    comment_italics = true,
-      --})
+      n = require('neosolarized').setup({
+          comment_italics = true,
+      })
       EOF
     '';
     plugins = with pkgs.vimPlugins; [
@@ -134,6 +123,23 @@ in
         plugin = diffview-nvim;
         config = lua ''
           require('diffview').setup()
+        '';
+      }
+      {
+        plugin = nvim-tabline;
+        config = lua ''
+          require('tabline').setup({
+            no_name = '[No Name]',    -- Name for buffers with no name
+            modified_icon = '',      -- Icon for showing modified buffer
+            close_icon = '',         -- Icon for closing tab with mouse
+            separator = "▌",          -- Separator icon on the left side
+            padding = 2,              -- Prefix and suffix space
+            color_all_icons = false,  -- Color devicons in active and inactive tabs
+            always_show_tabs = false, -- Always show tabline
+            right_separator = false,  -- Show right separator on the last tab
+            show_index = false,       -- Shows the index of tab before filename
+            show_icon = true,         -- Shows the devicon
+          })
         '';
       }
       direnv-vim
@@ -146,6 +152,7 @@ in
       #     })
       #   '';
       # }
+      #}
       lightspeed-nvim
       {
         plugin = go-nvim;
@@ -162,6 +169,35 @@ in
       goimpl-nvim
       lualine-lsp-progress
       nvim-web-devicons
+      {
+        plugin = neorg;
+        config = lua ''
+           require('neorg').setup {
+             load = {
+               ["core.defaults"] = {}, -- Load all the default modules
+               ["core.norg.concealer"] = {}, -- Allows for use of icons
+               ["core.norg.dirman"] = { -- Manage your directories with Neorg
+               ["core.norg.completion"] = {
+                config = {
+                   engine = "nvim-cmp"
+                 },
+               },
+               ["core.keybinds"] = {
+                config = {
+                        default_keybinds = true, -- Generate the default keybinds
+                        neorg_leader = "<Leader>o" -- This is the default if unspecified
+                },
+               },
+               config = {
+                 workspaces = {
+                   my_workspace = "~/Documents/neorg"
+                 }
+               }
+             }
+           },
+          }
+        '';
+      }
       plenary-nvim
       {
         plugin = null-ls-nvim;
@@ -339,7 +375,13 @@ in
         '';
       }
       lsp_signature-nvim
-      luasnip
+      friendly-snippets
+      {
+        plugin = luasnip;
+        config = lua ''
+          require("luasnip/loaders/from_vscode").lazy_load()
+        '';
+      }
       cmp_luasnip
       cmp-path
       cmp-buffer
@@ -371,9 +413,10 @@ in
             sources = {
               { name = 'nvim_lua' },
               { name = 'nvim_lsp' },
-              { name = 'luasnip' },
+              { name = 'luasnip'  },
               { name = 'buffer', keyword_length = 5 },
-              { name = 'path' },
+              { name = 'path'     },
+              { name = 'neorg'    },
             },
             experimental = {
               native_menu = false, -- default

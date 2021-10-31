@@ -47,6 +47,9 @@ nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
 
+nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+nnoremap <silent> <C-d> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+
 inoremap <c-e> <esc>$a
 inoremap <c-a> <esc>^i
 map <c-d> <c-b>
@@ -150,6 +153,5 @@ function MyTabLabel(n)
   return len(label) == 0 ? '[No Name]' : label
 endfunction
 
-set tabline=%!MyTabLine()
 set completeopt=menuone,noselect
 "highlight TelescopeMatching guifg=orange
