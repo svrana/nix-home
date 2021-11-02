@@ -804,6 +804,11 @@ in
                   name = "source",
                   v = { "<cmd>source $XDG_CONFIG_HOME/nvim/init.vim<cr>", "Vimrc" },
                 },
+                t = {
+                  name = "toggle",
+                  c = { "<cmd>set cursorline!<cr>", "Cursorline" },
+                  n = { "<cmd>set relativenumber!<cr>", "Number" },
+                },
                 w = { "<cmd>w<cr>", "Write file" },
                 q = { "<cmd>q<cr>", "Quit" },
                 u = {
