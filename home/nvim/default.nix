@@ -56,6 +56,15 @@ let
       sha256 = "1srv64rpx77swlq6ir3rxf8ycx6cl124fmkx3ajyngk3925fcl8n";
     };
   };
+  harpoon = pkgs.vimUtils.buildVimPlugin {
+    name = "harpoon";
+    src = pkgs.fetchFromGitHub {
+      owner = "ThePrimeagen";
+      repo = "harpoon";
+      rev = "54a47d3590936d81c32ba10fc66b39b41ac83f39";
+      sha256 = "0j8dn7maa84fzn3bpj234534n7hf5rpnay42c8ll81jw09s4p892";
+    };
+  };
   # neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
   #   name = "neosolarized-nvim";
   #   src = pkgs.fetchFromGitHub {
@@ -118,6 +127,35 @@ in
       EOF
     '';
     plugins = with pkgs.vimPlugins; [
+      {
+        plugin = harpoon;
+        config = ''
+          lua << EOF
+            require("harpoon").setup({
+              global_settings = {
+                enter_on_sendcmd = true,
+                save_on_toggle = true,
+              },
+              projects = {
+                ["$C1"] = {
+                  term = {
+                    cmds = {
+                      "make"
+                    }
+                  }
+                },
+                ["$DOTFILES"] = {
+                  term = {
+                    cmds = {
+                      "make home"
+                    }
+                  }
+                }
+              }
+            })
+          EOF
+        '';
+      }
       colorbuddy-nvim
       {
         plugin = diffview-nvim;
@@ -763,7 +801,6 @@ in
                 d = {
                   name = "display",
                   d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
-                  h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
                   m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                   n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
                   t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
@@ -771,30 +808,37 @@ in
                 },
                 f = {
                   name = "file/fuzzy",
-                  d = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers"}, -- hard for me to hit b
-                  b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers"},
-                  f = { "<cmd>lua require('svrana.telescope').project_files()<cr>", "Find" },
-                  h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Help" },
-                  n = { "<cmd>lua require('svrana.telescope').dots()<cr>", "dotfiles" },
-                  p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>", "Project change" },
-                  r = { "<cmd>Rg<cr>", "Search file contents" }, -- fzf
-                  s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Search file contents" },
-                  z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "brancheZ" },
+                  d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
+                  b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
+                  f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
+                  h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
+                  n = { "<cmd>lua require('svrana.telescope').dots()<cr>",                    "dotfiles" },
+                  p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>",   "Project change" },
+                  r = { "<cmd>Rg<cr>",                                                        "Search file contents" }, -- fzf
+                  s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",              "Search file contents" },
+                  z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
                 },
                 g = {
                   name = "git",
-                  t = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
-                  h = { "<cmd>GBrowse<cr>", "gitHub view" }, -- fugitive
-                  b = { "<cmd>Git blame<cr>", "Blame" }, -- fugitive
+                  t = { "<cmd>lua require('neogit').open()<cr>",  "Toggle git" },
+                  h = { "<cmd>GBrowse<cr>",                       "gitHub view" }, -- fugitive
+                  b = { "<cmd>Git blame<cr>",                     "Blame" }, -- fugitive
                 },
                 h = {
-                  name = "home-manager",
-                  s = { "<cmd>make home<cr>", "Switch" },
+                  name = "harpoon",
+                  s = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show" },
+                  a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
+                  t = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>",   "goto Terminal"},
+                  r = { "<cmd>lua require('harpoon.term').sendCommand(1, 1)<cr>", "Run command"},
+                  ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
+                  ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
+                  ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "goto file 3" },
+                  ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "goto file 4" },
                 },
                 m = {
                   name = "markdown",
                   s = { "<cmd>ComposerStart<cr>", "Start composer" }, --vim-markdown-composer
-                  g = { "<cmd>Glow<cr>", "Glow" }, -- glow-nvim
+                  g = { "<cmd>Glow<cr>",          "Glow" }, -- glow-nvim
                 },
                 n = {
                   name = "new",
@@ -808,6 +852,7 @@ in
                   name = "toggle",
                   c = { "<cmd>set cursorline!<cr>", "Cursorline" },
                   n = { "<cmd>set relativenumber!<cr>", "Number" },
+                  h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
                 },
                 w = { "<cmd>w<cr>", "Write file" },
                 q = { "<cmd>q<cr>", "Quit" },
