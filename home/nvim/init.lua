@@ -32,3 +32,14 @@ opt.termguicolors = true
 -- opt.clipboard = "unnamed"
 -- local g = vim.g
 -- local cmd = vim.cmd
+
+-- move lines (and blocks of lines in visual mode) up and down using alt-j/k
+vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true})
+vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true})
+vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true})
+vim.api.nvim_set_keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true})
+vim.api.nvim_set_keymap('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true})
+vim.api.nvim_set_keymap('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true})
+
+--Do not save when switching buffers (note: this is now a default on master)
+vim.o.hidden = true
