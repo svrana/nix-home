@@ -830,6 +830,7 @@ in
                   a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
                   t = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>",   "goto Terminal"},
                   r = { "<cmd>lua require('harpoon.term').sendCommand(1, 1)<cr>", "Run command"},
+                  e = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", "Edit command" },
                   ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
                   ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
                   ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "goto file 3" },
