@@ -80,7 +80,6 @@ in
     let mapleader = ","
     set pumblend=10
 
-    "set cursorline
     tnoremap <Esc> <C-\><C-n>
 
     lua << EOF
@@ -376,7 +375,16 @@ in
           require('telescope').load_extension('goimpl')
         '';
       }
-      nvim-bqf
+      {
+        plugin = nvim-bqf;
+        config = lua ''
+          require('bqf').setup({
+            func_map = {
+              pscrollup = '<c-d>',
+            },
+          })
+        '';
+      }
       {
         plugin = nvim-colorizer-lua;
         config = ''
