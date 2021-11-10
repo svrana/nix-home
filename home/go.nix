@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   programs.go = {
@@ -7,7 +7,7 @@
     package = pkgs.go_1_17;
   };
 
-  config.home.sessionPath = [
+  home.sessionPath = [
     "${config.home.homeDirectory}/.cache/go/bin"
   ];
 }
