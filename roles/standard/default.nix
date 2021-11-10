@@ -44,21 +44,23 @@
   #     dnssec = "false";
   #   };
 
-  # networking.firewall = {
-  #   # enable the firewall
-  #   enable = true;
+  networking.firewall = {
+    # enable the firewall
+    enable = true;
 
-  #   # always allow traffic from your Tailscale network
-  #   trustedInterfaces = [ "tailscale0" ];
+    # always allow traffic from your Tailscale network
+    trustedInterfaces = [ "tailscale0" ];
 
-  #   # allow the Tailscale UDP port through the firewall
-  #   allowedUDPPorts = [
-  #     config.services.tailscale.port
-  #   ];
+    # allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [
+      config.services.tailscale.port
+      21027 # syncthing
+    ];
 
-  #   # allow you to SSH in over the public internet
-  #   allowedTCPPorts = [
-  #     22
-  #   ];
-  # };
+    # allow you to SSH in over the public internet
+    allowedTCPPorts = [
+      22
+      22000 # syncthing
+    ];
+  };
 }
