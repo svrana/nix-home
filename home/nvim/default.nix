@@ -61,8 +61,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ThePrimeagen";
       repo = "harpoon";
-      rev = "54a47d3590936d81c32ba10fc66b39b41ac83f39";
-      sha256 = "0j8dn7maa84fzn3bpj234534n7hf5rpnay42c8ll81jw09s4p892";
+      rev = "57819752e62251f9488a95fea1690bb62547bd2a";
+      sha256 = "0x5x6jmz31aclai0l2dplr0y16f97jb40cgvnrx8mr5gb0s5i7sc";
     };
   };
   # neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -190,6 +190,12 @@ in
       #   '';
       # }
       #}
+      {
+        plugin = git-worktree-nvim;
+        config = lua ''
+          require("git-worktree").setup({})
+        '';
+      }
       lightspeed-nvim
       {
         plugin = go-nvim;
