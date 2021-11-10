@@ -14,6 +14,7 @@ in
     stateVersion = "21.03";
     # workaround for https://github.com/nix-community/home-manager/issues/2219
     keyboard = null;
+    sessionPath = [ "/home/shaw/.local/bin" ];
   };
   news.display = "silent";
 
@@ -333,5 +334,6 @@ in
   programs.z-lua = {
     enable = true;
     enableAliases = true;
+    options = [ "enhanced" "fzf" "once" ];
   };
 }

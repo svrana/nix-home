@@ -7,7 +7,7 @@
     package = pkgs.go_1_17;
   };
 
-  programs.bash.initExtra = ''
-    PATH_append "$GOPATH/bin"
-  '';
+  config.home.sessionPath = [
+    "${config.home.homeDirectory}/.cache/go/bin"
+  ];
 }

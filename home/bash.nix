@@ -23,6 +23,7 @@ in
       EXA_DFLT_ARGS = "--icons --group-directories-first";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
+      RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
 
       NIXPKGS_ALLOW_UNFREE = 1;
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
@@ -65,7 +66,6 @@ in
     # only run for interactive sessions
     initExtra = ''
       source "$RCS/functions.sh"
-      PATH_append "$BIN_DIR"
 
       set -o vi
       stty -ixon
