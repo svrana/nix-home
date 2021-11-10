@@ -50,7 +50,6 @@ in
     ./nvim
     ./i3.nix
     ./i3lock-color.nix
-    ./insync.nix
     ./polybar.nix
     ./tmux
     ./glow.nix
@@ -85,7 +84,6 @@ in
     gimp
     gnupg
     hugo
-    insync
     kind
     kubernetes-helm
     gitAndTools.hub
