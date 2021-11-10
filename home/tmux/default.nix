@@ -24,14 +24,14 @@
     ];
   };
 
-  programs.bash.initExtra = ''
-    tmux() {
-        if [ -z "$VIRTUAL_ENV" ]; then
-            direnv exec / tmux attach 2>/dev/null || direnv exec / tmux
-        else
-            echo "Get out of virtualenv"
-            return 1
-        fi
-    }
-  '';
+  # programs.bash.initExtra = ''
+  #   tmux() {
+  #       if [ -z "$VIRTUAL_ENV" ]; then
+  #           direnv exec / tmux attach 2>/dev/null || direnv exec / tmux
+  #       else
+  #           echo "Get out of virtualenv"
+  #           return 1
+  #       fi
+  #   }
+  # '';
 }
