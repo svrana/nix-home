@@ -149,8 +149,6 @@ in
     };
   };
 
-  services.unclutter.enable = true;
-
   programs.gpg = {
     enable = true;
     homedir = "${config.home.homeDirectory}/.config/gnupg";
@@ -168,6 +166,8 @@ in
     enable = true;
     vSync = true;
   };
+  services.unclutter.enable = true;
+  services.syncthing.enable = true;
 
   # see overlay
   programs.powerline-go = {
