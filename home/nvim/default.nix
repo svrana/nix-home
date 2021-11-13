@@ -344,7 +344,7 @@ in
                 i = {
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
-                    ["<esc>"] = actions.close,
+                    --["<esc>"] = actions.close, -- can't really get to normal mode if you do this, use c-c to exit
                     ["<C-u>"] = false,
                     ["<C-f>"] = actions.preview_scrolling_down,   -- remap of c-u, b/c I like emacs
                     ["<C-d>"] = actions.preview_scrolling_up, -- default
@@ -821,15 +821,17 @@ in
                   h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
                   n = { "<cmd>lua require('svrana.telescope').dots()<cr>",                    "dotfiles" },
                   p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>",   "Project change" },
-                  r = { "<cmd>Rg<cr>",                                                        "Search file contents" }, -- fzf
+                  r = { "<cmd>Rg<cr>",                                                        "Search file contents (rg)" }, -- fzf
                   s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",              "Search file contents" },
                   z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
                 },
                 g = {
                   name = "git",
-                  t = { "<cmd>lua require('neogit').open()<cr>",  "Toggle git" },
-                  h = { "<cmd>GBrowse<cr>",                       "gitHub view" }, -- fugitive
-                  b = { "<cmd>Git blame<cr>",                     "Blame" }, -- fugitive
+                  t = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
+                  h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" }, -- fugitive
+                  b = { "<cmd>Git blame<cr>",                                                 "Blame" }, -- fugitive
+                  s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
+                  z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
                 },
                 h = {
                   name = "harpoon",
