@@ -56,15 +56,6 @@ let
       sha256 = "1srv64rpx77swlq6ir3rxf8ycx6cl124fmkx3ajyngk3925fcl8n";
     };
   };
-  harpoon = pkgs.vimUtils.buildVimPlugin {
-    name = "harpoon";
-    src = pkgs.fetchFromGitHub {
-      owner = "ThePrimeagen";
-      repo = "harpoon";
-      rev = "57819752e62251f9488a95fea1690bb62547bd2a";
-      sha256 = "0x5x6jmz31aclai0l2dplr0y16f97jb40cgvnrx8mr5gb0s5i7sc";
-    };
-  };
   # neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
   #   name = "neosolarized-nvim";
   #   src = pkgs.fetchFromGitHub {
@@ -764,7 +755,7 @@ in
       {
         plugin = nvim-tree-lua;
         config = ''
-          let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
+          "let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
           let g:nvim_tree_gitignore = 1
           let g:nvim_tree_group_empty = 1
           lua << EOF
