@@ -49,6 +49,7 @@ in
     ./kubectl.nix
     ./nvim
     ./i3.nix
+    ./sway.nix
     ./i3lock-color.nix
     ./polybar.nix
     ./tmux
@@ -127,6 +128,20 @@ in
     xorg.xdpyinfo
     zoom-us
     yarn
+    bc
+
+    # sway specific
+    avizo
+    clipman
+    swaylock
+    swayidle
+    wl-clipboard
+    wf-recorder
+    swaybg
+    waybar
+    slurp
+    grim
+    brightnessctl
   ];
 
   gtk = {

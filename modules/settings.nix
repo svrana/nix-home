@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -94,14 +94,20 @@ in
           type = types.int;
         };
       };
+      waybar = {
+        interfaces = mkOption {
+          default = "eno1";
+          type = types.str;
+        };
+      };
       polybar = {
-        font0 =  {
+        font0 = {
           size = mkOption {
             default = "10;2";
             type = types.str;
           };
         };
-        font1= {
+        font1 = {
           size = mkOption {
             default = "12;0";
             type = types.str;
