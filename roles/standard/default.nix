@@ -26,11 +26,14 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    consoleFont = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+    defaultLocale = "en_US.UTF-8";
+  };
 
   console = {
-    font = "Lat2-Terminus16";
     keyMap = "us";
+    earlySetup = true;
   };
 
   services.accounts-daemon.enable = true;
