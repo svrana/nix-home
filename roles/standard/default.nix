@@ -27,11 +27,11 @@
   nixpkgs.config.allowUnfree = true;
 
   i18n = {
-    consoleFont = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     defaultLocale = "en_US.UTF-8";
   };
 
   console = {
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     keyMap = "us";
     earlySetup = true;
   };
