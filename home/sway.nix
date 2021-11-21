@@ -62,13 +62,18 @@ in
   #  };
   # TODO:
   #   ranger image preview
-  #
-  #   waybar configuration / date not set correctly / shutdown menu
+  #      anyway to do this in wayland?
   #
   #   cannot switch programs with certain keys, i.e., tmux for example
-  # i3-ratiosplit.... works, but not great since not starting sway as a graphical unit
+  #     class/instance changed, moved to app_id for wayland
+  #
+  #   lockscreen:
+  #     not unlocking
+  #
   #   lockscreen, inactive timer, etc.
-  #   seat seat0 hide_cursor 3000
+  #
+  #   copy paste to primary keyboard always
+  #
   #
   #   copy/paste betwen applications / yank from qutebrowser not working
   #   # try instead of xprop for classnames.. no idea
@@ -79,6 +84,8 @@ in
     windowManager = {
       sway = {
         enable = true;
+        wrapperFeatures.gtk = true;
+        systemdIntegration = false;
         config = {
           modifier = "Mod4";
           floating = {
@@ -386,7 +393,7 @@ in
       }
       #mode {
         background-color: ${base01};
-        border-bottom: 3px solid ${cyan};
+        border-bottom: 3px solid ${yellow};
       }
       #workspaces button.urgent {
         background-color: ${cyan};
@@ -425,6 +432,39 @@ in
       }
     '';
   };
+
+  # systemd.user.services.sway = {
+  #   description = "Sway - Wayland window manager";
+  #   documentation = [ "man:sway(5)" ];
+  #   bindsTo = [ "graphical-session.target" ];
+  #   wants = [ "graphical-session-pre.target" ];
+  #   after = [ "graphical-session-pre.target" ];
+  #   # We explicitly unset PATH here, as we want it to be set by
+  #   # systemctl --user import-environment in startsway
+  #   environment.PATH = lib.mkForce null;
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     ExecStart = ''
+  #       ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
+  #     '';
+  #     Restart = "on-failure";
+  #     RestartSec = 1;
+  #     TimeoutStopSec = 10;
+  #   };
+  # };
+
+
+  # systemd.user.services.swayidle = {
+  #   description = "Idle Manager for Wayland";
+  #   documentation = [ "man:swayidle(1)" ];
+  #   wantedBy = [ "sway-session.target" ];
+  #   partOf = [ "graphical-session.target" ];
+  #   path = [ pkgs.bash ];
+  #   serviceConfig = {
+  #     ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
+  #       timeout 300 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+  #       resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
+  #     '';
+  #   };
+  # };
 }
-
-

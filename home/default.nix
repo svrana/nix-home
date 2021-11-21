@@ -23,6 +23,8 @@ in
   xdg = {
     enable = true;
     mime.enable = true;
+    # for wayland screen sharing
+    #portal.enable = true;
   };
 
   fonts.fontconfig.enable = true;
