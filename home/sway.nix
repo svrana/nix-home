@@ -20,6 +20,19 @@ let
       sleep .5
     done
   '';
+  swaylockCmd = lib.concatStringsSep " " [
+    "${pkgs.swaylock-effects}/bin/swaylock"
+    "--daemonize"
+    "--screenshots"
+    "--color 002b36"
+    "--clock"
+    "--indicator"
+    "--indicator-radius 100"
+    "--indicator-thickness 7"
+    "--effect-blur 7x5"
+    "--effect-vignette 0.7:0.7"
+    "--fade-in 0.5"
+  ];
   base03 = "#002b36";
   base02 = "#073642";
   base01 = "#586e75";
@@ -38,6 +51,15 @@ let
   green = "#859900";
 in
 {
+  # home.sessionVariables = {
+  #   GTK_THEME = "Arc-Dark";
+  #   MOZ_ENABLE_WAYLAND = "1";
+  #   XDG_CURRENT_DESKTOP = "sway";
+  #   XDG_SESSION_TYPE = "wayland";
+  # };
+  # programs.mpv.config = {
+  #    gpu-context = "wayland";
+  #  };
   # TODO:
   #   ranger image preview
   #
@@ -66,6 +88,9 @@ in
           gaps = {
             inner = 25;
             smartGaps = true;
+          };
+          seat."*" = {
+            hide_cursor = "when-typing enable";
           };
           bars = [ ];
           window = { hideEdgeBorders = "smart"; };
@@ -132,7 +157,6 @@ in
               "${mod}+9" = ''[class="Slack"] scratchpad show'';
               "${mod}+a" = "focus parent";
               "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
-              "${mod}+b" = ''clipman pick -t rofi'';
               "${mod}+d" = ''exec --no-startup-id "${rofi} -show drun -modi drun,run -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: ${cyan};}'"'';
               "${mod}+e" = "layout toggle split";
               "${mod}+f" = "fullscreen toggle";
@@ -149,6 +173,7 @@ in
               "${mod}+s" = "layout stacking";
               "${mod}+t" = "layout tabbed";
               "${mod}+u" = ''exec --no-startup-id "alacritty -e ${ranger}"'';
+              "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t rofi'';
               "${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
               "${mod}+Shift+c" = "reload";
@@ -175,7 +200,7 @@ in
               "${mod}+Tab" = ''exec - -no-startup-id "${rofi} -show window -eh 2 -padding 16 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: ${cyan};}'" '';
               "${mod}+comma" = ''[ class="qutebrowser" ] focus'';
               "${mod}+period" = ''[instance="spotify"] focus'';
-              "Mod1+Control+l" = "exec --no-startup-id loginctl lock-session";
+              "Mod1+Control+l" = "exec ${swaylockCmd}";
               "Mod1+Control+v" = "split horizontal";
               "Mod1+Control+h" = "split vertical";
               "Mod1+Control+u" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
@@ -214,6 +239,13 @@ in
               "Return" = "mode default";
             };
           };
+          startup = [
+            { command = ''${pkgs.waybar}/bin/waybar''; }
+            { command = ''${pkgs.swaybg}/bin/swaybg -c "${base03}"''; }
+            { command = ''${pkgs.avizo}/bin/avizo-service''; }
+            { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
+            { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
+          ];
         };
         extraSessionCommands = ''
         '';
@@ -233,12 +265,12 @@ in
 
           assign [class="qutebrowser"] $ws3
 
-          seat seat0 hide_cursor 3000
+          seat * hide_cursor 3000
 
-          exec ${pkgs.swaybg}/bin/swaybg -c "${base03}"
-          exec ${pkgs.waybar}/bin/waybar
-          exec ${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist
-          exec ${pkgs.avizo}/bin/avizo-service
+          # Make all the pinentry stuff work
+          # https://git.sr.ht/~sumner/home-manager-config/tree/master/item/modules/window-manager/wayland.nix#L64
+          exec dbus-update-activation-environment WAYLAND_DISPLAY
+          #exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
         '';
       };
     };
@@ -326,8 +358,6 @@ in
         font-size: 13px;
         min-height: 0;
       }
-      #clock {
-      }
       window#waybar {
         background-color: ${base02};
         border-bottom: 3px solid ${base03};
@@ -335,13 +365,9 @@ in
         transition-property: background-color;
         transition-duration: .5s;
       }
-      #workspaces {
-      }
-      #network {
-      }
       #workspaces button {
-        padding: 0px 10px;
-        font-size: 15px;
+        padding: 0px 14px 0px 10px;
+        font-size: 16px;
         background: transparent;
         color: #dfdfdf;
         /* Use box-shadow instead of border so the text isn't offset */
@@ -382,8 +408,7 @@ in
       }
 
       #window {
-        font-family: 'SFNS Display Bold';
-        font-size: 13px;
+        font-size: 14px;
       }
 
       /* If workspaces is the leftmost module, omit left margin */
