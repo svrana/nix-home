@@ -38,6 +38,8 @@
 
   services.accounts-daemon.enable = true;
   security.sudo.wheelNeedsPassword = false;
+  # so swaylock can unlock..
+  security.pam.services.swaylock = { };
 
   services.tailscale.enable = true;
 
