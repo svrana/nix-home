@@ -142,7 +142,7 @@ in
               mod = "Mod4";
             in
             {
-              "${mod}+minus" = ''[class = "scratch-term"] scratchpad show'';
+              "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show'';
               "${mod}+Return" = "exec --no-startup-id ${alacritty}";
               "${mod}+Shift+q" = "kill";
               "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
@@ -165,8 +165,8 @@ in
               "${mod}+j" = "focus down";
               "${mod}+k" = "focus up";
               "${mod}+l" = "focus right";
-              "${mod}+m" = ''[instance="tmux"] focus'';
-              "${mod}+n" = ''[instance="email"] focus'';
+              "${mod}+m" = ''[app_id="tmux"] focus'';
+              "${mod}+n" = ''[app_id="email"] focus'';
               "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
               "${mod}+q" = "kill";
               "${mod}+r" = "mode resize";
@@ -198,7 +198,7 @@ in
               "${mod}+Shift+6" = "move container to workspace 6";
               "${mod}+Shift+7" = "move container to workspace 7";
               "${mod}+Tab" = ''exec - -no-startup-id "${rofi} -show window -eh 2 -padding 16 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: ${cyan};}'" '';
-              "${mod}+comma" = ''[ class="qutebrowser" ] focus'';
+              "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
               "${mod}+period" = ''[instance="spotify"] focus'';
               "Mod1+Control+l" = "exec ${swaylockCmd}";
               "Mod1+Control+v" = "split horizontal";
@@ -245,6 +245,9 @@ in
             { command = ''${pkgs.avizo}/bin/avizo-service''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
+            #{ command = ''standardnotes''; }
+            #{ command = "${pkgs.slack}/bin/slack"; notification = false; }
+            { command = "${scratch-term}"; }
           ];
         };
         extraSessionCommands = ''
@@ -261,9 +264,9 @@ in
 
           for_window [class="Standard Notes"] move scratchpad, move position 1000 275, resize set 1800 2000
           for_window [class="Slack"] move scratchpad, move position 1000 275, resize set 1800 2000
-          for_window [class="scratch-term"] move scratchpad, move position 1000 275, resize set 1800 2000
+          for_window [app_id="scratch-term"] move scratchpad, move position 1000 275, resize set 1800 2000
 
-          assign [class="qutebrowser"] $ws3
+          assign [app_id="qutebrowser"] $ws3
 
           seat * hide_cursor 3000
 
