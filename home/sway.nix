@@ -252,8 +252,8 @@ in
             { command = ''${pkgs.avizo}/bin/avizo-service''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
-            #{ command = ''standardnotes''; }
-            #{ command = "${pkgs.slack}/bin/slack"; notification = false; }
+            { command = ''standardnotes''; }
+            { command = "${pkgs.slack}/bin/slack"; }
             { command = "${scratch-term}"; }
           ];
         };
