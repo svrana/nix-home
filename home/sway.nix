@@ -23,7 +23,6 @@ let
   swaylockCmd = lib.concatStringsSep " " [
     "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
-    "--screenshots"
     "--color 002b36"
     "--clock"
     "--indicator"
@@ -31,8 +30,24 @@ let
     "--indicator-thickness 7"
     "--effect-blur 7x5"
     "--effect-vignette 0.7:0.7"
+    "--ring-color b58900"
     "--fade-in 0.5"
+    "--text-color 586e75"
   ];
+  #startSway = pkgs.writeTextFile {
+  #  name = "start-sway";
+  #  destination = "/bin/start-sway";
+  #  executable = true;
+  #  text = ''
+  #    #! ${pkgs.bash}/bin/bash
+
+  #    # first import environment variables from the login manager
+  #    systemctl --user import-environment
+
+  #    # then start the service
+  #    exec systemctl --user start sway.service
+  #  '';
+  #};
   base03 = "#002b36";
   base02 = "#073642";
   base01 = "#586e75";
@@ -269,9 +284,9 @@ in
 
           default_border pixel 2
 
-          for_window [class="Standard Notes"] move scratchpad, move position 1000 275, resize set 1800 2000
-          for_window [class="Slack"] move scratchpad, move position 1000 275, resize set 1800 2000
-          for_window [app_id="scratch-term"] move scratchpad, move position 1000 275, resize set 1800 2000
+          for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 2000
+          for_window [class="Slack"] move scratchpad, move position 1000 200, resize set 1800 2000
+          for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 2000
 
           assign [app_id="qutebrowser"] $ws3
 
@@ -440,7 +455,7 @@ in
   #   wants = [ "graphical-session-pre.target" ];
   #   after = [ "graphical-session-pre.target" ];
   #   # We explicitly unset PATH here, as we want it to be set by
-  #   # systemctl --user import-environment in startsway
+  #   # systemctl --user import-environment in start-sway
   #   environment.PATH = lib.mkForce null;
   #   serviceConfig = {
   #     Type = "simple";
@@ -452,7 +467,6 @@ in
   #     TimeoutStopSec = 10;
   #   };
   # };
-
 
   # systemd.user.services.swayidle = {
   #   description = "Idle Manager for Wayland";
@@ -467,4 +481,8 @@ in
   #     '';
   #   };
   # };
+
+  # home.packages = with pkgs; [
+  #   startSway
+  # ];
 }
