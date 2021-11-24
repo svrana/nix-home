@@ -17,16 +17,16 @@ in
     sessionPath = [ "/home/shaw/.local/bin" ];
   };
   news.display = "silent";
-
   nixpkgs.config.allowUnfree = true;
-
+  # for wayland screen sharing
+  nixpkgs.config.xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+  };
   xdg = {
     enable = true;
     mime.enable = true;
-    # for wayland screen sharing
-    #portal.enable = true;
   };
-
   fonts.fontconfig.enable = true;
 
   imports = [
@@ -177,15 +177,7 @@ in
     defaultCacheTtl = 8 * 60 * 60;
     maxCacheTtl = 8 * 60 * 60;
   };
-  # Compositor to prevent screen tearing until modesetting gets in:
-  #   https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/24
-  services.picom = {
-    enable = true;
-    vSync = true;
-  };
-  services.unclutter.enable = true;
   services.syncthing.enable = true;
-
   # see overlay
   programs.powerline-go = {
     enable = false;
@@ -311,21 +303,6 @@ in
       rofi_highlight = True
       wifi_chars = ▂▄▆█
   '';
-
-  systemd.user.services.autocutsel = {
-    Unit.Description = "AutoCutSel";
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "forking";
-      Restart = "always";
-      RestartSec = 2;
-      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
-      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
-    };
-  };
-
   systemd.user.services.i3-ratiosplit = {
     Unit = {
       Description = "i3-ratiosplit";

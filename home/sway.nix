@@ -34,20 +34,6 @@ let
     "--fade-in 0.5"
     "--text-color 586e75"
   ];
-  #startSway = pkgs.writeTextFile {
-  #  name = "start-sway";
-  #  destination = "/bin/start-sway";
-  #  executable = true;
-  #  text = ''
-  #    #! ${pkgs.bash}/bin/bash
-
-  #    # first import environment variables from the login manager
-  #    systemctl --user import-environment
-
-  #    # then start the service
-  #    exec systemctl --user start sway.service
-  #  '';
-  #};
   base03 = "#002b36";
   base02 = "#073642";
   base01 = "#586e75";
@@ -79,28 +65,15 @@ in
   #   ranger image preview
   #      anyway to do this in wayland?
   #
-  #   cannot switch programs with certain keys, i.e., tmux for example
-  #     class/instance changed, moved to app_id for wayland
-  #
-  #   lockscreen:
-  #     not unlocking
-  #
-  #   lockscreen, inactive timer, etc.
-  #
-  #   copy paste to primary keyboard always
-  #
-  #
-  #   copy/paste betwen applications / yank from qutebrowser not working
   #   # try instead of xprop for classnames.. no idea
   #   swaymsg -t get_tree
   #
-
   wayland = {
     windowManager = {
       sway = {
         enable = true;
         wrapperFeatures.gtk = true;
-        systemdIntegration = false;
+        systemdIntegration = true;
         config = {
           modifier = "Mod4";
           floating = {
@@ -448,41 +421,42 @@ in
     '';
   };
 
-  # systemd.user.services.sway = {
-  #   description = "Sway - Wayland window manager";
-  #   documentation = [ "man:sway(5)" ];
-  #   bindsTo = [ "graphical-session.target" ];
-  #   wants = [ "graphical-session-pre.target" ];
-  #   after = [ "graphical-session-pre.target" ];
-  #   # We explicitly unset PATH here, as we want it to be set by
-  #   # systemctl --user import-environment in start-sway
-  #   environment.PATH = lib.mkForce null;
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     ExecStart = ''
-  #       ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
-  #     '';
-  #     Restart = "on-failure";
-  #     RestartSec = 1;
-  #     TimeoutStopSec = 10;
-  #   };
-  # };
+  systemd.user.services.sway = {
+    Unit = {
+      Description = "Sway - Wayland window manager";
+      PartOf = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
+    # We explicitly unset PATH here, as we want it to be set by
+    # systemctl --user import-environment in start-sway in our x.nix
+    # environment.PATH = lib.mkForce null;
+    Service = {
+      Type = "simple";
+      ExecStart = ''
+        ${pkgs.dbus}/bin/dbus-run-session --dbus-daemon=${pkgs.dbus}/bin/dbus-daemon ${pkgs.sway}/bin/sway --debug
+        #${pkgs.sway}/bin/sway --debug
+      '';
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
 
-  # systemd.user.services.swayidle = {
-  #   description = "Idle Manager for Wayland";
-  #   documentation = [ "man:swayidle(1)" ];
-  #   wantedBy = [ "sway-session.target" ];
-  #   partOf = [ "graphical-session.target" ];
-  #   path = [ pkgs.bash ];
-  #   serviceConfig = {
-  #     ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
-  #       timeout 300 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
-  #       resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
-  #     '';
-  #   };
-  # };
-
-  # home.packages = with pkgs; [
-  #   startSway
-  # ];
+  # sway session added by hm
+  systemd.user.services.swayidle = {
+    Unit = {
+      Description = "Idle Manager for Wayland";
+      PartOf = [ "graphical-session.target" ];
+      Documentation = [ "man:swayidle(1)" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      #Path = [ pkgs.bash ];
+      ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
+        timeout 300 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+        resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
+      '';
+    };
+  };
 }

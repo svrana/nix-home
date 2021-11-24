@@ -1,5 +1,26 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
+
+  environment.systemPackages = with pkgs; [
+    (
+      pkgs.writeTextFile {
+        name = "start-sway";
+        destination = "/bin/start-sway";
+        executable = true;
+        text = ''
+          #! ${pkgs.bash}/bin/bash
+
+          # first import environment variables from the login manager
+          #systemctl --user import-environment PATH DISPLAY WAYLAND_DISPLAY SWAYSOCK DOTFILES RCS BIN_DIR GNUPGHOME PASSWORD_STORE_DIR
+          systemctl --user import-environment
+
+          # then start the service
+          exec systemctl --user start sway.service
+        '';
+      }
+    )
+  ];
+
   services.xserver = {
     enable = true;
     xkbOptions = "ctrl:nocaps";
@@ -29,6 +50,10 @@
           ${pkgs.runtimeShell} $HOME/.config/X11/xsession &
           waitPID=$!
         '';
+      }
+      {
+        name = "hm-sway";
+        start = "start-sway";
       }
     ];
     windowManager.i3.enable = true;

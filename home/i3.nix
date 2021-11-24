@@ -241,4 +241,25 @@ in
       };
     };
   };
+
+  # Compositor to prevent screen tearing until modesetting gets in:
+  #   https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/24
+  services.picom = {
+    enable = true;
+    vSync = true;
+  };
+  services.unclutter.enable = true;
+  systemd.user.services.autocutsel = {
+    Unit.Description = "AutoCutSel";
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "forking";
+      Restart = "always";
+      RestartSec = 2;
+      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
+      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+    };
+  };
 }
