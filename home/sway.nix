@@ -23,14 +23,15 @@ let
   swaylockCmd = lib.concatStringsSep " " [
     "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
-    "--color 002b36"
+    "--ignore-empty-password"
+    "--color 073642"
+    "--ring-color b58900"
     "--clock"
     "--indicator"
     "--indicator-radius 100"
     "--indicator-thickness 7"
     "--effect-blur 7x5"
     "--effect-vignette 0.7:0.7"
-    "--ring-color b58900"
     "--fade-in 0.5"
     "--text-color 586e75"
   ];
@@ -52,16 +53,15 @@ let
   green = "#859900";
 in
 {
-  # home.sessionVariables = {
-  #   GTK_THEME = "Arc-Dark";
-  #   MOZ_ENABLE_WAYLAND = "1";
-  #   XDG_CURRENT_DESKTOP = "sway";
-  #   XDG_SESSION_TYPE = "wayland";
-  # };
-  # programs.mpv.config = {
-  #    gpu-context = "wayland";
-  #  };
+  home.sessionVariables = {
+    GTK_THEME = "Arc-Dark";
+    MOZ_ENABLE_WAYLAND = "1";
+  };
+  programs.mpv.config = {
+    gpu-context = "wayland";
+  };
   # TODO:
+  #   scratch-term spawns 3 windows after exit
   #   ranger image preview
   #      anyway to do this in wayland?
   #
@@ -71,6 +71,7 @@ in
   wayland = {
     windowManager = {
       sway = {
+        package = null;
         enable = true;
         wrapperFeatures.gtk = true;
         systemdIntegration = true;
@@ -267,7 +268,11 @@ in
 
           # Make all the pinentry stuff work
           # https://git.sr.ht/~sumner/home-manager-config/tree/master/item/modules/window-manager/wayland.nix#L64
-          exec dbus-update-activation-environment WAYLAND_DISPLAY
+          #exec dbus-update-activation-environment WAYLAND_DISPLAY
+
+          exec ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+
+          # Import the WAYLAND_DISPLAY env var from sway into the systemd user session.
           #exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
         '';
       };
@@ -283,7 +288,7 @@ in
         position = "top";
         modules-left = [ "sway/workspaces" "sway/mode" ];
         modules-center = [ "sway/window" ];
-        modules-right = [ "pulseaudio" "network" "clock" ];
+        modules-right = [ "idle_inhibitor" "pulseaudio" "network" "clock" ];
         height = 32;
         modules = {
           "clock" = {
@@ -308,6 +313,13 @@ in
               "7" = "";
               "8" = "8";
               "9" = "9";
+            };
+          };
+          "idle_inhibitor" = {
+            "format" = "{icon}";
+            "format-icons" = {
+              "activated" = "";
+              "deactivated" = "";
             };
           };
           "battery" = {
@@ -424,19 +436,14 @@ in
   systemd.user.services.sway = {
     Unit = {
       Description = "Sway - Wayland window manager";
-      PartOf = [ "graphical-session-pre.target" ];
+      Documentation = [ "man:sway(5)" ];
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
       After = [ "graphical-session-pre.target" ];
     };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-    # We explicitly unset PATH here, as we want it to be set by
-    # systemctl --user import-environment in start-sway in our x.nix
-    # environment.PATH = lib.mkForce null;
     Service = {
       Type = "simple";
-      ExecStart = ''
-        ${pkgs.dbus}/bin/dbus-run-session --dbus-daemon=${pkgs.dbus}/bin/dbus-daemon ${pkgs.sway}/bin/sway --debug
-        #${pkgs.sway}/bin/sway --debug
-      '';
+      ExecStart = "${pkgs.sway}/bin/sway";
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;
@@ -452,10 +459,11 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      #Path = [ pkgs.bash ];
-      ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
-        timeout 300 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
-        resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
+      ExecStart = ''${pkgs.swayidle}/bin/swayidle -w -d \
+        timeout 300 '${swaylockCmd}' \
+        before-sleep '${swaylockCmd}' \
+        timeout 400 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+          resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
       '';
     };
   };

@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 {
-
   environment.systemPackages = with pkgs; [
     (
+      # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
       pkgs.writeTextFile {
         name = "start-sway";
         destination = "/bin/start-sway";
@@ -11,7 +11,6 @@
           #! ${pkgs.bash}/bin/bash
 
           # first import environment variables from the login manager
-          #systemctl --user import-environment PATH DISPLAY WAYLAND_DISPLAY SWAYSOCK DOTFILES RCS BIN_DIR GNUPGHOME PASSWORD_STORE_DIR
           systemctl --user import-environment
 
           # then start the service
@@ -20,6 +19,8 @@
       }
     )
   ];
+
+  programs.sway.enable = true;
 
   services.xserver = {
     enable = true;
@@ -56,6 +57,6 @@
         start = "start-sway";
       }
     ];
-    windowManager.i3.enable = true;
+    #windowManager.i3.enable = true;
   };
 }
