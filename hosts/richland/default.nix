@@ -2,8 +2,12 @@
 
 let
   imports = [ ../../modules/settings.nix ];
-in {
+in
+{
   config.settings = {
+    waybar = {
+      interfaces = "wlp0s20f3";
+    };
     polybar = {
       wirelessInterface = "wlp0s20f3";
       wiredInterface = "eno1";

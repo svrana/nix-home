@@ -291,6 +291,8 @@ in
         modules-center = [ "sway/window" ];
         modules-right = [ "idle_inhibitor" "pulseaudio" "network" "clock" ];
         height = 32;
+        # "clock" = { New way
+        # };
         modules = {
           "clock" = {
             "timezone" = "America/Los_Angeles";
@@ -334,17 +336,18 @@ in
           };
           "network" = {
             "interface" = "${waybar.interfaces}";
-            "format-wifi " = " { essid } ({signalStrength}%) ";
             "format-ethernet" = "  {ifname}";
             "tooltip-format" = "{ifname} via {gwaddr} ";
+            "tooltip-format-wifi" = "Signal Strength: {signalStrength}%";
+            "format-wifi" = "  {essid}";
             "format-linked" = "{ifname} (No IP) ";
             "format-disconnected" = "⚠";
             "format-alt" = "{ifname}: { ipaddr }/{cidr}";
           };
           "pulseaudio" = {
             "format" = "{volume}% {icon}";
-            "format-bluetooth" = "{volume}% {icon}";
-            "format-bluetooth-muted" = " {icon}";
+            "format-bluetooth" = "{volume}% {icon} ";
+            "format-bluetooth-muted" = " {icon} ";
             "format-muted" = " {format_source}";
             "format-source" = "{volume}% ";
             "format-source-muted" = "";
