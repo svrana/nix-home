@@ -238,7 +238,6 @@ in
             };
           };
           startup = [
-            { command = ''${pkgs.waybar}/bin/waybar''; }
             { command = ''${pkgs.swaybg}/bin/swaybg -c "${base03}"''; }
             { command = ''${pkgs.avizo}/bin/avizo-service''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
@@ -456,7 +455,9 @@ in
   systemd.user.services.swayidle = {
     Unit = {
       Description = "Idle Manager for Wayland";
-      PartOf = [ "graphical-session.target" ];
+      PartOf = [ "sway-session.target" ];
+      Requires = [ "sway-session.target" ];
+      After = [ "sway-session.target" ];
       Documentation = [ "man:swayidle(1)" ];
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
@@ -467,6 +468,24 @@ in
         timeout 400 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
           resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
       '';
+    };
+  };
+
+  systemd.user.services.waybar = {
+    Unit = {
+      Description =
+        "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
+      Documentation = "https://github.com/Alexays/Waybar/wiki";
+      PartOf = [ "sway-session.target" ];
+      Requires = [ "sway-session.target" ];
+      After = [ "sway-session.target" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      ExecStart = "${pkgs.waybar}/bin/waybar";
+      ExecReload = "kill -SIGUSR2 $MAINPID";
+      Restart = "on-failure";
+      KillMode = "mixed";
     };
   };
 }
