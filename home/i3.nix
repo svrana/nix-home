@@ -237,6 +237,8 @@ in
           for_window [class="scratch-term"] move scratchpad, move position 1000 50, resize set 1800 2000
 
           assign [class="qutebrowser"] $ws3
+
+          exec "systemctl --user import-environment; systemctl --user start i3-session.target"
         '';
       };
     };
@@ -252,7 +254,7 @@ in
   systemd.user.services.autocutsel = {
     Unit.Description = "AutoCutSel";
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = [ "i3-session.target" ];
     };
     Service = {
       Type = "forking";
@@ -260,6 +262,15 @@ in
       RestartSec = 2;
       ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD -fork";
       ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+    };
+  };
+  systemd.user.targets.i3-session = {
+    Unit = {
+      Description = "i3 session";
+      Documentation = [ "man:systemd.special(7)" ];
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
     };
   };
 }
