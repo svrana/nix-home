@@ -50,9 +50,7 @@ in
     ./keychain.nix
     ./kubectl.nix
     ./nvim
-    ./i3.nix
     ./sway.nix
-    ./i3lock-color.nix
     ./polybar.nix
     ./tmux
     ./glow.nix
