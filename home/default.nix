@@ -126,7 +126,7 @@ in
     xclip
     xdg_utils
     xorg.xdpyinfo
-    zoom-us
+    zoom
     yarn
     bc
 
