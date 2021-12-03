@@ -680,12 +680,14 @@ in
       # for fugitive, opening github links in browser
       rhubarb
       {
-        plugin = vim-gitgutter;
-        config = ''
-          let g:gitgutter_map_keys = 0
-          nmap ]h <Plug>(GitGutterNextHunk)
-          nmap [h <Plug>(GitGutterPrevHunk)
-          let g:gitgutter_git_executable = "${pkgs.git}/bin/git"
+        plugin = gitsigns-nvim;
+        config = lua ''
+          require('gitsigns').setup({
+            signs = {
+              add = {hl = 'GitSignsAdd', text = '+', numhl='GitSignsAddNr', linehl='GitSignsAddLn'},
+            },
+            current_line_blame = false,
+          })
         '';
       }
       minimap-vim
