@@ -20,6 +20,7 @@ let
       sleep .5
     done
   '';
+  # see swaylock-effects repo
   swaylockCmd = lib.concatStringsSep " " [
     "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
@@ -32,8 +33,6 @@ let
     "--line-uses-inside"
     "--indicator-radius 100"
     "--indicator-thickness 7"
-    "--effect-blur 7x5"
-    "--effect-vignette 0.7:0.7"
     "--fade-in 0.5"
     "--text-color 586e75"
   ];
