@@ -684,6 +684,12 @@ in
         config = lua ''
           require('gitsigns').setup({
             current_line_blame = false,
+            -- redefining some of the defaults to remove the ones that override <leader>h which I use for harpoon
+            keymaps = {
+              noremap = true,
+              ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+              ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+            },
           })
         '';
       }
@@ -827,7 +833,11 @@ in
                   name = "display",
                   d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
                   m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
-                  n = { "<cmd>set relativenumber!<cr>", "Number toggle" },
+                  n = {
+                    name = "number",
+                    r = { "<cmd>set relativenumber!<cr>", "Relative line numbers" },
+                    l = { "<cmd>set number!<cr>", "Line numbers" },
+                  },
                   t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
                   g = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
                 },
@@ -845,9 +855,13 @@ in
                 },
                 g = {
                   name = "git",
+                  b = {
+                    name = "Blame",
+                    f = { "<cmd>Git blame<cr>",                                                 "File" },        -- fugitive
+                    l = { "<cmd>lua require('gitsigns').blame_line{full=true}<cr>",             "Line" },
+                  },
                   t = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
-                  h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" }, -- fugitive
-                  b = { "<cmd>Git blame<cr>",                                                 "Blame" }, -- fugitive
+                  h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
                   s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
                   z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
                 },
