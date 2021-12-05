@@ -51,7 +51,6 @@ in
     ./kubectl.nix
     ./nvim
     ./sway.nix
-    ./polybar.nix
     ./tmux
     ./glow.nix
     ./git.nix
