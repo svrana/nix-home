@@ -19,8 +19,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "b09f8354bf6c209baf1cab52d8d0a78ed2f87af5";
-      sha256 = "0mmalijp3yg5450bqp7llpa42h7aziabf7s1f9jz2vzqqc7p4q09";
+      rev = "0bc7abace67efb0eabc06b6a2ad11da14f43e8a6";
+      sha256 = "x6d2W3Da8uCgELfmjy+tqp9l4FQvtCgIsDmJVFCcNyc=";
     };
     configurePhase = ''
       rm Makefile
@@ -31,21 +31,9 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "tami5";
       repo = "lspsaga.nvim";
-      rev = "c884214b57fea2f5f6f04e1245a3e55cc19bbe96";
-      sha256 = "0m2d0cy3bwff3frma2nyaacmxpxqssh3q6fv8813mflfc1c21r6l";
+      rev = "518c12e2897edd2542bee76278a693cc7eea2f51";
+      sha256 = "m+CcPoKhW30Qu7nK655+xwg8B/rZoFWN5gnz1o2gnsY=";
     };
-  };
-  lualine-nvim-fork = pkgs.vimUtils.buildVimPlugin {
-    name = "lualine-nvim-fork";
-    src = pkgs.fetchFromGitHub {
-      owner = "nvim-lualine";
-      repo = "lualine.nvim";
-      rev = "cd08f74bb7058270e9d3cd728f1ef7589dadfbee";
-      sha256 = "1nrvmx9wz9jix0z0j3g907kfyw3hiikf5vr7bqxb5mcaz52x8vhj";
-    };
-    configurePhase = ''
-      rm Makefile
-    '';
   };
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
     name = "nvim-tabline";
@@ -630,7 +618,7 @@ in
         '';
       }
       {
-        plugin = lualine-nvim-fork;
+        plugin = lualine-nvim;
         config = lua ''
           require('lualine').setup {
            options = {
@@ -790,16 +778,14 @@ in
       {
         plugin = nvim-tree-lua;
         config = ''
-          "let g:nvim_tree_ignore = [ '.git', 'node_modules' ]
-          let g:nvim_tree_gitignore = 1
-          let g:nvim_tree_group_empty = 1
           lua << EOF
             require('nvim-tree').setup({
-              -- needed for fugitive GBrowse
-              disable_netrw = false,
+              disable_netrw = false,  -- needed for fugitive GBrowse
               auto_close = true,
               hijack_cursor = true,
               tree_follow = 1,
+              tree_gitignore = 1,
+              tree_group_empty = 1,
             })
           EOF
         '';
