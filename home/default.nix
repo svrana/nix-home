@@ -309,7 +309,8 @@ in
     Install = { WantedBy = [ "graphical-session.target" ]; };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
+      #ExecStart = "${pkgs.bash}/bin/bash -c 'PATH=$PATH:${pkgs.i3-gaps}/bin ; ${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
       RestartSec = 2;
       Restart = "always";
     };
