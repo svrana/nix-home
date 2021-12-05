@@ -273,6 +273,7 @@ in
                 "--no-keep_simple_control_block_one_line", "--column-limit=130",
                 "--break-after-table-lb" },
               }),
+              null_ls.builtins.code_actions.gitsigns,
             },
             debug = true,
           })
