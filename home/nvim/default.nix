@@ -531,6 +531,8 @@ in
             -- Mappings.
             local opts = { noremap=true, silent=true }
 
+            require('lsp_signature').on_attach()
+
             -- See `:help vim.lsp.*` for documentation on any of the below functions
             wk.register({
               [ '<C-k>' ]   = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",    "method signature",     buffer = bufnr },
