@@ -42,4 +42,8 @@ in
   };
 
   xdg.dataFile."applications/spotify-tui.desktop".source = "${spotify-tui-desktop-file}";
+  xdg.configFile."spotify-tui/config.yml".text = ''
+    theme:
+      selected: Cyan
+  '';
 }
