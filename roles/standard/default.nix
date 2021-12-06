@@ -13,6 +13,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.cleanTmpDir = true;
+  # defining an xsession will set this for you, but there's not a wayland version yet, so we do this ourselves.
+  boot.kernel.sysctl."fs.inotify.max_user_instances" = 524288;
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
