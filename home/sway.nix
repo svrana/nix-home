@@ -227,7 +227,7 @@ in
               "Escape" = "mode default";
             };
             "exit: l)ogout r)eboot su)spend h)ibernate" = {
-              "l" = "exec sway-msg exit";
+              "l" = "exec swaymsg exit";
               "r" = "exec sudo systemctl reboot";
               "s" = "exec sudo systemctl poweroff";
               "u" = "exec sudo systemctl suspend";

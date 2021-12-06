@@ -128,6 +128,7 @@ in
     zoom
     yarn
     bc
+    vanilla-dmz
 
     # sway specific
     avizo
@@ -326,4 +327,14 @@ in
     enableAliases = true;
     options = [ "enhanced" "fzf" "once" ];
   };
+
+  # Set name in icons theme, for compatibility with AwesomeWM etc. See:
+  # https://github.com/nix-community/home-manager/issues/2081
+  # https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
+  home.file.".icons/default/index.theme".text = ''
+    [icon theme]
+    Name=Default
+    Comment=Default Cursor Theme
+    Inherits=Vanilla-DMZ
+  '';
 }
