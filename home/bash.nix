@@ -99,6 +99,7 @@ in
       "P" = "popd";
 
       "v" = "nvim";
+      "vir" = "nvim -R -";
       "r" = "ranger";
       "pl" = "pulumi";
 
