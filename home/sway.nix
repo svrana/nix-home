@@ -11,7 +11,7 @@ let
   ranger = "${pkgs.ranger}/bin/ranger";
   rofi-calc-cmd = ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
-  email_client = "${alacritty} --class email -e neomutt";
+  email_client = "${alacritty} --title email --class email -e neomutt";
   scratch-term = pkgs.writeScript "scratch-term" ''
     #!${pkgs.bash}/bin/bash
     while :
@@ -173,12 +173,12 @@ in
               "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t rofi'';
               "${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
-              "${mod}+Shift+c" = "reload";
+              "${mod}+Shift+c" = "exec swaymsg reload";
               "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate"'';
               "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
               "${mod}+Shift+h" = "move left";
               "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
-              "${mod}+Shift+r" = "restart";
+              "${mod}+Shift+r" = "swaymsg restart";
               "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
               "${mod}+Shift+j" = "move down";
               "${mod}+Shift+k" = "move up";
@@ -186,7 +186,7 @@ in
               "${mod}+Shift+space" = "floating toggle";
               "${mod}+space" = "focus mode_toggle";
               #"${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux";
-              "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
+              "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux --title tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
               "${mod}+Shift+1" = "move container to workspace 1";
               "${mod}+Shift+2" = "move container to workspace 2";
               "${mod}+Shift+3" = "move container to workspace 3";
