@@ -220,7 +220,7 @@ in
     recursive = true;
   };
   home.file.".ssh/config".source = ../personal/ssh/config;
-  home.file.".pypirc".source = ../personal/pypi/pypirc;
+  #home.file.".pypirc".source = ../personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
