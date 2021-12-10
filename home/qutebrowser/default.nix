@@ -55,13 +55,13 @@ in
       config.load_autoconfig()
     '';
     searchEngines = {
-        DEFAULT ="https://duckduckgo.com/?q={}";
-        #DEFAULT = "https://neeva.com/search?q={}";
-        d = "https://duckduckgo.com/?q={}";
-        n = "https://neeva.com/search?q={}";
-        g = "http://www.google.com/search?hl=en&q={}";
-        gh = "https://github.com/search?q={}";
-        yt = "https://www.youtube.com/results?search_query={}";
+      DEFAULT = "https://duckduckgo.com/?q={}";
+      #DEFAULT = "https://neeva.com/search?q={}";
+      d = "https://duckduckgo.com/?q={}";
+      n = "https://neeva.com/search?q={}";
+      g = "http://www.google.com/search?hl=en&q={}";
+      gh = "https://github.com/search?q={}";
+      yt = "https://www.youtube.com/results?search_query={}";
     };
     keyBindings = {
       command = {
@@ -95,26 +95,26 @@ in
         "<Ctrl-s>" = "tab-prev";
 
         "<Ctrl-b>" = "config-source";
-        "<Ctrl-m>" = "spawn --detach mpv --force-window yes {url}";
-        "<Ctrl-y>" = "hint links spawn --detach mpv --force-window yes {hint-url}";
+        "<Ctrl-m>" = "spawn --detach umpv --force-window yes {url}";
+        "<Ctrl-y>" = "hint links spawn --detach umpv --force-window yes {hint-url}";
         "<Ctrl-Shift-i>" = "devtools window";
         "<Ctrl-r>" = "config-cycle content.user_stylesheets '${solCSS}/solarized-dark-all-sites.css' '${solCSS}/solarized-light-all-sites.css' ''";
         "c" = "back";
         "]" = "tab-next";
         "[" = "tab-prev";
         "x" = "tab-close";
-        ",q"= "tab-close";
+        ",q" = "tab-close";
         ",nt" = "open -t";
         ",nw" = "open -w";
         ",l" = "spawn --userscript qute-pass-mod --mode gopass";
-        ",u" =  "spawn --userscript qute-pass-mod --mode gopass --username-only --no-insert-mode";
+        ",u" = "spawn --userscript qute-pass-mod --mode gopass --username-only --no-insert-mode";
         ",p" = "spawn --userscript qute-pass-mod --mode gopass --password-only --no-insert-mode";
         "{" = "tab-move -";
         "}" = "tab-move +";
         ",t" = "tab-pin";
       };
     };
-    settings =  {
+    settings = {
       auto_save.session = true;
       completion.height = "35%";
       content = {
@@ -152,7 +152,7 @@ in
       };
       scrolling.smooth = true;
       editor = {
-        command = ["${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim" "{file}"];
+        command = [ "${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim" "{file}" ];
       };
       #statusbar.show = "in-mode";
       tabs = {
@@ -191,9 +191,9 @@ in
           };
         };
         keyhint = {
-            bg = "${base03}";
-            fg = "${base00}";
-            suffix.fg = "${cyan}";
+          bg = "${base03}";
+          fg = "${base00}";
+          suffix.fg = "${cyan}";
         };
         hints = {
           bg = "${base2}";
