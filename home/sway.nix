@@ -20,8 +20,16 @@ let
       sleep .5
     done
   '';
+  spotify-focus = pkgs.writeScript "spotify-focus" ''
+    #!${pkgs.bash}/bin/bash
+    if swaymsg -t get_tree | grep -q spotify; then
+      swaymsg [app_id="spotify"] focus
+    else
+      swaymsg [class="Spotify"] focus
+    fi
+  '';
   # see swaylock-effects repo
-  swaylockCmd = lib.concatStringsSep " " [
+  swaylock-cmd = lib.concatStringsSep " " [
     "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
     "--ignore-empty-password"
@@ -173,12 +181,12 @@ in
               "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t rofi'';
               "${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
-              "${mod}+Shift+c" = "exec swaymsg reload";
+              "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
               "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate"'';
               "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
               "${mod}+Shift+h" = "move left";
               "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
-              "${mod}+Shift+r" = "swaymsg restart";
+              "${mod}+Shift+r" = "exec swaymsg restart && notify-send 'sway restarted'";
               "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
               "${mod}+Shift+j" = "move down";
               "${mod}+Shift+k" = "move up";
@@ -196,8 +204,8 @@ in
               "${mod}+Shift+7" = "move container to workspace 7";
               "${mod}+Tab" = ''exec - -no-startup-id "${rofi} -show window -eh 2 -padding 16 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: ${cyan};}'" '';
               "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
-              "${mod}+period" = ''[instance="spotify"] focus'';
-              "Mod1+Control+l" = "exec ${swaylockCmd}";
+              "${mod}+period" = "exec ${spotify-focus}";
+              "Mod1+Control+l" = "exec ${swaylock-cmd}";
               "Mod1+Control+v" = "split horizontal";
               "Mod1+Control+h" = "split vertical";
               "Mod1+Control+u" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
@@ -461,8 +469,8 @@ in
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
       ExecStart = ''${pkgs.swayidle}/bin/swayidle -w -d \
-        timeout 300 '${swaylockCmd}' \
-        before-sleep '${swaylockCmd}' \
+        timeout 300 '${swaylock-cmd}' \
+        before-sleep '${swaylock-cmd}' \
         timeout 400 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
           resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
       '';
