@@ -68,7 +68,6 @@ in
     autotiling
     buf
     cloudflared
-    ctags
     ctlptl
     dante
     dbeaver
