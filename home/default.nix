@@ -123,7 +123,6 @@ in
     xautolock
     xclip
     xdg_utils
-    xorg.xdpyinfo
     zoom
     yarn
     bc
