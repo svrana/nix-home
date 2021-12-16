@@ -12,14 +12,6 @@ let
   rofi-calc-cmd = ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
   email_client = "${alacritty} --title email --class email -e neomutt";
-  scratch-term = pkgs.writeScript "scratch-term" ''
-    #!${pkgs.bash}/bin/bash
-    while :
-    do
-      ${alacritty} --class scratch-term,scratch-term
-      sleep .5
-    done
-  '';
   spotify-focus = pkgs.writeScript "spotify-focus" ''
     #!${pkgs.bash}/bin/bash
     if swaymsg -t get_tree | grep -q spotify; then
@@ -70,11 +62,10 @@ in
     gpu-context = "wayland";
   };
   # TODO:
-  #   scratch-term spawns 3 windows after exit
   #   ranger image preview
   #      anyway to do this in wayland?
   #
-  #   # try instead of xprop for classnames.. no idea
+  #   # instead of xpropr for app_id
   #   swaymsg -t get_tree
   #
   wayland = {
@@ -193,7 +184,6 @@ in
               "${mod}+Shift+l" = "move right";
               "${mod}+Shift+space" = "floating toggle";
               "${mod}+space" = "focus mode_toggle";
-              #"${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux";
               "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux --title tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
               "${mod}+Shift+1" = "move container to workspace 1";
               "${mod}+Shift+2" = "move container to workspace 2";
@@ -208,13 +198,7 @@ in
               "Mod1+Control+l" = "exec ${swaylock-cmd}";
               "Mod1+Control+v" = "split horizontal";
               "Mod1+Control+h" = "split vertical";
-              "Mod1+Control+u" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
-              "Mod1+Control+d" = "exec --no-startup-id $BIN_DIR/vol.sh --down";
-              #"Mod1+Control+m" = "exec --no-startup-id $BIN_DIR/vol.sh --togmute";
               "Mod1+Control+m" = "exec --no-startup-id volumectl mute";
-              # "XF86AudioRaiseVolume" = "exec --no-startup-id $BIN_DIR/vol.sh --up";
-              # "XF86AudioLowerVolume" = "exec --no-startup-id $BIN_DIR/vol.sh --down";
-              # "XF86AudioMute" = "exec --no-startup-id $BIN_DIR/vol.sh --togmute";
               "XF86AudioRaiseVolume" = "exec --no-startup-id volumectl raise";
               "XF86AudioLowerVolume" = "exec --no-startup-id volumectl lower";
               "XF86AudioMute" = "exec --no-startup-id volumectl mute";
@@ -251,7 +235,6 @@ in
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
             { command = ''standardnotes''; }
             { command = "${pkgs.slack}/bin/slack"; }
-            { command = "${scratch-term}"; }
           ];
         };
         extraSessionCommands = ''
@@ -492,6 +475,20 @@ in
       ExecReload = "kill -SIGUSR2 $MAINPID";
       Restart = "on-failure";
       KillMode = "mixed";
+    };
+  };
+
+  systemd.user.services.scratch = {
+    Unit = {
+      Description = "Scratch terminal that is stashed by Sway";
+      PartOf = [ "sway-session.target" ];
+      Requires = [ "sway-session.target" ];
+      After = [ "sway-session.target" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      ExecStart = "${alacritty} --class scratch-term,scratch-term --title scratch";
+      Restart = "always";
     };
   };
 }

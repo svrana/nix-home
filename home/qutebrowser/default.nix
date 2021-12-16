@@ -45,7 +45,6 @@ in
 {
   programs.qutebrowser = {
     enable = true;
-    #package = pkgsUnstable.qutebrowser;
     #loadAutoConfig = true;
     # no per website configuratble stylesheets yet
     #config.set('content.user_stylesheets', '${solCSS}/solarized-dark-github.css', '*://github.com/')
