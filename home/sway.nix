@@ -58,8 +58,11 @@ in
     GTK_THEME = "Arc-Dark";
     MOZ_ENABLE_WAYLAND = "1";
   };
-  programs.mpv.config = {
-    gpu-context = "wayland";
+  programs.mpv = {
+    enable = true;
+    config = {
+      gpu-context = "wayland";
+    };
   };
   # TODO:
   #   ranger image preview
