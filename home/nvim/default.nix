@@ -175,7 +175,7 @@ in
           require("git-worktree").setup({})
         '';
       }
-      lightspeed-nvim
+      #lightspeed-nvim havinga living with whichkey
       {
         plugin = go-nvim;
         config = lua ''
@@ -262,7 +262,7 @@ in
           -- need a prototool.yaml in proto/ root for it to figure out paths
           --null_ls.register(prototool)
 
-          null_ls.config({
+          null_ls.setup({
             sources = {
               null_ls.builtins.diagnostics.eslint_d,
               null_ls.builtins.formatting.prettier.with({
@@ -643,7 +643,7 @@ in
              lualine_x = {
                {
                  'diagnostics',
-                 sources = {"nvim_lsp"},
+                 sources = {"nvim_diagnostic"},
                  symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
                },
                'encoding',
