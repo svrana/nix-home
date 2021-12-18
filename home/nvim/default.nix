@@ -31,8 +31,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "tami5";
       repo = "lspsaga.nvim";
-      rev = "518c12e2897edd2542bee76278a693cc7eea2f51";
-      sha256 = "m+CcPoKhW30Qu7nK655+xwg8B/rZoFWN5gnz1o2gnsY=";
+      rev = "dc41d1db65f629c272e5e2d5dc8e7effcedd0509";
+      sha256 = "/jwB0R2M7eh2Gho3jIbxlw2Rlb3MAMdgKbhem5AJGT4=";
     };
   };
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
