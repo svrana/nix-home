@@ -14,6 +14,7 @@ let
   email_client = "${alacritty} --title email --class email -e neomutt";
   spotify-focus = pkgs.writeScript "spotify-focus" ''
     #!${pkgs.bash}/bin/bash
+    # should instead get the window from which music is playing
     if swaymsg -t get_tree | grep -q spotify; then
       swaymsg [app_id="spotify"] focus
     else
@@ -233,7 +234,6 @@ in
           };
           startup = [
             { command = ''${pkgs.swaybg}/bin/swaybg -c "${base03}"''; }
-            { command = ''${pkgs.avizo}/bin/avizo-service''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
             { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
             { command = ''standardnotes''; }
@@ -492,6 +492,20 @@ in
     Service = {
       ExecStart = "${alacritty} --class scratch-term,scratch-term --title scratch";
       Restart = "always";
+    };
+  };
+
+  systemd.user.services.avizo = {
+    Unit = {
+      Description = "avizo volume ctrl daemon";
+      PartOf = [ "sway-session.target" ];
+      Requires = [ "sway-session.target" ];
+      After = [ "sway-session.target" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      ExecStart = "${pkgs.avizo}/bin/avizo-service";
+      Restart = "on-failure";
     };
   };
 }
