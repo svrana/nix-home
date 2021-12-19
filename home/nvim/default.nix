@@ -58,6 +58,7 @@ in
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
     set pumblend=10
+    set foldmethod=marker
 
     tnoremap <Esc> <C-\><C-n>
 
