@@ -293,19 +293,19 @@ in
       }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
-        config = lua
-          ''
-            require('nvim-treesitter.configs').setup {
-                highlight = {
-                  enable = true,
-                },
-                -- see nvim-ts-context-commentstring
-                context_commentstring = {
-                  enable = true,
-                  enable_autocmd = false, -- turn on manually with comment plugin, see docs
-                },
-              }
-          '';
+        config = lua ''
+          require('nvim-treesitter.configs').setup {
+              highlight = {
+                enable = true,
+                disable = { "markdown" }, -- getting an error so disable for now
+              },
+              -- see nvim-ts-context-commentstring
+              context_commentstring = {
+                enable = true,
+                enable_autocmd = false, -- turn on manually with comment plugin, see docs
+              },
+            }
+        '';
       }
       popup-nvim
       telescope-fzf-native-nvim
