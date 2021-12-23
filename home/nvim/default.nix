@@ -801,9 +801,6 @@ in
       {
         plugin = which-key-nvim;
         config = ''
-          " uses NormalFloat by default
-          "autocmd ColorScheme * highlight WhichKeyFloat guibg=#073642
-          autocmd ColorScheme * highlight WhichKeyFloat guibg=#002b36
           lua << EOF
             wk = require("which-key")
             wk.setup{
@@ -824,6 +821,15 @@ in
                   s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
                   i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
                   l = { "<cmd>GoFillStruct<cr>", "Fill golang struct" },
+                  g = {
+                    name = "go",
+                    f = {
+                      name = "fill",
+                      s = { "<cmd>GoFillStruct<cr>",  "Struct" },
+                      w = { "<cmd>GoFillSwitch<cr>",  "sWitch" },
+                      t = { "<cmd>GoAddTag<cr>",      "Tags" }
+                    }
+                  }
                 },
                 d = {
                   name = "display",
