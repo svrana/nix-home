@@ -94,8 +94,8 @@ in
         "<Ctrl-s>" = "tab-prev";
 
         "<Ctrl-b>" = "config-source";
-        "<Ctrl-m>" = "spawn --detach umpv --force-window yes {url}";
-        "<Ctrl-y>" = "hint links spawn --detach umpv --force-window yes {hint-url}";
+        "<Ctrl-m>" = "spawn --detach umpv --force-window=immediate {url}";
+        "<Ctrl-y>" = "hint links spawn --detach umpv --force-window=immediate {hint-url}";
         "<Ctrl-Shift-i>" = "devtools window";
         "<Ctrl-r>" = "config-cycle content.user_stylesheets '${solCSS}/solarized-dark-all-sites.css' '${solCSS}/solarized-light-all-sites.css' ''";
         "c" = "back";
