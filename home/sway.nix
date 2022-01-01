@@ -3,13 +3,13 @@ let
   i3 = config.settings.i3;
   waybar = config.settings.waybar;
   rofi = "${pkgs.rofi}/bin/rofi";
-  rofi-pass = "${pkgs.rofi-pass}/bin/rofi-pass";
+  rofi-pass = "gopass ls --flat | rofi -dmenu -p site -theme-str 'window {width: 25%; border-color: ${cyan};}' | xargs --no-run-if-empty gopass show -o | wtype -";
   rofi-icon-size = config.settings.rofi.iconSize;
   maim = "${pkgs.maim}/bin/maim";
   grim = "${pkgs.grim}/bin/grim";
   slurp = "${pkgs.slurp}/bin/slurp";
   ranger = "${pkgs.ranger}/bin/ranger";
-  rofi-calc-cmd = ''rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
+  rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
   email_client = "${alacritty} --title email --class email -e neomutt";
   spotify-focus = pkgs.writeScript "spotify-focus" ''
@@ -181,7 +181,6 @@ in
               "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
               "${mod}+Shift+h" = "move left";
               "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
-              "${mod}+Shift+r" = "exec swaymsg restart && notify-send 'sway restarted'";
               "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
               "${mod}+Shift+j" = "move down";
               "${mod}+Shift+k" = "move up";

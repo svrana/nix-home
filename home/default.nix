@@ -137,6 +137,7 @@ in
     wf-recorder
     swaybg
     waybar
+    wtype
     slurp
     grim
     brightnessctl
