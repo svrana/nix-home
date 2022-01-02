@@ -178,7 +178,7 @@ in
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
               "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
               "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate"'';
-              "${mod}+Shift+f" = ''exec --no-startup-id "fd | ${rofi} -show find -mode find -dmenu | xargs -r xdg-open"'';
+              "${mod}+Shift+f" = ''exec fd | rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -p open -modi file-browser-extended -show file-browser-extended -file-browser-stdin'';
               "${mod}+Shift+h" = "move left";
               "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
               "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
@@ -195,7 +195,7 @@ in
               "${mod}+Shift+5" = "move container to workspace 5";
               "${mod}+Shift+6" = "move container to workspace 6";
               "${mod}+Shift+7" = "move container to workspace 7";
-              "${mod}+Tab" = ''exec - -no-startup-id "${rofi} -show window -eh 2 -padding 16 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: ${cyan};}'" '';
+              "${mod}+Tab" = ''exec --no-startup-id "${rofi} -show window -padding 8 -show-icons -theme-str 'element-icon { size: ${rofi-icon-size};} window {width: 25%; border-color: ${cyan};}'" '';
               "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
               "${mod}+period" = "exec ${spotify-focus}";
               "Mod1+Control+l" = "exec ${swaylock-cmd}";
