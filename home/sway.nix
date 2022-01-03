@@ -55,16 +55,6 @@ let
   green = "#859900";
 in
 {
-  home.sessionVariables = {
-    GTK_THEME = "Arc-Dark";
-    MOZ_ENABLE_WAYLAND = "1";
-  };
-  programs.mpv = {
-    enable = true;
-    config = {
-      gpu-context = "wayland";
-    };
-  };
   # TODO:
   #   ranger image preview
   #      anyway to do this in wayland?

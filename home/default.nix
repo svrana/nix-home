@@ -333,6 +333,15 @@ in
     '';
   };
 
+  programs.mpv = {
+    enable = true;
+    config = {
+      gpu-context = "wayland";
+      background = "#002b36";
+      force-window = "immediate";
+    };
+  };
+
   # Set name in icons theme, for compatibility with AwesomeWM etc. See:
   # https://github.com/nix-community/home-manager/issues/2081
   # https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
@@ -342,4 +351,9 @@ in
     Comment=Default Cursor Theme
     Inherits=Vanilla-DMZ
   '';
+
+  home.sessionVariables = {
+    GTK_THEME = "Arc-Dark";
+    MOZ_ENABLE_WAYLAND = "1";
+  };
 }
