@@ -15,7 +15,7 @@ let
   spotify-focus = pkgs.writeScript "spotify-focus" ''
     #!${pkgs.bash}/bin/bash
     # should instead get the window from which music is playing
-    if swaymsg -t get_tree | grep -q spotify; then
+    if swaymsg -t get_tree | grep -q app_id.*spotify; then
       swaymsg [app_id="spotify"] focus
     else
       swaymsg [class="Spotify"] focus
