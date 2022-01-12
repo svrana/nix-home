@@ -93,6 +93,8 @@ in
       shfmt
       sumneko-lua-language-server
       luaformatter
+      haskellPackages.haskell-language-server
+      haskellPackages.ormolu
     ];
     extraConfig = ''
       source $DOTFILES/home/nvim/init.vim
@@ -562,6 +564,7 @@ in
             'dockerls',
             'null-ls',
             'vimls',
+            'hls',
           }
           for _, lsp in ipairs(servers) do
             nvim_lsp[lsp].setup({

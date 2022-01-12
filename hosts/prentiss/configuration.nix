@@ -9,7 +9,8 @@
     ../../roles/standard
     ../../roles/graphical
     ../../roles/work
-    ../../roles/virtualbox.nix
+    ../../roles/virtualization.nix
+    ../../roles/cache.nix
   ];
 
   networking.hostName = "prentiss";
