@@ -7,11 +7,10 @@
     # identical files together. These savings add up.
     autoOptimiseStore = true;
     # keep-* for nix-direnv nix-shell generations
-    # hmm, getting a warning with this: warning: unknown setting 'experimental-features'
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
-      experimental-features = nix-command
+      experimental-features = nix-command flakes
     '';
   };
 }
