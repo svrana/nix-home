@@ -562,7 +562,6 @@ in
             'yamlls',
             'rnix',
             'dockerls',
-            'null-ls',
             'vimls',
             'hls',
           }
