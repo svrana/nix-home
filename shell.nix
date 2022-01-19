@@ -2,8 +2,7 @@ let
   sources = import ./nix/sources.nix;
   nixPath = import ./nix-path.nix;
 in
-{
-  pkgs ? import sources.nixpkgs { }
+{ pkgs ? import sources.nixpkgs { }
 }:
 pkgs.stdenv.mkDerivation {
   name = "dots";
@@ -13,6 +12,8 @@ pkgs.stdenv.mkDerivation {
     (import sources.home-manager { inherit pkgs; }).home-manager
     (pkgs.writeShellScriptBin "nixos-rebuild-pretty" ''
       sudo -E sh -c "nixos-rebuild $@"
+      # v-- use the following line when downgrading fails with a warning/error about downgrading bootloader
+      #sudo -E sh -c "nixos-rebuild --install-bootloader $@"
       # prettier than nixos-rebuild switch (this courtesty github.com/meatcar/dots)
       #sudo -E sh -c "nix build --experimental-features nix-command --no-link -f '<nixpkgs/nixos>' config.system.build.toplevel && nixos-rebuild $@"
       #sudo -E sh -c "nix build --no-link -f '<nixpkgs/nixos>' config.system.build.toplevel && nixos-rebuild $@"
