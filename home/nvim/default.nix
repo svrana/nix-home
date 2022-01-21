@@ -563,7 +563,6 @@ in
             'rnix',
             'dockerls',
             'vimls',
-            'hls',
           }
           for _, lsp in ipairs(servers) do
             nvim_lsp[lsp].setup({
@@ -578,6 +577,11 @@ in
           require('go').setup({
             lsp_cfg = true, -- setup gopls for us
             lsp_on_attach = on_attach,
+          })
+
+          nvim_lsp.hls.setup({
+            cmd = { "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server", "--lsp" },
+            on_attach = on_attach,
           })
 
           nvim_lsp.tsserver.setup({
