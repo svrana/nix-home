@@ -65,6 +65,7 @@ in
   ];
 
   home.packages = with pkgs; [
+    pkgsUnstable.aerc
     autotiling
     buf
     cloudflared
