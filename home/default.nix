@@ -34,6 +34,7 @@ in
     # pkg configurations below it.
     ../modules/settings.nix
     ../personal/programs/work.nix
+    ./aerc
     ./alacritty.nix
     ./aws-cli.nix
     ./aws-vault.nix
@@ -65,7 +66,6 @@ in
   ];
 
   home.packages = with pkgs; [
-    pkgsUnstable.aerc
     autotiling
     buf
     cloudflared

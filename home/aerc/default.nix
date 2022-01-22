@@ -1,9 +1,9 @@
 { pkgs, lib, ... }:
 {
 
-  # home.packages = with pkgsUnstable; [
-  #   aerc
-  # ];
+  home.packages = with pkgs; [
+    aerc
+  ];
 
   home.activation.copyAercAccounts =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
