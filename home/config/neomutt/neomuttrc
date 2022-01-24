@@ -49,10 +49,7 @@ folder-hook $folder 'source ~/.config/neomutt/accounts/vranix'
 source ./accounts/personal
 folder-hook $folder 'source ~/.config/neomutt/accounts/personal'
 
-source ./accounts/work
-folder-hook $folder 'source ~/.config/neomutt/accounts/work'
-
 # Account switching
 macro index,pager ,v '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/vranix<enter><change-folder>!<enter>'
 macro index,pager ,p '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/personal<enter><change-folder>!<enter>'
-macro index,pager ,w '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/work<enter><change-folder>!<enter>'
+#macro index,pager ,w '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/work<enter><change-folder>!<enter>'
