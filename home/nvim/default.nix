@@ -93,8 +93,8 @@ in
       shfmt
       sumneko-lua-language-server
       luaformatter
-      haskellPackages.haskell-language-server
-      haskellPackages.ormolu
+      #haskellPackages.haskell-language-server
+      #haskellPackages.ormolu
     ];
     extraConfig = ''
       source $DOTFILES/home/nvim/init.vim
@@ -580,7 +580,8 @@ in
           })
 
           nvim_lsp.hls.setup({
-            cmd = { "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server", "--lsp" },
+            --cmd = { "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server", "--lsp" },
+            cmd = { "haskell-language-server", "--lsp" },
             on_attach = on_attach,
           })
 
