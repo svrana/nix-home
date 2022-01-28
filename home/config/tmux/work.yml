@@ -38,33 +38,9 @@ root: ~/
 # attach: false
 
 windows:
-  - c1:
-      layout: even-horizontal
-      root: ~/Projects/ductone/c1
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
-      panes:
-        -
-        -
-        -
-  - dev-tools:
-      layout: even-horizontal
-      root: ~/Projects/ductone/c1
-      panes:
-        -
-        -
-        -
   - dots:
       layout: even-horizontal
       root: ~/Projects/dotfiles
-      panes:
-        -
-        -
-        -
-  - ops:
-      layout: even-horizontal
-      root: ~/Projects/ductone/ops
       panes:
         -
         -
