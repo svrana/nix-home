@@ -15,6 +15,7 @@
           padding.y = 0;
           decorations = "full";
           #title = true;
+          opacity = 1.0;
         };
         scrolling = {
           history = 10000;
@@ -67,12 +68,11 @@
           };
         };
         bell.duration = 0;
-        background_opacity = 1.0;
 
         mouse_bindings = [
           {
             mouse = "Middle";
-            action =  "PasteSelection";
+            action = "PasteSelection";
           }
         ];
         mouse = {
@@ -86,6 +86,6 @@
         };
         cursor.style = "Block";
         live_config_reload = true;
-    };
+      };
   };
 }
