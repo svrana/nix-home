@@ -87,6 +87,7 @@ in
     hugo
     kind
     kubernetes-helm
+    franz
     gitAndTools.hub
     golangci-lint
     grpcurl
