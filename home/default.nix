@@ -256,6 +256,21 @@ in
       $DRY_RUN_CMD git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
     fi
 
+    if [ ! -d $PROJECTS/cdp ]; then
+      $DRY_RUN_CMD echo "Cloning cdp.."
+      $DRY_RUN_CMD git clone git@github.com:svrana/cdp $PROJECTS/cdp
+    fi
+
+    if [ ! -d $PROJECTS/neosolarized.nvim ]; then
+      $DRY_RUN_CMD echo "Cloning neosolarized.."
+      $DRY_RUN_CMD git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
+    fi
+
+    if [ ! -d $APPS/gruf ]; then
+      $DRY_RUN_CMD echo "Cloning gruf.."
+      $DRY_RUN_CMD git clone git@github.com:svrana/gruf $APPS/gruf
+    fi
+
     $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}
     $DRY_RUN_CMD ln -sf $VERBOSE_ARG $PERSONAL/c1/lint.sh $HOME/.local/bin/lint.sh
   '';
