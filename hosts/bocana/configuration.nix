@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
     ../../arch/amd
     ../../roles/standard
-    ../../roles/graphical
+    ../../roles/nextcloud.nix
   ];
 
   networking.hostName = "bocana";
@@ -25,8 +25,9 @@
   networking.firewall = {
     allowedUDPPorts = [ 53 ];
     allowedTCPPorts = [
-      53    # dns / adguard
-      631   # cups server
+      80 # nextcloud
+      53 # dns / adguard
+      631 # cups server
     ];
   };
 
