@@ -61,6 +61,7 @@ in
     set foldmethod=marker
 
     tnoremap <Esc> <C-\><C-n>
+    au TermOpen term://* startinsert
 
     lua << EOF
       require('svrana.globals')
