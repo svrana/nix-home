@@ -67,9 +67,6 @@ in
 
   home.packages = with pkgs; [
     autotiling
-    buf
-    cloudflared
-    ctlptl
     dante
     dbeaver
     discord
@@ -79,6 +76,7 @@ in
     exa
     networkmanager_dmenu
     cachix
+    google-chrome
     niv
     element-desktop
     entr
@@ -87,7 +85,6 @@ in
     hugo
     kind
     kubernetes-helm
-    franz
     gitAndTools.hub
     golangci-lint
     grpcurl
