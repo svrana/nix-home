@@ -194,7 +194,7 @@ in
               "Mod1+Control+m" = "exec --no-startup-id volumectl mute";
               "XF86AudioRaiseVolume" = "exec --no-startup-id volumectl raise";
               "XF86AudioLowerVolume" = "exec --no-startup-id volumectl lower";
-              "XF86AudioMute" = "exec --no-startup-id volumectl mute";
+              "XF86AudioMute" = "exec --no-startup-id volumectl %";
               "XF86AudioPlay" = "exec --no-startup-id playerctl play";
               "XF86AudioPause" = "exec --no-startup-id playerctl pause";
               "XF86AudioNext" = "exec --no-startup-id playerctl next";
