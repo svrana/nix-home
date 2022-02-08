@@ -68,7 +68,7 @@ in
   home.packages = with pkgs; [
     autotiling
     dante
-    dbeaver
+    #dbeaver
     discord
     diffstat
     docker-compose
@@ -98,7 +98,6 @@ in
     nodejs-12_x
     nodePackages.eslint
     packer
-    pamixer
     powerline-go
     pulumi-bin
     perl532Packages.FileMimeInfo
