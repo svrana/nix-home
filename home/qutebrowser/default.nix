@@ -61,6 +61,7 @@ in
       g = "http://www.google.com/search?hl=en&q={}";
       gh = "https://github.com/search?q={}";
       yt = "https://www.youtube.com/results?search_query={}";
+      ho = "https://hoogle.haskell.org/?hoogle={}";
     };
     keyBindings = {
       command = {
