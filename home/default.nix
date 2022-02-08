@@ -98,6 +98,7 @@ in
     nodejs-12_x
     nodePackages.eslint
     packer
+    pamixer
     powerline-go
     pulumi-bin
     perl532Packages.FileMimeInfo
