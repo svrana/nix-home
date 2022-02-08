@@ -45,6 +45,20 @@ windows:
         -
         -
         -
+  - pioneers:
+      layout: even-horizontal
+      root: ~/Projects/plutus-pioneer-program/code/week04
+      panes:
+        -
+        -
+        -
+  - running:
+      layout: even-horizontal
+      root: ~/Projects/plutus-apps
+      panes:
+        - nix-shell --command 'cd plutus-playground-client && npm run start'
+        - nix-shell --command build-and-serve-docs
+        - nix-shell --command 'cd plutus-playground-client && plutus-playground-server'
   # - irc:
   #     root: ~/
   #     panes: weechat
