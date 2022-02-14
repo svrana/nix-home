@@ -3,7 +3,7 @@ let
   i3 = config.settings.i3;
   waybar = config.settings.waybar;
   rofi = "${pkgs.rofi}/bin/rofi";
-  rofi-pass = "gopass ls --flat | rofi -dmenu -p site -theme-str 'window {width: 25%; border-color: ${cyan};}' | xargs --no-run-if-empty gopass show -o | wtype -";
+  rofi-pass = "gopass ls --flat | rofi -dmenu -p site -theme-str 'window {width: 25%; border-color: ${cyan};}' | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard'";
   rofi-icon-size = config.settings.rofi.iconSize;
   maim = "${pkgs.maim}/bin/maim";
   grim = "${pkgs.grim}/bin/grim";
