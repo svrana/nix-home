@@ -43,8 +43,6 @@ noremap! <leader>e <ESC>:wq<CR>
 noremap! <leader>z <ESC>:q!<CR>
 nnoremap Q @@
 nnoremap \th :set invhls hls?<CR>
-nnoremap <silent> n n:call HLNext(0.4)<cr>
-nnoremap <silent> N N:call HLNext(0.4)<cr>
 vnoremap <leader>jf <esc>:'<,'> !echo "`cat`" \| jq <CR>
 
 nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
@@ -71,21 +69,6 @@ imap jj <ESC>
 function FTPluginSetupCommands()
     call matchadd('ColorColumn', '\%81v', 100)
 endfunction
-
-function! HLNext(blinktime)
-    let [bufnum, lnum, col, off] = getpos('.')
-    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-    let target_pat = '\c\%#'.@/
-    let ring = matchadd('WhiteOnRed', target_pat, 101)
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    call matchdelete(ring)
-    redraw
-endfunction
-
-if !empty($GRUF_CONFIG)
-    source ${GRUF_CONFIG}/gruf.vimrc
-end
 
 " https://github.com/neoclide/coc-tsserver/issues/244
 function! OpenZippedFile(f)
