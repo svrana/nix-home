@@ -62,6 +62,8 @@ in
 
     tnoremap <Esc> <C-\><C-n>
     au TermOpen term://* startinsert
+    au InsertEnter * setlocal nocursorline
+    au InsertLeave * setlocal cursorline
 
     lua << EOF
       require('svrana.globals')
