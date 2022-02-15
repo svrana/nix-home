@@ -366,6 +366,12 @@ in
     Inherits=Vanilla-DMZ
   '';
 
+  home.file.".haskeline".text = ''
+    editMode: Vi
+    historyDuplicates: IgnoreConsecutive
+    bellStyle: NoBell
+  '';
+
   home.sessionVariables = {
     GTK_THEME = "Arc-Dark";
     MOZ_ENABLE_WAYLAND = "1";
