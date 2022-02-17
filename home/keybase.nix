@@ -1,4 +1,4 @@
-{ home, ... }:
+{ home, pkgs, ... }:
 {
   services.keybase.enable = true;
   services.kbfs = {
