@@ -45,18 +45,9 @@
     };
     desktopManager.session = [
       {
-        # mostly so we don't have to have ~/.xsession file
-        name = "home-manager";
-        start = ''
-          ${pkgs.runtimeShell} $HOME/.config/X11/xsession &
-          waitPID=$!
-        '';
-      }
-      {
-        name = "hm-sway";
+        name = "sway";
         start = "start-sway";
       }
     ];
-    #windowManager.i3.enable = true;
   };
 }
