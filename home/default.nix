@@ -48,6 +48,7 @@ in
     ./go.nix
     ./gopass.nix
     ./k9s
+    ./keybase.nix
     ./keychain.nix
     ./kubectl.nix
     ./nvim
@@ -82,7 +83,6 @@ in
     entr
     gimp
     gnupg
-    hugo
     kind
     kubernetes-helm
     gitAndTools.hub
@@ -270,7 +270,6 @@ in
     fi
 
     $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}
-    $DRY_RUN_CMD ln -sf $VERBOSE_ARG $PERSONAL/c1/lint.sh $HOME/.local/bin/lint.sh
   '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
@@ -315,20 +314,21 @@ in
       rofi_highlight = True
       wifi_chars = ▂▄▆█
   '';
-  systemd.user.services.i3-ratiosplit = {
-    Unit = {
-      Description = "i3-ratiosplit";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
-      RestartSec = 2;
-      Restart = "always";
-    };
-  };
+  # systemd.user.services.i3-ratiosplit = {
+  #   Unit = {
+  #     Description = "i3-ratiosplit";
+  #     After = [ "graphical-session-pre.target" ];
+  #     PartOf = [ "graphical-session.target" ];
+  #   };
+  #   Install = { WantedBy = [ "graphical-session.target" ]; };
+  #   Service = {
+  #     Type = "simple";
+  #     ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
+  #     RestartSec = 2;
+  #     Restart = "on-failure";
+  #   };
+  # };
+  #
 
   xresources = {
     extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";

@@ -256,7 +256,7 @@ in
           exec ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 
           # Import the WAYLAND_DISPLAY env var from sway into the systemd user session.
-          #exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
+          exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
         '';
       };
     };
@@ -449,6 +449,22 @@ in
         timeout 400 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
           resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
       '';
+    };
+  };
+
+  systemd.user.services.i3-ratiosplit = {
+    Unit = {
+      Description = "i3-ratiosplit";
+      PartOf = [ "sway-session.target" ];
+      Requires = [ "sway-session.target" ];
+      After = [ "sway-session.target" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
+      RestartSec = 2;
+      Restart = "on-failure";
     };
   };
 
