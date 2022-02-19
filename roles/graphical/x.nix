@@ -29,7 +29,7 @@
     dpi = 96;
     layout = "us";
     displayManager = {
-      defaultSession = "home-manager";
+      defaultSession = "sway";
       job.logToFile = false;
       lightdm = {
         enable = true;
@@ -46,8 +46,11 @@
     desktopManager.session = [
       {
         name = "sway";
-        start = "start-sway";
+        start = "start-sway" + "\n";
+        bgSupport = false;
       }
     ];
   };
 }
+
+
