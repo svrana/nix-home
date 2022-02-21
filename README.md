@@ -9,10 +9,9 @@ home-manager as a module as I frequently make configuration changes for which I 
 
 ## Versioning
 
-Packages are pinned with with [niv](https://github.com/nmattia/niv).
+Packages are pinned with flakes..
 
 ## Operations
-
 
 All operations are documented in the [Makefile](./Makefile)
 
@@ -22,7 +21,7 @@ To deploy system configuration:
 make system
 ```
 
-To deploy the home (dotfile) configuation:
+To deploy the home (dotfile) configuration:
 
 ```
 make home
@@ -36,7 +35,7 @@ make vnet
 
 ## Updating
 
-git log --oneline nix.sources.json.nixpkgs.version..proposed.nixpkgs.update, i.e.,
+git log --oneline flake.lock.nodes.nixpkgs.rev..proposed.nixpkgs.update, i.e.,
 
 ```
 git log --oneline  --ancestry-path 14b0f20fa1f56438b7..21c937f8cb1e6adcfeb36

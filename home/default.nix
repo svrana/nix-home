@@ -58,7 +58,7 @@
     ./rofi.nix
     ./spotify.nix
     ./qutebrowser
-    ./weechat.nix
+    #./weechat.nix
     ./zathura.nix
   ];
 
@@ -214,7 +214,7 @@
     source = ./misc/desktop;
     recursive = true;
   };
-  home.file.".ssh/config".source = ../personal/ssh/config;
+  #home.file.".ssh/config".source = ../personal/ssh/config;
   #home.file.".pypirc".source = ../personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents

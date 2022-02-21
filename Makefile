@@ -8,6 +8,7 @@ HOSTNAME := $(hostname)
 
 DATE 		:= $(shell date +"%a %b %d %T %Y")
 UNAME_S 	:= $(shell uname -s | tr A-Z a-z)
+HOSTNAME := $(shell hostname)
 
 .PHONY: help
 help: ## Show this help
@@ -31,7 +32,7 @@ vnet: ## Push configs to machines on home network
 
 .PHONY:
 diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)
-	@current=$(shell jq -r .nixpkgs.rev < nix/sources.json)
+	@current=$(shell jq -r .nodes.nixpkgs.locked.rev < flake.lock)
 	@latest=$(shell curl --silent https://channels.nix.gsc.io/nixos-unstable/latest | cut -f1 -d" ")
 	@pushd $$PROJECTS/nixpkgs > /dev/null
 	@git log --oneline --ancestry-path $$current..$$latest | grep -v "Merge pull request" | less
