@@ -27,11 +27,13 @@ To deploy the home (dotfile) configuration:
 make home
 ```
 
-To deploy the other machines on my home network, I use [morph](https://github.com/DBCDK/morph) via the command
+To deploy the other machines on my home network, I use [deploy-rs](https://github.com/serokell/deploy-rs). i.e.,
 
 ```
-make vnet
+deploy .#bocana
 ```
+
+builds and pushes the config to bocana.
 
 ## Updating
 

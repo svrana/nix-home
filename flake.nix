@@ -8,13 +8,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs.url = "github:serokell/deploy-rs";
     discord-overlay = {
       url = "github:InternetUnexplorer/discord-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, deploy-rs, ... }@inputs:
     let
       lib = inputs.nixpkgs.lib;
       nixpkgsConfig = {
@@ -33,6 +34,8 @@
             devShell = pkgs.mkShell rec {
               name = "dots";
               buildInputs = [
+                deploy-rs.packages.x86_64-linux.deploy-rs
+
                 (import inputs.home-manager { inherit pkgs; }).home-manager
 
                 (pkgs.writeShellScriptBin "nixos-rebuild-pretty" ''
@@ -130,6 +133,22 @@
           overlayFiles // {
             discord-overlay = inputs.discord-overlay.overlay;
           };
+
+        # deploy-rs doesn't like overlays above :( (missing `final` argument) ..
+        #
+        # deploy '.#bocana'
+        deploy.nodes.bocana = {
+          hostname = "bocana";
+          sshUser = "root";
+          fastConnection = true;
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.bocana;
+          };
+        };
+
+        # This is highly advised, and will prevent many possible mistakes
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       }
     );
 }

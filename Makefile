@@ -32,7 +32,7 @@ vnet: ## Push configs to machines on home network
 
 .PHONY:
 diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)
-	@current=$(shell jq -r .nodes.nixpkgs.locked.rev < flake.lock)
+	@current=$(shell nixos-version --json | jq -r .nixpkgsRevision)
 	@latest=$(shell curl --silent https://channels.nix.gsc.io/nixos-unstable/latest | cut -f1 -d" ")
 	@pushd $$PROJECTS/nixpkgs > /dev/null
 	@git log --oneline --ancestry-path $$current..$$latest | grep -v "Merge pull request" | less
