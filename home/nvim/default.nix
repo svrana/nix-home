@@ -121,13 +121,6 @@ in
                 save_on_toggle = true,
               },
               projects = {
-                ["$C1"] = {
-                  term = {
-                    cmds = {
-                      "make"
-                    }
-                  }
-                },
                 ["$DOTFILES"] = {
                   term = {
                     cmds = {
