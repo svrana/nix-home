@@ -1,1 +1,0 @@
-throw "Use the Makefile"
