@@ -4,6 +4,7 @@ SHELL := bash
 .DELETE_ON_ERROR:
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
+HOSTNAME := $(hostname)
 
 DATE 		:= $(shell date +"%a %b %d %T %Y")
 UNAME_S 	:= $(shell uname -s | tr A-Z a-z)
@@ -18,7 +19,7 @@ system: ## Build system
 
 .PHONY: home
 home: ## Build home-manager
-	hm switch
+	hm-$(HOSTNAME)
 
 .PHONY: update
 update: ## Update nixpkgs

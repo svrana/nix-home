@@ -1,8 +1,4 @@
 { config, pkgs, lib, ... }:
-let
-  sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs { };
-in
 {
   programs.home-manager.enable = true;
 
@@ -33,7 +29,7 @@ in
     # settings has to go first as the config there controls aspects of the
     # pkg configurations below it.
     ../modules/settings.nix
-    ../personal/programs/work.nix
+    #../personal/programs/work.nix
     ./aerc
     ./alacritty.nix
     ./aws-cli.nix

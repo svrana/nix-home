@@ -1,7 +1,7 @@
 { config, pkgs, home, lib, ... }:
 
 let
-  spicetify = fetchTarball https://github.com/pietdevries94/spicetify-nix/archive/master.tar.gz;
+  #spicetify = fetchTarball https://github.com/pietdevries94/spicetify-nix/archive/master.tar.gz;
   spotify-tui = pkgs.writeScript "spotify-tui" ''
     ${pkgs.alacritty}/bin/alacritty --title Spotify --class spotify -e ${pkgs.spotify-tui}/bin/spt
   '';
@@ -20,16 +20,16 @@ let
   };
 in
 {
-  imports = [ (import "${spicetify}/module.nix") ];
+  #imports = [ (import "${spicetify}/module.nix") ];
 
   home.packages = [ pkgs.spotify ];
-  programs.spicetify = {
-    enable = false;
-    theme = "SolarizedDark";
-    injectCss = true;
-    replaceColors = true;
-    overwriteAssets = true;
-  };
+  # programs.spicetify = {
+  #   enable = false;
+  #   theme = "SolarizedDark";
+  #   injectCss = true;
+  #   replaceColors = true;
+  #   overwriteAssets = true;
+  # };
 
   services.spotifyd = {
     enable = true;
