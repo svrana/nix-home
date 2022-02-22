@@ -6,7 +6,7 @@
     hostName = "v.net";
     config = {
       adminuser = "root";
-      adminpassFile = "/tmp/nextcloud-admin-passfile";
+      adminpassFile = "/nextcloud-admin-passfile";
       defaultPhoneRegion = "US";
     };
   };
