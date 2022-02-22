@@ -4,7 +4,6 @@ SHELL := bash
 .DELETE_ON_ERROR:
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
-HOSTNAME := $(hostname)
 
 DATE 		:= $(shell date +"%a %b %d %T %Y")
 UNAME_S 	:= $(shell uname -s | tr A-Z a-z)
@@ -16,19 +15,19 @@ help: ## Show this help
 
 .PHONY: system
 system: ## Build system
-	nixos-rebuild-pretty switch
+	sudo nixos-rebuild switch --flake .
+
+.PHONY system-install-bootloader
+system-install-bootloader: ## Build system && allow downgrading bootloader
+	sudo nixos-rebuild --install-bootloader switch --flake .
 
 .PHONY: home
 home: ## Build home-manager
-	hm-$(HOSTNAME)
+	home-manager switch --flake .#${HOSTNAME}
 
 .PHONY: update
 update: ## Update nixpkgs
 	niv update nixpkgs && touch .envrc
-
-.PHONY:
-vnet: ## Push configs to machines on home network
-	@ops/home/push
 
 .PHONY:
 diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)

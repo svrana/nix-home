@@ -15,14 +15,43 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, ... }@inputs:
     let
-      lib = inputs.nixpkgs.lib;
+      inherit (nixpkgs.lib) nixosSystem;
+      inherit (builtins) readDir mapAttrs;
+      lib = nixpkgs.lib;
       nixpkgsConfig = {
         config = { allowUnfree = true; };
         overlays = builtins.attrValues self.overlays;
       };
       specialArgs = { inherit inputs; };
+
+      mkSystem = extraModules:
+        nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ({ config, ... }: {
+              system.configurationRevision = self.sourceInfo.rev;
+              services.getty.greetingLine =
+                "<<< Welcome to NixOS ${config.system.nixos.label} @ ${lib.substring 0 7 self.sourceInfo.rev} - \\l >>>";
+            })
+            { nixpkgs.overlays = nixpkgsConfig.overlays; }
+          ] ++ extraModules;
+          specialArgs.inputs = inputs;
+        };
+
+      mkHome = extraModules:
+        home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
+          username = "shaw";
+          homeDirectory = "/home/${username}";
+          extraSpecialArgs = specialArgs;
+          stateVersion = "21.03";
+          configuration = { ... }: {
+            imports = extraModules;
+            nixpkgs = nixpkgsConfig;
+          };
+        };
     in
     (
       flake-utils.lib.eachDefaultSystem
@@ -34,104 +63,38 @@
             devShell = pkgs.mkShell rec {
               name = "dots";
               buildInputs = [
-                deploy-rs.packages.x86_64-linux.deploy-rs
-
-                (import inputs.home-manager { inherit pkgs; }).home-manager
-
-                (pkgs.writeShellScriptBin "nixos-rebuild-pretty" ''
-                  sudo -E sh -c "nixos-rebuild switch --flake ."
-                  # sudo -E sh -c "nixos-rebuild --install-bootloader --flake ."
-                '')
-
-                (pkgs.writeShellScriptBin "hm-prentiss" ''
-                  home-manager switch --flake '.#prentiss'
-                '')
-                (pkgs.writeShellScriptBin "hm-park" ''
-                  home-manager switch --flake '.#park'
-                '')
-                (pkgs.writeShellScriptBin "hm-elsie" ''
-                  home-manager switch --flake '.#elsie'
-                '')
+                deploy-rs.packages.${system}.deploy-rs
+                (import home-manager { inherit pkgs; }).home-manager
               ];
-              #NIX_PATH = builtins.concatStringsSep ":" [
-              #  "nixpkgs=${inputs.nixpkgs}"
-              #"home-manager=${inputs.home-manager}"
-              #];
             };
           })
       //
       {
         nixosConfigurations = {
-          prentiss = lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [ ./hosts/prentiss/configuration.nix ];
-            specialArgs = specialArgs;
-          };
-          bocana = lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [ ./hosts/bocana/configuration.nix ];
-            specialArgs = specialArgs;
-          };
-          elsie = lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [ ./hosts/elsie/configuration.nix ];
-            specialArgs = specialArgs;
-          };
-          park = lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [ ./hosts/park/configuration.nix ];
-            specialArgs = specialArgs;
-          };
+          prentiss = mkSystem [ ./hosts/prentiss/configuration.nix ];
+          bocana = mkSystem [ ./hosts/bocana/configuration.nix ];
+          elsie = mkSystem [ ./hosts/elsie/configuration.nix ];
+          park = mkSystem [ ./hosts/park/configuration.nix ];
         };
 
         homeConfigurations = {
-          prentiss = inputs.home-manager.lib.homeManagerConfiguration rec {
-            system = "x86_64-linux";
-            username = "shaw";
-            homeDirectory = "/home/${username}";
-            extraSpecialArgs = specialArgs;
-            stateVersion = "21.03";
-            configuration = { ... }: {
-              imports = [ ./hosts/prentiss ];
-              nixpkgs = nixpkgsConfig;
-            };
-          };
-          park = inputs.home-manager.lib.homeManagerConfiguration rec {
-            system = "x86_64-linux";
-            username = "shaw";
-            homeDirectory = "/home/${username}";
-            extraSpecialArgs = specialArgs;
-            stateVersion = "21.03";
-            configuration = { ... }: {
-              imports = [ ./hosts/park ];
-              nixpkgs = nixpkgsConfig;
-            };
-          };
-          elsie = inputs.home-manager.lib.homeManagerConfiguration rec {
-            system = "x86_64-linux";
-            username = "shaw";
-            homeDirectory = "/home/${username}";
-            extraSpecialArgs = specialArgs;
-            stateVersion = "21.03";
-            configuration = { ... }: {
-              imports = [ ./hosts/elsie ];
-              nixpkgs = nixpkgsConfig;
-            };
-          };
+          prentiss = mkHome [ ./hosts/prentiss ];
+          park = mkHome [ ./hosts/park ];
+          elsie = mkHome [ ./hosts/elsie ];
         };
 
         overlays = with lib;
           let
-            overlayFiles' = filter (hasSuffix ".nix") (attrNames (builtins.readDir ./overlays));
+            overlayFiles' = filter (hasSuffix ".nix") (attrNames (readDir ./overlays));
             overlayFiles = listToAttrs (map
               (name: {
-                name = lib.removeSuffix ".nix" name;
+                name = removeSuffix ".nix" name;
                 value = import (./overlays + "/${name}");
               })
               overlayFiles');
           in
           overlayFiles // {
-            discord-overlay = inputs.discord-overlay.overlay;
+            discord-overlay = discord-overlay.overlay;
           };
 
         # deploy-rs doesn't like overlays above :( (missing `final` argument) ..
@@ -148,7 +111,7 @@
         };
 
         # This is highly advised, and will prevent many possible mistakes
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+        checks = mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       }
     );
 }
