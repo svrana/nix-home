@@ -17,7 +17,7 @@ help: ## Show this help
 system: ## Build system
 	sudo nixos-rebuild switch --flake .
 
-.PHONY system-install-bootloader
+.PHONY: system-install-bootloader
 system-install-bootloader: ## Build system && allow downgrading bootloader
 	sudo nixos-rebuild --install-bootloader switch --flake .
 
