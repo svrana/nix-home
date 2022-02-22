@@ -1,7 +1,6 @@
-self: super:
-{
-  powerline-go = super.powerline-go.overrideAttrs (old: {
-    src = super.fetchFromGitHub {
+final: prev: rec {
+  powerline-go = prev.powerline-go.overrideAttrs (old: {
+    src = final.fetchFromGitHub {
       owner = "svrana";
       repo = "powerline-go";
       rev = "6645ee9525c377e35b8aa6968e22e539883c16ab";

@@ -97,8 +97,6 @@
             discord-overlay = discord-overlay.overlay;
           };
 
-        # deploy-rs doesn't like overlays above :( (missing `final` argument) ..
-        #
         # deploy '.#bocana'
         deploy.nodes.bocana = {
           hostname = "bocana";
