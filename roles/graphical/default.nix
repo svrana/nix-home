@@ -4,11 +4,9 @@
   imports = [
     ./bluetooth.nix
     ./docker.nix
-    # not until we have a flake
-    #./home.nix
     ./plymouth.nix
     ./pkgs.nix
-    ./printing.nix
+    ../print-client.nix
     ./sound.nix
     ./x.nix
   ];

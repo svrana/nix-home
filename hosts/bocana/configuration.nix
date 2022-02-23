@@ -8,6 +8,7 @@
     ../../arch/amd
     ../../roles/standard
     ../../roles/nextcloud.nix
+    ../../roles/print-server.nix
   ];
 
   networking.hostName = "bocana";
@@ -33,7 +34,6 @@
     allowedTCPPorts = [
       80 # nextcloud
       53 # dns / adguard
-      631 # cups server
     ];
   };
 
