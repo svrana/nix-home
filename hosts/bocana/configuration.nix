@@ -15,6 +15,12 @@
   networking.interfaces.enp2s0.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
 
+  # add to host file here so it works for entire network...since bocana is our
+  # dns server.
+  networking.extraHosts = ''
+    192.168.7.170 brother
+  '';
+
   system.stateVersion = "20.09";
 
   ## adguard home
