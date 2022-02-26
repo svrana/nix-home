@@ -417,6 +417,13 @@ in
           EOF
         '';
       }
+      {
+        plugin = vim-latex-live-preview;
+        config = ''
+          let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
+          let g:livepreview_cursorhold_recompile = 0
+        '';
+      }
       lsp_signature-nvim
       friendly-snippets
       {
@@ -430,6 +437,7 @@ in
       cmp-buffer
       cmp-nvim-lsp
       cmp-nvim-lua
+      cmp-latex-symbols
       {
         plugin = nvim-cmp;
         config = lua ''
@@ -460,6 +468,7 @@ in
               { name = 'buffer', keyword_length = 5 },
               { name = 'path'     },
               { name = 'neorg'    },
+              { name = 'latex_symbols' },
             },
             experimental = {
               native_menu = false, -- default
@@ -889,10 +898,11 @@ in
                   l = { "<cmd>HopLine<cr>", "Line" },
                   c = { "<cmd>HopChar1<cr>", "Character" },
                 },
-                m = {
-                  name = "markdown",
-                  s = { "<cmd>ComposerStart<cr>", "Start composer" }, --vim-markdown-composer
-                  g = { "<cmd>Glow<cr>",          "Glow" }, -- glow-nvim
+                p = {
+                  name = "preview",
+                  l = { "<cmd>LLPStartPreview<cr>", "laTEX preview" },  -- vim-latex-live-preview
+                  g = { "<cmd>Glow<cr>",          "Glow (markdown)" },                   -- glow-nvim
+                  s = { "<cmd>ComposerStart<cr>", "Start markdown composer" },         --vim-markdown-composer
                 },
                 n = {
                   name = "new",
