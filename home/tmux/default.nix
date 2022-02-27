@@ -11,27 +11,18 @@
     escapeTime = 0;
     extraConfig = builtins.readFile ./tmux.conf;
 
-    plugins = with pkgs; [
-      tmuxPlugins.yank
-      tmuxPlugins.urlview
-      tmuxPlugins.open
-      tmuxPlugins.copycat
-      tmuxPlugins.fingers
+    plugins = with pkgs.tmuxPlugins; [
+      yank
+      urlview
+      open
+      copycat
+      fingers
+      sessionist
+      extrakto
       {
-        plugin = tmuxPlugins.resurrect;
+        plugin = resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
       }
     ];
   };
-
-  # programs.bash.initExtra = ''
-  #   tmux() {
-  #       if [ -z "$VIRTUAL_ENV" ]; then
-  #           direnv exec / tmux attach 2>/dev/null || direnv exec / tmux
-  #       else
-  #           echo "Get out of virtualenv"
-  #           return 1
-  #       fi
-  #   }
-  # '';
 }
