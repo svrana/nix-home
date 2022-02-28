@@ -47,7 +47,7 @@ windows:
         -
   - pioneers:
       layout: even-horizontal
-      root: ~/Projects/plutus-pioneer-program/code/week04
+      root: ~/Projects/plutus-pioneer-program/code/week06
       panes:
         -
         -

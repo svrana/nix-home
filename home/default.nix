@@ -372,4 +372,9 @@
     GTK_THEME = "Arc-Dark";
     MOZ_ENABLE_WAYLAND = "1";
   };
+
+  xdg.configFile."electron-flags.conf".text = ''
+    --enable-features=UseOzonePlatform
+    --ozone-platform=wayland
+  '';
 }
