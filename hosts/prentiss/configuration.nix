@@ -10,6 +10,7 @@
     ../../roles/graphical
     ../../roles/work
     ../../roles/virtualization.nix
+    ../../roles/elastic-search.nix
   ];
 
   networking.hostName = "prentiss";
