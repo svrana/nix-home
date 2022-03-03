@@ -47,7 +47,6 @@
     ./keybase.nix
     ./keychain.nix
     ./kubectl.nix
-    ./mpd
     ./nvim
     ./sway.nix
     ./tmux
