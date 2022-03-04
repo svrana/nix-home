@@ -70,6 +70,7 @@
     discord
     diffstat
     docker-compose
+    gnome.eog
     elixir
     exa
     networkmanager_dmenu
