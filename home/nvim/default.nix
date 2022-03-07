@@ -546,8 +546,8 @@ in
             wk.register({
               [ '<C-k>' ]   = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",    "method signature",     buffer = bufnr },
               [ '<C-]>' ]   = { "<cmd>lua vim.lsp.buf.definition()<cr>",        "goto definition",      buffer = bufnr },
-              [ "[d" ]      = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",  "prev diagnostic", buffer = bufnr },
-              [ "]d" ]      = { "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",  "next diagnostic", buffer = bufnr },
+              [ "[d" ]      = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",  "prev diagnostic", buffer = bufnr },
+              [ "]d" ]      = { "<cmd>lua vim.diagnostic.goto_next()<cr>",  "next diagnostic", buffer = bufnr },
               ["<leader>"]  = {
                 c = {
                   n = { "<cmd>lua vim.lsp.buf.references()<cr>",      "show callers", buffer = bufnr },
