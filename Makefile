@@ -22,7 +22,7 @@ system-install-bootloader: ## Build system && allow downgrading bootloader
 	sudo nixos-rebuild --install-bootloader switch --flake .
 
 .PHONY: home
-home: ## Build home-manager
+home: ## Build home-manager configuration for the current system
 	home-manager switch --flake .#${HOSTNAME}
 
 .PHONY: update
