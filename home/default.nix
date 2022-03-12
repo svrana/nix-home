@@ -66,11 +66,10 @@
     autotiling
     comma
     dante
-    #dbeaver
+    dbeaver
     discord
     diffstat
     docker-compose
-    gnome.eog
     elixir
     exa
     networkmanager_dmenu
@@ -89,6 +88,7 @@
     kubectx
     ledger-live-desktop
     i3-ratiosplit
+    imv
     maim
     mpv
     neomutt
@@ -378,5 +378,9 @@
   xdg.configFile."electron-flags.conf".text = ''
     --enable-features=UseOzonePlatform
     --ozone-platform=wayland
+  '';
+  xdg.configFile."imv/config".text = ''
+    [options]
+      background=002b36
   '';
 }
