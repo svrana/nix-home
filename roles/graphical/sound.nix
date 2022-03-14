@@ -15,7 +15,9 @@
       enable = true;
       support32Bit = true;
     };
-    media-session.enable = true;
     #jack.enable = true;
+    wireplumber.enable = true;
+    #media-session.enable = true;
+    media-session.enable = false;
   };
 }

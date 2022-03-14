@@ -26,15 +26,6 @@ let
       rm Makefile
     '';
   };
-  lspsaga-nvim-fork = pkgs.vimUtils.buildVimPlugin {
-    name = "lspsaga-nvim-fork";
-    src = pkgs.fetchFromGitHub {
-      owner = "tami5";
-      repo = "lspsaga.nvim";
-      rev = "dc41d1db65f629c272e5e2d5dc8e7effcedd0509";
-      sha256 = "/jwB0R2M7eh2Gho3jIbxlw2Rlb3MAMdgKbhem5AJGT4=";
-    };
-  };
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
     name = "nvim-tabline";
     src = pkgs.fetchFromGitHub {
@@ -82,7 +73,7 @@ in
       buf
       code-minimap
       gopls
-      goimports
+      gotools
       nixfmt
       nodePackages.prettier
       nodePackages.vim-language-server
@@ -399,7 +390,7 @@ in
         '';
       }
       {
-        plugin = lspsaga-nvim-fork;
+        plugin = lspsaga-nvim;
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
           vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
