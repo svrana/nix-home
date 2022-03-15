@@ -35,6 +35,26 @@ let
       sha256 = "1srv64rpx77swlq6ir3rxf8ycx6cl124fmkx3ajyngk3925fcl8n";
     };
   };
+  lualine-nvim-pin = pkgs.vimUtils.buildVimPlugin {
+    name = "lualine-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-lualine";
+      repo = "lualine.nvim";
+      rev = "1e3cfc691f7faf24ca819770754056eb13a8f7ad";
+      sha256 = "akyL/V7t4n3B/3+LNjhWRvGY1JRU6rN5d1A7HSFdIEw=";
+      # this works too v--
+      #rev = "d2e0ac595b8e315b454f4384edb2eba7807a8401";
+      #sha256 = "akyL/V7t4n3B/3+LNjhWRvGY1JRU6rN5d1A7HSFdIEw=";
+      #sha256 = "7XIx0ElpCX0e8R2xPp3K7r6jaIRWTnd55PgWFkh2mM1=";
+      # these work v--
+      #rev = "016a20711ee595a11426f9c1f4ab3e04967df553";
+      #sha256 = "7F6ci4QwTQNggkWVFOjInboQ8tXpGijZ6JAACqtyeXg=";
+    };
+    configurePhase = ''
+      rm Makefile
+    '';
+  };
+
   # neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
   #   name = "neosolarized-nvim";
   #   src = pkgs.fetchFromGitHub {
@@ -635,7 +655,7 @@ in
         '';
       }
       {
-        plugin = lualine-nvim;
+        plugin = lualine-nvim-pin;
         config = lua ''
           require('lualine').setup {
            options = {
