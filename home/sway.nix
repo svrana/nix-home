@@ -76,7 +76,7 @@ in
             border = 2;
           };
           gaps = {
-            inner = 25;
+            inner = 20;
             smartGaps = true;
           };
           seat."*" = {
@@ -346,7 +346,7 @@ in
       * {
         font-family: 'Roboto Mono for Powerline', 'UbuntuMono Nerd Font', 'SFNS Display', Helvetica, Arial, sans-serif;
         border: none;
-        border-radius: 0;
+        border-radius: 2;
         font-size: 13px;
         min-height: 0;
       }
