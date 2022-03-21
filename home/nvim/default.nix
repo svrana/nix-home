@@ -294,7 +294,7 @@ in
                 "--no-keep_simple_control_block_one_line", "--column-limit=130",
                 "--break-after-table-lb" },
               }),
-              null_ls.builtins.code_actions.gitsigns,
+              --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
             },
             debug = true,
           })
