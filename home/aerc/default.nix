@@ -14,4 +14,5 @@
   #
   xdg.configFile."aerc/aerc.conf".source = ../config/aerc/aerc.conf;
   xdg.configFile."aerc/binds.conf".source = ../config/aerc/binds.conf;
+  xdg.configFile."aerc/stylesets/solarized".source = ../config/aerc/solarized;
 }
