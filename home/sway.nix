@@ -11,7 +11,7 @@ let
   ranger = "${pkgs.ranger}/bin/ranger";
   rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
-  email_client = "${alacritty} --title email --class email -e neomutt";
+  email_client = "${alacritty} --title email --class email -e aerc";
   spotify-focus = pkgs.writeScript "spotify-focus" ''
     #!${pkgs.bash}/bin/bash
     # should instead get the window from which music is playing
