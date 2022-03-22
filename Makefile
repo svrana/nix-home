@@ -29,6 +29,10 @@ home: ## Build home-manager configuration for the current system
 update: ## Update nixpkgs
 	niv update nixpkgs && touch .envrc
 
+.PHONY: bocana
+bocana: ## Deploy bocana
+	deploy '.#bocana'
+
 .PHONY:
 diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)
 	@current=$(shell nixos-version --json | jq -r .nixpkgsRevision)
