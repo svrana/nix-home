@@ -28,7 +28,6 @@ opt.lazyredraw = true
 opt.background = "dark"
 opt.pyx = 3
 opt.termguicolors = true
-opt.showtabline = 2
 opt.cursorline = true
 -- opt.clipboard = "unnamed,unnamedplus"
 -- opt.clipboard = "unnamed"

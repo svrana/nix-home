@@ -31,8 +31,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "seblj";
       repo = "nvim-tabline";
-      rev = "1c1927049a4bb0a33df384ad0187f9db8aeefbdb";
-      sha256 = "1srv64rpx77swlq6ir3rxf8ycx6cl124fmkx3ajyngk3925fcl8n";
+      rev = "4c9f232376fcf7d581e137a4f809527e41e4176c";
+      sha256 = "sha256-VQeAS7j/XsWT+ZR1vvcWWOx50B3olIOFweZ89PiT3J4=";
     };
   };
   lualine-nvim-pin = pkgs.vimUtils.buildVimPlugin {
@@ -157,15 +157,15 @@ in
           require('tabline').setup({
             no_name = '[No Name]',    -- Name for buffers with no name
             modified_icon = '',      -- Icon for showing modified buffer
-            close_icon = '',         -- Icon for closing tab with mouse
+            close_icon = "";
             separator = "▌",          -- Separator icon on the left side
             padding = 2,              -- Prefix and suffix space
             color_all_icons = false,  -- Color devicons in active and inactive tabs
-            always_show_tabs = false, -- Always show tabline
             right_separator = false,  -- Show right separator on the last tab
             show_index = false,       -- Shows the index of tab before filename
             show_icon = true,         -- Shows the devicon
           })
+          vim.opt.showtabline = 2
         '';
       }
       direnv-vim
