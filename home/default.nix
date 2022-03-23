@@ -188,14 +188,16 @@
     enable = true;
     settings = {
       command_timeout = 100;
-      format = lib.concatStrings [
-        "$all"
-        "$directory"
-        "$character"
-      ];
+      # format = lib.concatStrings [
+      #   "$all"
+      #   "$directory"
+      #   "$character"
+      # ];
       character = {
-        success_symbol = "➜";
-        error_symbol = "[➜](bold red)";
+        success_symbol = "[❯](#859900)";
+        error_symbol = "[❯](#dc322f)";
+        #success_symbol = "[➜](#859900)";
+        #error_symbol = "[➜](#dc322f)";
       };
       kubernetes = {
         disabled = false;
