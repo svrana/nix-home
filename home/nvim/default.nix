@@ -119,6 +119,8 @@ in
       n = require('neosolarized').setup({
           comment_italics = true,
       })
+      -- haskell goes overboard with warnings and is distracting
+      n.Group.link('WarningMsg', n.groups.Comment)
       EOF
     '';
     plugins = with pkgs.vimPlugins; [
