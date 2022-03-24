@@ -111,8 +111,9 @@
     standardnotes
     system-san-francisco-font
     sysz
-    tilt
     tdesktop
+    tilt
+    tldr
     tmuxinator
     tree
     urlview
