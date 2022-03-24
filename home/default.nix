@@ -70,7 +70,6 @@
     discord
     diffstat
     docker-compose
-    elixir
     exa
     networkmanager_dmenu
     cachix
@@ -93,8 +92,6 @@
     mpv
     neomutt
     nixfmt
-    nodejs-12_x
-    nodePackages.eslint
     packer
     powerline-go
     pulumi-bin
@@ -119,8 +116,6 @@
     urlview
     w3m
     wmctrl
-    xautolock
-    xclip
     xdg_utils
     zoom
     yarn
@@ -315,21 +310,6 @@
       rofi_highlight = True
       wifi_chars = ▂▄▆█
   '';
-  # systemd.user.services.i3-ratiosplit = {
-  #   Unit = {
-  #     Description = "i3-ratiosplit";
-  #     After = [ "graphical-session-pre.target" ];
-  #     PartOf = [ "graphical-session.target" ];
-  #   };
-  #   Install = { WantedBy = [ "graphical-session.target" ]; };
-  #   Service = {
-  #     Type = "simple";
-  #     ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
-  #     RestartSec = 2;
-  #     Restart = "on-failure";
-  #   };
-  # };
-  #
 
   xresources = {
     extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
