@@ -26,6 +26,7 @@ in
       RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
 
       NIXPKGS_ALLOW_UNFREE = 1;
+      CABAL_HOME = "$XDG_DATA_HOME/cabal";
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       GEM_HOME = "$XDG_DATA_HOME/gem";
