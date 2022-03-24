@@ -87,6 +87,7 @@ in
           focus = {
             followMouse = false;
             newWindow = "focus";
+            #newWindow = "urgent";
           };
           fonts = config.settings.i3.fonts;
           colors = {
@@ -291,7 +292,9 @@ in
             "3" = "";
             "4" = "";
             "5" = "";
-            "6" = "";
+            #"6" = "";
+            #"6" = "";
+            "6" = "";
             "7" = "";
             "8" = "8";
             "9" = "9";
