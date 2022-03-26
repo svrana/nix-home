@@ -86,8 +86,8 @@ in
           window = { hideEdgeBorders = "smart"; };
           focus = {
             followMouse = false;
-            newWindow = "focus";
-            #newWindow = "urgent";
+            #newWindow = "focus";
+            newWindow = "urgent";
           };
           fonts = config.settings.i3.fonts;
           colors = {
