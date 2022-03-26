@@ -7,16 +7,16 @@
       global = {
         #geometry = "500x50-30+35";
         #origin = "top,right";
-        width = "400";
-        height = "10000";
-        offset = "50x30";
+        width = "200";
+        height = "5000";
+        offset = "25x15";
         #notification_height = 35;
         indicate_hidden = "yes";
         shrink = "no";
         separator_height = 4;
         padding = 16;
         horizontal_padding = 16;
-        frame_width = 2;
+        frame_width = 1;
         #frame_color = "#93a1a1";
         frame_color = "#2aa198";
 

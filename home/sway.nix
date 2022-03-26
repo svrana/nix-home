@@ -2,14 +2,14 @@
 let
   i3 = config.settings.i3;
   waybar = config.settings.waybar;
-  rofi = "${pkgs.rofi}/bin/rofi";
-  rofi-pass = "gopass ls --flat | rofi -dmenu -p site -theme-str 'window {width: 25%; border-color: ${cyan};}' | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard'";
+  rofi = "${pkgs.rofi-wayland}/bin/rofi";
+  rofi-pass = "gopass ls --flat | ${rofi} -dmenu -p site -theme-str 'window {width: 25%; border-color: ${cyan};}' | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard'";
   rofi-icon-size = config.settings.rofi.iconSize;
   maim = "${pkgs.maim}/bin/maim";
   grim = "${pkgs.grim}/bin/grim";
   slurp = "${pkgs.slurp}/bin/slurp";
   ranger = "${pkgs.ranger}/bin/ranger";
-  rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
+  rofi-calc-cmd = ''${rofi} -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
   email_client = "${alacritty} --title email --class email -e aerc";
   spotify-focus = pkgs.writeScript "spotify-focus" ''
@@ -73,10 +73,10 @@ in
           modifier = "Mod4";
           floating = {
             modifier = "Mod4";
-            border = 2;
+            border = 1;
           };
           gaps = {
-            inner = 20;
+            inner = 10;
             smartGaps = true;
           };
           seat."*" = {
@@ -240,15 +240,18 @@ in
           set $ws5 5
           set $ws6 6
 
-          default_border pixel 2
+          default_border pixel 1
 
-          for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 2000
-          for_window [class="Slack"] move scratchpad, move position 1000 200, resize set 1800 2000
-          for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 2000
+          for_window [class="Standard Notes"] move scratchpad, move position 500 125, resize set 900 1000
+          for_window [class="Slack"] move scratchpad, move position 500 150, resize set 900 1000
+          for_window [app_id="scratch-term"] move scratchpad, move position 500 125, resize set 900 1000
 
           assign [app_id="qutebrowser"] $ws3
 
           seat * hide_cursor 3000
+          seat * xcursor_theme Adwaita 12
+
+          output * subpixel rgb scale 2
 
           # Make all the pinentry stuff work
           # https://git.sr.ht/~sumner/home-manager-config/tree/master/item/modules/window-manager/wayland.nix#L64
@@ -273,7 +276,7 @@ in
         modules-left = [ "sway/workspaces" "sway/mode" ];
         modules-center = [ "sway/window" ];
         modules-right = [ "idle_inhibitor" "pulseaudio" "network" "clock" ];
-        height = 32;
+        height = 16;
         "clock" = {
           "timezone" = "America/Los_Angeles";
           "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
@@ -349,36 +352,36 @@ in
       * {
         font-family: 'Roboto Mono for Powerline', 'UbuntuMono Nerd Font', 'SFNS Display', Helvetica, Arial, sans-serif;
         border: none;
-        border-radius: 2;
-        font-size: 13px;
+        border-radius: 1;
+        font-size: 6px;
         min-height: 0;
       }
       window#waybar {
         background-color: ${base02};
-        border-bottom: 3px solid ${base03};
+        border-bottom: 1px solid ${base03};
         color: #dfdfdf;
         transition-property: background-color;
         transition-duration: .5s;
       }
       #workspaces button {
-        padding: 0px 14px 0px 10px;
-        font-size: 16px;
+        padding: 0px 2px 0px 2px;
+        font-size: 8px;
         background: transparent;
         color: #dfdfdf;
         /* Use box-shadow instead of border so the text isn't offset */
-        box-shadow: inset 0 -3px transparent;
+        box-shadow: inset 0 -1px transparent;
       }
       #workspaces button.focused {
         background-color: ${base00};
-        box-shadow: inset 0 -3px ${cyan};
+        box-shadow: inset 0 -1.5px ${cyan};
       }
       #workspaces button:hover {
         background: rgba(0, 0, 0, 0.2);
-        box-shadow: inset 0 -3px ${violet};
+        box-shadow: inset 0 -1.5px ${violet};
       }
       #mode {
         background-color: ${base01};
-        border-bottom: 3px solid ${yellow};
+        border-bottom: 1.5px solid ${yellow};
       }
       #workspaces button.urgent {
         background-color: ${cyan};
@@ -398,12 +401,12 @@ in
       #custom,
       #idle_inhibitor,
       #mpd {
-        padding: 0 10px;
-        margin: 0 5px;
+        padding: 0 5px;
+        margin: 0 3px;
       }
 
       #window {
-        font-size: 14px;
+        font-size: 7px;
       }
 
       /* If workspaces is the leftmost module, omit left margin */

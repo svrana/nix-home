@@ -46,7 +46,7 @@ in
           default = {
             names = [ "SFNS Display" ];
             style = "Regular";
-            size = 12.0;
+            size = 6.0;
           };
           example = literalExample ''
             {
@@ -64,33 +64,33 @@ in
           type = types.str;
         };
         fontSize = mkOption {
-          default = 11.50;
+          default = 5.4;
           type = types.float;
         };
       };
       rofi = {
         fontSize = mkOption {
-          default = 12;
+          default = 6;
           type = types.int;
         };
         iconSize = mkOption {
-          default = "1.8ch";
+          default = "1.0ch";
           type = types.str;
         };
       };
       dunst = {
         fontSize = mkOption {
-          default = 12;
+          default = 6;
           type = types.int;
         };
       };
       x = {
         cursorSize = mkOption {
-          default = 14;
+          default = 3;
           type = types.int;
         };
         dpi = mkOption {
-          default = 96;
+          default = 192;
           type = types.int;
         };
       };
@@ -103,19 +103,19 @@ in
       polybar = {
         font0 = {
           size = mkOption {
-            default = "10;2";
+            default = "5;2";
             type = types.str;
           };
         };
         font1 = {
           size = mkOption {
-            default = "12;0";
+            default = "6;0";
             type = types.str;
           };
         };
         font2 = {
           size = mkOption {
-            default = "22;4"; # untested
+            default = "12;4"; # untested
             type = types.str;
           };
         };

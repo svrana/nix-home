@@ -35,6 +35,10 @@ in
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+      #NIXOS_OZONE_WL = 1; # use wayland in electron apps
+      GDK_DPI_SCALE = 0.5; # scale fonts down in GDK
+      QT_AUTO_SCREEN_SCALE_FACTOR = 0;
+      QT_SCALE_FACTOR = .5;
 
       MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
       TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
