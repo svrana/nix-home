@@ -26,7 +26,8 @@
     enable = true;
     xkbOptions = "ctrl:nocaps";
     # TODO: should be configurable per host
-    dpi = 96;
+    #dpi = 96;
+    dpi = 192;
     layout = "us";
     displayManager.lightdm.enable = false;
     #   displayManager = {
