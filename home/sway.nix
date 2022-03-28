@@ -32,8 +32,8 @@ let
     "--clock"
     "--indicator"
     "--line-uses-inside"
-    "--indicator-radius 100"
-    "--indicator-thickness 7"
+    "--indicator-radius 50"
+    "--indicator-thickness 3"
     "--fade-in 0.5"
     "--text-color 586e75"
   ];

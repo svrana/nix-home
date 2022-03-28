@@ -8,14 +8,14 @@
         #geometry = "500x50-30+35";
         #origin = "top,right";
         width = "200";
-        height = "5000";
+        height = "500";
         offset = "25x15";
         #notification_height = 35;
         indicate_hidden = "yes";
         shrink = "no";
         separator_height = 4;
-        padding = 16;
-        horizontal_padding = 16;
+        padding = 8;
+        horizontal_padding = 8;
         frame_width = 1;
         #frame_color = "#93a1a1";
         frame_color = "#2aa198";
@@ -38,13 +38,13 @@
         format = "<b>%s</b>\\n%b";
         alignment = "left";
         show_age_threshold = 60;
-        word_wrap = "yes";
+        word_wrap = "no";
         ignore_newline = "no";
         stack_duplicates = false;
         hide_duplicate_count = false;
         show_indicators = "yes";
         icon_position = "left";
-        max_icon_size = 128;
+        max_icon_size = 64;
       };
       urgency_low = {
         background = "#002b36";
