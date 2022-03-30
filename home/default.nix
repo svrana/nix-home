@@ -92,6 +92,7 @@
     mpv
     neomutt
     nixfmt
+    nixpkgs-review
     packer
     powerline-go
     pulumi-bin
