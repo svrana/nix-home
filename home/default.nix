@@ -111,7 +111,7 @@
     sysz
     tdesktop
     tilt
-    tldr
+    tealdeer
     tmuxinator
     tree
     urlview
