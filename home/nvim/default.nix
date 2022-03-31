@@ -35,35 +35,15 @@ let
       sha256 = "sha256-VQeAS7j/XsWT+ZR1vvcWWOx50B3olIOFweZ89PiT3J4=";
     };
   };
-  lualine-nvim-pin = pkgs.vimUtils.buildVimPlugin {
-    name = "lualine-nvim";
+  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "neosolarized-nvim";
     src = pkgs.fetchFromGitHub {
-      owner = "nvim-lualine";
-      repo = "lualine.nvim";
-      rev = "1e3cfc691f7faf24ca819770754056eb13a8f7ad";
-      sha256 = "akyL/V7t4n3B/3+LNjhWRvGY1JRU6rN5d1A7HSFdIEw=";
-      # this works too v--
-      #rev = "d2e0ac595b8e315b454f4384edb2eba7807a8401";
-      #sha256 = "akyL/V7t4n3B/3+LNjhWRvGY1JRU6rN5d1A7HSFdIEw=";
-      #sha256 = "7XIx0ElpCX0e8R2xPp3K7r6jaIRWTnd55PgWFkh2mM1=";
-      # these work v--
-      #rev = "016a20711ee595a11426f9c1f4ab3e04967df553";
-      #sha256 = "7F6ci4QwTQNggkWVFOjInboQ8tXpGijZ6JAACqtyeXg=";
+      owner = "svrana";
+      repo = "neosolarized.nvim";
+      rev = "b78139a96b025b470b0d9ea8656707f9bff16e2a";
+      sha256 = "sha256-VvT7WXFPWHWPbUvQlREo/VfDIniUOYQnVqrwbLMoJnw=";
     };
-    configurePhase = ''
-      rm Makefile
-    '';
   };
-
-  # neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
-  #   name = "neosolarized-nvim";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "svrana";
-  #     repo = "neosolarized.nvim";
-  #     rev = "a0376ce234279c88e166e75331baf202b0039e42";
-  #     sha256 = "18wqlc696kndnbci2gqcyhfq95w5mchxzjhnkd3bw8ddb0v27kcn";
-  #   };
-  # };
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -115,13 +95,15 @@ in
 
       "set tabline=%!MyTabLine()
 
-      lua << EOF
-      n = require('neosolarized').setup({
-          comment_italics = true,
-      })
-      -- haskell goes overboard with warnings and is distracting
-      n.Group.link('WarningMsg', n.groups.Comment)
-      EOF
+      " uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
+      " and remove from plugin section below
+      "lua << EOF
+      "n = require('neosolarized').setup({
+      "     comment_italics = true,
+      " })
+      " -- haskell goes overboard with warnings and is distracting
+      " n.Group.link('WarningMsg', n.groups.Comment)
+      "EOF
     '';
     plugins = with pkgs.vimPlugins; [
       {
@@ -172,15 +154,15 @@ in
       }
       direnv-vim
       editorconfig-nvim
-      # {
-      #   plugin = neosolarized-nvim;
-      #   config = lua ''
-      #     require('neosolarized').setup({
-      #         comment_italics = true,
-      #     })
-      #   '';
-      # }
-      #}
+      {
+        plugin = neosolarized-nvim;
+        config = lua ''
+          n = require('neosolarized').setup({
+              comment_italics = true,
+          })
+          n.Group.link('WarningMsg', n.groups.Comment)
+        '';
+      }
       {
         plugin = git-worktree-nvim;
         config = lua ''
@@ -657,7 +639,7 @@ in
         '';
       }
       {
-        plugin = lualine-nvim-pin;
+        plugin = lualine-nvim;
         config = lua ''
           require('lualine').setup {
            options = {
