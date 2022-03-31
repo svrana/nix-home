@@ -274,11 +274,18 @@ in
         modules-center = [ "sway/window" ];
         modules-right = [ "idle_inhibitor" "pulseaudio" "network" "clock" ];
         height = 32;
+
         "clock" = {
-          "timezone" = "America/Los_Angeles";
+          "format" = "  {:%H:%M   %e %b}";
           "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          "format-alt" = "{:%Y-%m-%d}";
+          "today-format" = "<b>{}</b>";
+          #"on-click"= "gnome-calendar"
         };
+        # "clock" = {
+        #   "timezone" = "America/Los_Angeles";
+        #   "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+        #   "format-alt" = "{:%Y-%m-%d}";
+        # };
         "sway/mode" = {
           "format" = "<span style=\"italic\">{}</span>";
         };
@@ -354,15 +361,16 @@ in
         min-height: 0;
       }
       window#waybar {
-        background-color: ${base02};
+        background: ${base02};
         border-bottom: 3px solid ${base03};
         color: #dfdfdf;
-        transition-property: background-color;
+        transition-property: background;
         transition-duration: .5s;
       }
       #workspaces button {
         padding: 0px 14px 0px 10px;
         font-size: 16px;
+        font-weight: bold;
         background: transparent;
         color: #dfdfdf;
         /* Use box-shadow instead of border so the text isn't offset */
@@ -399,7 +407,22 @@ in
       #idle_inhibitor,
       #mpd {
         padding: 0 10px;
-        margin: 0 5px;
+        margin: 10px;
+        font-weight: bold;
+        border-radius: 4px;
+        color: #D8DEE9;
+      }
+
+      #clock {
+        background: ${base01};
+      }
+
+      #pulseaudio {
+        background: ${base01};
+      }
+
+      #network {
+        background: ${base01}
       }
 
       #window {
