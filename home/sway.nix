@@ -406,8 +406,9 @@ in
       #custom,
       #idle_inhibitor,
       #mpd {
-        padding: 0 10px;
-        margin: 10px;
+        /* tweak padding / margin here to get bottom of window alignment correct */
+        padding: 0 6px;
+        margin: 6px;
         font-weight: bold;
         border-radius: 4px;
         color: #D8DEE9;
