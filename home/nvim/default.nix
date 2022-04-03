@@ -108,36 +108,37 @@ in
     plugins = with pkgs.vimPlugins; [
       {
         plugin = harpoon;
+        type = "lua";
         config = ''
-          lua << EOF
-            require("harpoon").setup({
-              global_settings = {
-                enter_on_sendcmd = true,
-                save_on_toggle = true,
-              },
-              projects = {
-                ["$DOTFILES"] = {
-                  term = {
-                    cmds = {
-                      "make home"
-                    }
+          require("harpoon").setup({
+            global_settings = {
+              enter_on_sendcmd = true,
+              save_on_toggle = true,
+            },
+            projects = {
+              ["$DOTFILES"] = {
+                term = {
+                  cmds = {
+                    "make home"
                   }
                 }
               }
-            })
-          EOF
+            }
+          })
         '';
       }
       colorbuddy-nvim
       {
         plugin = diffview-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('diffview').setup()
         '';
       }
       {
         plugin = nvim-tabline;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('tabline').setup({
             no_name = '[No Name]',    -- Name for buffers with no name
             modified_icon = '',      -- Icon for showing modified buffer
@@ -156,7 +157,8 @@ in
       editorconfig-nvim
       {
         plugin = neosolarized-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           n = require('neosolarized').setup({
               comment_italics = true,
           })
@@ -165,13 +167,15 @@ in
       }
       {
         plugin = git-worktree-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require("git-worktree").setup({})
         '';
       }
       {
         plugin = hop-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('hop').setup({})
           vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
           vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
@@ -183,7 +187,8 @@ in
       }
       {
         plugin = go-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
         '';
       }
@@ -198,7 +203,8 @@ in
       nvim-web-devicons
       {
         plugin = neorg;
-        config = lua ''
+        type = "lua";
+        config = ''
            require('neorg').setup {
              load = {
                ["core.defaults"] = {},              -- Load all the default modules
@@ -228,7 +234,8 @@ in
       plenary-nvim
       {
         plugin = null-ls-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           local null_ls = require('null-ls')
           local helpers = require('null-ls.helpers')
 
@@ -286,7 +293,8 @@ in
       }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
-        config = lua ''
+        type = "lua";
+        config = ''
           require('nvim-treesitter.configs').setup {
               highlight = {
                 enable = true,
@@ -304,7 +312,8 @@ in
       telescope-fzf-native-nvim
       {
         plugin = telescope-project-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('telescope').load_extension('project')
         '';
       }
@@ -317,7 +326,8 @@ in
       }
       {
         plugin = telescope-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           local actions = require('telescope.actions')
 
           defaults =
@@ -369,7 +379,8 @@ in
       }
       {
         plugin = nvim-bqf;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('bqf').setup({
             func_map = {
               pscrollup = '<c-d>',
@@ -388,7 +399,8 @@ in
       }
       {
         plugin = lspkind-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           -- vscode icons on lsp completion
           require('lspkind').init()
         '';
@@ -423,7 +435,8 @@ in
       friendly-snippets
       {
         plugin = luasnip;
-        config = lua ''
+        type = "lua";
+        config = ''
           require("luasnip/loaders/from_vscode").lazy_load()
         '';
       }
@@ -435,7 +448,8 @@ in
       cmp-latex-symbols
       {
         plugin = nvim-cmp;
-        config = lua ''
+        type = "lua";
+        config = ''
           local luasnip = require('luasnip')
           local cmp = require('cmp')
           cmp.setup {
@@ -498,7 +512,8 @@ in
       }
       {
         plugin = nvim-lspconfig;
-        config = lua ''
+        type = "lua";
+        config = ''
           local nvim_lsp = require('lspconfig')
           local protocol = require('vim.lsp.protocol')
           local wk = require("which-key")
@@ -640,7 +655,8 @@ in
       }
       {
         plugin = lualine-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('lualine').setup {
            options = {
              icons_enabled = true,
@@ -694,7 +710,8 @@ in
       rhubarb
       {
         plugin = gitsigns-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('gitsigns').setup({
             current_line_blame = false,
             -- redefining some of the defaults to remove the ones that override <leader>h which I use for harpoon
@@ -709,7 +726,8 @@ in
       minimap-vim
       {
         plugin = neogit;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('neogit').setup {
             disable_commit_confirmation = true,
             integrations = {
@@ -722,7 +740,8 @@ in
       nvim-ts-context-commentstring
       {
         plugin = comment-nvim;
-        config = lua ''
+        type = "lua";
+        config = ''
           require('Comment').setup({
             -- delegate to nvim-ts-context-commentstring for figuring out commentstring type
             pre_hook = function(ctx)
@@ -794,142 +813,140 @@ in
       vim-tmux
       {
         plugin = nvim-tree-lua;
+        type = "lua";
         config = ''
-          lua << EOF
-            require('nvim-tree').setup({
-              disable_netrw = false,  -- needed for fugitive GBrowse
-              auto_close = true,
-              hijack_cursor = true,
-              tree_follow = 1,
-              tree_gitignore = 1,
-              tree_group_empty = 1,
-            })
-          EOF
+          require('nvim-tree').setup({
+            disable_netrw = false,  -- needed for fugitive GBrowse
+            auto_close = true,
+            hijack_cursor = true,
+            tree_follow = 1,
+            tree_gitignore = 1,
+            tree_group_empty = 1,
+          })
         '';
       }
       {
         plugin = which-key-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
-            wk = require("which-key")
-            wk.setup{
-              window = {
-                border = "single"
-              }
+          wk = require("which-key")
+          wk.setup{
+            window = {
+              border = "single"
             }
-            wk.register({
-              ["<leader>"] = {
-                c = {
-                  name = "code",
-                  d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
-                  a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
-                  f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
-                  j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
-                  p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
-                  r = { "<cmd>Lspsaga rename<cr>", "Rename" },
-                  s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
-                  i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
-                  l = { "<cmd>GoFillStruct<cr>", "Fill golang struct" },
-                  g = {
-                    name = "go",
-                    f = {
-                      name = "fill",
-                      s = { "<cmd>GoFillStruct<cr>",  "Struct" },
-                      w = { "<cmd>GoFillSwitch<cr>",  "sWitch" },
-                      t = { "<cmd>GoAddTag<cr>",      "Tags" }
-                    }
-                  }
-                },
-                d = {
-                  name = "display",
-                  d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
-                  m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
-                  n = {
-                    name = "number",
-                    r = { "<cmd>set relativenumber!<cr>", "Relative line numbers" },
-                    l = { "<cmd>set number!<cr>", "Line numbers" },
-                  },
-                  t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
-                  g = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
-                },
-                f = {
-                  name = "file/fuzzy",
-                  d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
-                  b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
-                  f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
-                  h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
-                  n = { "<cmd>lua require('svrana.telescope').dots()<cr>",                    "dotfiles" },
-                  p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>",   "Project change" },
-                  r = { "<cmd>Rg<cr>",                                                        "Search file contents (rg)" }, -- fzf
-                  s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",              "Search file contents" },
-                  z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
-                },
+          }
+          wk.register({
+            ["<leader>"] = {
+              c = {
+                name = "code",
+                d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
+                a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
+                f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
+                j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
+                p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
+                r = { "<cmd>Lspsaga rename<cr>", "Rename" },
+                s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
+                i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
+                l = { "<cmd>GoFillStruct<cr>", "Fill golang struct" },
                 g = {
-                  name = "git",
-                  b = {
-                    name = "Blame",
-                    f = { "<cmd>Git blame<cr>",                                                 "File" },        -- fugitive
-                    l = { "<cmd>lua require('gitsigns').blame_line{full=true}<cr>",             "Line" },
-                  },
-                  t = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
-                  h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
-                  s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
-                  z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
-                },
-                h = {
-                  name = "harpoon",
-                  s = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show" },
-                  a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
-                  r = { "<cmd>lua require('harpoon.term').sendCommand('{bottom-right}', 1)<cr>", "Run command"},
-                  e = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", "Edit command" },
-                  ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
-                  ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
-                  ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "goto file 3" },
-                  ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "goto file 4" },
-                },
-                j = {
-                  name = "jump",
-                  w = { "<cmd>HopWord<cr>", "Word" },
-                  l = { "<cmd>HopLine<cr>", "Line" },
-                  c = { "<cmd>HopChar1<cr>", "Character" },
-                },
-                p = {
-                  name = "preview",
-                  l = { "<cmd>LLPStartPreview<cr>", "laTEX preview" },  -- vim-latex-live-preview
-                  g = { "<cmd>Glow<cr>",          "Glow (markdown)" },                   -- glow-nvim
-                  s = { "<cmd>ComposerStart<cr>", "Start markdown composer" },         --vim-markdown-composer
-                },
+                  name = "go",
+                  f = {
+                    name = "fill",
+                    s = { "<cmd>GoFillStruct<cr>",  "Struct" },
+                    w = { "<cmd>GoFillSwitch<cr>",  "sWitch" },
+                    t = { "<cmd>GoAddTag<cr>",      "Tags" }
+                  }
+                }
+              },
+              d = {
+                name = "display",
+                d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
+                m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                 n = {
-                  name = "new",
-                  t = { "<cmd>tabnew<cr>", "Tab" },
+                  name = "number",
+                  r = { "<cmd>set relativenumber!<cr>", "Relative line numbers" },
+                  l = { "<cmd>set number!<cr>", "Line numbers" },
                 },
-                s = {
-                  name = "source",
-                  v = { "<cmd>source $XDG_CONFIG_HOME/nvim/init.vim<cr>", "Vimrc" },
+                t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
+                g = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
+              },
+              f = {
+                name = "file/fuzzy",
+                d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
+                b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
+                f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
+                h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
+                n = { "<cmd>lua require('svrana.telescope').dots()<cr>",                    "dotfiles" },
+                p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>",   "Project change" },
+                r = { "<cmd>Rg<cr>",                                                        "Search file contents (rg)" }, -- fzf
+                s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",              "Search file contents" },
+                z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
+              },
+              g = {
+                name = "git",
+                b = {
+                  name = "Blame",
+                  f = { "<cmd>Git blame<cr>",                                                 "File" },        -- fugitive
+                  l = { "<cmd>lua require('gitsigns').blame_line{full=true}<cr>",             "Line" },
                 },
-                t = {
-                  name = "toggle",
-                  c = { "<cmd>set cursorline!<cr>", "Cursorline" },
-                  n = { "<cmd>set relativenumber!<cr>", "Number" },
-                  h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
-                },
-                w = { "<cmd>w<cr>", "Write file" },
-                q = { "<cmd>q<cr>", "Quit" },
-                u = {
-                  name = "quickfix",
-                  c = { "<cmd>cclose<cr>", "Close" },
-                  n = { "<cmd>cnext<cr>", "Next" },
-                  p = { "<cmd>cprev<cr>", "Previous" },
-                },
-                z = { "<cmd>q!<cr>" },
-                r = {
-                  s = { "<cmd>lua require('svrana.repl').set_job_id()<cr>",       "Set job id" },
-                  c = { "<cmd>lua require('svrana.repl').set_job_command()<cr>",  "set job Command" },
-                  i = { "<cmd>lua require('svrana.repl').send_to_term()<cr>",     "send command"},
-                },
-              }
-            })
-          EOF
+                t = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
+                h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
+                s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
+                z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
+              },
+              h = {
+                name = "harpoon",
+                s = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show" },
+                a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
+                r = { "<cmd>lua require('harpoon.term').sendCommand('{bottom-right}', 1)<cr>", "Run command"},
+                e = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", "Edit command" },
+                ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
+                ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
+                ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "goto file 3" },
+                ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "goto file 4" },
+              },
+              j = {
+                name = "jump",
+                w = { "<cmd>HopWord<cr>", "Word" },
+                l = { "<cmd>HopLine<cr>", "Line" },
+                c = { "<cmd>HopChar1<cr>", "Character" },
+              },
+              p = {
+                name = "preview",
+                l = { "<cmd>LLPStartPreview<cr>", "laTEX preview" },  -- vim-latex-live-preview
+                g = { "<cmd>Glow<cr>",          "Glow (markdown)" },                   -- glow-nvim
+                s = { "<cmd>ComposerStart<cr>", "Start markdown composer" },         --vim-markdown-composer
+              },
+              n = {
+                name = "new",
+                t = { "<cmd>tabnew<cr>", "Tab" },
+              },
+              s = {
+                name = "source",
+                v = { "<cmd>source $XDG_CONFIG_HOME/nvim/init.vim<cr>", "Vimrc" },
+              },
+              t = {
+                name = "toggle",
+                c = { "<cmd>set cursorline!<cr>", "Cursorline" },
+                n = { "<cmd>set relativenumber!<cr>", "Number" },
+                h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
+              },
+              w = { "<cmd>w<cr>", "Write file" },
+              q = { "<cmd>q<cr>", "Quit" },
+              u = {
+                name = "quickfix",
+                c = { "<cmd>cclose<cr>", "Close" },
+                n = { "<cmd>cnext<cr>", "Next" },
+                p = { "<cmd>cprev<cr>", "Previous" },
+              },
+              z = { "<cmd>q!<cr>" },
+              r = {
+                s = { "<cmd>lua require('svrana.repl').set_job_id()<cr>",       "Set job id" },
+                c = { "<cmd>lua require('svrana.repl').set_job_command()<cr>",  "set job Command" },
+                i = { "<cmd>lua require('svrana.repl').send_to_term()<cr>",     "send command"},
+              },
+            }
+          })
         '';
       }
     ];
