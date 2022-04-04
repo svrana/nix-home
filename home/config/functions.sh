@@ -22,7 +22,6 @@ alias bzip='bzip2'
 alias bunzip='bunzip2'
 alias diff='diff -u'
 alias rmkey='ssh-keygen -f "~/.ssh/known_hosts" -R'
-alias upgrade='sudo apt update && sudo apt upgrade -y && sudo apt clean && sudo apt autoremove -y'
 alias diskspace="du -S | sort -n -r |less"
 alias kvswap='rm  ~/.local/share/nvim/swap/*'
 

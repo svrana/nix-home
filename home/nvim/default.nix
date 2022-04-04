@@ -48,17 +48,6 @@ in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
     let mapleader = ","
-    set pumblend=10
-    set foldmethod=marker
-
-    tnoremap <Esc> <C-\><C-n>
-    au TermOpen term://* startinsert
-    au InsertEnter * setlocal nocursorline
-    au InsertLeave * setlocal cursorline
-
-    lua << EOF
-      require('svrana.globals')
-    EOF
   '';
 
   programs.neovim = {
@@ -91,19 +80,112 @@ in
       #haskellPackages.ormolu
     ];
     extraConfig = ''
-      source $DOTFILES/home/nvim/init.vim
+      lua << EOF
+        require('svrana.globals')
 
-      "set tabline=%!MyTabLine()
+        local opt = vim.opt
+        opt.ttimeout = false
+        opt.ttimeoutlen = 100
+        opt.ignorecase = true
+        opt.wrap = false
+        opt.backspace = "indent,eol,start"
+        opt.smartcase = true
+        opt.incsearch = true
+        opt.hlsearch = false
+        opt.incsearch = true
+        opt.hlsearch = false
+        opt.inccommand = "split"
+        opt.showmatch = true
+        opt.backupext  = ".bak"
+        opt.errorbells = false
+        opt.showmode = false
+        opt.visualbell = true
+        opt.ruler = true
+        opt.laststatus = 2
+        opt.equalalways = false
+        opt.updatetime = 100
+        opt.lazyredraw = true
+        opt.background = "dark"
+        opt.pyx = 3
+        opt.termguicolors = true
+        opt.cursorline = true
+        -- opt.clipboard = "unnamed,unnamedplus"
+        -- opt.clipboard = "unnamed"
+        opt.pumblend    = 10
+        opt.foldmethod  = "marker"
+        opt.completeopt = "menuone,noselect"
+        opt.rtp:append(vim.env.RCS .. '/nvim/vimsnips')
 
-      " uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
-      " and remove from plugin section below
-      "lua << EOF
-      "n = require('neosolarized').setup({
-      "     comment_italics = true,
-      " })
-      " -- haskell goes overboard with warnings and is distracting
-      " n.Group.link('WarningMsg', n.groups.Comment)
-      "EOF
+        local g = vim.g
+        g.autoswap_detect_tmux = 1
+
+        local map = vim.api.nvim_set_keymap
+        local options = { noremap = true, silent = true }
+        -- move lines (and blocks of lines in visual mode) up and down using alt-j/k
+        map('n', '<A-j>', ':m .+1<CR>==', options)
+        map('n', '<A-k>', ':m .-2<CR>==', options)
+        map('i', '<A-j>', '<Esc>:m .+1<CR>==gi', options)
+        map('i', '<A-k>', '<Esc>:m .-2<CR>==gi', options)
+        map('v', '<A-j>', ':m \'>+1<CR>gv=gv', options)
+        map('v', '<A-k>', ':m \'<-2<CR>gv=gv', options)
+        map('i', '<leader>q', '<esc>:q<cr>', options)
+        map('i', '<leader>w', '<esc>:w<cr>', options)
+        map('n', '<leader>e', '<esc>:wq<cr>', options)
+        map('n', '<leader>z', '<esc>:q!<cr>', options)
+        map('c', 'w!!', '%!sudo tee > /dev/null %', {})
+        map('n', 'Q', '@@', options)
+        map('n', '\th', ':set invhls hls?<cr>', options)
+        map('n', '<c-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<cr>', options)
+        map('n', '<c-d>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
+        map('i', '<c-a>', '<esc>^i', options)
+        map('n', '<c-d>', '<c-b>', {})
+        map('n', '<c-x>', ':tabclose<cr>', options)
+        map('n', '<c-s>', ':tabp<cr>', options)
+        map('n', '<c-h>', ':tabn<cr>', options)
+        map('i', 'jj', '<esc>', {})
+        map('n', '-', '<c-w>-', options)
+        map('n', '+', '<c-w>+', options)
+        map('t', '<esc>', [[<c-\><c-n>]], {})
+
+        autocmd = require('svrana.utils').autocmd
+        autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
+        autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
+        autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
+        autocmd('FileType', '*',          'setlocal formatoptions+=croq')
+        autocmd('BufRead', 'gitcommit',   'setlocal spell spelllang=en_US textwidth=72')
+        autocmd('BufRead', 'gitcommit',   'setlocal fo+=t')
+        autocmd('BufRead', '*.md',        'setlocal spell spelllang=en_US textwidth=90')
+        autocmd('BufRead', '*.txt',       'setlocal spell spelllang=en_US textwidth=90')
+        autocmd('BufRead', '*.eml',       'setlocal spell spelllang=en_US textwidth=90')
+        autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]],       'setf ruby')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
+        autocmd('BufRead', 'Tiltfile',    'set filetype=python')
+        autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
+        autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
+        autocmd('TermOpen', 'term://*',   'startinsert')
+        autocmd('InsertEnter', '*',       'setlocal nocursorline')
+        autocmd('InsertLeave', '*',       'setlocal cursorline')
+
+      -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
+      -- and remove from plugin section below
+      -- N = require('neosolarized').setup({
+      --     comment_italics = true,
+      -- })
+      -- haskell goes overboard with warnings and is distracting
+      -- N.Group.link('WarningMsg', n.groups.Comment)
+
+        -- nvim_set_hl in 0.7
+        vim.api.nvim_exec([[
+          highlight IncSearch ctermbg=LightYellow ctermfg=Red
+          highlight WhiteOnRed ctermfg=white ctermbg=red
+        ]], false)
+      EOF
+      " Make the 81st column standout; used by all ftplugins.
+      function FTPluginSetupCommands()
+          call matchadd('ColorColumn', '\%81v', 100)
+      endfunction
     '';
     plugins = with pkgs.vimPlugins; [
       {
@@ -159,7 +241,7 @@ in
         plugin = neosolarized-nvim;
         type = "lua";
         config = ''
-          n = require('neosolarized').setup({
+          local n = require('neosolarized').setup({
               comment_italics = true,
           })
           n.Group.link('WarningMsg', n.groups.Comment)
@@ -329,21 +411,19 @@ in
         type = "lua";
         config = ''
           local actions = require('telescope.actions')
-
-          defaults =
           require('telescope').setup{
             defaults = {
-             file_ignore_patterns = { 'vendor' },
-             layout_strategy = 'vertical',
-             set_env = { ['COLORTERM'] = 'truecolor' },
+              file_ignore_patterns = { 'vendor' },
+              layout_strategy = 'vertical',
+              set_env = { ['COLORTERM'] = 'truecolor' },
               mappings = {
                 i = {
-                    ["<C-j>"] = actions.move_selection_next,
-                    ["<C-k>"] = actions.move_selection_previous,
-                    --["<esc>"] = actions.close, -- can't really get to normal mode if you do this, use c-c to exit
-                    ["<C-u>"] = false,
-                    ["<C-f>"] = actions.preview_scrolling_down,   -- remap of c-u, b/c I like emacs
-                    ["<C-d>"] = actions.preview_scrolling_up, -- default
+                  ["<C-j>"] = actions.move_selection_next,
+                  ["<C-k>"] = actions.move_selection_previous,
+                  --["<esc>"] = actions.close, -- can't really get to normal mode if you do this, use c-c to exit
+                  ["<C-u>"] = false,
+                  ["<C-f>"] = actions.preview_scrolling_down,   -- remap of c-u, b/c I like emacs
+                  ["<C-d>"] = actions.preview_scrolling_up, -- default
                 },
                 n = {
                   ["q"] = actions.close
@@ -623,7 +703,7 @@ in
 
           nvim_lsp.sumneko_lua.setup {
             on_attach = on_attach,
-            capabilities = capabiltiies,
+            capabilities = capabilities,
             flags = {
               debounce_text_changes = 150,
             },
@@ -643,6 +723,7 @@ in
                 workspace = {
                   -- Make the server aware of Neovim runtime files
                   library = vim.api.nvim_get_runtime_file("", true),
+                  checkThirdParty = false,
                 },
                 -- Do not send telemetry data containing a randomized but unique identifier
                 telemetry = {
