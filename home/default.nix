@@ -73,6 +73,7 @@
     exa
     networkmanager_dmenu
     cachix
+    ctlptl
     google-chrome
     niv
     element-desktop
@@ -292,6 +293,7 @@
     pb
   '';
   xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
+  xdg.configFile."tmuxinator/project.yml".source = ./config/tmux/project.yml;
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

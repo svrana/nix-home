@@ -12,6 +12,22 @@ let
   rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   alacritty = "${pkgs.alacritty}/bin/alacritty";
   email_client = "${alacritty} --title email --class email -e aerc";
+  tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
+    #!/usr/bin/env bash
+
+    mux_project() {
+      tmuxinator start project -n $1 workspace=$2
+    }
+    tmux_from_scratch() {
+      tmuxinator start project -n dots workspace=$DOTFILES
+      tmuxinator start project -n nixpkgs workspace=$PROJECTS/nixpkgs
+      tmuxinator start project -n b6 workspace=$PROJECTS/b6
+      tmuxinator start project -n aws-ops workspace=$PROJECTS/aws-ops
+      tmux attach -t b6
+    }
+
+    tmux attach || tmux_from_scratch
+  '';
   spotify-focus = pkgs.writeScript "spotify-focus" ''
     #!${pkgs.bash}/bin/bash
     # should instead get the window from which music is playing
@@ -168,7 +184,7 @@ in
               "${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
               "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
-              "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate"'';
+              "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown"'';
               "${mod}+Shift+f" = ''exec fd | rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -p open -modi file-browser-extended -show file-browser-extended -file-browser-stdin'';
               "${mod}+Shift+h" = "move left";
               "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
@@ -178,7 +194,7 @@ in
               "${mod}+Shift+l" = "move right";
               "${mod}+Shift+space" = "floating toggle";
               "${mod}+space" = "focus mode_toggle";
-              "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux --title tmux -e ${pkgs.tmuxinator}/bin/tmuxinator work";
+              "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux --title tmux -e ${tmux-attach-or-new}";
               "${mod}+Shift+1" = "move container to workspace 1";
               "${mod}+Shift+2" = "move container to workspace 2";
               "${mod}+Shift+3" = "move container to workspace 3";
@@ -212,7 +228,7 @@ in
               "Return" = "mode default";
               "Escape" = "mode default";
             };
-            "exit: l)ogout r)eboot su)spend h)ibernate" = {
+            "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown" = {
               "l" = "exec swaymsg exit";
               "r" = "exec sudo systemctl reboot";
               "s" = "exec sudo systemctl poweroff";

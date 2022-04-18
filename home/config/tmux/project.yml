@@ -1,0 +1,18 @@
+# To use: tmuxinator start project -n dots workspace=$DOTFILES ; tmux attach -t dots
+name: project
+root: <%= @settings["workspace"] %>
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+startup_pane: 2
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+attach: false
+
+windows:
+  - bash:
+      layout: dd11,426x111,0,0{141x111,0,0,17,141x111,142,0,18,142x111,284,0[142x71,284,0,19,142x39,284,72,20]}
+      panes:
+        -
+        - vi
+        -
+        -
