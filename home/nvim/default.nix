@@ -146,6 +146,8 @@ in
         map('n', '-', '<c-w>-', options)
         map('n', '+', '<c-w>+', options)
         map('t', '<esc>', [[<c-\><c-n>]], {})
+        amap = require('svrana.utils').amap
+        amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes
 
         autocmd = require('svrana.utils').autocmd
         autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')

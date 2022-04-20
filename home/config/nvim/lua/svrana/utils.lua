@@ -22,4 +22,15 @@ M.nmap = function(tbl)
   vim.keymap.set("n", tbl[1], tbl[2], tbl[3])
 end
 
+-- map lhs to rhs in all modes
+M.amap = function(lhs, rhs)
+    local map = vim.api.nvim_set_keymap
+    local options = { noremap = true, silent = true }
+
+    map('', lhs, rhs, options)
+    map('!', lhs, rhs, options)
+    map('t', lhs, rhs, options)
+    map('l', lhs, rhs, options)
+end
+
 return M
