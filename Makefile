@@ -27,7 +27,7 @@ home: ## Build home-manager configuration for the current system
 
 .PHONY: update
 update: ## Update nixpkgs
-nix flake update nixpkgs
+	nix flake update nixpkgs
 
 .PHONY: bocana
 bocana: ## Deploy bocana
