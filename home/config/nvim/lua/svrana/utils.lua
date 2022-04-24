@@ -27,6 +27,8 @@ M.amap = function(lhs, rhs)
     local map = vim.api.nvim_set_keymap
     local options = { noremap = true, silent = true }
 
+    -- vim.keymap.set({'', '!', 't', 'l'}, lhs, rhs, options)
+
     map('', lhs, rhs, options)
     map('!', lhs, rhs, options)
     map('t', lhs, rhs, options)

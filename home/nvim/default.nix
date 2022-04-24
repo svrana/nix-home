@@ -149,6 +149,10 @@ in
         amap = require('svrana.utils').amap
         amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes
 
+        --Remap for dealing with word wrap
+        -- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+        -- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
         autocmd = require('svrana.utils').autocmd
         autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
         autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
