@@ -192,6 +192,7 @@ in
       function FTPluginSetupCommands()
           call matchadd('ColorColumn', '\%81v', 100)
       endfunction
+      autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
     plugins = with pkgs.vimPlugins; [
       {
@@ -904,7 +905,6 @@ in
         config = ''
           require('nvim-tree').setup({
             disable_netrw = false,  -- needed for fugitive GBrowse
-            auto_close = true,
             hijack_cursor = true,
             tree_follow = 1,
             tree_gitignore = 1,
