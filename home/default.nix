@@ -95,7 +95,6 @@
     nixfmt
     nixpkgs-review
     packer
-    powerline-go
     pulumi-bin
     perl532Packages.FileMimeInfo
     prototool
