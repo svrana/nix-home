@@ -192,7 +192,7 @@ in
       function FTPluginSetupCommands()
           call matchadd('ColorColumn', '\%81v', 100)
       endfunction
-      autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+      "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
     plugins = with pkgs.vimPlugins; [
       {
@@ -385,16 +385,61 @@ in
         type = "lua";
         config = ''
           require('nvim-treesitter.configs').setup {
-              highlight = {
-                enable = true,
-                disable = { "markdown" }, -- getting an error so disable for now
+            highlight = {
+              enable = true, -- false will disable the whole extension
+               --             disable = { "markdown" }, -- getting an error so disable for now
+            },
+            -- see nvim-ts-context-commentstring
+            context_commentstring = {
+              enable = true,
+              enable_autocmd = false, -- turn on manually with comment plugin, see docs
+            },
+            incremental_selection = {
+              enable = true,
+              keymaps = {
+                init_selection = 'gnn',
+                node_incremental = 'grn',
+                scope_incremental = 'grc',
+                node_decremental = 'grm',
               },
-              -- see nvim-ts-context-commentstring
-              context_commentstring = {
+            },
+            indent = {
+              enable = true,
+            },
+            textobjects = {
+              select = {
                 enable = true,
-                enable_autocmd = false, -- turn on manually with comment plugin, see docs
+                lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+                keymaps = {
+                  -- You can use the capture groups defined in textobjects.scm
+                  ['af'] = '@function.outer',
+                  ['if'] = '@function.inner',
+                  ['ac'] = '@class.outer',
+                  ['ic'] = '@class.inner',
+                },
               },
-            }
+              move = {
+                enable = true,
+                set_jumps = true, -- whether to set jumps in the jumplist
+                goto_next_start = {
+                  [']m'] = '@function.outer',
+                  [']]'] = '@class.outer',
+                },
+                goto_next_end = {
+                  [']M'] = '@function.outer',
+                  [']['] = '@class.outer',
+                },
+                goto_previous_start = {
+                  ['[m'] = '@function.outer',
+                  ['[['] = '@class.outer',
+                },
+                goto_previous_end = {
+                  ['[M'] = '@function.outer',
+                  ['[]'] = '@class.outer',
+                },
+              },
+            },
+          }
         '';
       }
       popup-nvim
