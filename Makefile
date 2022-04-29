@@ -15,7 +15,7 @@ help: ## Show this help
 
 .PHONY: system
 system: ## Build system
-	sudo nixos-rebuild switch --flake .
+	nixos-rebuild --use-remote-sudo switch --flake .
 
 .PHONY: system-install-bootloader
 system-install-bootloader: ## Build system && allow downgrading bootloader
@@ -33,7 +33,7 @@ update: ## Update nixpkgs
 bocana: ## Deploy bocana
 	deploy '.#bocana'
 
-.PHONY:
+.PHONY: diff
 diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)
 	@current=$(shell nixos-version --json | jq -r .nixpkgsRevision)
 	@latest=$(shell curl --silent https://channels.nix.gsc.io/nixos-unstable/latest | cut -f1 -d" ")
