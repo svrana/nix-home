@@ -22,6 +22,9 @@ in
     # aerc main configuration
 
     [ui]
+    # diable message threading by default, no support from gmail
+    threading-enabled=false
+
     #
     # Describes the format for each row in a mailbox view. This field is compatible
     # with mutt's printf-like syntax.
@@ -147,7 +150,8 @@ in
     # Specifies the command to run the editor with. It will be shown in an embedded
     # terminal, though it may also launch a graphical window if the environment
     # supports it. Defaults to $EDITOR, or vi.
-    editor=nvim -c 'lua vim.opt.showtable=1'
+    #editor=nvim -c 'lua vim.opt.showtable=1'
+    editor=nvim
 
     #
     # Default header fields to display when composing a message. To display

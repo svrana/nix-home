@@ -40,6 +40,7 @@ in
       MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
       TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
 
+      NETRC = "$XDG_CONFIG_HOME/netrc";
       PSQLRC = "$XDG_CONFIG_HOME/psql/config";
       PYLINTHOME = "$XDG_CACHE_HOME/pylint";
       PYTHONSTARTUP = "${pythonstartup}";

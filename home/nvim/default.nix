@@ -119,6 +119,9 @@ in
         local g = vim.g
         g.autoswap_detect_tmux = 1
 
+        -- always show the signcolumn for no page jump on first change
+        vim.wo.signcolumn = 'yes'
+
         local map = vim.api.nvim_set_keymap
         local options = { noremap = true, silent = true }
         -- move lines (and blocks of lines in visual mode) up and down using alt-j/k
@@ -146,12 +149,13 @@ in
         map('n', '-', '<c-w>-', options)
         map('n', '+', '<c-w>+', options)
         map('t', '<esc>', [[<c-\><c-n>]], {})
-        amap = require('svrana.utils').amap
-        amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes
+        --amap = require('svrana.utils').amap
+        --amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes.. wrong,
+        --alacritty forces you to configure that. this was causing some problems in telescope
 
         --Remap for dealing with word wrap
-        -- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-        -- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+        vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+        vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
         autocmd = require('svrana.utils').autocmd
         autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
@@ -1030,7 +1034,7 @@ in
                 name = "harpoon",
                 s = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show" },
                 a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
-                r = { "<cmd>lua require('harpoon.term').sendCommand('{bottom-right}', 1)<cr>", "Run command"},
+                r = { "<cmd>lua require('harpoon.tmux').sendCommand('{bottom-right}', 1)<cr>", "Run command"},
                 e = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", "Edit command" },
                 ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
                 ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
