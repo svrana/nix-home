@@ -8,6 +8,7 @@
     ./groups.nix
     ./users.nix
     ./udev.nix
+    ../tailscale.nix
   ];
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -44,8 +45,6 @@
   # so swaylock can unlock..
   security.pam.services.swaylock = { };
 
-  services.tailscale.enable = true;
-
   # Will run a caching dns server on :53 which conflicts with adguardhome
   # services.resolved = {
   #     enable = true;
@@ -56,12 +55,7 @@
     # enable the firewall
     enable = true;
 
-    # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
-
-    # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [
-      config.services.tailscale.port
       21027 # syncthing
     ];
 
