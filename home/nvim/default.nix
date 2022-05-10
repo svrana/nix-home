@@ -1002,9 +1002,8 @@ in
           require('nvim-tree').setup({
             disable_netrw = false,  -- needed for fugitive GBrowse
             hijack_cursor = true,
-            tree_follow = 1,
-            tree_gitignore = 1,
-            tree_group_empty = 1,
+            git = { ignore = true },
+            update_focused_file = { enable = true },
           })
         '';
       }
