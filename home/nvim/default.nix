@@ -44,6 +44,34 @@ let
       sha256 = "sha256-VvT7WXFPWHWPbUvQlREo/VfDIniUOYQnVqrwbLMoJnw=";
     };
   };
+  gh-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "gh-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "ldelossa";
+      repo = "gh.nvim";
+      rev = "64d5d545f8cd1c0da9f2720af132207fa21b2c1f";
+      sha256 = "sha256-wSbLtfPWfvYQLIKSt5T0Toq/ct6Ce6ahgXr50Z8SRM4=";
+    };
+  };
+  litee-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "litee-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "ldelossa";
+      repo = "litee.nvim";
+      rev = "2d257af35e90b1ee6017481b7fd82878d8f0e5ff";
+      sha256 = "sha256-vqxUskYTTpTpDOqky/PoWayHsOQYL0fGvpPL5K/olhU=";
+    };
+  };
+  telescope-ui-select-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "telescope-ui-select.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-telescope";
+      repo = "telescope-ui-select.nvim";
+      rev = "62ea5e58c7bbe191297b983a9e7e89420f581369";
+      sha256 = "sha256-/JM2KX70JXa3sydrUj13Vd4rRwhn3VrdW7qLLHqIqyY";
+    };
+  };
+
 in
 {
   xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
@@ -199,6 +227,15 @@ in
       "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
     plugins = with pkgs.vimPlugins; [
+      litee-nvim
+      {
+        plugin = gh-nvim;
+        type = "lua";
+        config = ''
+          require('litee.lib').setup()
+          require('litee.gh').setup()
+        '';
+      }
       {
         plugin = harpoon;
         type = "lua";
@@ -449,6 +486,13 @@ in
       popup-nvim
       telescope-fzf-native-nvim
       {
+        plugin = telescope-ui-select-nvim;
+        type = "lua";
+        config = ''
+          require("telescope").load_extension("ui-select")
+        '';
+      }
+      {
         plugin = telescope-project-nvim;
         type = "lua";
         config = ''
@@ -506,6 +550,9 @@ in
                 fuzzy = true,                    -- false will only do exact matching
                 override_generic_sorter = false, -- override the generic sorter
                 override_file_sorter = true,     -- override the file sorter
+              },
+              ["ui-select"] = {
+                require("telescope.themes").get_dropdown { }
               }
             }
           }

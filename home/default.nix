@@ -75,6 +75,7 @@
     cachix
     ctlptl
     google-chrome
+    gh
     niv
     element-desktop
     entr
