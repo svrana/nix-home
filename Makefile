@@ -23,8 +23,7 @@ system-install-bootloader: ## Build system && allow downgrading bootloader
 
 .PHONY: home
 home: ## Build home-manager configuration for the current system
-	# --impure is for $NIXPKGS_ALLOW_UNFREE env var..for some reason nix config not overriding anymore
-	home-manager switch --impure --flake .#${HOSTNAME}
+	home-manager switch --flake .#${HOSTNAME}
 
 .PHONY: update
 update: ## Update all flakes

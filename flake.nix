@@ -21,7 +21,10 @@
       inherit (builtins) readDir mapAttrs;
       lib = nixpkgs.lib;
       nixpkgsConfig = {
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = (pkgs: true);
+        };
         overlays = builtins.attrValues self.overlays;
       };
       specialArgs = { inherit inputs; };

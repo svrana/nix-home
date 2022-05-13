@@ -92,7 +92,6 @@
     imv
     maim
     mpv
-    neomutt
     nixfmt
     nixpkgs-review
     packer
