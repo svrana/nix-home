@@ -54,10 +54,12 @@ in
       config.load_autoconfig()
     '';
     searchEngines = {
-      DEFAULT = "https://duckduckgo.com/?q={}";
+      DEFAULT = "https://kagi.com/search?q={}";
+      #DEFAULT = "https://duckduckgo.com/?q={}";
       #DEFAULT = "https://neeva.com/search?q={}";
       d = "https://duckduckgo.com/?q={}";
       n = "https://neeva.com/search?q={}";
+      k = "https://kagi.com/search?q={}";
       g = "http://www.google.com/search?hl=en&q={}";
       gh = "https://github.com/search?q={}";
       yt = "https://www.youtube.com/results?search_query={}";

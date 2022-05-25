@@ -25,6 +25,10 @@ in
     # diable message threading by default, no support from gmail
     threading-enabled=false
 
+    # doesn't work yet
+    #[ui:folder=aerc]
+    #  toggle-threads=true
+
     #
     # Describes the format for each row in a mailbox view. This field is compatible
     # with mutt's printf-like syntax.

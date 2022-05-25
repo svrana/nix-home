@@ -485,13 +485,13 @@ in
       }
       popup-nvim
       telescope-fzf-native-nvim
-      {
-        plugin = telescope-ui-select-nvim;
-        type = "lua";
-        config = ''
-          require("telescope").load_extension("ui-select")
-        '';
-      }
+      #{
+      #  plugin = telescope-ui-select-nvim;
+      #   type = "lua";
+      #  config = ''
+      #    require("telescope").load_extension("ui-select")
+      #  '';
+      #}
       {
         plugin = telescope-project-nvim;
         type = "lua";

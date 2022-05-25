@@ -15,14 +15,16 @@ let
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
     #!/usr/bin/env bash
 
-    mux_project() {
-      tmuxinator start project -n $1 workspace=$2
+    tproject() {
+      tmuxinator start project -n "$1" workspace="$2"
     }
     tmux_from_scratch() {
-      tmuxinator start project -n dots workspace=$DOTFILES
-      tmuxinator start project -n nixpkgs workspace=$PROJECTS/nixpkgs
-      tmuxinator start project -n b6 workspace=$PROJECTS/b6
-      tmuxinator start project -n aws-ops workspace=$PROJECTS/aws-ops
+      tproject dots $DOTFILES
+      tproject nixpkgs $PROJECTS/nixpkgs
+      tproject vranix.com $PROJECTS/vranix.com
+      tproject b6 $PROJECTS/b6
+      tproject aws-ops $PROJECTS/aws-ops
+
       tmux attach -t b6
     }
 

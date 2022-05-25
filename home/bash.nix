@@ -16,7 +16,7 @@ in
     shellOptions = [ "histappend" "checkwinsize" "autocd" "cdspell" ];
     sessionVariables = {
       # for docker-compose/dev/fixuid
-      BUILDUID = "$(id -u $USER)";
+      #BUILDUID = "$(id -u $USER)";
       EDITOR = "nvim";
       MANPAGER = "nvim +Man!";
 
@@ -92,6 +92,7 @@ in
     bashrcExtra = ""; # run prior to the interactive session check
     profileExtra = "";
     shellAliases = {
+      #"cd" = "z";
       "cd.." = "cd ..";
       ".." = "cd ..";
       "..." = "cd ../../";
@@ -107,7 +108,7 @@ in
       "pl" = "pulumi";
 
       "cat" = "${pkgs.bat}/bin/bat";
-      "ls" = "exa $EXA_DFLT_ARGS";
+      "ls" = "${pkgs.exa}/bin/exa $EXA_DFLT_ARGS";
       "ll" = "ls -al";
       "lsd" = "ls -d */";
 
