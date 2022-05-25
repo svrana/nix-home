@@ -9,7 +9,6 @@
     ../../roles/standard
     ../../roles/graphical
     ../../roles/work
-    ../../roles/virtualization.nix
     ../../roles/elastic-search.nix
   ];
 
