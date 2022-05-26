@@ -103,6 +103,7 @@
         # deploy '.#bocana'
         deploy.nodes.bocana = {
           hostname = "bocana";
+          autoRollback = false;
           sshUser = "root";
           fastConnection = true;
           profiles.system = {
