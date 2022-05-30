@@ -104,6 +104,7 @@ in
       shfmt
       sumneko-lua-language-server
       luaformatter
+      rust-analyzer
       #haskellPackages.haskell-language-server
       #haskellPackages.ormolu
     ];
@@ -761,6 +762,7 @@ in
             'rnix',
             'dockerls',
             'vimls',
+            'rust_analyzer',
           }
           for _, lsp in ipairs(servers) do
             nvim_lsp[lsp].setup({

@@ -64,6 +64,8 @@
 
   home.packages = with pkgs; [
     autotiling
+    cargo
+    rustc
     comma
     dante
     dbeaver
