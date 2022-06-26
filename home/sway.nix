@@ -19,7 +19,7 @@ let
       tmuxinator start project -n "$1" workspace="$2"
     }
     tmux_from_scratch() {
-      tproject dots $DOTFILES
+      tproject dots $DOTFILES $PROJECTS/dotfiles
       tproject nixpkgs $PROJECTS/nixpkgs
       tproject vranix.com $PROJECTS/vranix.com
       tproject b6 $PROJECTS/b6
