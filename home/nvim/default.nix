@@ -429,7 +429,7 @@ in
           require('nvim-treesitter.configs').setup {
             highlight = {
               enable = true, -- false will disable the whole extension
-               --             disable = { "markdown" }, -- getting an error so disable for now
+              disable = { "nix" }, -- getting an error so disable for now
             },
             -- see nvim-ts-context-commentstring
             context_commentstring = {
@@ -880,10 +880,6 @@ in
            extensions = {'nvim-tree', 'fugitive', 'fzf'}
           }
         '';
-      }
-      {
-        plugin = vim-peekaboo;
-        config = "let g:peekaboo_delay=300";
       }
       {
         plugin = vim-fugitive;
