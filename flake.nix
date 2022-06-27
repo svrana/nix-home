@@ -48,15 +48,12 @@
 
       mkHome = extraModules:
         home-manager.lib.homeManagerConfiguration rec {
-          system = "x86_64-linux";
-          username = "shaw";
-          homeDirectory = "/home/${username}";
-          extraSpecialArgs = specialArgs;
-          stateVersion = "21.03";
-          configuration = { ... }: {
-            imports = extraModules;
-            nixpkgs = nixpkgsConfig;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            inherit (nixpkgsConfig) config overlays;
           };
+          extraSpecialArgs = specialArgs;
+          modules = extraModules;
         };
     in
     (
