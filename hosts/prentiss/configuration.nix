@@ -14,8 +14,11 @@
   networking.hostName = "prentiss";
 
   networking.useDHCP = false;
-  networking.interfaces.eno1.useDHCP = true;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
+  # using network manager which uses it's own dhcp client so do not need to startup dhcpcd here. Doing so
+  # results in two ip addresses for the same interfaces, which isn't horrible but can make it harder to configure
+  # firewalls, routers, etc.
+  networking.interfaces.eno1.useDHCP = false;
+  networking.interfaces.wlp0s20f3.useDHCP = false;
 
   programs.dconf.enable = true;
 

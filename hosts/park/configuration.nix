@@ -14,8 +14,8 @@
   networking.hostName = "park";
 
   networking.useDHCP = false;
-  networking.interfaces.eno1.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
+  networking.interfaces.eno1.useDHCP = false;
+  networking.interfaces.wlp3s0.useDHCP = false;
 
   boot.blacklistedKernelModules = [ "snd_hda_intel" ];
 

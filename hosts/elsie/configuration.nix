@@ -13,7 +13,7 @@
 
   networking.hostName = "elsie";
   networking.useDHCP = false;
-  networking.interfaces.wlp2s0.useDHCP = true;
+  networking.interfaces.wlp2s0.useDHCP = false;
 
   system.stateVersion = "21.05";
 }

@@ -12,9 +12,9 @@
   networking = {
     hostName = "bocana";
     interfaces = {
-      eno1.useDHCP = true;
-      enp2s0.useDHCP = true;
-      wlp4s0.useDHCP = true;
+      eno1.useDHCP = false;
+      enp2s0.useDHCP = false;
+      wlp4s0.useDHCP = false;
     };
   };
 
