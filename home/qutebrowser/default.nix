@@ -54,8 +54,8 @@ in
       config.load_autoconfig()
     '';
     searchEngines = {
-      DEFAULT = "https://kagi.com/search?q={}";
-      #DEFAULT = "https://duckduckgo.com/?q={}";
+      #DEFAULT = "https://kagi.com/search?q={}";
+      DEFAULT = "https://duckduckgo.com/?q={}";
       #DEFAULT = "https://neeva.com/search?q={}";
       d = "https://duckduckgo.com/?q={}";
       n = "https://neeva.com/search?q={}";
