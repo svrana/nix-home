@@ -40,8 +40,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
-      rev = "f9e271df57957d50abfd485208963a723082e252";
-      sha256 = "sha256-Gx53IN55FrPzo7T8tauJABsInac1hEWZtJNH1e9q9HA=";
+      rev = "6848ba4a93ff80bf7f136a9975df2d5fce07e756";
+      sha256 = "sha256-fva3lwkpjoyQSiT5dO99v37hvO2Rsaeoa9Rys9mYL+A=";
     };
   };
   gh-nvim = pkgs.vimUtils.buildVimPlugin {
