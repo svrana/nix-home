@@ -19,8 +19,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "88a846b3e1515fe3d0ace82a8640f03c78e4749f";
-      sha256 = "sha256-SRbwDr3hbabnmAwNoFEiv3XTK8PhXei35VCSoObhPHE=";
+      rev = "f334b05d0c74575534c39f098971a24efecf6443";
+      sha256 = "sha256-+qJcZfqGDgXEGRYFFJTzroB6caHvys/+TafmRNndlls=";
     };
     configurePhase = ''
       rm Makefile
