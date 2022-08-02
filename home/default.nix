@@ -124,6 +124,7 @@
     yarn
     bc
     vanilla-dmz
+    obs-studio
 
     # sway specific
     avizo
