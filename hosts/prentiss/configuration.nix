@@ -35,5 +35,10 @@
 
   programs.dconf.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+  };
+
   system.stateVersion = "21.05";
 }
