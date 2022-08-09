@@ -87,7 +87,7 @@ in
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
     extraPackages = with pkgs; [
-      buf
+      #buf
       code-minimap
       gopls
       gotools
