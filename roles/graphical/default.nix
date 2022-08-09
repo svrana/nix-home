@@ -9,6 +9,7 @@
     ../print-client.nix
     ./sound.nix
     ./x.nix
+    ./wayland.nix
   ];
 
   programs.dconf.enable = true;
