@@ -969,16 +969,6 @@ in
         config = ''
           let g:neomake_verbose = 0
 
-          function C1GolangCITweak()
-              if (expand("$C1") == FindRootDirectory())
-                  let g:neomake_go_golangci_lint_exe="lint.sh"
-                  let g:neomake_go_golangci_lint_args="run --fast --modules-download-mode=vendor --out-format=line-number --print-issued-lines=false --timeout 3m0s"
-                  let g:neomake_go_golangci_lint_cwd="$C1"
-              endif
-          endfunction
-
-          autocmd BufNewFile,BufRead,BufEnter *.go call C1GolangCITweak()
-
           let g:neomake_proto_maker = {
             \ 'exe': 'buf',
             \ 'args': ['lint', '--path'],
