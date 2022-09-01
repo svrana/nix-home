@@ -26,6 +26,18 @@ let
       rm Makefile
     '';
   };
+  guihua-lua = pkgs.vimUtils.buildVimPlugin {
+    name = "guihua-lua";
+    src = pkgs.fetchFromGitHub {
+      owner = "ray-x";
+      repo = "guihua.lua";
+      rev = "4d77d8d2ca71c204a0cc605bef94ec994ba98698";
+      sha256 = "sha256-J8DRceP3ljMlmALUKSCfD5acy70yT3gpG6wo0GzBf/I=";
+    };
+    configurePhase = ''
+      rm Makefile
+    '';
+  };
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
     name = "nvim-tabline";
     src = pkgs.fetchFromGitHub {
@@ -105,6 +117,7 @@ in
       sumneko-lua-language-server
       luaformatter
       rust-analyzer
+      buf-language-server
       #haskellPackages.haskell-language-server
       #haskellPackages.ormolu
     ];
@@ -229,6 +242,10 @@ in
     '';
     plugins = with pkgs.vimPlugins; [
       litee-nvim
+      {
+        plugin = guihua-lua;
+        type = "lua";
+      }
       {
         plugin = gh-nvim;
         type = "lua";
@@ -758,6 +775,7 @@ in
           -- map buffer local keybindings when the language server attaches
           local servers = {
             'bashls',
+            --'bufls',
             'yamlls',
             'rnix',
             'dockerls',

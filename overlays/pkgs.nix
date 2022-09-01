@@ -4,4 +4,5 @@ final: prev: rec {
   ctlptl = final.callPackage ../packages/ctlptl { };
   solarized-everything-css = final.callPackage ../packages/solarized-everything-css { };
   protocol-buffers-language-server = final.callPackage ../packages/protocol-buffers-language-server { };
+  buf-language-server = final.callPackage ../packages/buf-language-server { };
 }

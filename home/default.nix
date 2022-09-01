@@ -187,7 +187,7 @@
   programs.starship = {
     enable = true;
     settings = {
-      command_timeout = 100;
+      command_timeout = 20;
       # format = lib.concatStrings [
       #   "$all"
       #   "$directory"
