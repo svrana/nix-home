@@ -194,6 +194,9 @@ in
         --amap = require('svrana.utils').amap
         --amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes.. wrong,
         --alacritty forces you to configure that. this was causing some problems in telescope
+        vim.cmd [[
+          autocmd FileType harpoon    nnoremap <buffer> <C-c> <cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>
+        ]]
 
         --Remap for dealing with word wrap
         vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
