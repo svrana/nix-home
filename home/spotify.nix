@@ -1,5 +1,4 @@
-{ config, pkgs, home, lib, ... }:
-
+{ config, pkgs, home, lib, spicetify-nix, ... }:
 let
   #spicetify = fetchTarball https://github.com/pietdevries94/spicetify-nix/archive/master.tar.gz;
   spotify-tui = pkgs.writeScript "spotify-tui" ''
@@ -20,9 +19,52 @@ let
   };
 in
 {
-  #imports = [ (import "${spicetify}/module.nix") ];
+  imports = [ spicetify-nix.homeManagerModule ];
 
   home.packages = [ pkgs.spotify ];
+
+  programs.spicetify = {
+    enable = true;
+    theme = "catppuccin-mocha";
+    # OR
+    # theme = spicetify-nix.pkgs.themes.catppuccin-mocha;
+    colorScheme = "flamingo";
+    #theme = spicetify-nix.pkgs.themes.Dribbblish;
+    # theme = "catppuccin-mocha";
+    # OR
+    # theme = spicetify-nix.pkgs.themes.catppuccin-mocha;
+    #injectCss = true;
+    #replaceColors = true;
+    #overwriteAssets = true;
+    #sidebarConfig = true;
+
+    enabledExtensions = [
+      "fullAppDisplay.js"
+      "shuffle+.js"
+      "hidePodcasts.js"
+    ];
+    spicetifyPackage = pkgs.spicetify-cli.overrideAttrs (oa: rec {
+      pname = "spicetify-cli";
+      version = "2.9.9";
+      src = pkgs.fetchgit {
+        url = "https://github.com/spicetify/${pname}";
+        rev = "v${version}";
+        sha256 = "1a6lqp6md9adxjxj4xpxj0j1b60yv3rpjshs91qx3q7blpsi3z4z";
+      };
+    });
+
+  };
+
+  # programs.spicetify = {
+  #   enable = false;
+  #   theme = "Ziro";
+  #   injectCss = true;
+  #   replaceColors = true;
+  #   overwriteAssets = true;
+  #
+  # };
+
+  #home.packages = [ pkgs.spotify ];
   # programs.spicetify = {
   #   enable = false;
   #   theme = "SolarizedDark";

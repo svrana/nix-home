@@ -16,9 +16,13 @@
       url = "github:InternetUnexplorer/discord-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, spicetify-nix, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -43,7 +47,6 @@
             })
             { nixpkgs.overlays = nixpkgsConfig.overlays; }
           ] ++ extraModules;
-          specialArgs.inputs = inputs;
         };
 
       mkHome = extraModules:
@@ -52,7 +55,7 @@
             system = "x86_64-linux";
             inherit (nixpkgsConfig) config overlays;
           };
-          extraSpecialArgs = specialArgs;
+          extraSpecialArgs = inputs;
           modules = extraModules;
         };
     in
