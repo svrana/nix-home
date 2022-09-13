@@ -98,7 +98,7 @@
     nixpkgs-review
     packer
     pulumi-bin
-    perl532Packages.FileMimeInfo
+    #perl532Packages.FileMimeInfo # perlPackages.FileMimeInfo not sure what this was for
     prototool
     python3
     readline

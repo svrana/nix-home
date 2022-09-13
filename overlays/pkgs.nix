@@ -1,8 +1,6 @@
 final: prev: rec {
   system-san-francisco-font = final.callPackage ../packages/system-san-francisco-font { };
   san-francisco-mono-font = final.callPackage ../packages/san-francisco-mono-font { };
-  ctlptl = final.callPackage ../packages/ctlptl { };
   solarized-everything-css = final.callPackage ../packages/solarized-everything-css { };
   protocol-buffers-language-server = final.callPackage ../packages/protocol-buffers-language-server { };
-  buf-language-server = final.callPackage ../packages/buf-language-server { };
 }

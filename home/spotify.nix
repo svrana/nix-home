@@ -38,11 +38,11 @@ in
     #overwriteAssets = true;
     #sidebarConfig = true;
 
-    enabledExtensions = [
-      "fullAppDisplay.js"
-      "shuffle+.js"
-      "hidePodcasts.js"
-    ];
+    # enabledExtensions = [
+    #   "fullAppDisplay.js"
+    #   "shuffle+.js"
+    #   "hidePodcasts.js"
+    # ];
     spicetifyPackage = pkgs.spicetify-cli.overrideAttrs (oa: rec {
       pname = "spicetify-cli";
       version = "2.9.9";
