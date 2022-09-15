@@ -22,12 +22,7 @@ in
     # aerc main configuration
 
     [ui]
-    # diable message threading by default, no support from gmail
-    threading-enabled=false
-
-    # doesn't work yet
-    #[ui:folder=aerc]
-    #  toggle-threads=true
+    threading-enabled=true
 
     #
     # Describes the format for each row in a mailbox view. This field is compatible
@@ -68,7 +63,7 @@ in
     # Ring the bell when new messages are received
     #
     # Default: true
-    new-message-bell=true
+    new-message-bell=false
 
     # Marker to show before a pinned tab's name.
     #
