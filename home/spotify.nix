@@ -1,6 +1,5 @@
 { config, pkgs, home, lib, spicetify-nix, ... }:
 let
-  #spicetify = fetchTarball https://github.com/pietdevries94/spicetify-nix/archive/master.tar.gz;
   spotify-tui = pkgs.writeScript "spotify-tui" ''
     ${pkgs.alacritty}/bin/alacritty --title Spotify --class spotify -e ${pkgs.spotify-tui}/bin/spt
   '';
@@ -21,27 +20,12 @@ in
 {
   imports = [ spicetify-nix.homeManagerModule ];
 
-  home.packages = [ pkgs.spotify ];
-
   programs.spicetify = {
     enable = true;
     theme = "catppuccin-mocha";
-    # OR
-    # theme = spicetify-nix.pkgs.themes.catppuccin-mocha;
-    colorScheme = "flamingo";
-    #theme = spicetify-nix.pkgs.themes.Dribbblish;
-    # theme = "catppuccin-mocha";
-    # OR
-    # theme = spicetify-nix.pkgs.themes.catppuccin-mocha;
-    #injectCss = true;
-    #replaceColors = true;
-    #overwriteAssets = true;
-    #sidebarConfig = true;
-
     # enabledExtensions = [
     #   "fullAppDisplay.js"
     #   "shuffle+.js"
-    #   "hidePodcasts.js"
     # ];
     spicetifyPackage = pkgs.spicetify-cli.overrideAttrs (oa: rec {
       pname = "spicetify-cli";
@@ -53,25 +37,28 @@ in
       };
     });
 
+    colorScheme = "custom";
+    # color definition for custom color scheme. (solarized dark)
+    customColorScheme = {
+      text = "fdf6e3";
+      subtext = "eee8d5";
+      sidebar-text = "fdf6e3";
+      main = "073642";
+      sidebar = "002b36";
+      player = "073642";
+      card = "93a1a1";
+      shadow = "002b36";
+      selected-row = "fdf6e3";
+      button = "6c71c4";
+      button-active = "6c71c4";
+      button-disabled = "93a1a1";
+      tab-active = "6c71c4";
+      notification = "6c71c4";
+      notification-error = "dc322f";
+      misc = "BFBFBF";
+    };
+
   };
-
-  # programs.spicetify = {
-  #   enable = false;
-  #   theme = "Ziro";
-  #   injectCss = true;
-  #   replaceColors = true;
-  #   overwriteAssets = true;
-  #
-  # };
-
-  #home.packages = [ pkgs.spotify ];
-  # programs.spicetify = {
-  #   enable = false;
-  #   theme = "SolarizedDark";
-  #   injectCss = true;
-  #   replaceColors = true;
-  #   overwriteAssets = true;
-  # };
 
   services.spotifyd = {
     enable = true;
