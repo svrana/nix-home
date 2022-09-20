@@ -151,6 +151,8 @@ in
         opt.pyx = 3
         opt.termguicolors = true
         opt.cursorline = true
+        opt.number = true
+        opt.relativenumber = true
         -- opt.clipboard = "unnamed,unnamedplus"
         -- opt.clipboard = "unnamed"
         opt.pumblend    = 10
@@ -222,6 +224,9 @@ in
         autocmd('TermOpen', 'term://*',   'startinsert')
         autocmd('InsertEnter', '*',       'setlocal nocursorline')
         autocmd('InsertLeave', '*',       'setlocal cursorline')
+        --turn off numbers when not active window.... but need per file adjustments which these seem to override
+        --autocmd('FocusGained', '*', 'set relativenumber number')
+        --autocmd('FocusLost', '*', 'set norelativenumber nonumber')
 
       -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
       -- and remove from plugin section below
@@ -244,6 +249,7 @@ in
       "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
     plugins = with pkgs.vimPlugins; [
+      vim-numbertoggle
       litee-nvim
       {
         plugin = guihua-lua;
