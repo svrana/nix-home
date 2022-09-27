@@ -36,13 +36,17 @@ in
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
-
+      # removal of ~/.texlive2021/
+      TEXMFHOME = "$XDG_DATA_HOME/texmf";
+      TEXMFVAR = "$XDG_CACHE_HOME/texlive/texmf-var";
+      TEXMFCONFIG = "$XDG_CONFIG_HOME/texlive/texmf-config";
       MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
       TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
+      HISTFILE = "$XDG_STATE_HOME/bash_history";
 
-      NETRC = "$XDG_CONFIG_HOME/netrc";
-      PSQLRC = "$XDG_CONFIG_HOME/psql/config";
-      PYLINTHOME = "$XDG_CACHE_HOME/pylint";
+      NETRC = "$XDG_CONFIG_HOME/netrc ";
+      PSQLRC = "$XDG_CONFIG_HOME/psql/config ";
+      PYLINTHOME = "$XDG_CACHE_HOME/pylint ";
       PYTHONSTARTUP = "${pythonstartup}";
       PYTHONDONTWRITEBYTECODE = 1;
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
@@ -65,10 +69,13 @@ in
       PERSONAL = "$DOTFILES/personal";
       BIN_DIR = "$HOME/.local/bin";
       SCRIPTS = "$DOTFILES/home/scripts";
+      DOOMDIR = "~/.config/doom";
     };
     # only run for interactive sessions
     initExtra = ''
       source "$RCS/functions.sh"
+
+      PATH_append ~/.config/emacs/bin
 
       set -o vi
       stty -ixon
@@ -120,3 +127,4 @@ in
     };
   };
 }
+

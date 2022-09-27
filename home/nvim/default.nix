@@ -99,10 +99,9 @@ in
     withNodeJs = true;
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
     extraPackages = with pkgs; [
-      #buf
+      buf
       code-minimap
-      gopls
-      gotools
+      iferr
       nixfmt
       nodePackages.prettier
       nodePackages.vim-language-server
@@ -111,15 +110,12 @@ in
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
-      #protocol-buffers-language-server
       rnix-lsp
       shfmt
       sumneko-lua-language-server
       luaformatter
       rust-analyzer
       buf-language-server
-      #haskellPackages.haskell-language-server
-      #haskellPackages.ormolu
     ];
     extraConfig = ''
       lua << EOF
@@ -183,12 +179,13 @@ in
         map('n', 'Q', '@@', options)
         map('n', '\th', ':set invhls hls?<cr>', options)
         map('n', '<c-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<cr>', options)
-        map('n', '<c-d>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
-        map('i', '<c-a>', '<esc>^i', options)
-        map('n', '<c-d>', '<c-b>', {})
-        map('n', '<c-x>', ':tabclose<cr>', options)
-        map('n', '<c-s>', ':tabp<cr>', options)
-        map('n', '<c-h>', ':tabn<cr>', options)
+        --map('n', '<c-d>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
+        map('n', '<c-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
+        --map('i', '<c-a>', '<esc>^i', options)
+        --map('n', '<c-d>', '<c-b>', {})
+        --map('n', '<c-x>', ':tabclose<cr>', options)
+        --map('n', '<c-s>', ':tabp<cr>', options)
+        --map('n', '<c-h>', ':tabn<cr>', options)
         map('i', 'jj', '<esc>', {})
         map('n', '-', '<c-w>-', options)
         map('n', '+', '<c-w>+', options)
@@ -279,7 +276,14 @@ in
                     "make home"
                   }
                 }
-              }
+              },
+              ["$PROJECTS/interview"] = {
+                term = {
+                  cmds = {
+                    "go run ."
+                  }
+                }
+              },
             }
           })
         '';
@@ -550,7 +554,8 @@ in
                   --["<esc>"] = actions.close, -- can't really get to normal mode if you do this, use c-c to exit
                   ["<C-u>"] = false,
                   ["<C-f>"] = actions.preview_scrolling_down,   -- remap of c-u, b/c I like emacs
-                  ["<C-d>"] = actions.preview_scrolling_up, -- default
+                  --["<C-d>"] = actions.preview_scrolling_up, -- default
+                  ["<C-b>"] = actions.preview_scrolling_up,
                 },
                 n = {
                   ["q"] = actions.close
@@ -593,7 +598,7 @@ in
         config = ''
           require('bqf').setup({
             func_map = {
-              pscrollup = '<c-d>',
+              pscrollup = '<c-b>',
             },
           })
         '';
@@ -671,10 +676,15 @@ in
             mapping = {
               ['<C-p>'] = cmp.mapping.select_prev_item(),
               ['<C-n>'] = cmp.mapping.select_next_item(),
-              ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+              --['<C-d>'] = cmp.mapping.scroll_docs(-4),
+              ['<C-b>'] = cmp.mapping.scroll_docs(-4),
               ['<C-f>'] = cmp.mapping.scroll_docs(4),
               ['<C-Space>'] = cmp.mapping.complete(),
               ['<C-e>'] = cmp.mapping.close(),
+              ['<C-y>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+              },
               ['<CR>'] = cmp.mapping.confirm {
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
@@ -1044,31 +1054,25 @@ in
                 r = { "<cmd>Lspsaga rename<cr>", "Rename" },
                 s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
                 i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
-                l = { "<cmd>GoFillStruct<cr>", "Fill golang struct" },
                 g = {
                   name = "go",
-                  f = {
-                    name = "fill",
-                    s = { "<cmd>GoFillStruct<cr>",  "Struct" },
-                    w = { "<cmd>GoFillSwitch<cr>",  "sWitch" },
-                    t = { "<cmd>GoAddTag<cr>",      "Tags" }
-                  }
-                }
+                  s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
+                  w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
+                  t = { "<cmd>GoAddTag<cr>",      "Add struct tags" },
+                  i = { "<cmd>GoIfErr<cr>",       "Add if err" },
+                },
               },
               d = {
                 name = "display",
                 d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
-                m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
                 n = {
                   name = "number",
                   r = { "<cmd>set relativenumber!<cr>", "Relative line numbers" },
                   l = { "<cmd>set number!<cr>", "Line numbers" },
                 },
-                t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
-                g = { "<cmd>lua require('neogit').open()<cr>", "Toggle git" },
               },
               f = {
-                name = "file/fuzzy",
+                name = "fuzzy",
                 d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
                 b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
                 f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
@@ -1086,7 +1090,7 @@ in
                   f = { "<cmd>Git blame<cr>",                                                 "File" },        -- fugitive
                   l = { "<cmd>lua require('gitsigns').blame_line{full=true}<cr>",             "Line" },
                 },
-                t = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
+                g = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
                 h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
                 s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
                 z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
@@ -1127,6 +1131,8 @@ in
                 c = { "<cmd>set cursorline!<cr>", "Cursorline" },
                 n = { "<cmd>set relativenumber!<cr>", "Number" },
                 h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
+                m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
+                t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
               },
               w = { "<cmd>w<cr>", "Write file" },
               q = { "<cmd>q<cr>", "Quit" },

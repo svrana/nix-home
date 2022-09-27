@@ -51,6 +51,7 @@
     ./sway.nix
     ./tmux
     ./glow.nix
+    ./go.nix
     ./git.nix
     ./fzf.nix
     ./bash.nix
@@ -72,6 +73,7 @@
     discord
     diffstat
     docker-compose
+    emacs
     exa
     networkmanager_dmenu
     cachix
@@ -86,7 +88,6 @@
     kind
     kubernetes-helm
     gitAndTools.hub
-    golangci-lint
     grpcurl
     kubectx
     ledger-live-desktop
@@ -267,6 +268,13 @@
     if [ ! -d $APPS/gruf ]; then
       $DRY_RUN_CMD echo "Cloning gruf.."
       $DRY_RUN_CMD git clone git@github.com:svrana/gruf $APPS/gruf
+    fi
+
+    if [ ! -d ~/.config/emacs ]; then
+      $DRY_RUN_CMD git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    fi
+    if [ ! -d ~/.config/doom ]; then
+      $DRY_RUN_CMD git clone git@github.com:svrana/doom ~/.config/doom
     fi
 
     $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}

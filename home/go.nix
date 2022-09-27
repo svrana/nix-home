@@ -1,13 +1,14 @@
-{ pkgs, lib, config, ... }:
-
+{ pkgs, ... }:
 {
   programs.go = {
     enable = true;
     goPath = ".cache/go";
-    package = pkgs.go_1_17;
+    package = pkgs.go_1_18;
   };
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.cache/go/bin"
+  home.packages = with pkgs; [
+    gopls
+    golangci-lint
+    gotools
   ];
 }
