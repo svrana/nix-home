@@ -3,7 +3,7 @@
   programs.go = {
     enable = true;
     goPath = ".cache/go";
-    package = pkgs.go_1_18;
+    package = pkgs.go_1_19;
   };
 
   home.packages = with pkgs; [
