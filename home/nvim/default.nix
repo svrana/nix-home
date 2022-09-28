@@ -154,7 +154,7 @@ in
         opt.pumblend    = 10
         opt.foldmethod  = "marker"
         opt.completeopt = "menuone,noselect"
-        opt.rtp:append(vim.env.RCS .. '/nvim/vimsnips')
+        --opt.rtp:append(vim.env.RCS .. '/nvim')
 
         local g = vim.g
         g.autoswap_detect_tmux = 1
@@ -673,12 +673,13 @@ in
         '';
       }
       lsp_signature-nvim
-      #friendly-snippets
+      friendly-snippets
       {
         plugin = luasnip;
         type = "lua";
         config = ''
           require("luasnip/loaders/from_vscode").lazy_load()
+          require("luasnip.loaders.from_lua").load("~/.config/nvim/lua/svrana/luasnippets")
         '';
       }
       cmp_luasnip
