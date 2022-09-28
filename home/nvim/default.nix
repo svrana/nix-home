@@ -321,7 +321,7 @@ in
         type = "lua";
         config = ''
           local n = require('neosolarized').setup({
-              comment_italics = true,
+             comment_italics = true,
           })
           n.Group.link('WarningMsg', n.groups.Comment)
         '';
@@ -384,7 +384,7 @@ in
                },
                config = {
                  workspaces = {
-                   my_workspace = "~/Documents/neorg"
+                   my_workspace = "~/Documents/org"
                  }
                }
              }
@@ -676,7 +676,8 @@ in
             mapping = {
               ['<C-p>'] = cmp.mapping.select_prev_item(),
               ['<C-n>'] = cmp.mapping.select_next_item(),
-              --['<C-d>'] = cmp.mapping.scroll_docs(-4),
+              ['<C-d>'] = cmp.mapping.scroll_docs(4),
+              ['<C-u>'] = cmp.mapping.scroll_docs(-4),
               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
               ['<C-f>'] = cmp.mapping.scroll_docs(4),
               ['<C-Space>'] = cmp.mapping.complete(),
