@@ -540,7 +540,7 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      ExecStart = "${alacritty} --class scratch-term,scratch-term --title scratch";
+      ExecStart = "${pkgs.bash}/bin/bash -lc '${alacritty} --class scratch-term,scratch-term --title scratch'";
       Restart = "always";
     };
   };
