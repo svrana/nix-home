@@ -378,4 +378,26 @@
     [options]
       background=002b36
   '';
+  # solarize it
+  xdg.configFile."Element/config.json".text = ''
+        {
+        "settingDefaults": {
+            "custom_themes": [
+                {
+                    "name": "Example theme",
+                    "colors": {
+                        "primary-color": "#9F8652"
+                    }
+                },
+                {
+                    "name": "Another theme",
+                    "colors": {
+                        "primary-color": "#526A9E"
+                    }
+                }
+            ]
+        },
+        "show_labs_settings": true
+    }
+  '';
 }
