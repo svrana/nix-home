@@ -679,7 +679,7 @@ in
         type = "lua";
         config = ''
           require("luasnip/loaders/from_vscode").lazy_load()
-          require("luasnip.loaders.from_lua").load("~/.config/nvim/lua/svrana/luasnippets")
+          require("luasnip.loaders.from_lua").load({paths="~/.config/nvim/lua/svrana/luasnippets"})
         '';
       }
       cmp_luasnip
@@ -1010,7 +1010,6 @@ in
         '';
       }
       vim-sort-motion
-      # vim-sneak
       {
         plugin = neomake; # move to null-ls
         config = ''
