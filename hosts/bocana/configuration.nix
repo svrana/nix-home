@@ -18,5 +18,7 @@
     };
   };
 
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   system.stateVersion = "20.09";
 }
