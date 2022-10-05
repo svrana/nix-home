@@ -2,6 +2,8 @@
 {
   services.tailscale.enable = true;
 
+  networking.networkmanager.unmanaged = "tailscale0";
+
   networking.firewall = {
     # Strict reverse path filtering breaks Tailscale exit node use and some subnet routing setup
     checkReversePath = "loose";
