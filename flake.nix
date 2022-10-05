@@ -84,14 +84,14 @@
         nixosConfigurations = {
           prentiss = mkSystem [ ./hosts/prentiss/configuration.nix ];
           bocana = mkSystem [ ./hosts/bocana/configuration.nix ];
-          elsie = mkSystem [ ./hosts/elsie/configuration.nix ];
+          #elsie = mkSystem [ ./hosts/elsie/configuration.nix ];
           park = mkSystem [ ./hosts/park/configuration.nix ];
         };
 
         homeConfigurations = {
           prentiss = mkHome [ ./hosts/prentiss ];
           park = mkHome [ ./hosts/park ];
-          elsie = mkHome [ ./hosts/elsie ];
+          #elsie = mkHome [ ./hosts/elsie ];
         };
 
         overlays = with lib;
