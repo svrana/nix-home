@@ -19,11 +19,11 @@ let
       tmuxinator start project -n "$1" workspace="$2"
     }
     tmux_from_scratch() {
-      tproject dots $DOTFILES $PROJECTS/dotfiles
-      tproject nixpkgs $PROJECTS/nixpkgs
-      tproject vranix.com $PROJECTS/vranix.com
-      tproject b6 $PROJECTS/b6
-      tproject aws-ops $PROJECTS/aws-ops
+      tproject dots $DOTFILES $PROJECTS/dotfiles && sleep .5
+      tproject nixpkgs $PROJECTS/nixpkgs && sleep .5
+      tproject vranix $PROJECTS/vranix.com && sleep .5
+      tproject b6 $PROJECTS/b6 && sleep .5
+      tproject aws-ops $PROJECTS/aws-ops && sleep .5
 
       tmux attach -t b6
     }
