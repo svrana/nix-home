@@ -43,8 +43,8 @@ in
       text = "fdf6e3";
       subtext = "eee8d5";
       sidebar-text = "fdf6e3";
-      main = "073642";
-      sidebar = "002b36";
+      sidebar = "073642";
+      main = "002b36";
       player = "073642";
       card = "93a1a1";
       shadow = "002b36";
