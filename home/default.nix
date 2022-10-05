@@ -14,11 +14,6 @@
   };
   news.display = "silent";
   nixpkgs.config.allowUnfree = true;
-  # for wayland screen sharing
-  nixpkgs.config.xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-  };
   xdg = {
     enable = true;
     mime.enable = true;
