@@ -1,4 +1,5 @@
 { pkgs, lib, ... }:
+
 let
   lua = text: ''
     lua << EOF
@@ -6,7 +7,8 @@ let
     EOF
   '';
   goimpl-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "goimpl";
+    pname = "goimpl";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "edolphin-ydf";
       repo = "goimpl.nvim";
@@ -15,7 +17,8 @@ let
     };
   };
   go-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "go-nvim";
+    pname = "go-nvim";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
@@ -26,8 +29,22 @@ let
       rm Makefile
     '';
   };
+  neogit = pkgs.vimUtils.buildVimPlugin {
+    pname = "neogit";
+    version = "2022-09-22";
+    dontBuild = true;
+    src = pkgs.fetchFromGitHub {
+      owner = "TimUntersberger";
+      repo = "neogit";
+      rev = "74c9e29b61780345d3ad9d7a4a4437607caead4a";
+      sha256 = "sha256-D08s/Nwsbyqgl2ODuSyD2uVyQdR+rwj6hciOLVWSXx8=";
+    };
+    meta.homepage = "https://github.com/TimUntersberger/neogit/";
+  };
+
   guihua-lua = pkgs.vimUtils.buildVimPlugin {
-    name = "guihua-lua";
+    pname = "guihua-lua";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "guihua.lua";
@@ -39,7 +56,8 @@ let
     '';
   };
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
-    name = "nvim-tabline";
+    pname = "nvim-tabline";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "seblj";
       repo = "nvim-tabline";
@@ -48,7 +66,8 @@ let
     };
   };
   neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "neosolarized-nvim";
+    pname = "neosolarized-nvim";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
@@ -57,7 +76,8 @@ let
     };
   };
   gh-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "gh-nvim";
+    pname = "gh-nvim";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "ldelossa";
       repo = "gh.nvim";
@@ -66,7 +86,8 @@ let
     };
   };
   litee-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "litee-nvim";
+    pname = "litee-nvim";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "ldelossa";
       repo = "litee.nvim";
@@ -75,7 +96,8 @@ let
     };
   };
   telescope-ui-select-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "telescope-ui-select.nvim";
+    pname = "telescope-ui-select.nvim";
+    version = "2022-01-06";
     src = pkgs.fetchFromGitHub {
       owner = "nvim-telescope";
       repo = "telescope-ui-select.nvim";
@@ -86,7 +108,7 @@ let
 
 in
 {
-  xdg.configFile."nvim/init.vim".text = lib.mkBefore ''
+  xdg.configFile."nvim/init-home-manager.vim".text = lib.mkBefore ''
     let mapleader = ","
   '';
 
@@ -791,7 +813,7 @@ in
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
             -- Format prior to save if supported
-            if client.resolved_capabilities.document_formatting then
+            if client.server_capabilities.document_formatting then
                vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
             end
 

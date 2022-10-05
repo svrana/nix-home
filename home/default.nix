@@ -115,7 +115,7 @@
     urlview
     w3m
     wmctrl
-    xdg_utils
+    xdg-utils
     zoom
     yarn
     bc
