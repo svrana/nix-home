@@ -122,6 +122,7 @@ in
     extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
     extraPackages = with pkgs; [
       buf
+      buf-language-server
       code-minimap
       iferr
       nixfmt
@@ -137,7 +138,6 @@ in
       sumneko-lua-language-server
       luaformatter
       rust-analyzer
-      buf-language-server
     ];
     extraConfig = ''
       lua << EOF
@@ -844,7 +844,7 @@ in
           -- map buffer local keybindings when the language server attaches
           local servers = {
             'bashls',
-            --'bufls',
+            'bufls',
             'yamlls',
             'rnix',
             'dockerls',
