@@ -41,7 +41,6 @@ let
     };
     meta.homepage = "https://github.com/TimUntersberger/neogit/";
   };
-
   guihua-lua = pkgs.vimUtils.buildVimPlugin {
     pname = "guihua-lua";
     version = "2022-01-06";
@@ -81,18 +80,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ldelossa";
       repo = "gh.nvim";
-      rev = "64d5d545f8cd1c0da9f2720af132207fa21b2c1f";
-      sha256 = "sha256-wSbLtfPWfvYQLIKSt5T0Toq/ct6Ce6ahgXr50Z8SRM4=";
-    };
-  };
-  litee-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "litee-nvim";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "ldelossa";
-      repo = "litee.nvim";
-      rev = "2d257af35e90b1ee6017481b7fd82878d8f0e5ff";
-      sha256 = "sha256-vqxUskYTTpTpDOqky/PoWayHsOQYL0fGvpPL5K/olhU=";
+      rev = "6fb1702df462d08f06df21c1e98d69ec08048cde";
+      sha256 = "sha256-WBDePmucw5OxeGUXXZ7pRUVQTAsv22WNpg6518e6MpA=";
     };
   };
   telescope-ui-select-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -279,7 +268,9 @@ in
         type = "lua";
         config = ''
           require('litee.lib').setup()
-          require('litee.gh').setup()
+          require('litee.gh').setup({
+            debug_logging = true,
+          })
         '';
       }
       {
@@ -564,13 +555,13 @@ in
       }
       popup-nvim
       telescope-fzf-native-nvim
-      #{
-      #  plugin = telescope-ui-select-nvim;
-      #   type = "lua";
-      #  config = ''
-      #    require("telescope").load_extension("ui-select")
-      #  '';
-      #}
+      {
+        plugin = telescope-ui-select-nvim;
+         type = "lua";
+        config = ''
+          require("telescope").load_extension("ui-select")
+        '';
+      }
       {
         plugin = telescope-project-nvim;
         type = "lua";
@@ -1094,7 +1085,7 @@ in
           wk.register({
             ["<leader>"] = {
               c = {
-                name = "code",
+                name = "+code",
                 d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
                 a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
                 f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
@@ -1104,7 +1095,7 @@ in
                 s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
                 i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
                 g = {
-                  name = "go",
+                  name = "+go",
                   s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
                   w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
                   t = { "<cmd>GoAddTag<cr>",      "Add struct tags" },
@@ -1112,16 +1103,16 @@ in
                 },
               },
               d = {
-                name = "display",
+                name = "+display",
                 d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
                 n = {
-                  name = "number",
+                  name = "+number",
                   r = { "<cmd>set relativenumber!<cr>", "Relative line numbers" },
                   l = { "<cmd>set number!<cr>", "Line numbers" },
                 },
               },
               f = {
-                name = "fuzzy",
+                name = "+fuzzy",
                 d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
                 b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
                 f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
@@ -1133,7 +1124,7 @@ in
                 z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
               },
               g = {
-                name = "git",
+                name = "+git",
                 b = {
                   name = "Blame",
                   f = { "<cmd>Git blame<cr>",                                                 "File" },        -- fugitive
@@ -1143,9 +1134,54 @@ in
                 h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
                 s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
                 z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
+                h = {
+                  name = "+Github",
+                  c = {
+                      name = "+Commits",
+                      c = { "<cmd>GHCloseCommit<cr>", "Close" },
+                      e = { "<cmd>GHExpandCommit<cr>", "Expand" },
+                      o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
+                      p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
+                      z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
+                  },
+                  i = {
+                      name = "+Issues",
+                      p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
+                  },
+                  l = {
+                      name = "+Litee",
+                      t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
+                  },
+                  r = {
+                      name = "+Review",
+                      b = { "<cmd>GHStartReview<cr>", "Begin" },
+                      c = { "<cmd>GHCloseReview<cr>", "Close" },
+                      d = { "<cmd>GHDeleteReview<cr>", "Delete" },
+                      e = { "<cmd>GHExpandReview<cr>", "Expand" },
+                      s = { "<cmd>GHSubmitReview<cr>", "Submit" },
+                      z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
+                  },
+                  p = {
+                      name = "+Pull Request",
+                      c = { "<cmd>GHClosePR<cr>", "Close" },
+                      d = { "<cmd>GHPRDetails<cr>", "Details" },
+                      e = { "<cmd>GHExpandPR<cr>", "Expand" },
+                      o = { "<cmd>GHOpenPR<cr>", "Open" },
+                      p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
+                      r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
+                      t = { "<cmd>GHOpenToPR<cr>", "Open To" },
+                      z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
+                  },
+                  t = {
+                      name = "+Threads",
+                      c = { "<cmd>GHCreateThread<cr>", "Create" },
+                      n = { "<cmd>GHNextThread<cr>", "Next" },
+                      t = { "<cmd>GHToggleThread<cr>", "Toggle" },
+                  },
+                },
               },
               h = {
-                name = "harpoon",
+                name = "+harpoon",
                 s = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show" },
                 a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
                 r = { "<cmd>lua require('harpoon.tmux').sendCommand('{bottom-right}', 1)<cr>", "Run command"},
@@ -1156,27 +1192,27 @@ in
                 ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "goto file 4" },
               },
               j = {
-                name = "jump",
+                name = "+jump",
                 w = { "<cmd>HopWord<cr>", "Word" },
                 l = { "<cmd>HopLine<cr>", "Line" },
                 c = { "<cmd>HopChar1<cr>", "Character" },
               },
               p = {
-                name = "preview",
+                name = "+preview",
                 l = { "<cmd>LLPStartPreview<cr>", "laTEX preview" },  -- vim-latex-live-preview
                 g = { "<cmd>Glow<cr>",          "Glow (markdown)" },                   -- glow-nvim
                 s = { "<cmd>ComposerStart<cr>", "Start markdown composer" },         --vim-markdown-composer
               },
               n = {
-                name = "new",
+                name = "+new",
                 t = { "<cmd>tabnew<cr>", "Tab" },
               },
               s = {
-                name = "source",
+                name = "+source",
                 v = { "<cmd>source $XDG_CONFIG_HOME/nvim/init.vim<cr>", "Vimrc" },
               },
               t = {
-                name = "toggle",
+                name = "+toggle",
                 c = { "<cmd>set cursorline!<cr>", "Cursorline" },
                 n = { "<cmd>set relativenumber!<cr>", "Number" },
                 h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
@@ -1186,7 +1222,7 @@ in
               w = { "<cmd>w<cr>", "Write file" },
               q = { "<cmd>q<cr>", "Quit" },
               u = {
-                name = "quickfix",
+                name = "+quickfix",
                 c = { "<cmd>cclose<cr>", "Close" },
                 n = { "<cmd>cnext<cr>", "Next" },
                 p = { "<cmd>cprev<cr>", "Previous" },
