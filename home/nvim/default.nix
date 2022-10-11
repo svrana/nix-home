@@ -22,8 +22,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "eee5a02a374581c2df6022a525d116bf1a612fd6";
-      sha256 = "sha256-cWPSdVXruAxsHlXwDa0cTUlNSKouRoyM61yd6SazNck=";
+      rev = "1aef2d60bd220a8d58a0b5fed6af696b6244ce1d";
+      sha256 = "sha256-Ry0ULpTVFJH+pYR1H/QKJe8AiNQK91rI+Kmytl3Cupk=";
     };
     configurePhase = ''
       rm Makefile
@@ -48,8 +48,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "guihua.lua";
-      rev = "4d77d8d2ca71c204a0cc605bef94ec994ba98698";
-      sha256 = "sha256-J8DRceP3ljMlmALUKSCfD5acy70yT3gpG6wo0GzBf/I=";
+      rev = "2fce8a8b462cf6599d9422efb157773126e1c7ce";
+      sha256 = "sha256-tHmVCf/Ox8kAZ1izS/GoxZKihT2W4XZmUvkFAxEkDc8=";
     };
     configurePhase = ''
       rm Makefile
