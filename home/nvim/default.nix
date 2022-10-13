@@ -207,6 +207,10 @@ in
         vim.cmd [[
           autocmd FileType harpoon    nnoremap <buffer> <C-c> <cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>
         ]]
+        --set spelllang=en_us region not supported  uh oh
+        vim.cmd [[
+          set spell
+        ]]
 
         --Remap for dealing with word wrap
         vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -217,11 +221,11 @@ in
         autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
         autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
         autocmd('FileType', '*',          'setlocal formatoptions+=croq')
-        autocmd('BufRead', 'gitcommit',   'setlocal spell spelllang=en_US textwidth=72')
+        autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72')
         autocmd('BufRead', 'gitcommit',   'setlocal fo+=t')
-        autocmd('BufRead', '*.md',        'setlocal spell spelllang=en_US textwidth=90')
-        autocmd('BufRead', '*.txt',       'setlocal spell spelllang=en_US textwidth=90')
-        autocmd('BufRead', '*.eml',       'setlocal spell spelllang=en_US textwidth=90')
+        autocmd('BufRead', '*.md',        'setlocal textwidth=90')
+        autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
+        autocmd('BufRead', '*.eml',       'setlocal textwidth=90')
         autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]],       'setf ruby')
         autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
         autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
