@@ -29,18 +29,6 @@ let
       rm Makefile
     '';
   };
-  neogit = pkgs.vimUtils.buildVimPlugin {
-    pname = "neogit";
-    version = "2022-09-22";
-    dontBuild = true;
-    src = pkgs.fetchFromGitHub {
-      owner = "TimUntersberger";
-      repo = "neogit";
-      rev = "74c9e29b61780345d3ad9d7a4a4437607caead4a";
-      sha256 = "sha256-D08s/Nwsbyqgl2ODuSyD2uVyQdR+rwj6hciOLVWSXx8=";
-    };
-    meta.homepage = "https://github.com/TimUntersberger/neogit/";
-  };
   guihua-lua = pkgs.vimUtils.buildVimPlugin {
     pname = "guihua-lua";
     version = "2022-01-06";
