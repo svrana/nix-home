@@ -84,17 +84,6 @@ let
       sha256 = "sha256-WBDePmucw5OxeGUXXZ7pRUVQTAsv22WNpg6518e6MpA=";
     };
   };
-  telescope-ui-select-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "telescope-ui-select.nvim";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "nvim-telescope";
-      repo = "telescope-ui-select.nvim";
-      rev = "62ea5e58c7bbe191297b983a9e7e89420f581369";
-      sha256 = "sha256-/JM2KX70JXa3sydrUj13Vd4rRwhn3VrdW7qLLHqIqyY";
-    };
-  };
-
 in
 {
   xdg.configFile."nvim/init-home-manager.vim".text = lib.mkBefore ''
