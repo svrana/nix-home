@@ -1081,6 +1081,11 @@ in
                   w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
                   t = { "<cmd>GoAddTag<cr>",      "Add struct tags" },
                   i = { "<cmd>GoIfErr<cr>",       "Add if err" },
+                  t = {
+                    name = "+test",
+                    f = { "<cmd>GoTestFunc<cr>", "test func" },
+                    i = { "<cmd>GoTestFile<cr>", "test file" },
+                  }
                 },
               },
               d = {
