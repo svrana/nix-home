@@ -977,6 +977,7 @@ in
           }
         '';
       }
+      vim-tmux-navigator
       vim-surround
       nvim-ts-context-commentstring
       {

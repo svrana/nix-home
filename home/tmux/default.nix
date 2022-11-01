@@ -19,6 +19,7 @@
       fingers
       sessionist
       extrakto
+      vim-tmux-navigator
       {
         plugin = resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
