@@ -374,7 +374,7 @@ in
       * {
         font-family: 'Roboto Mono for Powerline', 'UbuntuMono Nerd Font', 'SFNS Display', Helvetica, Arial, sans-serif;
         border: none;
-        border-radius: 2;
+        border-radius: 2px;
         font-size: 13px;
         min-height: 0;
       }
@@ -392,15 +392,15 @@ in
         background: transparent;
         color: #dfdfdf;
         /* Use box-shadow instead of border so the text isn't offset */
-        box-shadow: inset 0 -3px transparent;
+        box-shadow: inset 0px -3px transparent;
       }
       #workspaces button.focused {
         background-color: ${base00};
-        box-shadow: inset 0 -3px ${cyan};
+        box-shadow: inset 0px -3px ${cyan};
       }
       #workspaces button:hover {
         background: rgba(0, 0, 0, 0.2);
-        box-shadow: inset 0 -3px ${violet};
+        box-shadow: inset 0px -3px ${violet};
       }
       #mode {
         background-color: ${base01};
@@ -425,8 +425,8 @@ in
       #idle_inhibitor,
       #mpd {
         /* tweak padding / margin here to get bottom of window alignment correct */
-        padding: 0 6 0 6px;
-        margin: 6 6 9 6px;
+        padding: 0px 6px 0px 6px;
+        margin: 6px 6px 9px 6px;
         font-weight: bold;
         border-radius: 4px;
         color: #D8DEE9;
@@ -450,12 +450,12 @@ in
 
       /* If workspaces is the leftmost module, omit left margin */
       .modules-left > widget:first-child > #workspaces {
-        margin-left: 0;
+        margin-left: 0px;
       }
 
       /* If workspaces is the rightmost module, omit right margin */
       .modules-right > widget:last-child > #workspaces {
-        margin-right: 0;
+        margin-right: 0px;
       }
     '';
   };
