@@ -271,13 +271,6 @@ in
                   }
                 }
               },
-              ["$PROJECTS/interview"] = {
-                term = {
-                  cmds = {
-                    "go run ."
-                  }
-                }
-              },
             }
           })
         '';
@@ -508,6 +501,7 @@ in
           }
         '';
       }
+      nvim-treesitter-textobjects
       {
         plugin = playground;
         type = "lua";
