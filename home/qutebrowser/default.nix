@@ -91,11 +91,6 @@ in
         "<Ctrl-;>" = "edit-text";
       };
       normal = {
-        "<Ctrl-d>" = "scroll-page 0 -0.5";
-        "<Ctrl-f>" = "scroll-page 0 0.5";
-        "<Ctrl-h>" = "tab-next";
-        "<Ctrl-s>" = "tab-prev";
-
         "<Ctrl-b>" = "config-source";
         "<Ctrl-m>" = "spawn --detach umpv {url}";
         "<Ctrl-y>" = "hint links spawn --detach umpv {hint-url}";
