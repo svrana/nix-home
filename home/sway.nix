@@ -457,6 +457,12 @@ in
       .modules-right > widget:last-child > #workspaces {
         margin-right: 0px;
       }
+      /* color regression: https://github.com/Alexays/Waybar/issues/1741 */
+      label:disabled,
+      button:disabled {
+        color: inherit;
+        background-image: none;
+      }
     '';
   };
 
