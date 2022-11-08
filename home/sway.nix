@@ -22,8 +22,7 @@ let
       tproject dots $DOTFILES $PROJECTS/dotfiles && sleep .5
       tproject nixpkgs $PROJECTS/nixpkgs && sleep .5
       tproject vranix $PROJECTS/vranix.com && sleep .5
-      tproject b6 $PROJECTS/b6 && sleep .5
-      tproject aws-ops $PROJECTS/aws-ops && sleep .5
+      tproject nucleus $PROJECTS/nucleus && sleep .5
 
       tmux attach -t b6
     }

@@ -104,6 +104,7 @@ in
       sumneko-lua-language-server
       luaformatter
       rust-analyzer
+      terraform-lsp
     ];
     extraConfig = ''
       lua << EOF
@@ -803,6 +804,7 @@ in
             'dockerls',
             'vimls',
             'rust_analyzer',
+            'terraform_lsp',
           }
           for _, lsp in ipairs(servers) do
             nvim_lsp[lsp].setup({

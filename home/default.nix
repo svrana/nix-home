@@ -122,6 +122,20 @@
     vanilla-dmz
     obs-studio
 
+    pass
+    buf
+    operator-sdk
+    go-mockery
+    protobuf
+    golangci-lint
+    kubebuilder
+    kustomize
+    #helm
+    helmfile
+    sops
+    age
+    _1password-gui
+
     # sway specific
     avizo
     clipman
