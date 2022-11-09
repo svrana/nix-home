@@ -46,6 +46,7 @@ in
         defaultBranch = "main";
       };
       #url."git@github.com:".insteadOf = "https://github.com";
+      url."git@github.com:nucleuscloud".insteadOf = "https://github.com/nucleuscloud";
       diff-so-fancy = { stripLeadingSymbols = false; };
       core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
       merge = { tool = "vimdiff"; };

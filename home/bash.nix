@@ -75,7 +75,7 @@ in
     initExtra = ''
       source "$RCS/functions.sh"
 
-      PATH_append ~/.config/emacs/bin
+      PATH_append "~/.cache/go/bin"
 
       set -o vi
       stty -ixon

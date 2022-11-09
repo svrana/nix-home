@@ -434,7 +434,7 @@ in
           require('nvim-treesitter.configs').setup {
             highlight = {
               enable = true, -- false will disable the whole extension
-              disable = { "nix" }, -- getting an error so disable for now
+              disable = { "nix", "make", "docker"}, -- getting an error so disable for now
             },
             -- see nvim-ts-context-commentstring
             context_commentstring = {
