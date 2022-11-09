@@ -74,6 +74,7 @@ in
     # only run for interactive sessions
     initExtra = ''
       source "$RCS/functions.sh"
+      source "$PERSONAL/nucleus/env.sh"
 
       PATH_append "~/.cache/go/bin"
 
