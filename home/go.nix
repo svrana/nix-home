@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let goPath = ".cache/go";
+let goPath = "~/.cache/go";
 in
 {
   programs.go = {
