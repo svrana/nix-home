@@ -375,43 +375,10 @@ in
           local null_ls = require('null-ls')
           local helpers = require('null-ls.helpers')
 
-          local buf = {
-            name = "buf",
-            filetypes = { "proto" },
-            method = null_ls.methods.DIAGNOSTICS,
-            generator = null_ls.generator({
-              command = "buf",
-              args = { "lint", "--error-format", "text" },
-              format = "line",
-              to_stdin = true,
-              check_exit_code = { 0, 100 },
-              on_output = helpers.diagnostics.from_pattern(
-                [[[%w/.]+:(%d+):(%d+):(.*)]],
-                { "row", "col", "message" }
-              ),
-            })
-          }
-          --null_ls.register(buf)
-
-          local prototool = helpers.make_builtin({
-           method = null_ls.methods.FORMATTING,
-           filetypes = { "proto" },
-           generator_opts = {
-             command = "prototool",
-             args = {
-               "format",
-               "$FILENAME",
-             },
-             to_stdin = true,
-             from_stderr = true,
-           },
-           factory = helpers.formatter_factory,
-          })
-          -- need a prototool.yaml in proto/ root for it to figure out paths
-          --null_ls.register(prototool)
-
           null_ls.setup({
             sources = {
+              null_ls.builtins.diagnostics.buf,
+              null_ls.builtins.diagnostics.golangci_lint,
               null_ls.builtins.diagnostics.eslint_d,
               null_ls.builtins.formatting.prettier.with({
                 filetypes = { "typescript", "typescriptreact", "markdown", "json" },
@@ -995,20 +962,6 @@ in
         '';
       }
       vim-sort-motion
-      {
-        plugin = neomake; # move to null-ls
-        config = ''
-          let g:neomake_verbose = 0
-
-          let g:neomake_proto_maker = {
-            \ 'exe': 'buf',
-            \ 'args': ['lint', '--path'],
-            \ 'errorformat': '%f:%l:%c:%m',
-          \ }
-
-          autocmd BufEnter,BufWritePost *.proto Neomake proto
-        '';
-      }
       tmux-complete-vim
       vim-fetch
       fzfWrapper
