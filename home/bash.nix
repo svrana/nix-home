@@ -14,6 +14,7 @@ in
     historyControl = [ "ignoredups" "erasedups" "ignorespace" ];
     historyFile = "$XDG_DATA_HOME/bash/history";
     shellOptions = [ "histappend" "checkwinsize" "autocd" "cdspell" ];
+    # these should go in sessionVariablesExtra
     sessionVariables = {
       # for docker-compose/dev/fixuid
       #BUILDUID = "$(id -u $USER)";

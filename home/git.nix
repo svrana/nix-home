@@ -92,6 +92,7 @@ in
       ".direnv"
       ".*@neomake*"
       ".ignore"
+      ".gonvim"
     ];
     attributes = [
       "*.c     diff=cpp"
