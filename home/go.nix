@@ -1,8 +1,10 @@
 { pkgs, ... }:
+let goPath = ".cache/go";
+in
 {
   programs.go = {
     enable = true;
-    goPath = ".cache/go";
+    goPath = "${goPath}";
     package = pkgs.go_1_19;
   };
 
@@ -11,4 +13,6 @@
     golangci-lint
     gotools
   ];
+
+  home.sessionPath = [ "${goPath}" ];
 }

@@ -76,8 +76,6 @@ in
       source "$RCS/functions.sh"
       source "$PERSONAL/nucleus/env.sh"
 
-      PATH_append ~/.cache/go/bin
-
       set -o vi
       stty -ixon
 
