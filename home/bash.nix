@@ -100,7 +100,6 @@ in
     bashrcExtra = ""; # run prior to the interactive session check
     profileExtra = "";
     shellAliases = {
-      #"cd" = "z";
       "cd.." = "cd ..";
       ".." = "cd ..";
       "..." = "cd ../../";

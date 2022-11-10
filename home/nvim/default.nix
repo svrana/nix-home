@@ -817,7 +817,14 @@ in
           end
 
           require('go').setup({
-            lsp_cfg = true, -- setup gopls for us
+            -- lsp_cfg = true, -- setup gopls for us
+            lsp_cfg = {
+              settings= {
+                gopls = {
+                  staticcheck=false,
+                }
+              }
+            },
             lsp_on_attach = on_attach,
           })
 

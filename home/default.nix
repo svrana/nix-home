@@ -122,7 +122,6 @@
     vanilla-dmz
     obs-studio
 
-    pass
     buf
     operator-sdk
     go-mockery
@@ -135,6 +134,8 @@
     sops
     age
     _1password-gui
+    nodejs
+    typescript
 
     # sway specific
     avizo
@@ -298,14 +299,14 @@
   };
   xdg.configFile."inputrc".source = ./config/inputrc;
   xdg.configFile."psql/config".source = ./config/psql/psqlrc;
-  xdg.configFile."npm/npmrc" = {
-    text = ''
-      python=python
-      prefix=''${XDG_DATA_HOME}/npm
-      cache=''${XDG_CACHE_HOME}/npm
-      init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
-    '';
-  };
+  # xdg.configFile."npm/npmrc" = {
+  #   text = ''
+  #     python=python
+  #     prefix=''${XDG_DATA_HOME}/npm
+  #     cache=''${XDG_CACHE_HOME}/npm
+  #     init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
+  #   '';
+  # };
   xdg.configFile."fd/ignore".text = ''
     vendor
     pb
