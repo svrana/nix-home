@@ -359,8 +359,6 @@
     };
   };
 
-  programs.java.enable = true;
-
   # Set name in icons theme, for compatibility with AwesomeWM etc. See:
   # https://github.com/nix-community/home-manager/issues/2081
   # https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
