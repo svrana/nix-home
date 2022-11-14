@@ -22,8 +22,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "1aef2d60bd220a8d58a0b5fed6af696b6244ce1d";
-      sha256 = "sha256-Ry0ULpTVFJH+pYR1H/QKJe8AiNQK91rI+Kmytl3Cupk=";
+      rev = "f23ca4e781f4955c004bc6c85c6111bfe83232c2";
+      sha256 = "sha256-yygK5gEMMWJjCjWM+SVD6IHtyI+ViH9Z1FM1RRFUS5s=";
     };
     configurePhase = ''
       rm Makefile
@@ -395,7 +395,55 @@ in
         '';
       }
       {
-        plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars));
+        plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
+          c
+          css
+          comment
+          diff
+          elixir
+          erlang
+          git_rebase
+          gitignore
+          gitattributes
+          elm
+          bash
+          nix
+          python
+          go
+          gomod
+          gowork
+          haskell
+          hcl
+          help
+          html
+          http
+          java
+          javascript
+          jsdoc
+          json
+          latex
+          # lua
+          markdown
+          markdown_inline
+          norg
+          org
+          proto
+          query
+          regex
+          ruby
+          rust
+          scss
+          sql
+          kotlin
+          toml
+          tsx
+          vim
+          yaml
+          make
+          dockerfile
+          typescript
+          ]
+        ));
         type = "lua";
         config = ''
           require('nvim-treesitter.configs').setup {
