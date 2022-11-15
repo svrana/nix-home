@@ -1,10 +1,10 @@
 { pkgs, ... }:
-let goPath = "~/.cache/go";
+let goPath = "/home/shaw/.cache/go";
 in
 {
   programs.go = {
     enable = true;
-    goPath = "${goPath}";
+    goPath = ".cache/go";
     package = pkgs.go_1_19;
   };
 
@@ -14,5 +14,5 @@ in
     gotools
   ];
 
-  home.sessionPath = [ "${goPath}" ];
+  home.sessionPath = [ "${goPath}/bin" ];
 }
