@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let goPath = "/home/shaw/.cache/go";
+let goPath = "$XDG_CACHE_HOME/go";
 in
 {
   programs.go = {
