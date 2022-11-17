@@ -15,15 +15,16 @@
       enable = true;
       support32Bit = true;
     };
-    pipewire-pulse = {
-    };
-    #jack.enable = true;
     wireplumber.enable = true;
-    #media-session.enable = true;
     media-session.enable = false;
-  };
-
-  # hardware.pulseaudio.extraConfig = "
-  #   load-module module-switch-on-connect
-  # ";
+    config.pipewire-pulse = {
+        # Extra modules can be loaded here. Setup in default.pa can be moved here
+        "context.exec" = [
+          {
+            path = "pactl";
+            args = "load-module module-switch-on-connect";
+          }
+        ];
+      };
+    };
 }
