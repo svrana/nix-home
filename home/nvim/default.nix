@@ -273,6 +273,13 @@ in
                   }
                 }
               },
+              [ "$PROJECTS/nucleus/mgmt-api" ] = {
+                term = {
+                  cmds = {
+                    "make"
+                  }
+                }
+              },
             }
           })
         '';
@@ -1046,6 +1053,11 @@ in
             filters = {
               dotfiles = true
             },
+            view = {
+              --auto_resize = true,
+              --side = 'left',
+              width = 35
+            };
           })
         '';
       }
@@ -1075,7 +1087,7 @@ in
                   name = "+go",
                   s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
                   w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
-                  t = { "<cmd>GoAddTag<cr>",      "Add struct tags" },
+                  j = { "<cmd>GoAddTag<cr>",      "Add struct tags" },
                   i = { "<cmd>GoIfErr<cr>",       "Add if err" },
                   t = {
                     name = "+test",
