@@ -136,6 +136,8 @@
     _1password-gui
     nodejs
     typescript
+    nodePackages.vercel
+    postman
 
     # sway specific
     avizo
