@@ -121,6 +121,7 @@
     bc
     vanilla-dmz
     obs-studio
+    yq
 
     buf
     operator-sdk
