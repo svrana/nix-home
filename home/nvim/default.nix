@@ -932,9 +932,10 @@ in
                  file_status = true, -- displays file status (readonly status, modified status)
                  path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
                },
-               {
-                 'lsp_progress'
-               }
+               -- golang lsp spewing errors causing ugliness with this for now
+               --{
+               --  'lsp_progress'
+               --}
              },
              lualine_x = {
                {
