@@ -19,12 +19,16 @@ let
       tmuxinator start project -n "$1" workspace="$2"
     }
     tmux_from_scratch() {
-      tproject dots $DOTFILES $PROJECTS/dotfiles && sleep .5
-      tproject nixpkgs $PROJECTS/nixpkgs && sleep .5
+      tproject dots $DOTFILES $PROJECTS/dotfiles
+      sleep .2
+      tproject nixpkgs $PROJECTS/nixpkgs
+      sleep .2
       tproject vranix $PROJECTS/vranix.com && sleep .5
-      tproject nucleus $PROJECTS/nucleus && sleep .5
+      sleep .2
+      tmuxinator start nucleus
+      sleep .2
 
-      tmux attach -t b6
+      tmux attach -t nucleus
     }
 
     tmux attach || tmux_from_scratch

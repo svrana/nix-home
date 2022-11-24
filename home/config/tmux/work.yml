@@ -1,5 +1,7 @@
-name: work
-root: ~/
+# /home/shaw/.config/tmuxinator/work.yml
+
+name: nucleus
+root: /home/shaw/Projects/nucleus
 
 # Optional tmux socket
 # socket_name: foo
@@ -8,14 +10,19 @@ root: ~/
 # project hooks.
 
 # Project hooks
+
 # Runs on project start, always
 # on_project_start: command
+
 # Run on project start, the first time
 # on_project_first_start: command
+
 # Run on project start, after the first time
 # on_project_restart: command
+
 # Run on project exit ( detaching from tmux session )
 # on_project_exit: command
+
 # Run on project stop
 # on_project_stop: command
 
@@ -38,27 +45,35 @@ root: ~/
 # attach: false
 
 windows:
-  - dots:
-      layout: even-horizontal
-      root: ~/Projects/dotfiles
+  - api:
+      layout: dd11,426x111,0,0{141x111,0,0,17,141x111,142,0,18,142x111,284,0[142x71,284,0,19,142x39,284,72,20]}
       panes:
-        -
-        -
-        -
-  - pioneers:
-      layout: even-horizontal
-      root: ~/Projects/plutus-pioneer-program/code/week06
+        - cd mgmt-api
+        - editor:
+          - cd mgmt-api
+          - vi
+        - cd mgmt-api
+  - web:
+      layout: dd11,426x111,0,0{141x111,0,0,17,141x111,142,0,18,142x111,284,0[142x71,284,0,19,142x39,284,72,20]}
       panes:
-        -
-        -
-        -
-  - running:
-      layout: even-horizontal
-      root: ~/Projects/plutus-apps
+        - cd app
+        - editor:
+          - cd app
+          - vi
+        - cd app
+  - setup:
+      layout: 36aa,426x111,0,0{141x111,0,0[141x55,0,0,20,141x55,0,56,24],141x111,142,0[141x55,142,0,21,141x55,142,56,23],142x111,284,0,25}
       panes:
-        - nix-shell --command 'cd plutus-playground-client && npm run start'
-        - nix-shell --command build-and-serve-docs
-        - nix-shell --command 'cd plutus-playground-client && plutus-playground-server'
-  # - irc:
-  #     root: ~/
-  #     panes: weechat
+        - ssh postgres.stage
+        - grpc-proxy:
+          - cd mgmt-api
+          - GRPC_BASE_URL=localhost:50051 PORT=3001 ./bin/web
+        - api-watch:
+          - cd mgmt-api
+          - make watch
+        - run:
+          - cd mgmt-api
+          - make run
+        - web:
+          - cd app
+          - npm run dev
