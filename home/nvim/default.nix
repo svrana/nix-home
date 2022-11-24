@@ -800,8 +800,8 @@ in
             require('lsp_signature').on_attach()
 
             -- See `:help vim.lsp.*` for documentation on any of the below functions
+
             wk.register({
-              [ '<C-k>' ]   = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",    "method signature",     buffer = bufnr },
               [ '<C-]>' ]   = { "<cmd>lua vim.lsp.buf.definition()<cr>",        "goto definition",      buffer = bufnr },
               [ "[d" ]      = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",  "prev diagnostic", buffer = bufnr },
               [ "]d" ]      = { "<cmd>lua vim.diagnostic.goto_next()<cr>",  "next diagnostic", buffer = bufnr },
@@ -841,6 +841,7 @@ in
 
           require('go').setup({
             lsp_cfg = true, -- setup gopls for us
+            -- moved this into .gonvim per-project directory as this isn't usually what I want
             -- lsp_cfg = {
             --   settings= {
             --     gopls = {
@@ -933,9 +934,9 @@ in
                  path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
                },
                -- golang lsp spewing errors causing ugliness with this for now
-               --{
+               -- {
                --  'lsp_progress'
-               --}
+               -- }
              },
              lualine_x = {
                {
@@ -1082,7 +1083,6 @@ in
                 j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
                 p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
                 r = { "<cmd>Lspsaga rename<cr>", "Rename" },
-                s = { "<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>", "Signature help" },
                 i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
                 g = {
                   name = "+go",
