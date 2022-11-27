@@ -22,8 +22,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "f23ca4e781f4955c004bc6c85c6111bfe83232c2";
-      sha256 = "sha256-yygK5gEMMWJjCjWM+SVD6IHtyI+ViH9Z1FM1RRFUS5s=";
+      rev = "4599360f5d9210631303873e53ef3b87bf663c9e";
+      sha256 = "sha256-wH08KpHQ2zIjhv0bQmCGwq5kqkptKZ7bLCzzmLnD/bg=";
     };
     configurePhase = ''
       rm Makefile
@@ -850,6 +850,8 @@ in
             --   }
             -- },
             lsp_on_attach = on_attach,
+            --verbose = true,
+            --tag_options = "json="
           })
 
           nvim_lsp.hls.setup({
@@ -1088,12 +1090,14 @@ in
                   name = "+go",
                   s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
                   w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
-                  j = { "<cmd>GoAddTag<cr>",      "Add struct tags" },
-                  i = { "<cmd>GoIfErr<cr>",       "Add if err" },
+                  j = { "<cmd>GoAddTag<cr>",      "tag struct" },
+                  i = { "<cmd>GoIfErr<cr>",       "add if err"  },
+                  c = { "<cmd>GoCheat<cr>",       "cheat.sh"    },
                   t = {
                     name = "+test",
                     f = { "<cmd>GoTestFunc<cr>", "test func" },
                     i = { "<cmd>GoTestFile<cr>", "test file" },
+                    a = { "<cmd>GoAddTest<cr>", "add test" },
                   }
                 },
               },
