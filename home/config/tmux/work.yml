@@ -67,7 +67,7 @@ windows:
         - ssh postgres.stage
         - grpc-proxy:
           - cd mgmt-api
-          - GRPC_BASE_URL=localhost:50051 PORT=3001 ./bin/web
+          - HOST=0.0.0.0 GRPC_BASE_URL=localhost:50051 PORT=3001 ./bin/web
         - api-watch:
           - cd mgmt-api
           - make watch
