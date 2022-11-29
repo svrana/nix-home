@@ -8,7 +8,8 @@
       "--multi"
       "--reverse"
       "--info inline"
-      "--bind=ctrl-f:page-down,ctrl-b:page-up,ctrl-d:page-up"
+      "--bind=ctrl-f:page-down,ctrl-b:page-up"
+      "--height=40%"
       "--color='bg+:#073642,pointer:#2aa198,hl+:#dc322f,hl:#859900'"
     ];
     fileWidgetCommand = "fd --type f";
