@@ -25,10 +25,10 @@ let
       sleep .2
       tproject vranix $PROJECTS/vranix.com && sleep .5
       sleep .2
-      tmuxinator start nucleus
+      tmuxinator start work
       sleep .2
 
-      tmux attach -t nucleus
+      tmux attach -t work
     }
 
     tmux attach || tmux_from_scratch
