@@ -852,6 +852,7 @@ in
             lsp_on_attach = on_attach,
             --verbose = true,
             --tag_options = "json="
+            tag_transform = "camelcase",
           })
 
           nvim_lsp.hls.setup({
