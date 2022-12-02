@@ -90,11 +90,12 @@
     imv
     maim
     mpv
+    gnome.nautilus
+    gnome-photos
     nixfmt
     nixpkgs-review
     packer
     pulumi-bin
-    #perl532Packages.FileMimeInfo # perlPackages.FileMimeInfo not sure what this was for
     prototool
     python3
     readline
@@ -120,7 +121,6 @@
     yarn
     bc
     vanilla-dmz
-    obs-studio
     yq
 
     buf
