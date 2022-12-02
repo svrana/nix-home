@@ -142,7 +142,8 @@ in
         -- opt.clipboard = "unnamed"
         opt.pumblend    = 10
         opt.foldmethod  = "marker"
-        opt.completeopt = "menuone,noselect"
+        --opt.completeopt = "menuone,noselect"
+        set completeopt=menu,menuone,noselect
         opt.undofile = true;
         --opt.rtp:append(vim.env.RCS .. '/nvim')
 
