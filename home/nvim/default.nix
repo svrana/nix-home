@@ -142,8 +142,7 @@ in
         -- opt.clipboard = "unnamed"
         opt.pumblend    = 10
         opt.foldmethod  = "marker"
-        --opt.completeopt = "menuone,noselect"
-        set completeopt=menu,menuone,noselect
+        opt.completeopt = "menu,menuone,noselect"
         opt.undofile = true;
         --opt.rtp:append(vim.env.RCS .. '/nvim')
 
@@ -155,32 +154,49 @@ in
 
         local map = vim.api.nvim_set_keymap
         local options = { noremap = true, silent = true }
+
+        map('i', 'jj', '<esc>', {})
+
+        -- center after movements so as not get lost
+        map('n', '<c-u>', '<c-u>zz', options)
+        map('n', '<c-d>', '<c-d>zz', options)
+        map('n', '<c-f>', '<c-f>zz', options)
+        map('n', '<c-b>', '<c-b>zz', options)
+        map('n', 'N', 'Nzz', options)
+        map('n', 'n', 'nzz', options)
+
         -- move lines (and blocks of lines in visual mode) up and down using alt-j/k
+        -- I rarely use this, but it's kinda cool
         map('n', '<A-j>', ':m .+1<CR>==', options)
         map('n', '<A-k>', ':m .-2<CR>==', options)
         map('i', '<A-j>', '<Esc>:m .+1<CR>==gi', options)
         map('i', '<A-k>', '<Esc>:m .-2<CR>==gi', options)
         map('v', '<A-j>', ':m \'>+1<CR>gv=gv', options)
         map('v', '<A-k>', ':m \'<-2<CR>gv=gv', options)
+
+        -- TODO: quitting help. waste of letters, rework
         map('i', '<leader>q', '<esc>:q<cr>', options)
         map('i', '<leader>w', '<esc>:w<cr>', options)
         map('n', '<leader>e', '<esc>:wq<cr>', options)
         map('n', '<leader>z', '<esc>:q!<cr>', options)
         map('c', 'w!!', '%!sudo tee > /dev/null %', {})
+
         map('n', 'Q', '@@', options)
         map('n', '\th', ':set invhls hls?<cr>', options)
         map('n', '<c-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<cr>', options)
-        --map('n', '<c-d>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
         map('n', '<c-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
+
         --map('i', '<c-a>', '<esc>^i', options)
         --map('n', '<c-d>', '<c-b>', {})
+
         --map('n', '<c-x>', ':tabclose<cr>', options)
         --map('n', '<c-s>', ':tabp<cr>', options)
         --map('n', '<c-h>', ':tabn<cr>', options)
-        map('i', 'jj', '<esc>', {})
         map('n', '-', '<c-w>-', options)
         map('n', '+', '<c-w>+', options)
+
         map('t', '<esc>', [[<c-\><c-n>]], {})
+
         --amap = require('svrana.utils').amap
         --amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes.. wrong,
         --alacritty forces you to configure that. this was causing some problems in telescope
@@ -273,6 +289,13 @@ in
                     "make home"
                   }
                 }
+              },
+              [ "$PROJECTS/tests/go" ] = {
+                term = {
+                  cmds = {
+                    "go run main.go"
+                  }
+                },
               },
               [ "$PROJECTS/nucleus/mgmt-api" ] = {
                 term = {
@@ -706,6 +729,7 @@ in
               ['<C-d>'] = cmp.mapping.scroll_docs(4),
               ['<C-u>'] = cmp.mapping.scroll_docs(-4),
               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+              ['<C-d>'] = cmp.mapping.scroll_docs(4),
               ['<C-f>'] = cmp.mapping.scroll_docs(4),
               ['<C-Space>'] = cmp.mapping.complete(),
               ['<C-e>'] = cmp.mapping.close(),
@@ -715,7 +739,7 @@ in
               },
               ['<CR>'] = cmp.mapping.confirm {
                 behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
+                --select = true,
               },
             },
             sources = {

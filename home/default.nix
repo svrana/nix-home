@@ -91,7 +91,6 @@
     maim
     mpv
     gnome.nautilus
-    gnome-photos
     nixfmt
     nixpkgs-review
     packer
