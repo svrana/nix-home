@@ -125,6 +125,7 @@
     buf
     operator-sdk
     go-mockery
+    go-migrate
     protobuf
     golangci-lint
     kubebuilder
