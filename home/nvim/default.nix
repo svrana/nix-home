@@ -195,6 +195,16 @@ in
 
         map('t', '<esc>', [[<c-\><c-n>]], {})
 
+        -- tab mappings, looking for some good ones..
+        map('n', '<leader>t1', '1gt', options)
+        map('n', '<leader>t2', '2gt', options)
+        map('n', '<leader>t3', '3gt', options)
+        map('n', '<leader>t4', '4gt', options)
+        map('n', '<leader>t5', '5gt', options)
+        map('n', '<leader>t6', '6gt', options)
+        map('n', '<a-9>', ':tabprev<cr>', options)
+        map('n', '<a-0>', ':tabnext<cr>', options)
+
         --amap = require('svrana.utils').amap
         --amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes.. wrong,
         --alacritty forces you to configure that. this was causing some problems in telescope
