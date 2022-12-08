@@ -173,8 +173,8 @@ in
         map('v', '<A-k>', ':m \'<-2<CR>gv=gv', options)
 
         -- TODO: quitting help. waste of letters, rework
-        map('i', '<leader>q', '<esc>:q<cr>', options)
-        map('i', '<leader>w', '<esc>:w<cr>', options)
+        map('n', '<leader>q', '<esc>:q<cr>', options)
+        map('n', '<leader>w', '<esc>:w<cr>', options)
         map('n', '<leader>e', '<esc>:wq<cr>', options)
         map('n', '<leader>z', '<esc>:q!<cr>', options)
         map('c', 'w!!', '%!sudo tee > /dev/null %', {})
@@ -1155,6 +1155,7 @@ in
                 p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
                 r = { "<cmd>Lspsaga rename<cr>", "Rename" },
                 i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
+                l = { "<cmd>LspRestart<cr>", "Restart LSP" },
                 g = {
                   name = "+go",
                   s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
