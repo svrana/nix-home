@@ -81,7 +81,7 @@
     gimp
     gnupg
     kind
-    kubernetes-helm
+    (pkgs.wrapHelm pkgs.kubernetes-helm { plugins = [ pkgs.kubernetes-helmPlugins.helm-secrets ]; })
     gitAndTools.hub
     grpcurl
     kubectx
