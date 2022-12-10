@@ -1083,7 +1083,7 @@ in
         plugin = nvim-tree-lua;
         type = "lua";
         config = ''
-          local nt_api = require('nvim-tree').setup({
+          require('nvim-tree').setup({
             disable_netrw = false,  -- needed for fugitive GBrowse
             hijack_cursor = true,
             git = { ignore = true },
@@ -1109,6 +1109,7 @@ in
           --  Close vim if nvim-tree is the last buffer (after closing a buffer)
           --  Close nvim-tree across all tabs when one nvim-tree buffer is manually closed if and only if tabs.sync.close is set.
           local function tab_win_closed(winnr)
+            nt_api = require('nvim-tree')
             local tabnr = vim.api.nvim_win_get_tabpage(winnr)
             local bufnr = vim.api.nvim_win_get_buf(winnr)
             local buf_info = vim.fn.getbufinfo(bufnr)[1]
@@ -1123,7 +1124,7 @@ in
               if #tab_bufs == 1 then                                    -- if there is only 1 buffer left in the tab
                 local last_buf_info = vim.fn.getbufinfo(tab_bufs[1])[1]
                 if last_buf_info.name:match(".*NvimTree_%d*$") then       -- and that buffer is nvim tree
-                  vim.schedule(function ()
+                  vim.schedule(function()
                     if #vim.api.nvim_list_wins() == 1 then                -- if its the last buffer in vim
                       vim.cmd "quit"                                        -- then close all of vim
                     else                                                  -- else there are more tabs open
@@ -1290,7 +1291,9 @@ in
                 n = { "<cmd>set relativenumber!<cr>", "Number" },
                 h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
                 m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
-                t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
+                --t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
+                t = { "<cmd>lua require('nvim-tree.api').tree.toggle(false, true)<cr>", "Tree explorer" }, --nvim-tree-lua
+
               },
               w = { "<cmd>w<cr>", "Write file" },
               q = { "<cmd>q<cr>", "Quit" },
