@@ -1,11 +1,6 @@
 { pkgs, lib, ... }:
 
 let
-  lua = text: ''
-    lua << EOF
-      ${text}
-    EOF
-  '';
   goimpl-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "goimpl";
     version = "2022-01-06";
@@ -462,7 +457,8 @@ in
           jsdoc
           json
           latex
-          # lua
+          lua
+          scheme
           markdown
           markdown_inline
           norg
@@ -575,7 +571,7 @@ in
       telescope-fzf-native-nvim
       {
         plugin = telescope-ui-select-nvim;
-         type = "lua";
+        type = "lua";
         config = ''
           require("telescope").load_extension("ui-select")
         '';
