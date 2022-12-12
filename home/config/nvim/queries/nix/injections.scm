@@ -8,3 +8,9 @@
       (indented_string_expression
         (string_fragment) @lua))
 )
+
+(binding
+	attrpath: (attrpath) @_key (#eq? @_key "extraConfig")
+	(indented_string_expression
+		(string_fragment) @vim)
+)
