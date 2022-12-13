@@ -1114,7 +1114,9 @@ in
             if buf_info.name:match(".*NvimTree_%d*$") then            -- close buffer was nvim tree
               -- Close all nvim tree on :q
               if not vim.tbl_isempty(tab_bufs) then                      -- and was not the last window (not closed automatically by code below)
-                nt_api.tree.close()
+                if nt_api.tree then
+                  nt_api.tree.close()
+                end
               end
             else                                                      -- else closed buffer was normal buffer
               if #tab_bufs == 1 then                                    -- if there is only 1 buffer left in the tab
