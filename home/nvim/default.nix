@@ -99,6 +99,7 @@ in
       sumneko-lua-language-server
       luaformatter
       rust-analyzer
+      stylua
       terraform-lsp
     ];
     extraConfig = ''
@@ -405,29 +406,6 @@ in
       plenary-nvim
       {
         plugin = null-ls-nvim;
-        type = "lua";
-        config = ''
-          local null_ls = require('null-ls')
-          local helpers = require('null-ls.helpers')
-
-          null_ls.setup({
-            sources = {
-              null_ls.builtins.diagnostics.buf,
-              null_ls.builtins.diagnostics.golangci_lint,
-              null_ls.builtins.diagnostics.eslint_d,
-              --null_ls.builtins.formatting.prettier.with({
-              --  filetypes = { "typescript", "typescriptreact", "markdown", "json" },
-              --}),
-              null_ls.builtins.formatting.lua_format.with({
-                args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
-                "--no-keep_simple_control_block_one_line", "--column-limit=130",
-                "--break-after-table-lb" },
-              }),
-              --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
-            },
-            debug = true,
-          })
-        '';
       }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
@@ -478,7 +456,7 @@ in
           make
           dockerfile
           typescript
-          ]
+        ]
         ));
         type = "lua";
         config = ''
@@ -821,7 +799,7 @@ in
             -- Format prior to save if supported
             --if client.server_capabilities.document_formatting then
             if client.server_capabilities.documentFormattingProvider then
-               vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
+               vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })")
             end
 
             -- Mappings.
@@ -895,16 +873,16 @@ in
             flags = {
                 debounce_text_changes = 150,
             },
-            on_attach = on_attach,
+            --on_attach = on_attach,
             -- let null-ls (w/ prettier) handle formatting. This stops lsp
             -- from prompting which lsp client should handle the formatting.
-            -- on_attach = function(client, bufnr)
-            --    client.resolved_capabilities.documentFormattingProvider = false
-            --    client.resolved_capabilities.documentRangeFormattingProvider = false
+            on_attach = function(client, bufnr)
+                client.resolved_capabilities.documentFormattingProvider = false
+                client.resolved_capabilities.documentRangeFormattingProvider = false
+                on_attach(client, bufnr)
             -- documentFormattingProvider
             -- documentRangeFormattingProvider
-            --    on_attach(client, bufnr)
-            --end,
+            end,
             capabilities = capabilities,
           })
 
@@ -945,6 +923,31 @@ in
               },
             },
           }
+
+          local null_ls = require('null-ls')
+          local helpers = require('null-ls.helpers')
+
+          null_ls.setup({
+            on_attach = on_attach,
+            sources = {
+              null_ls.builtins.diagnostics.buf,
+              null_ls.builtins.diagnostics.golangci_lint,
+              null_ls.builtins.diagnostics.eslint_d,
+              null_ls.builtins.formatting.stylua,
+              null_ls.builtins.formatting.prettier.with({
+                filetypes = { "typescript", "typescriptreact", "markdown", "json" },
+              }),
+              null_ls.builtins.formatting.lua_format.with({
+                args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
+                "--no-keep_simple_control_block_one_line", "--column-limit=130",
+                "--break-after-table-lb" },
+              }),
+              --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
+            },
+            debug = true,
+          })
+
+
         '';
       }
       {
