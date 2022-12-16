@@ -255,8 +255,9 @@ in
         ]], false)
       EOF
       " Make the 81st column standout; used by all ftplugins.
+      " Make the 120th column standout; used by all ftplugins.
       function FTPluginSetupCommands()
-          call matchadd('ColorColumn', '\%81v', 100)
+          call matchadd('ColorColumn', '\%120v', 100)
       endfunction
       "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
