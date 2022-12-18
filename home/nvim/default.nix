@@ -53,8 +53,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
-      rev = "4e514a1678c01c6ce4b4c1e0fb9d5cd55a7d4d79";
-      sha256 = "sha256-AavlcaIxgtw4Je5c1bFgthi9jOs17O/7DKYdGNasKNI=";
+      rev = "882b203775dc526b8cac11ce1af463a6dce6a7c9";
+      sha256 = "sha256-QxGoZAu6hJQ1fx5t+JxWd/Es2NmmSf3fpRBxPhXjU+g=";
     };
   };
   gh-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -109,14 +109,13 @@ in
         local opt = vim.opt
         opt.ttimeout = false
         opt.ttimeoutlen = 100
-        opt.ignorecase = true
         opt.wrap = false
         opt.backspace = "indent,eol,start"
         opt.smartcase = true
+        opt.ignorecase = true
         opt.incsearch = true
         opt.hlsearch = false
         opt.incsearch = true
-        opt.hlsearch = false
         opt.inccommand = "split"
         opt.showmatch = true
         opt.backupext  = ".bak"
@@ -216,6 +215,8 @@ in
         vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
         vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+        vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
         autocmd = require('svrana.utils').autocmd
         autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
         autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
@@ -242,26 +243,55 @@ in
 
       -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
       -- and remove from plugin section below
-      -- N = require('neosolarized').setup({
-      --     comment_italics = true,
-      -- })
+      --[[ N = require('neosolarized').setup({ ]]
+      --[[      comment_italics = true, ]]
+      --[[      background_set = true, ]]
+      --[[ }) ]]
       -- haskell goes overboard with warnings and is distracting
       -- N.Group.link('WarningMsg', n.groups.Comment)
 
-        -- nvim_set_hl in 0.7
-        vim.api.nvim_exec([[
-          highlight IncSearch ctermbg=LightYellow ctermfg=Red
-          highlight WhiteOnRed ctermfg=white ctermbg=red
-        ]], false)
+      -- [[ Highlight on yank ]]
+      -- See `:help vim.highlight.on_yank()`
+      local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+      vim.api.nvim_create_autocmd('TextYankPost', {
+        callback = function()
+          vim.highlight.on_yank()
+        end,
+        group = highlight_group,
+        pattern = '*',
+      })
       EOF
-      " Make the 81st column standout; used by all ftplugins.
+
       " Make the 120th column standout; used by all ftplugins.
-      function FTPluginSetupCommands()
-          call matchadd('ColorColumn', '\%120v', 100)
-      endfunction
+      call matchadd('ColorColumn', '\%120v', 100)
+
+      set expandtab
+      set shiftwidth=4
+      set tabstop=4
+
       "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
     plugins = with pkgs.vimPlugins; [
+      {
+        plugin = indent-blankline-nvim;
+        type = "lua";
+        config = ''
+
+          -- so init.lua gets some space after the source of init-home-manager.vim
+          require('indent_blankline').setup {
+            char = '┊',
+            show_trailing_blankline_indent = false,
+          }
+        '';
+      }
+      {
+        plugin = fidget-nvim;
+        type = "lua";
+        config = ''
+          require("fidget").setup()
+        '';
+      }
+      vim-sleuth
       vim-numbertoggle
       litee-nvim
       {
@@ -347,6 +377,7 @@ in
         config = ''
           local n = require('neosolarized').setup({
              comment_italics = true,
+             background_set = true,
           })
           n.Group.link('WarningMsg', n.groups.Comment)
         '';
@@ -474,10 +505,10 @@ in
             incremental_selection = {
               enable = true,
               keymaps = {
-                init_selection = 'gnn',
-                node_incremental = 'grn',
-                scope_incremental = 'grc',
-                node_decremental = 'grm',
+                init_selection = '<c-space>',
+                node_incremental = '<c-space>',
+                scope_incremental = '<c-s>',
+                node_decremental = '<c-backspace>',
               },
             },
             indent = {
@@ -810,21 +841,57 @@ in
 
             -- See `:help vim.lsp.*` for documentation on any of the below functions
 
+            local nmap = function(keys, func, desc)
+              if desc then
+                desc = 'LSP: ' .. desc
+              end
+
+              vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+            end
+            nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+            nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+            nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+            nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+            nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+            nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+            nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+            nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+            -- Lesser used LSP functionality
+            nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+            nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+            nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+            nmap('<leader>wl', function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+              end, '[W]orkspace [L]ist Folders')
+
             wk.register({
               [ '<C-]>' ]   = { "<cmd>lua vim.lsp.buf.definition()<cr>",        "goto definition",      buffer = bufnr },
               [ "[d" ]      = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",  "prev diagnostic", buffer = bufnr },
               [ "]d" ]      = { "<cmd>lua vim.diagnostic.goto_next()<cr>",  "next diagnostic", buffer = bufnr },
               ["<leader>"]  = {
                 c = {
-                  n = { "<cmd>lua vim.lsp.buf.references()<cr>",      "show callers", buffer = bufnr },
+                  n = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "show callers", buffer = bufnr },
                   D = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "show type definition", buffer = bufnr },
+                  s = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols<cr>", "workspace symbols", buffer = bufnr },
                 },
               },
               ['gi'] = {  "<cmd>lua vim.lsp.buf.implementation()<cr>", "goto implementation", buffer = bufnr },
             })
+
+            -- Create a command `:Format` local to the LSP buffer
+            vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+              if vim.lsp.buf.format then
+                vim.lsp.buf.format()
+              elseif vim.lsp.buf.formatting then
+                vim.lsp.buf.formatting()
+              end
+            end, { desc = 'Format current buffer with LSP' })
           end
 
-          local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+          -- nvim-cmp supports additional completion capabilities
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+          capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
           -- Use a loop to conveniently call 'setup' on multiple servers and
           -- map buffer local keybindings when the language server attaches
@@ -1199,6 +1266,7 @@ in
               f = {
                 name = "+fuzzy",
                 d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
+                o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>",               "Old files"},
                 b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
                 f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
                 h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
