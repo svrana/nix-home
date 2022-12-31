@@ -22,9 +22,7 @@ in
 
   programs.spicetify = {
     enable = true;
-    theme =
-      let spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
-      in spicePkgs.themes.catppuccin-mocha;
+    theme = "catppuccin-mocha";
     # enabledExtensions = [
     #   "fullAppDisplay.js"
     #   "shuffle+.js"
