@@ -43,33 +43,21 @@ let
     fi
   '';
   # see swaylock-effects repo
-  # borked, see https://github.com/jirutka/swaylock-effects/issues/3
-  # swaylock-cmd = lib.concatStringsSep " " [
-  #   "${pkgs.swaylock-effects}/bin/swaylock"
-  #   "--daemonize"
-  #   "--ignore-empty-password"
-  #   "--color 073642"
-  #   "--ring-color 2aa198"
-  #   "--inside-color 002b36"
-  #   "--clock"
-  #   "--indicator"
-  #   "--line-uses-inside"
-  #   "--indicator-radius 100"
-  #   "--indicator-thickness 7"
-  #   "--fade-in 0.5"
-  #   "--text-color 586e75"
-  # ];
   swaylock-cmd = lib.concatStringsSep " " [
-    "${pkgs.swaylock}/bin/swaylock"
+    "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
     "--ignore-empty-password"
     "--color 073642"
     "--ring-color 2aa198"
+    "--inside-color 002b36"
+    "--clock"
+    "--indicator"
+    "--line-uses-inside"
     "--indicator-radius 100"
     "--indicator-thickness 7"
+    "--fade-in 0.5"
     "--text-color 586e75"
   ];
-
   base03 = "#002b36";
   base02 = "#073642";
   base01 = "#586e75";
