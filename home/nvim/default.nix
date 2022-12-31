@@ -79,9 +79,8 @@ let
   };
 in
 {
-  xdg.configFile."nvim/init.lua".text = lib.mkBefore ''
-    --vim.cmd [[ let mapleader = "," ]]
-    vim.g.mapleader = ","
+  xdg.configFile."nvim/init-home-manager.vim".text = lib.mkBefore ''
+    let mapleader = ","
   '';
 
   programs.neovim = {
