@@ -180,8 +180,6 @@ in
         -- TODO: quitting help. waste of letters, rework
         map('n', '<leader>q', '<esc>:q<cr>', options)
         map('n', '<leader>w', '<esc>:w<cr>', options)
-        map('n', '<leader>e', '<esc>:wq<cr>', options)
-        map('n', '<leader>z', '<esc>:q!<cr>', options)
         map('c', 'w!!', '%!sudo tee > /dev/null %', {})
 
         map('n', 'Q', '@@', options)
@@ -209,8 +207,6 @@ in
         map('n', '<leader>t6', '6gt', options)
         map('n', '<a-9>', ':tabprev<cr>', options)
         map('n', '<a-0>', ':tabnext<cr>', options)
-        map('n', '<c-9>', ':tabprev<cr>', options)
-        map('n', '<c-0>', ':tabnext<cr>', options)
 
         --amap = require('svrana.utils').amap
         --amap('c-[', '<esc>') -- my escape key requires hitting a function key, remap to ctrl-[ in all modes.. wrong,

@@ -62,7 +62,6 @@
     autotiling
     cargo
     rustc
-    comma
     dante
     dbeaver
     discord
