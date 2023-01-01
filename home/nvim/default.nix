@@ -17,8 +17,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "go.nvim";
-      rev = "4599360f5d9210631303873e53ef3b87bf663c9e";
-      sha256 = "sha256-wH08KpHQ2zIjhv0bQmCGwq5kqkptKZ7bLCzzmLnD/bg=";
+      rev = "399a3a834e03a635583d24d771dad93074afda0b";
+      sha256 = "sha256-q55ggD2IiIXHWgyZ4HcJr7+CVEaVvuL/4uSdILlO41w=";
     };
     configurePhase = ''
       rm Makefile
@@ -30,8 +30,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "guihua.lua";
-      rev = "2fce8a8b462cf6599d9422efb157773126e1c7ce";
-      sha256 = "sha256-tHmVCf/Ox8kAZ1izS/GoxZKihT2W4XZmUvkFAxEkDc8=";
+      rev = "4459ce73db68bb3ad5ef789d03e6ea4adeeafa86";
+      sha256 = "sha256-H4lBJaGnpQVD+aq3A7hBGupINqMxpwfFc0TFF46eqss=";
     };
     configurePhase = ''
       rm Makefile
@@ -43,18 +43,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "seblj";
       repo = "nvim-tabline";
-      rev = "4c9f232376fcf7d581e137a4f809527e41e4176c";
-      sha256 = "sha256-VQeAS7j/XsWT+ZR1vvcWWOx50B3olIOFweZ89PiT3J4=";
-    };
-  };
-  nvim-solarized-lua = pkgs.vimUtils.buildVimPlugin {
-    pname = "nvim-solarized-lua";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "ishan9299";
-      repo = "nvim-solarized-lua";
-      rev = "7bd46fa036bde6b4483fb7403b0a7b0754faeeaa";
-      sha256 = "sha256-EdbnTSQWHx6OVm8heZWKrBlo7PCiaDztXR2+VU1I/TI=";
+      rev = "7e2df8d1f2bc0bb4575848901d628005ef181a3d";
+      sha256 = "sha256-0J1EVKCcxH47wHH//jwUDhHtNJnMkB/oOtYWrWr6BH8=";
     };
   };
   neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -73,12 +63,11 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ldelossa";
       repo = "gh.nvim";
-      rev = "6fb1702df462d08f06df21c1e98d69ec08048cde";
-      sha256 = "sha256-WBDePmucw5OxeGUXXZ7pRUVQTAsv22WNpg6518e6MpA=";
+      rev = "bc731bb53909481995ac2edb4bf6418c051fec1a";
+      sha256 = "sha256-BjzQe8wCNAx31vN9/RzF75U8ec5bytnaRrM0OHm1fpI=";
     };
   };
-in
-{
+in {
   xdg.configFile."nvim/init-home-manager.vim".text = lib.mkBefore ''
     let mapleader = ","
   '';
@@ -379,13 +368,6 @@ in
       }
       direnv-vim
       editorconfig-nvim
-      # {
-      #   plugin = nvim-solarized-lua;
-      #   type = "lua";
-      #   config = ''
-      #     vim.cmd('colorscheme solarized')
-      #   '';
-      # }
       {
         plugin = neosolarized-nvim;
         type = "lua";
@@ -452,60 +434,58 @@ in
       #   '';
       # }
       plenary-nvim
+      { plugin = null-ls-nvim; }
       {
-        plugin = null-ls-nvim;
-      }
-      {
-        plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-          c
-          css
-          comment
-          diff
-          elixir
-          erlang
-          git_rebase
-          gitignore
-          gitattributes
-          elm
-          bash
-          nix
-          python
-          go
-          gomod
-          gowork
-          haskell
-          hcl
-          help
-          html
-          http
-          java
-          javascript
-          jsdoc
-          json
-          latex
-          lua
-          scheme
-          markdown
-          markdown_inline
-          norg
-          org
-          proto
-          query
-          regex
-          ruby
-          rust
-          scss
-          sql
-          kotlin
-          toml
-          tsx
-          vim
-          yaml
-          make
-          dockerfile
-          typescript
-        ]
-        ));
+        plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
+          with plugins; [
+            c
+            css
+            comment
+            diff
+            elixir
+            erlang
+            git_rebase
+            gitignore
+            gitattributes
+            elm
+            bash
+            nix
+            python
+            go
+            gomod
+            gowork
+            haskell
+            hcl
+            help
+            html
+            http
+            java
+            javascript
+            jsdoc
+            json
+            latex
+            lua
+            scheme
+            markdown
+            markdown_inline
+            norg
+            org
+            proto
+            query
+            regex
+            ruby
+            rust
+            scss
+            sql
+            kotlin
+            toml
+            tsx
+            vim
+            yaml
+            make
+            dockerfile
+            typescript
+          ]));
         type = "lua";
         config = ''
           require('nvim-treesitter.configs').setup {
@@ -1052,8 +1032,6 @@ in
             },
             debug = true,
           })
-
-
         '';
       }
       {
@@ -1077,7 +1055,7 @@ in
                  file_status = true, -- displays file status (readonly status, modified status)
                  path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
                },
-               -- golang lsp spewing errors causing ugliness with this for now
+               -- golang lsp spewing errors causing ugliness with this for now; also moved to fidget
                -- {
                --  'lsp_progress'
                -- }
