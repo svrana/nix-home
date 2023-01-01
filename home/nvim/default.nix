@@ -63,8 +63,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
-      rev = "882b203775dc526b8cac11ce1af463a6dce6a7c9";
-      sha256 = "sha256-QxGoZAu6hJQ1fx5t+JxWd/Es2NmmSf3fpRBxPhXjU+g=";
+      rev = "f5feccedfa3028a5065104477affc31a39b6e8b1";
+      sha256 = "sha256-QzcsukujedORwSriTu3yiz88Xf+48CRDZ0/b9TuJhi0=";
     };
   };
   gh-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -255,20 +255,13 @@ in
 
       -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
       -- and remove from plugin section below
-      local ns = require('neosolarized').setup({
-           comment_italics = true,
-           background_set = true,
-      })
-      -- haskell goes overboard with warnings and is distracting
-      -- and for some reason some code actions appear to use this highlight group, which makes no sense to me.
-      ns.Group.link('WarningMsg', ns.groups.Comment)
-      --[[ ns.Group.new("WarningMsg", ns.colors.red) ]]
-      --[[ ns.Group.new("@parameter", ns.colors.blue) ]]
-      --[[ ns.Group.new("@variable", ns.colors.blue) ]]
-      --[[ ns.Group.new("Special", ns.colors.red) ]]
-
-
-      --ns.Group.new('@parameter', ns.groups.Normal)
+      --[[ local ns = require('neosolarized').setup({ ]]
+      --[[      comment_italics = true, ]]
+      --[[      background_set = true, ]]
+      --[[ }) ]]
+      --[[ -- haskell goes overboard with warnings and is distracting ]]
+      --[[ -- and for some reason some code actions appear to use this highlight group, which makes no sense to me. ]]
+      --[[ ns.Group.link('WarningMsg', ns.groups.Comment) ]]
 
       -- [[ Highlight on yank ]]
       -- See `:help vim.highlight.on_yank()`
@@ -397,17 +390,18 @@ in
       #     vim.cmd('colorscheme solarized')
       #   '';
       # }
-      # {
-      #   plugin = neosolarized-nvim;
-      #   type = "lua";
-      #   config = ''
-      #     local n = require('neosolarized').setup({
-      #        comment_italics = true,
-      #        background_set = true, -- set this to false if you use transparency in your terminal window
-      #     })
-      #     n.Group.link('WarningMsg', n.groups.Comment)
-      #   '';
-      # }
+      {
+        plugin = neosolarized-nvim;
+        type = "lua";
+        config = ''
+          local n = require('neosolarized').setup({
+             comment_italics = true,
+             background_set = true, -- set this to false if you use transparency in your terminal window
+          })
+          -- for some reason some code actions get highlighted with WarningMsg and it's too much for me
+          n.Group.link('WarningMsg', n.groups.Comment)
+        '';
+      }
       {
         plugin = git-worktree-nvim;
         type = "lua";
