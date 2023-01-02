@@ -10,11 +10,11 @@ let
       rev = "06b19734077dbe79f6082f6e02b3ed197c444a9a";
       sha256 = "1vrhgm1z1x815zy50gmhdfzx72al5byx87r6xwnhylzvyg42wgq9";
     };
-    dependencies = [
-      pkgs.vimPlugins.plenary-nvim
-      pkgs.vimPlugins.popup-nvim
-      pkgs.vimPlugins.telescope-nvim
-      pkgs.vimPlugins.nvim-treesitter
+    dependencies = with pkgs.vimPlugins; [
+      plenary-nvim
+      popup-nvim
+      telescope-nvim
+      nvim-treesitter
     ];
   };
   go-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -26,9 +26,9 @@ let
       rev = "399a3a834e03a635583d24d771dad93074afda0b";
       sha256 = "sha256-q55ggD2IiIXHWgyZ4HcJr7+CVEaVvuL/4uSdILlO41w=";
     };
-    dependencies = [
-      pkgs.vimPlugins.nvim-treesitter
-      pkgs.vimPlugins.nvim-lspconfig
+    dependencies = with pkgs.vimPlugins; [
+      nvim-treesitter
+      nvim-lspconfig
     ];
     configurePhase = ''
       rm Makefile
