@@ -10,6 +10,12 @@ let
       rev = "06b19734077dbe79f6082f6e02b3ed197c444a9a";
       sha256 = "1vrhgm1z1x815zy50gmhdfzx72al5byx87r6xwnhylzvyg42wgq9";
     };
+    dependencies = [
+      pkgs.vimPlugins.plenary-nvim
+      pkgs.vimPlugins.popup-nvim
+      pkgs.vimPlugins.telescope-nvim
+      pkgs.vimPlugins.nvim-treesitter
+    ];
   };
   go-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "go-nvim";
@@ -20,6 +26,10 @@ let
       rev = "399a3a834e03a635583d24d771dad93074afda0b";
       sha256 = "sha256-q55ggD2IiIXHWgyZ4HcJr7+CVEaVvuL/4uSdILlO41w=";
     };
+    dependencies = [
+      pkgs.vimPlugins.nvim-treesitter
+      pkgs.vimPlugins.nvim-lspconfig
+    ];
     configurePhase = ''
       rm Makefile
     '';
@@ -46,6 +56,7 @@ let
       rev = "7e2df8d1f2bc0bb4575848901d628005ef181a3d";
       sha256 = "sha256-0J1EVKCcxH47wHH//jwUDhHtNJnMkB/oOtYWrWr6BH8=";
     };
+    dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
   };
   neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "neosolarized-nvim";
@@ -56,6 +67,7 @@ let
       rev = "f5feccedfa3028a5065104477affc31a39b6e8b1";
       sha256 = "sha256-QzcsukujedORwSriTu3yiz88Xf+48CRDZ0/b9TuJhi0=";
     };
+    dependencies = [ pkgs.vimPlugins.colorbuddy-nvim ];
   };
   gh-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "gh-nvim";
@@ -66,8 +78,10 @@ let
       rev = "bc731bb53909481995ac2edb4bf6418c051fec1a";
       sha256 = "sha256-BjzQe8wCNAx31vN9/RzF75U8ec5bytnaRrM0OHm1fpI=";
     };
+    dependecies = [ pkgs.vimPlugins.litee-nvim ];
   };
-in {
+in
+{
   xdg.configFile."nvim/init-home-manager.vim".text = lib.mkBefore ''
     let mapleader = ","
   '';
@@ -340,7 +354,6 @@ in {
           })
         '';
       }
-      colorbuddy-nvim
       {
         plugin = diffview-nvim;
         type = "lua";
