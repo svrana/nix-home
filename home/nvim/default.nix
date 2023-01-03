@@ -64,8 +64,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
-      rev = "25701a10ff0699557eef1c0bd39d6631f90ed047";
-      sha256 = "sha256-PGj/CXJIl231CG8X+RSXw/xEFUF7nZjg//7YsBi/dsg=";
+      rev = "ea6583b29ce6a23525c692bd721b926c48ffa9ea";
+      sha256 = "sha256-i54vCBV1MYBBIZ/MiTlHrORigQG6NY9je486hGyFxuk=";
     };
     dependencies = [ pkgs.vimPlugins.colorbuddy-nvim ];
   };
