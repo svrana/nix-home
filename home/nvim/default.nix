@@ -64,8 +64,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "svrana";
       repo = "neosolarized.nvim";
-      rev = "f5feccedfa3028a5065104477affc31a39b6e8b1";
-      sha256 = "sha256-QzcsukujedORwSriTu3yiz88Xf+48CRDZ0/b9TuJhi0=";
+      rev = "25701a10ff0699557eef1c0bd39d6631f90ed047";
+      sha256 = "sha256-PGj/CXJIl231CG8X+RSXw/xEFUF7nZjg//7YsBi/dsg=";
     };
     dependencies = [ pkgs.vimPlugins.colorbuddy-nvim ];
   };
@@ -261,7 +261,7 @@ in
       --[[ -- haskell goes overboard with warnings and is distracting ]]
       --[[ -- and for some reason some code actions appear to use this highlight group, which makes no sense to me. ]]
       --[[ ns.Group.link('WarningMsg', ns.groups.Comment) ]]
-
+        --ns.Group.new('
       -- [[ Highlight on yank ]]
       -- See `:help vim.highlight.on_yank()`
       local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -305,6 +305,7 @@ in
       vim-sleuth
       vim-numbertoggle
       litee-nvim
+      colorbuddy-nvim
       {
         plugin = guihua-lua;
         type = "lua";
