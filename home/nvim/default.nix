@@ -80,6 +80,22 @@ let
     };
     dependecies = [ pkgs.vimPlugins.litee-nvim ];
   };
+  typescript-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "typescript-nvim";
+    version = "2022-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "jose-elias-alvarez";
+      repo = "typescript.nvim";
+      rev = "f66d4472606cb24615dfb7dbc6557e779d177624";
+      sha256 = "sha256-PHVY5NJbOGvY9p0F0QNSfMKmAWdqjw1RB0Vspq88qMI=";
+    };
+    configurePhase = ''
+      rm Makefile
+    '';
+    dependencies = with pkgs.vimPlugins; [
+      plenary-nvim
+    ];
+  };
 in
 {
   xdg.configFile."nvim/init-home-manager.vim".text = lib.mkBefore ''
@@ -202,12 +218,12 @@ in
         map('t', '<esc>', [[<c-\><c-n>]], {})
 
         -- tab mappings, looking for some good ones..
-        map('n', '<leader>t1', '1gt', options)
-        map('n', '<leader>t2', '2gt', options)
-        map('n', '<leader>t3', '3gt', options)
-        map('n', '<leader>t4', '4gt', options)
-        map('n', '<leader>t5', '5gt', options)
-        map('n', '<leader>t6', '6gt', options)
+        map('n', '<leader>t0', '1gt', options)
+        map('n', '<leader>t1', '2gt', options)
+        map('n', '<leader>t2', '3gt', options)
+        map('n', '<leader>t3', '4gt', options)
+        map('n', '<leader>t4', '5gt', options)
+        map('n', '<leader>t5', '6gt', options)
         map('n', '<a-9>', ':tabprev<cr>', options)
         map('n', '<a-0>', ':tabnext<cr>', options)
 
@@ -807,245 +823,269 @@ in
         '';
       }
       {
+        plugin = typescript-nvim;
+        type = "lua";
+        config = ''
+          vim.api.nvim_exec([[ autocmd BufWritePre *.tsx :silent! lua require("typescript").actions.addMissingImports() ]], false)
+          vim.api.nvim_exec([[ autocmd BufWritePre *.ts :silent! lua require("typescript").actions.addMissingImports() ]], false)
+        '';
+      }
+      {
         plugin = nvim-lspconfig;
         type = "lua";
         config = ''
-          local nvim_lsp = require('lspconfig')
-          local protocol = require('vim.lsp.protocol')
-          local wk = require("which-key")
+           local nvim_lsp = require('lspconfig')
+           local protocol = require('vim.lsp.protocol')
+           local wk = require("which-key")
 
-          local diagnostic_map = function(bufnr)
-            local opts = {noremap = true, silent = true}
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "]O", ":lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-          end
+           local diagnostic_map = function(bufnr)
+             local opts = {noremap = true, silent = true}
+             vim.api.nvim_buf_set_keymap(bufnr, "n", "]O", ":lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+           end
 
 
-          local ref_highlighter = function(client, bufnr)
-            if client.server_capabilities.documentHighlightProvider then
-              vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-              vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
-              vim.api.nvim_create_autocmd("CursorHold", {
-                  callback = vim.lsp.buf.document_highlight,
-                  buffer = bufnr,
-                  group = "lsp_document_highlight",
-                  desc = "Document Highlight",
-              })
-              vim.api.nvim_create_autocmd("CursorMoved", {
-                  callback = vim.lsp.buf.clear_references,
-                  buffer = bufnr,
-                  group = "lsp_document_highlight",
-                  desc = "Clear All the References",
-              })
-            end
-          end
+           local ref_highlighter = function(client, bufnr)
+             if client.server_capabilities.documentHighlightProvider then
+               vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+               vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+               vim.api.nvim_create_autocmd("CursorHold", {
+                   callback = vim.lsp.buf.document_highlight,
+                   buffer = bufnr,
+                   group = "lsp_document_highlight",
+                   desc = "Document Highlight",
+               })
+               vim.api.nvim_create_autocmd("CursorMoved", {
+                   callback = vim.lsp.buf.clear_references,
+                   buffer = bufnr,
+                   group = "lsp_document_highlight",
+                   desc = "Clear All the References",
+               })
+             end
+           end
 
-          -- Use an on_attach function to only map the following keys
-          -- after the language server attaches to the current buffer
-          local on_attach = function(client, bufnr)
-            local function buf_set_keymap(...)
-              vim.api.nvim_buf_set_keymap(bufnr, ...)
-            end
-            local function buf_set_option(...)
-              vim.api.nvim_buf_set_option(bufnr, ...)
-            end
+           -- Use an on_attach function to only map the following keys
+           -- after the language server attaches to the current buffer
+           local on_attach = function(client, bufnr)
+             local function buf_set_keymap(...)
+               vim.api.nvim_buf_set_keymap(bufnr, ...)
+             end
+             local function buf_set_option(...)
+               vim.api.nvim_buf_set_option(bufnr, ...)
+             end
 
-            local uri = vim.uri_from_bufnr(bufnr)
-            if uri == "file://" or uri == "file:///" or #uri < 11 then
-              return {error = "invalid file", result = nil}
-            end
-            diagnostic_map(bufnr)
+             local uri = vim.uri_from_bufnr(bufnr)
+             if uri == "file://" or uri == "file:///" or #uri < 11 then
+               return {error = "invalid file", result = nil}
+             end
+             diagnostic_map(bufnr)
 
-            -- Enable completion triggered by <c-x><c-o>
-            buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+             -- Enable completion triggered by <c-x><c-o>
+             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-            -- Format prior to save if supported
-            --if client.server_capabilities.document_formatting then
-            if client.server_capabilities.documentFormattingProvider then
-               vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })")
-            end
+             -- Format prior to save if supported
+             --if client.server_capabilities.document_formatting then
+             if client.server_capabilities.documentFormattingProvider then
+                vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })")
+             end
 
-            -- not sure I like this
-            ref_highlighter(client, bufnr)
+             -- not sure I like this
+             ref_highlighter(client, bufnr)
 
-            -- Mappings.
-            local opts = { noremap=true, silent=true }
+             -- Mappings.
+             local opts = { noremap=true, silent=true }
 
-            require('lsp_signature').on_attach()
+             require('lsp_signature').on_attach()
 
-            -- See `:help vim.lsp.*` for documentation on any of the below functions
+             -- See `:help vim.lsp.*` for documentation on any of the below functions
 
-            local nmap = function(keys, func, desc)
-              if desc then
-                desc = 'LSP: ' .. desc
-              end
+             local nmap = function(keys, func, desc)
+               if desc then
+                 desc = 'LSP: ' .. desc
+               end
 
-              vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-            end
-            nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-            nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-            nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-            nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-            nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-            nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-            nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-            nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-            -- Lesser used LSP functionality
-            nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-            nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-            nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-            nmap('<leader>wl', function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-              end, '[W]orkspace [L]ist Folders')
+               vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+             end
+             nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+             nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+             nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+             nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+             nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+             nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+             nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+             nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+             -- Lesser used LSP functionality
+             nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+             nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+             nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+             nmap('<leader>wl', function()
+                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+               end, '[W]orkspace [L]ist Folders')
 
-            wk.register({
-              [ '<C-]>' ]   = { "<cmd>lua vim.lsp.buf.definition()<cr>",        "goto definition" },
-              [ "[d" ]      = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",  "prev diagnostic" },
-              [ "]d" ]      = { "<cmd>lua vim.diagnostic.goto_next()<cr>",  "next diagnostic" },
-              ["<leader>"]  = {
-                c = {
-                  n = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "show callers" },
-                  D = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "show type definition" },
-                  s = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols<cr>", "workspace symbols" },
-                },
-              },
-              ['gi'] = {  "<cmd>lua vim.lsp.buf.implementation()<cr>", "goto implementation" },
-            }, { buffer = buffnr })
+             wk.register({
+               [ '<C-]>' ]   = { "<cmd>lua vim.lsp.buf.definition()<cr>",        "goto definition" },
+               [ "[d" ]      = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",  "prev diagnostic" },
+               [ "]d" ]      = { "<cmd>lua vim.diagnostic.goto_next()<cr>",  "next diagnostic" },
+               ["<leader>"]  = {
+                 c = {
+                   n = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "show callers" },
+                   D = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "show type definition" },
+                   s = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols<cr>", "workspace symbols" },
+                 },
+               },
+               ['gi'] = {  "<cmd>lua vim.lsp.buf.implementation()<cr>", "goto implementation" },
+             }, { buffer = buffnr })
 
-            -- Create a command `:Format` local to the LSP buffer
-            vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-              if vim.lsp.buf.format then
-                vim.lsp.buf.format()
-              elseif vim.lsp.buf.formatting then
-                vim.lsp.buf.formatting()
-              end
-            end, { desc = 'Format current buffer with LSP' })
-          end
+             -- Create a command `:Format` local to the LSP buffer
+             vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+               if vim.lsp.buf.format then
+                 vim.lsp.buf.format()
+               elseif vim.lsp.buf.formatting then
+                 vim.lsp.buf.formatting()
+               end
+             end, { desc = 'Format current buffer with LSP' })
+           end
 
-          -- nvim-cmp supports additional completion capabilities
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+           -- nvim-cmp supports additional completion capabilities
+           local capabilities = vim.lsp.protocol.make_client_capabilities()
+           capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-          -- Use a loop to conveniently call 'setup' on multiple servers and
-          -- map buffer local keybindings when the language server attaches
-          local servers = {
-            'bashls',
-            'bufls',
-            'yamlls',
-            'rnix',
-            'dockerls',
-            'vimls',
-            'rust_analyzer',
-            'terraform_lsp',
-          }
-          for _, lsp in ipairs(servers) do
-            nvim_lsp[lsp].setup({
-              on_attach = on_attach,
-              capabilities = capabilities,
-              flags = {
-                debounce_text_changes = 150,
-              }
-            })
-          end
+           -- Use a loop to conveniently call 'setup' on multiple servers and
+           -- map buffer local keybindings when the language server attaches
+           local servers = {
+             'bashls',
+             'bufls',
+             'yamlls',
+             'rnix',
+             'dockerls',
+             'vimls',
+             'rust_analyzer',
+             'terraform_lsp',
+           }
+           for _, lsp in ipairs(servers) do
+             nvim_lsp[lsp].setup({
+               on_attach = on_attach,
+               capabilities = capabilities,
+               flags = {
+                 debounce_text_changes = 150,
+               }
+             })
+           end
 
           require('go').setup({
-            lsp_cfg = true, -- setup gopls for us
-            -- moved this into .gonvim per-project directory as this isn't usually what I want
-            -- lsp_cfg = {
-            --   settings= {
-            --     gopls = {
-            --       staticcheck=false,
-            --     }
-            --   }
-            -- },
-            lsp_on_attach = on_attach,
-            --verbose = true,
-            --tag_options = "json="
-            tag_transform = "camelcase",
-          })
+             lsp_cfg = true, -- setup gopls for us
+             -- moved this into .gonvim per-project directory as this isn't usually what I want
+             -- lsp_cfg = {
+             --   settings= {
+             --     gopls = {
+             --       staticcheck=false,
+             --     }
+             --   }
+             -- },
+             lsp_on_attach = on_attach,
+             --verbose = true,
+             --tag_options = "json="
+             tag_transform = "camelcase",
+           })
 
-          nvim_lsp.hls.setup({
-            cmd = { "haskell-language-server", "--lsp" },
-            on_attach = on_attach,
-          })
+           nvim_lsp.hls.setup({
+             cmd = { "haskell-language-server", "--lsp" },
+             on_attach = on_attach,
+           })
 
-          nvim_lsp.tsserver.setup({
-            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-            flags = {
-                debounce_text_changes = 150,
-            },
-            --on_attach = on_attach,
-            -- let null-ls (w/ prettier) handle formatting. This stops lsp
-            -- from prompting which lsp client should handle the formatting.
-            on_attach = function(client, bufnr)
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.documentRangeFormattingProvider = false
-                on_attach(client, bufnr)
-            -- documentFormattingProvider
-            -- documentRangeFormattingProvider
-            end,
-            capabilities = capabilities,
-          })
+           require("typescript").setup({
+             disable_commands = false, -- prevent the plugin from creating Vim commands
+             debug = false, -- enable debug logging for commands
+             go_to_source_definition = {
+               fallback = true, -- fall back to standard LSP definition on failure
+             },
+             server = { -- pass options to lspconfig's setup method
+               on_attach = function(client, bufnr)
+                 client.server_capabilities.documentFormattingProvider = false
+                 client.server_capabilities.documentRangeFormattingProvider = false
+                 on_attach(client, bufnr)
+               end,
+               capabilities = capabilities,
+             },
+           })
 
-          local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
-          local sumneko_binary = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server"
-          local runtime_path = vim.split(package.path, ';')
-          table.insert(runtime_path, "lua/?.lua")
-          table.insert(runtime_path, "lua/?/init.lua")
+           --[[ nvim_lsp.tsserver.setup({ ]]
+           --[[   filetypes = { "typescript", "typescriptreact", "typescript.tsx" }, ]]
+           --[[   flags = { ]]
+           --[[       debounce_text_changes = 150, ]]
+           --[[   }, ]]
+           --[[   --on_attach = on_attach, ]]
+           --[[   -- let null-ls (w/ prettier) handle formatting. This stops lsp ]]
+           --[[   -- from prompting which lsp client should handle the formatting. ]]
+           --[[   on_attach = function(client, bufnr) ]]
+           --[[       client.server_capabilities.documentFormattingProvider = false ]]
+           --[[       client.server_capabilities.documentRangeFormattingProvider = false ]]
+           --[[       on_attach(client, bufnr) ]]
+           --[[   -- documentFormattingProvider ]]
+           --[[   -- documentRangeFormattingProvider ]]
+           --[[   end, ]]
+           --[[   capabilities = capabilities, ]]
+           --[[ }) ]]
 
-          nvim_lsp.sumneko_lua.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            flags = {
-              debounce_text_changes = 150,
-            },
-            cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-            settings = {
-              Lua = {
-                runtime = {
-                  -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                  version = 'LuaJIT',
-                  -- Setup your lua path
-                  path = runtime_path,
-                },
-                diagnostics = {
-                  -- Get the language server to recognize the `vim` global
-                  globals = {'vim'},
-                },
-                workspace = {
-                  -- Make the server aware of Neovim runtime files
-                  library = vim.api.nvim_get_runtime_file("", true),
-                  checkThirdParty = false,
-                },
-                -- Do not send telemetry data containing a randomized but unique identifier
-                telemetry = {
-                  enable = false,
-                },
-              },
-            },
-          }
+           local sumneko_root_path = "${pkgs.sumneko-lua-language-server}/extas"
+           local sumneko_binary = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server"
+           local runtime_path = vim.split(package.path, ';')
+           table.insert(runtime_path, "lua/?.lua")
+           table.insert(runtime_path, "lua/?/init.lua")
 
-          local null_ls = require('null-ls')
-          local helpers = require('null-ls.helpers')
+           nvim_lsp.sumneko_lua.setup {
+             on_attach = on_attach,
+             capabilities = capabilities,
+             flags = {
+               debounce_text_changes = 150,
+             },
+             cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+             settings = {
+               Lua = {
+                 runtime = {
+                   -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                   version = 'LuaJIT',
+                   -- Setup your lua path
+                   path = runtime_path,
+                 },
+                 diagnostics = {
+                   -- Get the language server to recognize the `vim` global
+                   globals = {'vim'},
+                 },
+                 workspace = {
+                   -- Make the server aware of Neovim runtime files
+                   library = vim.api.nvim_get_runtime_file("", true),
+                   checkThirdParty = false,
+                 },
+                 -- Do not send telemetry data containing a randomized but unique identifier
+                 telemetry = {
+                   enable = false,
+                 },
+               },
+             },
+           }
 
-          null_ls.setup({
-            on_attach = on_attach,
-            sources = {
-              null_ls.builtins.diagnostics.buf,
-              null_ls.builtins.diagnostics.golangci_lint,
-              null_ls.builtins.diagnostics.eslint_d,
-              null_ls.builtins.formatting.stylua,
-              null_ls.builtins.formatting.prettier.with({
-                filetypes = { "typescript", "typescriptreact", "markdown", "json" },
-              }),
-              null_ls.builtins.formatting.lua_format.with({
-                args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
-                "--no-keep_simple_control_block_one_line", "--column-limit=130",
-                "--break-after-table-lb" },
-              }),
-              --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
-            },
-            debug = true,
-          })
+           local null_ls = require('null-ls')
+           local helpers = require('null-ls.helpers')
+
+           null_ls.setup({
+             on_attach = on_attach,
+             sources = {
+               null_ls.builtins.diagnostics.buf,
+               null_ls.builtins.diagnostics.golangci_lint,
+               null_ls.builtins.diagnostics.eslint_d,
+               null_ls.builtins.formatting.stylua,
+               null_ls.builtins.formatting.prettier.with({
+                 filetypes = { "typescript", "typescriptreact", "markdown", "json" },
+               }),
+               null_ls.builtins.formatting.lua_format.with({
+                 args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
+                 "--no-keep_simple_control_block_one_line", "--column-limit=130",
+                 "--break-after-table-lb" },
+               }),
+               --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
+             },
+             debug = true,
+           })
         '';
       }
       {
