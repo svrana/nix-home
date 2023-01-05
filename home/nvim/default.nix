@@ -826,8 +826,17 @@ in
         plugin = typescript-nvim;
         type = "lua";
         config = ''
-          vim.api.nvim_exec([[ autocmd BufWritePre *.tsx :silent! lua require("typescript").actions.addMissingImports() ]], false)
-          vim.api.nvim_exec([[ autocmd BufWritePre *.ts :silent! lua require("typescript").actions.addMissingImports() ]], false)
+          local TSFormat = vim.api.nvim_create_augroup("TSFormat", { clear = true })
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            group = Format,
+            pattern = "*.tsx,*.ts,*.jsx,*.js",
+            callback = function()
+              if vim.fn.exists(":TypescriptAddMissingImports") then
+                  vim.cmd("TypescriptAddMissingImports!")
+                  vim.cmd("TypescriptRemoveUnused!")
+              end
+            end,
+          })
         '';
       }
       {
@@ -1300,14 +1309,9 @@ in
           wk.register({
             c = {
               name = "+code",
-              d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
               a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
+              d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
               f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
-              j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
-              p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
-              r = { "<cmd>Lspsaga rename<cr>", "Rename" },
-              i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
-              l = { "<cmd>LspRestart<cr>", "Restart LSP" },
               g = {
                 name = "+go",
                 s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
@@ -1321,6 +1325,17 @@ in
                   i = { "<cmd>GoTestFile<cr>", "test file" },
                   a = { "<cmd>GoAddTest<cr>", "add test" },
                 }
+              },
+              i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
+              j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
+              l = { "<cmd>LspRestart<cr>", "Restart LSP" },
+              p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
+              r = { "<cmd>Lspsaga rename<cr>", "Rename" },
+              t = {
+                name = "+typescript",
+                i = { "<cmd>TypescriptAddMissingImports<cr>", "Add missing imports" },
+                f = { "<cmd>TypescriptFixAll<cr>", "Fix code problems" },
+                u = { "<cmd>TypescriptRemoveUnused<cr>", "Remove unused imports" },
               },
             },
             d = {
