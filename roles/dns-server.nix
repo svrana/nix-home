@@ -6,17 +6,19 @@
     adguardhome
   ];
 
+  services.unbound = {
+    enable = true;
+    settings = {
+      server = {
+        port = 54;
+      };
+    };
+  };
+
   services.adguardhome = {
     enable = true;
     openFirewall = true;
     settings.dns.bind_host = "0.0.0.0";
-    settings.dns.bootstrap_dns = [
-      "9.9.9.10"
-      "149.112.112.10"
-      "2620:fe::10"
-      "2620:fe::fe:10"
-    ];
-
   };
 
   networking.firewall = {
