@@ -77,6 +77,7 @@
     niv
     element-desktop
     entr
+    evince
     gimp
     gnupg
     kind
