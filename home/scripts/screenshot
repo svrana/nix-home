@@ -1,0 +1,1 @@
+grim -g "$(slurp)" /home/shaw/Downloads/$(date "+%Y-%m-%d-%T"+'%s_grim.png')

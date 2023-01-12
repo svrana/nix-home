@@ -194,6 +194,7 @@ in
               "${mod}+Shift+h" = "move left";
               "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
               "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
+              "${mod}+Shift+w" = "exec --no-startup-id $BIN_DIR/screenshot";
               "${mod}+Shift+j" = "move down";
               "${mod}+Shift+k" = "move up";
               "${mod}+Shift+l" = "move right";
