@@ -77,3 +77,19 @@ windows:
         - web:
           - cd app
           - npm run dev
+  - cli:
+      layout: dd11,426x111,0,0{141x111,0,0,17,141x111,142,0,18,142x111,284,0[142x71,284,0,19,142x39,284,72,20]}
+      panes:
+        - cd cli
+        - editor:
+          - cd cli
+          - vi
+        - cd cli
+  - infra:
+      layout: dd11,426x111,0,0{141x111,0,0,17,141x111,142,0,18,142x111,284,0[142x71,284,0,19,142x39,284,72,20]}
+      panes:
+        - cd kustomize
+        - editor:
+          - cd kustomize
+          - vi
+        - cd helm-charts
