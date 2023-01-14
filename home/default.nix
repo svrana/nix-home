@@ -91,6 +91,7 @@
     maim
     mpv
     gnome.nautilus
+    libreoffice
     nixfmt
     nixpkgs-review
     packer
@@ -321,6 +322,7 @@
     enable = true;
     defaultApplications = {
       "text/html" = "org.qutebrowser.qutebrowser.desktop";
+      #"application/pdf" = "org.evince.evince.desktop";
       "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
