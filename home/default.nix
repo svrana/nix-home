@@ -141,6 +141,7 @@
     nodePackages.vercel
     postman
     protoc-gen-validate
+    iw
 
     # sway specific
     avizo
