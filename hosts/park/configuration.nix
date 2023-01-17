@@ -19,6 +19,10 @@
 
   boot.blacklistedKernelModules = [ "snd_hda_intel" ];
 
+  # disable power save on this ax200 as it powers on while I'm working and speed drops to shit
+  # equivalent to doing iw dev <wlp3s0> set power_save off
+  networking.networkmanager.wifi.powersave = false;
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
