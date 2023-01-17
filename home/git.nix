@@ -78,6 +78,9 @@ in
         whitespace = "red reverse";
         commit = "yellow bold";
       };
+      advice = {
+        skippedCherryPicks = false;
+      };
       # core = {
       #    pager = "delta";
       # };
