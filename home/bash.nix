@@ -44,9 +44,12 @@ in
       MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
       TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
       HISTFILE = "$XDG_STATE_HOME/bash_history";
+      XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
+      XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
 
       NETRC = "$XDG_CONFIG_HOME/netrc ";
       PSQLRC = "$XDG_CONFIG_HOME/psql/config ";
+      PSQL_HISTORY = "$XDG_STATE_HOME/psql_history";
       PYLINTHOME = "$XDG_CACHE_HOME/pylint ";
       PYTHONSTARTUP = "${pythonstartup}";
       PYTHONDONTWRITEBYTECODE = 1;
@@ -124,7 +127,7 @@ in
 
       "make" = "make -j$(nproc)";
 
-      "av"   = "aws-vault";
+      "av" = "aws-vault";
     };
   };
 }
