@@ -31,6 +31,7 @@ in
       CABAL_HOME = "$XDG_DATA_HOME/cabal";
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+      DOCKER_BUILDKIT = 1;
       GEM_HOME = "$XDG_DATA_HOME/gem";
       GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
       INPUTRC = "$XDG_CONFIG_HOME/inputrc";

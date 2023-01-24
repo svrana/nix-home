@@ -142,6 +142,7 @@
     postman
     protoc-gen-validate
     iw
+    postgresql_13
 
     # sway specific
     avizo
@@ -219,6 +220,7 @@
       kubernetes = {
         disabled = false;
         context_aliases = {
+          kind-nuc-dev = "dev";
           kind-kind = "dev";
         };
       };
