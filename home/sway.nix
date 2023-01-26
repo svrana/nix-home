@@ -385,7 +385,7 @@ in
       window#waybar {
         background: ${base02};
         border-bottom: 3px solid ${base03};
-        color: #dfdfdf;
+        color: #A9B5AF;
         transition-property: background;
         transition-duration: .5s;
       }
@@ -394,7 +394,7 @@ in
         font-size: 16px;
         font-weight: bold;
         background: transparent;
-        color: #dfdfdf;
+        color: #A9B5AF;
         /* Use box-shadow instead of border so the text isn't offset */
         box-shadow: inset 0px -3px transparent;
       }
