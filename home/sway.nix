@@ -74,6 +74,8 @@ let
   blue = "#268bd2";
   cyan = "#2aa198";
   green = "#859900";
+  bartext = "#2C3530";
+  widgetbg = "${base01}";
 in
 {
   # TODO:
@@ -385,25 +387,25 @@ in
       window#waybar {
         background: ${base02};
         border-bottom: 3px solid ${base03};
-        color: #A9B5AF;
         transition-property: background;
         transition-duration: .5s;
       }
       #workspaces button {
+        color: #A9B5AF;
         padding: 0px 14px 0px 10px;
         font-size: 16px;
         font-weight: bold;
-        background: transparent;
-        color: #A9B5AF;
         /* Use box-shadow instead of border so the text isn't offset */
         box-shadow: inset 0px -3px transparent;
       }
       #workspaces button.focused {
-        background-color: ${base00};
+        color: ${bartext};
+        background-color: ${widgetbg};
         box-shadow: inset 0px -3px ${cyan};
       }
       #workspaces button:hover {
-        background: rgba(0, 0, 0, 0.2);
+        color: #A9B5AF;
+        background: rgba(0, 0, 0, 0.3);
         box-shadow: inset 0px -3px ${violet};
       }
       #mode {
@@ -413,6 +415,7 @@ in
       #workspaces button.urgent {
         background-color: ${cyan};
       }
+
       #clock,
       #battery,
       #cpu,
@@ -426,26 +429,31 @@ in
       #tray,
       #mode,
       #custom,
-      #idle_inhibitor,
       #mpd {
         /* tweak padding / margin here to get bottom of window alignment correct */
         padding: 0px 6px 0px 6px;
         margin: 6px 6px 9px 6px;
         font-weight: bold;
         border-radius: 4px;
-        color: #D8DEE9;
+      }
+
+      #idle_inhibitor {
+        color: #A9B5AF;
       }
 
       #clock {
-        background: ${base01};
+        background: ${widgetbg};
+        color: ${bartext};
       }
 
       #pulseaudio {
-        background: ${base01};
+        background: ${widgetbg};
+        color: ${bartext};
       }
 
       #network {
-        background: ${base01}
+        background: ${widgetbg};
+        color: ${bartext};
       }
 
       #window {
