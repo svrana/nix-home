@@ -109,7 +109,7 @@ in
     vimdiffAlias = true;
     withPython3 = true;
     withNodeJs = true;
-    extraPython3Packages = (ps: with ps; [ pynvim jedi ]);
+    extraPython3Packages = (ps: with ps; [ pynvim jedi-language-server ]);
     extraPackages = with pkgs; [
       buf
       buf-language-server
@@ -969,6 +969,8 @@ in
              'vimls',
              'rust_analyzer',
              'terraform_lsp',
+             -- can't seem to find the binary
+             --'jedi_language_server',
            }
            for _, lsp in ipairs(servers) do
              nvim_lsp[lsp].setup({
@@ -995,6 +997,11 @@ in
              --tag_options = "json="
              tag_transform = "camelcase",
            })
+
+           -- TODO: set this up prperly, can't find binary
+           --[[ nvim_lsp.jedi_language_server.setup({ ]]
+           --[[   cmd = 'jedi_language_server' ]]
+           --[[ }); ]]
 
            nvim_lsp.hls.setup({
              cmd = { "haskell-language-server", "--lsp" },
