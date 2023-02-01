@@ -43,6 +43,8 @@ in
       fro = "!f() { git fetch origin master && git rebase origin/master; }; f";
       new = ''!f() { git checkout -b "$@" --track origin/main; }; f'';
       patch = "!git --no-pager diff --no-color";
+      cb = "!sh $HOME/.local/bin/cb";
+      wt = "worktree";
     };
     lfs = { enable = true; };
     extraConfig = {
