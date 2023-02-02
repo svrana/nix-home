@@ -299,6 +299,9 @@ in
       set shiftwidth=4
       set tabstop=4
       set scrolloff=8
+
+      ab _req [(google.api.field_behavior) = REQUIRED];
+
     '';
     plugins = with pkgs.vimPlugins; [
       {
