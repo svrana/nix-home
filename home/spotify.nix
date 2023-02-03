@@ -25,21 +25,6 @@ in
     theme =
       let spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
       in spicePkgs.themes.catppuccin-mocha;
-    # enabledExtensions = [
-    #   "fullAppDisplay.js"
-    #   "shuffle+.js"
-    # ];
-    #
-    # spicetifyPackage = pkgs.spicetify-cli.overrideAttrs (oa: rec {
-    #   pname = "spicetify-cli";
-    #   version = "2.9.9";
-    #   src = pkgs.fetchgit {
-    #     url = "https://github.com/spicetify/${pname}";
-    #     rev = "v${version}";
-    #     sha256 = "1a6lqp6md9adxjxj4xpxj0j1b60yv3rpjshs91qx3q7blpsi3z4z";
-    #   };
-    #});
-
     colorScheme = "custom";
     # color definition for custom color scheme. (solarized dark)
     customColorScheme = {

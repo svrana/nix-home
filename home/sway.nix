@@ -426,6 +426,7 @@ in
       #network,
       #pulseaudio,
       #custom-media,
+      #idle_inhibitor,
       #tray,
       #mode,
       #custom,
@@ -439,6 +440,7 @@ in
 
       #idle_inhibitor {
         color: #A9B5AF;
+        font-weight: normal;
       }
 
       #clock {
@@ -468,12 +470,6 @@ in
       /* If workspaces is the rightmost module, omit right margin */
       .modules-right > widget:last-child > #workspaces {
         margin-right: 0px;
-      }
-      /* color regression: https://github.com/Alexays/Waybar/issues/1741 */
-      label:disabled,
-      button:disabled {
-        color: inherit;
-        background-image: none;
       }
     '';
   };
