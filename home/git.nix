@@ -17,6 +17,7 @@ in
       ci = "commit";
       ciaa = "commit -a --amend";
       cia = "commit --amend";
+      mt = "mergetool";
       st = "status";
       ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
       pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
@@ -55,7 +56,12 @@ in
       url."git@github.com:nucleuscloud".insteadOf = "https://github.com/nucleuscloud";
       diff-so-fancy = { stripLeadingSymbols = false; };
       core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
-      merge = { tool = "vimdiff"; };
+      merge = {
+        tool = "vimdiff";
+        conflictstyle = "diff3";
+        prompt = "false";
+        keepBackup = "false";
+      };
       credential = { helper = "cache"; };
       push = { default = "simple"; };
 
