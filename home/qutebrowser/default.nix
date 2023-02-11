@@ -49,13 +49,14 @@ in
     # no per website configuratble stylesheets yet
     #config.set('content.user_stylesheets', '${solCSS}/solarized-dark-github.css', '*://github.com/')
     extraConfig = ''
+      c.url.default_page = "www.kagi.com";
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
       config.bind("<Escape>", "mode-leave", mode="passthrough")
       config.load_autoconfig()
     '';
     searchEngines = {
-      #DEFAULT = "https://kagi.com/search?q={}";
-      DEFAULT = "https://duckduckgo.com/?q={}";
+      DEFAULT = "https://kagi.com/search?q={}";
+      #DEFAULT = "https://duckduckgo.com/?q={}";
       #DEFAULT = "https://neeva.com/search?q={}";
       d = "https://duckduckgo.com/?q={}";
       n = "https://neeva.com/search?q={}";
