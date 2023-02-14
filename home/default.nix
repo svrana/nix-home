@@ -146,6 +146,7 @@
 
     # sway specific
     avizo
+    istioctl
     clipman
     swaylock
     swayidle

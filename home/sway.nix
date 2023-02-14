@@ -31,7 +31,7 @@ let
       tmux attach -t work
     }
 
-    tmux attach || tmux_from_scratch
+    tmux attach 2>&1 1>/dev/null  || tmux_from_scratch
   '';
   spotify-focus = pkgs.writeScript "spotify-focus" ''
     #!${pkgs.bash}/bin/bash
