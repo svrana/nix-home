@@ -38,6 +38,7 @@ in
       llog = ''log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative'';
       latest = "diff HEAD~1 HEAD";
       home = ''config user.email "shaw@vranix.com"'';
+      work = ''config user.email "shaw.vrana@nucleuscloud.com"'';
       hg =
         "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
       fr = "!f() { git fetch origin main && git rebase origin/main; }; f";
