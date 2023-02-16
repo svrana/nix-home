@@ -63,22 +63,6 @@ windows:
           - cd app
           - vi
         - cd app
-  - setup:
-      layout: 36aa,426x111,0,0{141x111,0,0[141x55,0,0,20,141x55,0,56,24],141x111,142,0[141x55,142,0,21,141x55,142,56,23],142x111,284,0,25}
-      panes:
-        - ssh postgres.stage
-        - grpc-proxy:
-          - cd mgmt-api
-          - HOST=0.0.0.0 GRPC_BASE_URL=localhost:50051 PORT=3001 ./bin/web
-        - api-watch:
-          - cd mgmt-api
-          - make watch
-        - run:
-          - cd mgmt-api
-          - make run
-        - web:
-          - cd app
-          - npm run dev
   - cli:
     #layout: dd11,426x111,0,0{141x111,0,0,17,141x111,142,0,18,142x111,284,0[142x71,284,0,19,142x39,284,72,20]}
       layout: 897d,426x111,0,0{283x111,0,0[283x87,0,0,17,283x23,0,88,31],142x111,284,0[142x55,284,0,18,142x55,284,56,30]}
