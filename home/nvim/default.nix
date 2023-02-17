@@ -300,6 +300,11 @@ in
       set tabstop=4
       set scrolloff=8
 
+      if !isdirectory("~/.local/state/nvim/backup")
+        silent! execute "!mkdir ~/.local/state/nvim/backup"
+      endif
+      set backupdir=~/.local/state/nvim/backup
+
       ab _req [(google.api.field_behavior) = REQUIRED];
 
     '';
