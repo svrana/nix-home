@@ -122,6 +122,7 @@
     bc
     vanilla-dmz
     yq
+    natscli
 
     buf
     operator-sdk
