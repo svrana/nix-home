@@ -1,4 +1,13 @@
 { config, pkgs, lib, ... }:
+let
+  helm-plugins-dir = pkgs.symlinkJoin {
+    name = "helm-plugins";
+    paths = with pkgs.kubernetes-helmPlugins; [
+      helm-diff
+      helm-secrets
+    ];
+  };
+in
 {
   programs.home-manager.enable = true;
 
@@ -19,6 +28,10 @@
     mime.enable = true;
   };
   fonts.fontconfig.enable = true;
+
+  programs.bash.initExtra = ''
+    export HELM_PLUGINS="${helm-plugins-dir}"
+  '';
 
   imports = [
     # settings has to go first as the config there controls aspects of the
@@ -58,6 +71,8 @@
     ./zathura.nix
   ];
 
+
+
   home.packages = with pkgs; [
     autotiling
     cargo
@@ -81,7 +96,14 @@
     gimp
     gnupg
     kind
-    (pkgs.wrapHelm pkgs.kubernetes-helm { plugins = [ pkgs.kubernetes-helmPlugins.helm-secrets ]; })
+    pkgs.kubernetes-helm
+    pkgs.helmfile
+    # (pkgs.wrapHelm pkgs.kubernetes-helm {
+    #   plugins = [
+    #     pkgs.kubernetes-helmPlugins.helm-secrets
+    #     pkgs.kubernetes-helmPlugins.helm-diff
+    #   ];
+    # })
     gitAndTools.hub
     grpcurl
     kubectx
