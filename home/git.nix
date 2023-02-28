@@ -9,7 +9,7 @@ in
     userEmail = "shaw@vranix.com";
     signing = {
       key = "220B8643296AB53D";
-      signByDefault = true;
+      signByDefault = false;
     };
     aliases = {
       rename = "commit --reset-author --amend";
