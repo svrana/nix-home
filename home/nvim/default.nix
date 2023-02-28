@@ -249,23 +249,25 @@ in
         autocmd = require('svrana.utils').autocmd
         autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
         autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
-        autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
         autocmd('FileType', '*',          'setlocal formatoptions+=croq')
         autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72')
         autocmd('BufRead', 'gitcommit',   'setlocal fo+=t')
         autocmd('BufRead', '*.md',        'setlocal textwidth=90')
         autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
         autocmd('BufRead', '*.eml',       'setlocal textwidth=90')
-        autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]],       'setf ruby')
-        autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
-        autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
-        autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
-        autocmd('BufRead', 'Tiltfile',    'set filetype=python')
         autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
         autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
         autocmd('TermOpen', 'term://*',   'startinsert')
         autocmd('InsertEnter', '*',       'setlocal nocursorline')
         autocmd('InsertLeave', '*',       'setlocal cursorline')
+
+        autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
+        autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]],       'setf ruby')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
+        autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'setf tiltfile')
+        autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'set syntax=python')
         --turn off numbers when not active window.... but need per file adjustments which these seem to override
         --autocmd('FocusGained', '*', 'set relativenumber number')
         --autocmd('FocusLost', '*', 'set norelativenumber nonumber')
@@ -979,15 +981,13 @@ in
              'vimls',
              'rust_analyzer',
              'terraform_lsp',
+             'tilt_ls',
              --'pyright'
            }
            for _, lsp in ipairs(servers) do
              nvim_lsp[lsp].setup({
                on_attach = on_attach,
                capabilities = capabilities,
-               flags = {
-                 debounce_text_changes = 150,
-               }
              })
            end
 
