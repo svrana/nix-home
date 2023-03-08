@@ -23,10 +23,9 @@ let
       sleep .2
       tproject nixpkgs $PROJECTS/nixpkgs
       sleep .2
-      tproject vranix $PROJECTS/vranix.com && sleep .5
+      tproject vranix $PROJECTS/vranix.com
       sleep .2
-      tmuxinator start work
-      sleep .2
+      tproject bommie $PROJECTS/bommie
 
       tmux attach -t work
     }

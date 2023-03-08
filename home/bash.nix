@@ -79,7 +79,7 @@ in
     # only run for interactive sessions
     initExtra = ''
       source "$RCS/functions.sh"
-      source "$PERSONAL/nucleus/env.sh"
+      #source "$PERSONAL/work/env.sh"
 
       set -o vi
       stty -ixon

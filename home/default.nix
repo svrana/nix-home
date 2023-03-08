@@ -147,25 +147,11 @@ in
     natscli
 
     buf
-    operator-sdk
-    go-mockery
     go-migrate
-    protobuf
-    golangci-lint
-    kubebuilder
-    kustomize
-    #helm
-    helmfile
-    sops
-    age
-    _1password-gui
     nodejs
     typescript
-    nodePackages.vercel
     postman
     protoc-gen-validate
-    iw
-    postgresql_13
 
     # sway specific
     avizo
@@ -343,7 +329,7 @@ in
     vendor
     pb
   '';
-  xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
+  #xdg.configFile."tmuxinator/work.yml".source = ./config/tmux/work.yml;
   xdg.configFile."tmuxinator/project.yml".source = ./config/tmux/project.yml;
   xdg.mimeApps = {
     enable = true;
