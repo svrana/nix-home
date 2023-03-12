@@ -1016,24 +1016,6 @@ in
              },
            })
 
-           --[[ nvim_lsp.tsserver.setup({ ]]
-           --[[   filetypes = { "typescript", "typescriptreact", "typescript.tsx" }, ]]
-           --[[   flags = { ]]
-           --[[       debounce_text_changes = 150, ]]
-           --[[   }, ]]
-           --[[   --on_attach = on_attach, ]]
-           --[[   -- let null-ls (w/ prettier) handle formatting. This stops lsp ]]
-           --[[   -- from prompting which lsp client should handle the formatting. ]]
-           --[[   on_attach = function(client, bufnr) ]]
-           --[[       client.server_capabilities.documentFormattingProvider = false ]]
-           --[[       client.server_capabilities.documentRangeFormattingProvider = false ]]
-           --[[       on_attach(client, bufnr) ]]
-           --[[   -- documentFormattingProvider ]]
-           --[[   -- documentRangeFormattingProvider ]]
-           --[[   end, ]]
-           --[[   capabilities = capabilities, ]]
-           --[[ }) ]]
-
            require('lspconfig').lua_ls.setup {
              settings = {
                Lua = {
