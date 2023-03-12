@@ -230,8 +230,7 @@ in
       kubernetes = {
         disabled = false;
         context_aliases = {
-          kind-nuc-dev = "dev";
-          kind-kind = "dev";
+          kind-b6 = "dev";
         };
       };
       terraform = {
