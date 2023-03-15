@@ -122,7 +122,7 @@ in
         };
         notifications.enabled = false;
         javascript = {
-          can_access_clipboard = true;
+          clipboard = "access";
           can_open_tabs_automatically = true;
         };
       };
