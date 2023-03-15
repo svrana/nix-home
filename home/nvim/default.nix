@@ -17,23 +17,6 @@ let
       nvim-treesitter
     ];
   };
-  go-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "go-nvim";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "ray-x";
-      repo = "go.nvim";
-      rev = "399a3a834e03a635583d24d771dad93074afda0b";
-      sha256 = "sha256-q55ggD2IiIXHWgyZ4HcJr7+CVEaVvuL/4uSdILlO41w=";
-    };
-    dependencies = with pkgs.vimPlugins; [
-      nvim-treesitter
-      nvim-lspconfig
-    ];
-    configurePhase = ''
-      rm Makefile
-    '';
-  };
   guihua-lua = pkgs.vimUtils.buildVimPlugin {
     pname = "guihua-lua";
     version = "2022-01-06";
@@ -370,13 +353,6 @@ in
                     "go run main.go"
                   }
                 },
-              },
-              [ "$PROJECTS/nucleus/mgmt-api" ] = {
-                term = {
-                  cmds = {
-                    "make"
-                  }
-                }
               },
             }
           })
