@@ -191,12 +191,6 @@ in
         map('n', '<c-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<cr>', options)
         map('n', '<c-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
 
-        --map('i', '<c-a>', '<esc>^i', options)
-        --map('n', '<c-d>', '<c-b>', {})
-
-        --map('n', '<c-x>', ':tabclose<cr>', options)
-        --map('n', '<c-s>', ':tabp<cr>', options)
-        --map('n', '<c-h>', ':tabn<cr>', options)
         map('n', '-', '<c-w>-', options)
         map('n', '+', '<c-w>+', options)
 
@@ -288,9 +282,6 @@ in
         silent! execute "!mkdir ~/.local/state/nvim/backup"
       endif
       set backupdir=~/.local/state/nvim/backup
-
-      ab _req [(google.api.field_behavior) = REQUIRED];
-
     '';
     plugins = with pkgs.vimPlugins; [
       {
@@ -398,13 +389,6 @@ in
         '';
       }
       {
-        plugin = git-worktree-nvim;
-        type = "lua";
-        config = ''
-          require("git-worktree").setup({})
-        '';
-      }
-      {
         plugin = go-nvim;
         type = "lua";
         config = ''
@@ -418,7 +402,7 @@ in
         '';
       }
       goimpl-nvim
-      lualine-lsp-progress
+      #lualine-lsp-progress
       nvim-web-devicons
       {
         plugin = neorg;
@@ -1073,7 +1057,7 @@ in
                'encoding',
                'filetype'
              },
-             lualine_y = {'progress'},
+             --lualine_y = {'progress'},
              lualine_z = {'location'}
            },
            tabline = {},
@@ -1391,17 +1375,12 @@ in
               name = "+new",
               t = { "<cmd>tabnew<cr>", "Tab" },
             },
-            s = {
-              name = "+source",
-              v = { "<cmd>source $XDG_CONFIG_HOME/nvim/init.vim<cr>", "Vimrc" },
-            },
             t = {
               name = "+toggle",
               c = { "<cmd>set cursorline!<cr>", "Cursorline" },
               n = { "<cmd>set relativenumber!<cr>", "Number" },
               h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
               m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
-              --t = { "<cmd>NvimTreeToggle<cr>", "Tree explorer" }, --nvim-tree-lua
               t = { "<cmd>lua require('nvim-tree.api').tree.toggle(false, true)<cr>", "Tree explorer" }, --nvim-tree-lua
 
             },
@@ -1414,11 +1393,6 @@ in
               p = { "<cmd>cprev<cr>", "Previous" },
             },
             z = { "<cmd>q!<cr>" },
-            r = {
-              s = { "<cmd>lua require('svrana.repl').set_job_id()<cr>",       "Set job id" },
-              c = { "<cmd>lua require('svrana.repl').set_job_command()<cr>",  "set job Command" },
-              i = { "<cmd>lua require('svrana.repl').send_to_term()<cr>",     "send command"},
-            }
           }, { prefix = "<leader>" })
         '';
       }
