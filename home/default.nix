@@ -34,6 +34,7 @@
     ./cmus
     ./dircolors
     ./direnv
+    ./docker.nix
     ./dunst.nix
     ./gruf.nix
     ./go.nix
@@ -133,6 +134,7 @@
     typescript
     postman
     protoc-gen-validate
+    #cilium
 
     # sway specific
     avizo
@@ -230,9 +232,9 @@
   #home.file.".ssh/config".source = ../personal/ssh/config;
   #home.file.".pypirc".source = ../personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents /home/shaw/Documents
-    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music /home/shaw/Music
-    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Pictures /home/shaw/Pictures
+    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents ${config.home.homeDirectory}/Documents
+    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music ${config.home.homeDirectory}/Music
+    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Pictures ${config.home.homeDirectory}/Pictures
 
     # qutebrowser writes to these so cannot be in the nix store- having them synced across
     # desktops automatically is also nice. Have to do this after sync or qutebrowser will
@@ -244,6 +246,7 @@
     if [ -f $DOCUMENTS/apps/qutebrowser/bookmarks ]; then
       $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
     fi
+    # not sure if i'm using this anymore
     if [ ! -d $XDG_DATA_HOME/nvim/black ]; then
       $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/nvim/black
       $DRY_RUN_CMD python3 -m venv $XDG_DATA_HOME/nvim/black
