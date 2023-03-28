@@ -223,26 +223,26 @@ in
 
         vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-        autocmd = require('svrana.utils').autocmd
-        autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
-        autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
-        autocmd('FileType', '*',          'setlocal formatoptions+=croq')
-        autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72 | setlocal fo+=t')
-        autocmd('BufRead', '*.md',        'setlocal textwidth=90')
-        autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
-        autocmd('BufRead', '*.eml',       'setlocal textwidth=90 | setwrap')
-        autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
-        autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
-        autocmd('TermOpen', 'term://*',   'startinsert')
-        autocmd('InsertEnter', '*',       'setlocal nocursorline')
-        autocmd('InsertLeave', '*',       'setlocal cursorline')
+        --autocmd = require('svrana.utils').autocmd
+        --autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
+        --autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
+        --autocmd('FileType', '*',          'setlocal formatoptions+=croq')
+        --autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72 | setlocal fo+=t')
+        --autocmd('BufRead', '*.md',        'setlocal textwidth=90')
+        --autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
+        --autocmd('BufRead', '*.eml',       'setlocal textwidth=90 | setwrap')
+        --autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
+        --autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
+        --autocmd('TermOpen', 'term://*',   'startinsert')
+        --autocmd('InsertEnter', '*',       'setlocal nocursorline')
+        --autocmd('InsertLeave', '*',       'setlocal cursorline')
 
-        autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
-        autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]], 'setf ruby')
-        autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
-        autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
-        autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
-        autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'setf tiltfile | set syntax=python')
+        --autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
+        --autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]], 'setf ruby')
+        --autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
+        --autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
+        --autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
+        --autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'setf tiltfile | set syntax=python')
 
         --turn off numbers when not active window.... but need per file adjustments which these seem to override
         --autocmd('FocusGained', '*', 'set relativenumber number')
@@ -687,13 +687,16 @@ in
           EOF
         '';
       }
-      {
-        plugin = vim-latex-live-preview;
-        config = ''
-          let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
-          let g:livepreview_cursorhold_recompile = 0
-        '';
-      }
+      # {
+      #   Getting sourced twice resulting in annoying 'Already loaded' message on start. Started
+      #   occurring after update to nvim .8.3
+      #
+      #   plugin = vim-latex-live-preview;
+      #   config = ''
+      #     let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
+      #     let g:livepreview_cursorhold_recompile = 0
+      #   '';
+      # }
       lsp_signature-nvim
       friendly-snippets
       {
