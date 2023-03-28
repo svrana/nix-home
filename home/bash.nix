@@ -68,7 +68,6 @@ in
       DOWNLOADS = "$HOME/Downloads";
       MUSIC = "$HOME/Music";
       PROJECTS = "$HOME/Projects";
-      APPS = "$HOME/Apps";
       DOTFILES = "$HOME/Projects/dotfiles";
       RCS = "$DOTFILES/home/config";
       PERSONAL = "$DOTFILES/personal";
@@ -79,6 +78,7 @@ in
     # only run for interactive sessions
     initExtra = ''
       source "$RCS/functions.sh"
+      #source "$PERSONAL/bommie.io/env.sh"
       #source "$PERSONAL/work/env.sh"
 
       set -o vi

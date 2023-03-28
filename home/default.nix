@@ -129,12 +129,13 @@
     natscli
 
     buf
-    go-migrate
+    #go-migrate
     nodejs
     typescript
     postman
     protoc-gen-validate
-    #cilium
+    #cilium-cli
+    #certbot
 
     # sway specific
     avizo
@@ -219,6 +220,9 @@
       terraform = {
         disabled = true;
       };
+      nix_shell = {
+        format = "via [$symbol]($style) ";
+      };
     };
   };
   home.file.".local/bin" = {
@@ -276,9 +280,9 @@
       $DRY_RUN_CMD git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
     fi
 
-    if [ ! -d $APPS/gruf ]; then
+    if [ ! -d $PROJECTS/gruf ]; then
       $DRY_RUN_CMD echo "Cloning gruf.."
-      $DRY_RUN_CMD git clone git@github.com:svrana/gruf $APPS/gruf
+      $DRY_RUN_CMD git clone git@github.com:svrana/gruf $PROJECTS/gruf
     fi
 
     if [ ! -d ~/.config/emacs ]; then

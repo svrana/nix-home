@@ -11,6 +11,6 @@
   # };
 
   programs.bash.initExtra = ''
-    source "$APPS/gruf/gruf.sh"
+    source "$PROJECTS/gruf/gruf.sh"
   '';
 }
