@@ -25,7 +25,7 @@ let
       sleep .2
       tproject vranix $PROJECTS/vranix.com
       sleep .2
-      tproject b6 $PROJECTS/b6
+      tproject b6 $PROJECTS/bommie/b6
 
       tmux attach -t work
     }
