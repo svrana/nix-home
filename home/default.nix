@@ -41,7 +41,7 @@
     ./gopass.nix
     #./helm.nix
     ./k9s
-    ./keybase.nix
+    #./keybase.nix
     ./keychain.nix
     ./kubectl.nix
     ./nvim
