@@ -136,15 +136,15 @@
     protoc-gen-validate
     #cilium-cli
     #certbot
+    #istioctl
 
     # sway specific
     avizo
-    istioctl
     clipman
     swaylock
     swayidle
     wl-clipboard
-    wf-recorder
+    wf-recorder # i.e., wf-recorder -g "$(slurp)"
     swaybg
     waybar
     wtype
