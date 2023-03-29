@@ -291,15 +291,9 @@
     if [ ! -d ~/.config/doom ]; then
       $DRY_RUN_CMD git clone git@github.com:svrana/doom ~/.config/doom
     fi
-
-    $DRY_RUN_CMD mkdir -p ~/.cache/neomutt/{headers,messages}
   '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
-    recursive = true;
-  };
-  xdg.configFile."neomutt" = {
-    source = ./config/neomutt;
     recursive = true;
   };
   xdg.configFile."inputrc".source = ./config/inputrc;
