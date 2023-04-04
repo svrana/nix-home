@@ -48,9 +48,9 @@
 
   # Ensure privacy of local IP ranges
   services.adguardhome = {
-    enable = true;
+    enable = false;
     openFirewall = true;
-    settings.dns.bind_host = " 0.0.0.0";
+    settings.dns.bind_host = "0.0.0.0";
   };
 
   networking.firewall = {
