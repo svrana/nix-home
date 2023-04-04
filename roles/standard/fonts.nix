@@ -5,8 +5,8 @@
     fontconfig = {
       defaultFonts = {
         monospace = [ "DejaVu Sans Mono" ];
-        sansSerif =  [ "DejaVu Sans" ];
-        serif =  [ "DejaVu Serif" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif = [ "DejaVu Serif" ];
       };
     };
 
@@ -17,7 +17,7 @@
       font-awesome
       hack-font
       dejavu_fonts
-      (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
+      (nerdfonts.override { fonts = [ "UbuntuMono" "Hack" ]; })
     ];
   };
 }

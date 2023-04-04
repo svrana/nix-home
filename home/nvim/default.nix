@@ -403,7 +403,14 @@ in
       }
       goimpl-nvim
       #lualine-lsp-progress
-      nvim-web-devicons
+      {
+        plugin = nvim-web-devicons;
+        type = "lua";
+        config = ''
+            require('nvim-web-devicons').setup({
+          })
+        '';
+      }
       {
         plugin = neorg;
         type = "lua";
