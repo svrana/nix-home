@@ -38,7 +38,7 @@ in
       llog = ''log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative'';
       latest = "diff HEAD~1 HEAD";
       home = ''config user.email "shaw@vranix.com"'';
-      work = ''config user.email "shaw.vrana@nucleuscloud.com"'';
+      work = ''config user.email "shaw@vrana.com"'';
       hg =
         "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
       fr = "!f() { git fetch origin main && git rebase origin/main; }; f";
@@ -54,7 +54,7 @@ in
         defaultBranch = "main";
       };
       #url."git@github.com:".insteadOf = "https://github.com";
-      url."git@github.com:nucleuscloud".insteadOf = "https://github.com/nucleuscloud";
+      #url."git@github.com:bommie".insteadOf = "https://github.com/bommie";
       diff-so-fancy = { stripLeadingSymbols = false; };
       core = { pager = ''${diffSoFancy} | less --tabs=4 -RFX''; };
       merge = {
