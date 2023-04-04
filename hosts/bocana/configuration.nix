@@ -5,7 +5,6 @@
     ../../arch/amd
     ../../roles/standard
     ../../roles/nextcloud.nix
-    ../../roles/dns-server.nix
     ../../roles/print-server.nix
     ../../roles/syncthing.nix
   ];
