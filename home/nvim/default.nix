@@ -82,7 +82,6 @@ let
 in
 {
   xdg.configFile."nvim/init.lua".text = lib.mkBefore ''
-    --let mapleader = ","
     vim.g.mapleader = ","
   '';
 
@@ -223,30 +222,26 @@ in
 
         vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-        --autocmd = require('svrana.utils').autocmd
-        --autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
-        --autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
-        --autocmd('FileType', '*',          'setlocal formatoptions+=croq')
-        --autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72 | setlocal fo+=t')
-        --autocmd('BufRead', '*.md',        'setlocal textwidth=90')
-        --autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
-        --autocmd('BufRead', '*.eml',       'setlocal textwidth=90 | setwrap')
-        --autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
-        --autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
-        --autocmd('TermOpen', 'term://*',   'startinsert')
-        --autocmd('InsertEnter', '*',       'setlocal nocursorline')
-        --autocmd('InsertLeave', '*',       'setlocal cursorline')
+        autocmd = require('svrana.utils').autocmd
+        autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
+        autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
+        autocmd('FileType', '*',          'setlocal formatoptions+=croq')
+        autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72 | setlocal fo+=t')
+        autocmd('BufRead', '*.md',        'setlocal textwidth=90')
+        autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
+        autocmd('BufRead', '*.eml',       'setlocal textwidth=90 | setwrap')
+        autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
+        autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
+        autocmd('TermOpen', 'term://*',   'startinsert')
+        autocmd('InsertEnter', '*',       'setlocal nocursorline')
+        autocmd('InsertLeave', '*',       'setlocal cursorline')
 
-        --autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
-        --autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]], 'setf ruby')
-        --autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
-        --autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
-        --autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
-        --autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'setf tiltfile | set syntax=python')
-
-        --turn off numbers when not active window.... but need per file adjustments which these seem to override
-        --autocmd('FocusGained', '*', 'set relativenumber number')
-        --autocmd('FocusLost', '*', 'set norelativenumber nonumber')
+        autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
+        autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]], 'setf ruby')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.json',      'setf json')
+        autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
+        autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'setf tiltfile | set syntax=python')
 
       -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
       -- and remove from plugin section below
@@ -547,7 +542,7 @@ in
         plugin = playground;
         type = "lua";
         config = ''
-          require "nvim-treesitter.configs".setup {
+          require("nvim-treesitter.configs").setup {
             playground = {
               enable = true,
               disable = {},
@@ -606,10 +601,8 @@ in
                 i = {
                   ["<C-j>"] = actions.move_selection_next,
                   ["<C-k>"] = actions.move_selection_previous,
-                  --["<esc>"] = actions.close, -- can't really get to normal mode if you do this, use c-c to exit
                   ["<C-u>"] = false,
                   ["<C-f>"] = actions.preview_scrolling_down,   -- remap of c-u, b/c I like emacs
-                  --["<C-d>"] = actions.preview_scrolling_up, -- default
                   ["<C-b>"] = actions.preview_scrolling_up,
                 },
                 n = {
