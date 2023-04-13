@@ -447,7 +447,6 @@ in
             gowork
             haskell
             hcl
-            help
             html
             http
             java
