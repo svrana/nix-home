@@ -60,7 +60,7 @@ in
       };
       alacritty = {
         fontFamily = mkOption {
-          default = "Hack";
+          default = "Hack Nerd Font";
           type = types.str;
         };
         fontSize = mkOption {
