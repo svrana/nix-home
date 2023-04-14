@@ -686,16 +686,13 @@ in
           EOF
         '';
       }
-      # {
-      #   Getting sourced twice resulting in annoying 'Already loaded' message on start. Started
-      #   occurring after update to nvim .8.3
-      #
-      #   plugin = vim-latex-live-preview;
-      #   config = ''
-      #     let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
-      #     let g:livepreview_cursorhold_recompile = 0
-      #   '';
-      # }
+      {
+        plugin = vim-latex-live-preview;
+        config = ''
+          let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
+          let g:livepreview_cursorhold_recompile = 0
+        '';
+      }
       lsp_signature-nvim
       friendly-snippets
       {
