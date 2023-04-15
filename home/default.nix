@@ -95,6 +95,7 @@
     maim
     mpv
     gnome.nautilus
+    gnome.eog
     libreoffice
     nixfmt
     nixpkgs-review
@@ -316,6 +317,10 @@
     enable = true;
     defaultApplications = {
       "text/html" = "org.qutebrowser.qutebrowser.desktop";
+      #"image/jpeg" = "imv.desktop";
+      "image/jpeg" = "org.gnome.eog.desktop";
+      "image/png" = "org.gnome.eog.desktop";
+      "image/gif" = "org.gnome.eog.desktop";
       #"application/pdf" = "org.evince.evince.desktop";
       "x-scheme-handler/ftp" = "org.qutebrowser.qutebrowser.desktop";
       "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
@@ -356,6 +361,14 @@
       gpu-context = "wayland";
       background = "#002b36";
       force-window = "immediate";
+    };
+  };
+
+  programs.htop = {
+    enable = true;
+    settings = {
+      sort-direction = "0";
+      color-scheme = "0";
     };
   };
 
