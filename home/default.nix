@@ -234,6 +234,10 @@
     source = ./misc/desktop;
     recursive = true;
   };
+  home.file.".config/doom" = {
+    source = ./doom;
+    recursive = true;
+  };
   #home.file.".ssh/config".source = ../personal/ssh/config;
   #home.file.".pypirc".source = ../personal/pypi/pypirc;
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -289,8 +293,8 @@
     if [ ! -d ~/.config/emacs ]; then
       $DRY_RUN_CMD git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
     fi
-    if [ ! -d ~/.config/doom ]; then
-      $DRY_RUN_CMD git clone git@github.com:svrana/doom ~/.config/doom
+    if [ ! -f ~/.local/bin/doom ]; then
+      ln -s ~/.config/emacs/bin/doom ~/.local/bin/doom
     fi
   '';
   xdg.configFile."nvim" = {
