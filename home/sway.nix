@@ -317,7 +317,7 @@ in
           "all-outputs" = true;
           "format" = "{icon}";
           "format-icons" = {
-            "1" = "";
+            "1" = "󰇰";
             "2" = "";
             "3" = "";
             "4" = "";
