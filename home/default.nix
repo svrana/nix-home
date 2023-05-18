@@ -93,6 +93,7 @@
     ledger-live-desktop
     i3-ratiosplit
     imv
+    libsixel # for img2sixel
     maim
     mpv
     gnome.nautilus
