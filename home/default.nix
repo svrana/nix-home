@@ -36,6 +36,7 @@
     ./direnv
     ./docker.nix
     ./dunst.nix
+    ./foot.nix
     ./gruf.nix
     ./go.nix
     ./gopass.nix

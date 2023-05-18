@@ -58,6 +58,12 @@ in
           description = "Font configuration for window titles, nagbar...";
         };
       };
+      foot = {
+        font = mkOption {
+          default = "Hack Nerd Font:size=6.50";
+          type = types.str;
+        };
+      };
       alacritty = {
         fontFamily = mkOption {
           default = "Hack Nerd Font";
