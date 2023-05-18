@@ -23,7 +23,8 @@ in
 
       EXA_DFLT_ARGS = "--icons --group-directories-first";
       LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
-      TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
+      #TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
+      TERMINAL = "${pkgs.foot}/bin/foot";
       RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
 
       NIXPKGS_ALLOW_UNFREE = 1;

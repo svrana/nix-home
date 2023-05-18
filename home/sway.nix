@@ -10,8 +10,9 @@ let
   slurp = "${pkgs.slurp}/bin/slurp";
   ranger = "${pkgs.ranger}/bin/ranger";
   rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
-  alacritty = "${pkgs.alacritty}/bin/alacritty";
-  email_client = "${alacritty} --title email --class email -e aerc";
+  #alacritty = "${pkgs.alacritty}/bin/alacritty";
+  terminal = "${pkgs.foot}/bin/foot";
+  email_client = "${terminal} --title email --class email -e aerc";
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
     #!/usr/bin/env bash
 
@@ -156,7 +157,7 @@ in
             in
             {
               "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show'';
-              "${mod}+Return" = "exec --no-startup-id ${alacritty}";
+              "${mod}+Return" = "exec --no-startup-id ${terminal}";
               "${mod}+Shift+q" = "kill";
               "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
               "${mod}+1" = "workspace 1";
@@ -185,7 +186,7 @@ in
               "${mod}+r" = "mode resize";
               "${mod}+s" = "layout stacking";
               "${mod}+t" = "layout tabbed";
-              "${mod}+u" = ''exec --no-startup-id "alacritty -e ${ranger}"'';
+              "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
               "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t rofi'';
               "${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
@@ -201,7 +202,7 @@ in
               "${mod}+Shift+l" = "move right";
               "${mod}+Shift+space" = "floating toggle";
               "${mod}+space" = "focus mode_toggle";
-              "${mod}+Shift+t" = "exec --no-startup-id ${alacritty} --class tmux --title tmux -e ${tmux-attach-or-new}";
+              "${mod}+Shift+t" = "exec --no-startup-id ${terminal} --app-id tmux --title tmux -e ${tmux-attach-or-new}";
               "${mod}+Shift+1" = "move container to workspace 1";
               "${mod}+Shift+2" = "move container to workspace 2";
               "${mod}+Shift+3" = "move container to workspace 3";
@@ -553,7 +554,7 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      ExecStart = "${pkgs.bash}/bin/bash -lc '${alacritty} --class scratch-term,scratch-term --title scratch'";
+      ExecStart = "${pkgs.bash}/bin/bash -lc '${terminal} --app-id scratch-term,scratch-term --title scratch'";
       Restart = "always";
     };
   };
