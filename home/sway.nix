@@ -12,7 +12,7 @@ let
   rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   #alacritty = "${pkgs.alacritty}/bin/alacritty";
   terminal = "${pkgs.foot}/bin/foot";
-  email_client = "${terminal} --title email --class email -e aerc";
+  email_client = "${terminal} --title email --app-id email -e aerc";
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
     #!/usr/bin/env bash
 
