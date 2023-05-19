@@ -40,6 +40,7 @@
     ./gruf.nix
     ./go.nix
     ./gopass.nix
+    #./haskell.nix
     #./helm.nix
     ./k9s
     #./keybase.nix
@@ -298,6 +299,10 @@
     if [ ! -f ~/.local/bin/doom ]; then
       ln -s ~/.config/emacs/bin/doom ~/.local/bin/doom
     fi
+
+    if [ -d $XDG_DATA_HOME/aerc ]; then
+      $DRY_RUN_CMD cp $PERSONAL/aerc/accounts.conf $XDG_DATA_HOME/aerc
+    fi
   '';
   xdg.configFile."nvim" = {
     source = ./config/nvim;
@@ -386,12 +391,6 @@
     Name=Default
     Comment=Default Cursor Theme
     Inherits=Vanilla-DMZ
-  '';
-
-  home.file.".haskeline".text = ''
-    editMode: Vi
-    historyDuplicates: IgnoreConsecutive
-    bellStyle: NoBell
   '';
 
   home.sessionVariables = {
