@@ -141,6 +141,7 @@
     #cilium-cli
     #certbot
     #istioctl
+    luakit
 
     # sway specific
     avizo
