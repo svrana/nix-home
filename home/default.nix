@@ -429,4 +429,8 @@
         "show_labs_settings": true
     }
   '';
+  xdg.configFile."luakit" = {
+    source = ./luakit;
+    recursive = true;
+  };
 }
