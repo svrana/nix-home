@@ -130,7 +130,7 @@
     bc
     vanilla-dmz
     yq
-    natscli
+    obs
 
     buf
     #go-migrate
