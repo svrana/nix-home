@@ -130,8 +130,6 @@
     bc
     vanilla-dmz
     yq
-    obs
-
     buf
     #go-migrate
     nodejs

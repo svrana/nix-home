@@ -30,6 +30,19 @@ let
       rm Makefile
     '';
   };
+  # switch to legacy branch to avoid warning.. this was upstreamed already
+  fidget-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "fidget.nvim";
+    version = "2023-03-27";
+    src = pkgs.fetchFromGitHub {
+      owner = "j-hui";
+      repo = "fidget.nvim";
+      rev = "90c22e47be057562ee9566bad313ad42d622c1d3";
+      sha256 = "1ga6pxz89687km1mwisd4vfl1bpw6gg100v9xcfjks03zc1bywrp";
+    };
+    meta.homepage = "https://github.com/j-hui/fidget.nvim/";
+  };
+
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
     pname = "nvim-tabline";
     version = "2022-01-06";
@@ -1060,15 +1073,36 @@ in
         plugin = gitsigns-nvim;
         type = "lua";
         config = ''
-          require('gitsigns').setup({
-            current_line_blame = false,
-            -- redefining some of the defaults to remove the ones that override <leader>h which I use for harpoon
-            keymaps = {
-              noremap = true,
-              ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-              ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
-            },
-          })
+        require('gitsigns').setup({
+          current_line_blame = false,
+            on_attach = function(bufnr)
+              local gs = package.loaded.gitsigns
+
+              local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+              end
+
+              -- Navigation
+              map('n', ']c', function()
+                if vim.wo.diff then return ']c' end
+                vim.schedule(function() gs.next_hunk() end)
+                return '<Ignore>'
+              end, {expr=true})
+
+              map('n', '[c', function()
+                if vim.wo.diff then return '[c' end
+                vim.schedule(function() gs.prev_hunk() end)
+                return '<Ignore>'
+              end, {expr=true})
+
+              map('n', '<leader>tb', gs.toggle_current_line_blame)
+              --map('n', '<leader>hs', gs.stage_hunk)
+              --map('n', '<leader>hr', gs.reset_hunk)
+            end
+
+        })
         '';
       }
       minimap-vim
