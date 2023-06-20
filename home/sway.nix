@@ -91,7 +91,7 @@ in
         package = null;
         enable = true;
         wrapperFeatures.gtk = true;
-        systemdIntegration = true;
+        systemd.enable = true;
         config = {
           modifier = "Mod4";
           floating = {
