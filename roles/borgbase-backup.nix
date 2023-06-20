@@ -1,7 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, config, options, ... }:
 {
   options.services.borgbackup.jobs =  {
-    borgbase_backup = { # for a local backup
+      borgbase = { # for a local backup
         # Root backing each day up to a remote backup server. We assume that you have
         #   * created a password less key: ssh-keygen -N "" -t ed25519 -f /path/to/ssh_key
         #     best practices are: use -t ed25519, /path/to = /run/keys
@@ -18,7 +18,7 @@
         environment = { BORG_RSH = "ssh -i /run/keys/id_ed25519_borgbase.pub"; };
         compression = "auto,lzma";
         startAt = "daily";
-      };
     };
+  };
 }
 
