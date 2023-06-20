@@ -13,3 +13,28 @@ downloads.default_dir = os.getenv("HOME") .. "/Downloads"
 
 local webview = require("webview")
 webview.hardware_acceleration_policy = "always"
+
+local modes = require("modes")
+
+modes.add_binds("normal", {
+	{
+		"<Control-c>",
+		"Copy selected text.",
+		function()
+			luakit.selection.clipboard = luakit.selection.primary
+		end,
+	},
+})
+
+modes.remap_binds("normal", {
+	{ "]", "gt", true },
+	{ "[", "gT", true },
+})
+
+modes.remap_binds("normal", {
+	{ ",nt", ":tabopen<CR>", true },
+})
+
+modes.remap_binds("normal", {
+	{ "c", ":back<CR>", true },
+})

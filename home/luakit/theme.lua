@@ -79,11 +79,11 @@ theme.ibar_bg = base03
 
 -- Tab label
 theme.tab_fg = black
-theme.tab_bg = base1
+theme.tab_bg = base00
 theme.tab_hover_bg = cyan
 theme.tab_ntheme = "#ddd"
 theme.selected_fg = white
-theme.selected_bg = base00
+theme.selected_bg = base1
 theme.selected_ntheme = "#ddd"
 theme.loading_fg = "#33AADD"
 theme.loading_bg = "#000"
