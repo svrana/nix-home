@@ -24,12 +24,8 @@ in
     [ui]
     threading-enabled=true
 
-    #
-    # Describes the format for each row in a mailbox view. This field is compatible
-    # with mutt's printf-like syntax.
-    #
-    # Default: %D %-17.17n %Z %s
-    index-format=%D %-17.17n %Z %s
+    dirlist-left = {{.Folder}}
+    dirlist-right = {{if .Unread}}{{humanReadable .Unread}}/{{end}}{{if .Exists}}{{humanReadable .Exists}}{{end}}
 
     #
     # See time.Time#Format at https://godoc.org/time#Time.Format
@@ -71,9 +67,7 @@ in
     pinned-tab-marker='`'
 
     # Describes the format string to use for the directory list
-    #
-    # Default: %n %>r
-    dirlist-format=%n %>r
+
 
     # List of space-separated criteria to sort the messages by, see *sort*
     # command in *aerc*(1) for reference. Prefixing a criterion with "-r "
@@ -94,6 +88,15 @@ in
     styleset-name=solarized
 
     border-char-vertical=│
+
+    #
+    # Describes the format for each row in a mailbox view.
+    #
+    index-columns = date<*,name<17,flags>4,subject<*
+    column-date = {{.DateAutoFormat .Date.Local}}
+    column-name = {{index (.From | names) 0}}
+    column-flags = {{.Flags | join ""}}
+    column-subject = {{.ThreadPrefix}}{{.Subject}}
 
 
     [viewer]
@@ -193,7 +196,6 @@ in
     #
     # Example:
     # new-email=exec notify-send "New email from %n" "%s"
-    new-email=exec notify-send "New email from %n" "%s"
 
     #
     # Executed when a new email arrives in the selected folder
@@ -217,5 +219,8 @@ in
     #
     # default: forward_as_body
     forwards=forward_as_body
+
+    [hooks]
+      mail received=exec notify-send "New email from $AERC_FROM_NAME" "$AERC_SUBJECT"
   '';
 }
