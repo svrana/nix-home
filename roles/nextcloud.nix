@@ -3,7 +3,7 @@
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud27;
-    hostName = "v.net";
+    hostName = "nextcloud.heimlab.link";
     config = {
       adminuser = "root";
       adminpassFile = "/nextcloud-admin-passfile";
