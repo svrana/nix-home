@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 let
   sharedir = "${pkgs.aerc}/share/aerc";
+  libexec = "${pkgs.aerc}/libexec/aerc";
 in
 {
   home.packages = [
@@ -92,7 +93,7 @@ in
     #
     # Describes the format for each row in a mailbox view.
     #
-    index-columns = date<*,name<17,flags>4,subject<*
+    index-columns = date<=,name<35,flags>4,subject<*
     column-date = {{.DateAutoFormat .Date.Local}}
     column-name = {{index (.From | names) 0}}
     column-flags = {{.Flags | join ""}}
@@ -185,9 +186,9 @@ in
     # You can also match on non-mimetypes, by prefixing with the header to match
     # against (non-case-sensitive) and a comma, e.g. subject,text will match a
     # subject which contains "text". Use header,~regex to match against a regex.
-    subject,~^\[PATCH=awk -f ${sharedir}/filters/hldiff
-    text/html=${sharedir}/filters/html
-    text/*=awk -f ${sharedir}/filters/plaintext
+    subject,~^\[PATCH=awk -f ${libexec}/filters/hldiff
+    text/html=${libexec}/filters/html
+    text/*=awk -f ${libexec}/filters/plaintext
     #image/*=catimg -w $(tput cols) -
 
     [triggers]

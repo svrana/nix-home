@@ -7,7 +7,7 @@
     ../../roles/nextcloud.nix
     ../../roles/print-server.nix
     ../../roles/syncthing.nix
-    ../../roles/borgbase-backup.nix
+    #../../roles/borgbase-backup.nix
   ];
 
   networking = {
