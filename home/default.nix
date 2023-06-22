@@ -141,6 +141,8 @@
     #istioctl
     luakit
 
+    kratos
+
     # sway specific
     avizo
     clipman
@@ -173,6 +175,9 @@
         "file:///home/shaw/Music"
         "file:///home/shaw/Pictures"
       ];
+    };
+    gtk2 = {
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
   };
 
