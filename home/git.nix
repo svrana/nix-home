@@ -47,6 +47,7 @@ in
       patch = "!git --no-pager diff --no-color";
       cb = "!sh $HOME/.local/bin/cb";
       wt = "worktree";
+      cln ="clean -fd";
     };
     lfs = { enable = true; };
     extraConfig = {
