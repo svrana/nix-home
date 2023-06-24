@@ -80,8 +80,8 @@
     ctlptl
     google-chrome
     gh
-    niv
-    element-desktop
+    niv # am i using this?
+    element-desktop # matrix client
     entr
     evince
     gimp
@@ -92,10 +92,10 @@
     grpcurl
     kubectx
     ledger-live-desktop
-    i3-ratiosplit
+    i3-ratiosplit # works for sway too
     imv
     libsixel # for img2sixel
-    maim
+    maim # screenshot
     mpv
     gnome.nautilus
     gnome.eog
@@ -116,7 +116,7 @@
     standardnotes
     system-san-francisco-font
     sysz
-    tdesktop
+    tdesktop # telegram
     tilt
     tealdeer
     tmuxinator
@@ -141,9 +141,9 @@
     #istioctl
     luakit
 
-    kratos
+    obs-studio
 
-    # sway specific
+    # sway/wayland specific
     avizo
     clipman
     swaylock
