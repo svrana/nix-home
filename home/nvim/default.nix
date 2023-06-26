@@ -1083,7 +1083,6 @@ in
                 opts.buffer = bufnr
                 vim.keymap.set(mode, l, r, opts)
               end
-
               -- Navigation
               map('n', ']c', function()
                 if vim.wo.diff then return ']c' end
@@ -1098,6 +1097,10 @@ in
               end, {expr=true})
 
               map('n', '<leader>tb', gs.toggle_current_line_blame)
+
+              vim.keymap.set('n', '<leader>gp', gs.prev_hunk, { buffer = bufnr, desc = 'Previous Hunk' })
+              vim.keymap.set('n', '<leader>gn', gs.next_hunk, { buffer = bufnr, desc = 'Next Hunk' })
+              vim.keymap.set('n', '<leader>ph', gs.preview_hunk, { buffer = bufnr, desc = 'Preview Hunk' })
               --map('n', '<leader>hs', gs.stage_hunk)
               --map('n', '<leader>hr', gs.reset_hunk)
             end
