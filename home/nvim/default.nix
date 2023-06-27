@@ -112,6 +112,7 @@ in
       code-minimap
       iferr
       nixfmt
+      nixd
       nodePackages.prettier
       nodePackages.vim-language-server
       nodePackages.eslint_d
@@ -120,7 +121,7 @@ in
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.pyright
-      nil
+      #nil
       #rnix-lsp
       shfmt
       lua-language-server
@@ -354,6 +355,13 @@ in
                   }
                 },
               },
+              [ "$PROJECTS/geniveev" ] = {
+                term = {
+                  cmds = {
+                    "geniveev service-stubs --service_name user"
+                  }
+                },
+              },
             }
           })
         '';
@@ -406,8 +414,12 @@ in
       }
       {
         plugin = glow-nvim;
+        type = "lua";
         config = ''
-          let g:glow_binary_path = "${pkgs.glow}/bin"
+          require('glow').setup({
+            glow_path = "${pkgs.glow}/bin/glow",
+            width = 120,
+          })
         '';
       }
       goimpl-nvim
@@ -918,7 +930,8 @@ in
              'bashls',
              'bufls',
              'yamlls',
-             'nil_ls',
+             --'nil_ls',
+             'nixd',
              'dockerls',
              'vimls',
              'rust_analyzer',
