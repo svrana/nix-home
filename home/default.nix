@@ -269,7 +269,10 @@
       $DRY_RUN_CMD $XDG_DATA_HOME/nvim/black/bin/pip3 install black
     fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
-    # i.e., gpg --import private.key ... then gpg --edit-key {KEY} trust quit, where key is output from the previous import
+    # to export:
+    #   gpg --output private.pgp --armor --export-secret-key shaw@vranix.com
+    # to import:
+    #   gpg --import private.key ... then gpg --edit-key {KEY} trust quit, where key is output from the previous import
 
     if [ ! -z $XDG_DATA_HOME ]; then
       if [ ! -d $XDG_DATA_HOME/bash ]; then
