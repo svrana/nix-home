@@ -178,7 +178,8 @@ in
         local map = vim.api.nvim_set_keymap
         local options = { noremap = true, silent = true }
 
-        map('i', 'jj', '<esc>', {})
+        -- get out of insert mode, saving afterward
+        map('i', 'jj', '<esc>:w<CR>', {})
 
         -- center after movements so as not get lost
         map('n', '<c-u>', '<c-u>zz', options)
@@ -211,12 +212,12 @@ in
         map('t', '<esc>', [[<c-\><c-n>]], {})
 
         -- tab mappings, looking for some good ones..
-        map('n', '<leader>t0', '1gt', options)
-        map('n', '<leader>t1', '2gt', options)
-        map('n', '<leader>t2', '3gt', options)
-        map('n', '<leader>t3', '4gt', options)
-        map('n', '<leader>t4', '5gt', options)
-        map('n', '<leader>t5', '6gt', options)
+        map('n', '<leader>t1', '1gt', options)
+        map('n', '<leader>t2', '2gt', options)
+        map('n', '<leader>t3', '3gt', options)
+        map('n', '<leader>t4', '4gt', options)
+        map('n', '<leader>t5', '5gt', options)
+        map('n', '<leader>t6', '6gt', options)
         map('n', '<a-9>', ':tabprev<cr>', options)
         map('n', '<a-0>', ':tabnext<cr>', options)
 
