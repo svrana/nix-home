@@ -358,7 +358,7 @@ in
               [ "$PROJECTS/geniveev" ] = {
                 term = {
                   cmds = {
-                    "geniveev service-stubs --service_name user"
+                    "go test ."
                   }
                 },
               },

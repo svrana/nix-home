@@ -240,7 +240,7 @@ in
               "l" = "exec swaymsg exit";
               "r" = "exec sudo systemctl reboot";
               "s" = "exec sudo systemctl poweroff";
-              "u" = "exec sudo systemctl suspend";
+              "u" = "exec sudo systemctl suspend; mode default";
               "h" = "exec sudo systemctl hibernate; mode default";
               "Escape" = "mode default";
               "Return" = "mode default";
