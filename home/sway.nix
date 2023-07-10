@@ -21,14 +21,12 @@ let
     }
     tmux_from_scratch() {
       tproject dots $DOTFILES $PROJECTS/dotfiles
-      sleep .2
       tproject nixpkgs $PROJECTS/nixpkgs
-      sleep .2
       tproject vranix $PROJECTS/vranix.com
-      sleep .2
       tproject b6 $PROJECTS/bommie/b6
 
-      tmux attach -t work
+      sleep .2
+      tmux attach -t b6
     }
 
     tmux attach 2>&1 1>/dev/null  || tmux_from_scratch
