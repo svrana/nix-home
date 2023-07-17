@@ -125,6 +125,7 @@ in
           clipboard = "access";
           can_open_tabs_automatically = true;
         };
+        tls.certificate_errors = "ask-block-thirdparty";
       };
       downloads = {
         location.directory = "/home/shaw/Downloads";
