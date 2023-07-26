@@ -24,6 +24,7 @@ let
       tproject nixpkgs $PROJECTS/nixpkgs
       tproject vranix $PROJECTS/vranix.com
       tproject b6 $PROJECTS/bommie/b6
+      tproject b6-infra $PROJECTS/bommie/b6
 
       sleep .2
       tmux attach -t b6
