@@ -292,6 +292,13 @@
       $DRY_RUN_CMD git clone git@github.com:svrana/cdp $PROJECTS/cdp
     fi
 
+    if [ ! -d $PROJECTS/geniveev ]; then
+      $DRY_RUN_CMD echo "Cloning geniveev.."
+      $DRY_RUN_CMD git clone git@github.com:svrana/geniveev $PROJECTS/geniveev
+      $DRY_RUN_CMD cd $PROJECTS/geniveev && make
+      $DRY_RUN_CMD ln -s $PROJECTS/geniveev/build/geniveev ~/.local/bin/geniveev
+    fi
+
     if [ ! -d $PROJECTS/neosolarized.nvim ]; then
       $DRY_RUN_CMD echo "Cloning neosolarized.."
       $DRY_RUN_CMD git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
