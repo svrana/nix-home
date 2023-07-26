@@ -143,6 +143,8 @@
 
     obs-studio
 
+    psst
+
     # sway/wayland specific
     avizo
     clipman
