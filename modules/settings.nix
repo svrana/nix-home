@@ -60,7 +60,7 @@ in
       };
       foot = {
         font = mkOption {
-          default = "Hack Nerd Font:size=6.50";
+          default = "Hack Nerd Font:size=11.00";
           type = types.str;
         };
       };
