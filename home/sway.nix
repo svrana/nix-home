@@ -174,7 +174,7 @@ in
               "${mod}+e" = "layout toggle split";
               "${mod}+f" = "fullscreen toggle";
               "${mod}+h" = "focus left";
-              "${mod}+i" = "layout toggle stacking tabbed normal";
+              #"${mod}+i" = "layout toggle stacking tabbed normal";
               "${mod}+j" = "focus down";
               "${mod}+k" = "focus up";
               "${mod}+l" = "focus right";
@@ -183,11 +183,11 @@ in
               "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
               "${mod}+q" = "kill";
               "${mod}+r" = "mode resize";
-              "${mod}+s" = "layout stacking";
-              "${mod}+t" = "layout tabbed";
+              #"${mod}+s" = "layout stacking";
+              #"${mod}+t" = "layout tabbed";
               "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
               "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t rofi'';
-              "${mod}+x" = "layout toggle splitv splith";
+              #"${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
               "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
               "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown"'';
