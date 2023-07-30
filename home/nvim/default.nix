@@ -1311,7 +1311,8 @@ in
                 name = "+go",
                 s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
                 w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
-                j = { "<cmd>GoAddTag<cr>",      "tag struct" },
+                j = { "<cmd>GoAddTag<cr>",      "tag struct (json)" },
+                m = { "<cmd>GoAddTag mapstructure<cr>", "tag struct (mapstructure)" },
                 i = { "<cmd>GoIfErr<cr>",       "add if err"  },
                 c = { "<cmd>GoCheat<cr>",       "cheat.sh"    },
                 t = {
