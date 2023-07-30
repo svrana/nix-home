@@ -244,13 +244,13 @@ in
 
       -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
       -- and remove from plugin section below
-      --[[ local ns = require('neosolarized').setup({ ]]
-      --[[      comment_italics = true, ]]
-      --[[      background_set = true, ]]
-      --[[ }) ]]
-      --[[ -- haskell goes overboard with warnings and is distracting ]]
-      --[[ -- and for some reason some code actions appear to use this highlight group, which makes no sense to me. ]]
-      --[[ ns.Group.link('WarningMsg', ns.groups.Comment) ]]
+      local ns = require('neosolarized').setup({
+           comment_italics = true,
+           background_set = true,
+      })
+      -- haskell goes overboard with warnings and is distracting
+      -- and for some reason some code actions appear to use this highlight group, which makes no sense to me.
+      ns.Group.link('WarningMsg', ns.groups.Comment)
         --ns.Group.new('
       -- [[ Highlight on yank ]]
       -- See `:help vim.highlight.on_yank()`
@@ -377,18 +377,18 @@ in
       }
       direnv-vim
       editorconfig-nvim
-      {
-        plugin = neosolarized-nvim;
-        type = "lua";
-        config = ''
-          local n = require('neosolarized').setup({
-             comment_italics = true,
-             background_set = true, -- set this to false if you use transparency in your terminal window
-          })
-          -- for some reason some code actions get highlighted with WarningMsg and it's too much for me
-          n.Group.link('WarningMsg', n.groups.Comment)
-        '';
-      }
+#      {
+#        plugin = neosolarized-nvim;
+#        type = "lua";
+#        config = ''
+#          local n = require('neosolarized').setup({
+#             comment_italics = true,
+#             background_set = true, -- set this to false if you use transparency in your terminal window
+#          })
+#          -- for some reason some code actions get highlighted with WarningMsg and it's too much for me
+#          n.Group.link('WarningMsg', n.groups.Comment)
+#        '';
+#      }
       {
         plugin = go-nvim;
         type = "lua";
@@ -674,6 +674,7 @@ in
         '';
       }
       {
+        #plugin = lspsaga-nvim-original;
         plugin = lspsaga-nvim;
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
@@ -682,7 +683,10 @@ in
           nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
 
           lua << EOF
-          require('lspsaga').init_lsp_saga({
+          require('lspsaga').setup({
+            --lightbulb = {
+            --  enable = false,
+            --},
             error_sign = '',
             warn_sign = '',
             hint_sign = '',
@@ -1295,6 +1299,7 @@ in
                 s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
                 w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
                 j = { "<cmd>GoAddTag<cr>",      "tag struct (json)" },
+                d = { "<cmd>GoAddTag db<cr>",   "tag struct (db)" },
                 m = { "<cmd>GoAddTag mapstructure<cr>", "tag struct (mapstructure)" },
                 i = { "<cmd>GoIfErr<cr>",       "add if err"  },
                 c = { "<cmd>GoCheat<cr>",       "cheat.sh"    },
