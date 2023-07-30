@@ -30,7 +30,7 @@ let
       rm Makefile
     '';
   };
-  # switch to legacy branch to avoid warning.. this was upstreamed already
+  # switch to legacy branch to avoid warning.. this was upstreamed already..or so i thought
   fidget-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "fidget.nvim";
     version = "2023-03-27";
@@ -42,7 +42,6 @@ let
     };
     meta.homepage = "https://github.com/j-hui/fidget.nvim/";
   };
-
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
     pname = "nvim-tabline";
     version = "2022-01-06";
@@ -75,22 +74,6 @@ let
       sha256 = "sha256-BjzQe8wCNAx31vN9/RzF75U8ec5bytnaRrM0OHm1fpI=";
     };
     dependecies = [ pkgs.vimPlugins.litee-nvim ];
-  };
-  typescript-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "typescript-nvim";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "jose-elias-alvarez";
-      repo = "typescript.nvim";
-      rev = "f66d4472606cb24615dfb7dbc6557e779d177624";
-      sha256 = "sha256-PHVY5NJbOGvY9p0F0QNSfMKmAWdqjw1RB0Vspq88qMI=";
-    };
-    configurePhase = ''
-      rm Makefile
-    '';
-    dependencies = with pkgs.vimPlugins; [
-      plenary-nvim
-    ];
   };
 in
 {
