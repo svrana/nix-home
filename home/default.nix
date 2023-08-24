@@ -67,6 +67,7 @@
   home.packages = with pkgs; [
     autotiling
     cargo
+    cargo-edit
     rustc
     dante
     dbeaver
