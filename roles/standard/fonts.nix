@@ -10,7 +10,7 @@
       };
     };
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       corefonts
       ubuntu_font_family
       powerline-fonts

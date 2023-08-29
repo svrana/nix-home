@@ -53,17 +53,17 @@ let
     };
     dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
   };
-  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "neosolarized-nvim";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "svrana";
-      repo = "neosolarized.nvim";
-      rev = "ea6583b29ce6a23525c692bd721b926c48ffa9ea";
-      sha256 = "sha256-i54vCBV1MYBBIZ/MiTlHrORigQG6NY9je486hGyFxuk=";
-    };
-    dependencies = [ pkgs.vimPlugins.colorbuddy-nvim ];
-  };
+#  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
+#    pname = "neosolarized-nvim";
+#    version = "2022-01-06";
+#    src = pkgs.fetchFromGitHub {
+#      owner = "svrana";
+#      repo = "neosolarized.nvim";
+#      rev = "ea6583b29ce6a23525c692bd721b926c48ffa9ea";
+#      sha256 = "sha256-i54vCBV1MYBBIZ/MiTlHrORigQG6NY9je486hGyFxuk=";
+#    };
+#    dependencies = [ pkgs.vimPlugins.colorbuddy-nvim ];
+#  };
   gh-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "gh-nvim";
     version = "2022-01-06";
