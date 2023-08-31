@@ -682,9 +682,9 @@ in
 
           lua << EOF
           require('lspsaga').setup({
-            --lightbulb = {
-            --  enable = false,
-            --},
+            lightbulb = {
+              enable = false,
+            },
             error_sign = '',
             warn_sign = '',
             hint_sign = '',
