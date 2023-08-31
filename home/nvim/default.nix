@@ -186,8 +186,6 @@ in
 
         map('n', 'Q', '@@', options)
         map('n', '\th', ':set invhls hls?<cr>', options)
-        map('n', '<c-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<cr>', options)
-        map('n', '<c-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', options)
 
         map('n', '-', '<c-w>-', options)
         map('n', '+', '<c-w>+', options)
