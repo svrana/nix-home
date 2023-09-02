@@ -110,6 +110,7 @@ in
       lua-language-server
       luaformatter
       rust-analyzer
+      rustfmt
       stylua
       terraform-lsp
     ];
@@ -299,6 +300,29 @@ in
       vim-numbertoggle
       litee-nvim
       colorbuddy-nvim
+      {
+        plugin = rust-vim;
+        config = ''
+          autocmd FileType rust let g:rustfmt_autosave = 1
+        '';
+      }
+      {
+        plugin = rust-tools-nvim;
+        type = "lua";
+        config = ''
+          local rt = require("rust-tools")
+          rt.setup({
+            server = {
+              on_attach = function(_, bufnr)
+              -- Hover actions
+              vim.keymap.set("n", "<C-Space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+              -- Code action groups
+              vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+              end,
+            },
+          })
+        '';
+      }
       {
         plugin = guihua-lua;
         type = "lua";
@@ -934,7 +958,7 @@ in
              'nixd',
              'dockerls',
              'vimls',
-             'rust_analyzer',
+             --'rust_analyzer', -- trying rust tools for now
              'terraform_lsp',
              'tilt_ls',
              --'pyright'

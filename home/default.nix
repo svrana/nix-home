@@ -68,6 +68,7 @@
     autotiling
     cargo
     cargo-edit
+    cargo-watch
     rustc
     dante
     dbeaver
