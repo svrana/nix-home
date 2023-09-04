@@ -43,7 +43,7 @@
     #./haskell.nix
     #./helm.nix
     ./k9s
-    #./keybase.nix
+    ./keybase.nix
     ./keychain.nix
     ./kubectl.nix
     ./nvim
@@ -56,6 +56,7 @@
     ./bash.nix
     ./ranger
     ./rofi.nix
+    ./rust.nix
     ./spotify.nix
     ./qutebrowser
     #./weechat.nix
@@ -66,10 +67,6 @@
 
   home.packages = with pkgs; [
     autotiling
-    cargo
-    cargo-edit
-    cargo-watch
-    rustc
     dante
     dbeaver
     discord
