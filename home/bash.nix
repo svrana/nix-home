@@ -44,6 +44,7 @@ in
       TEXMFVAR = "$XDG_CACHE_HOME/texlive/texmf-var";
       TEXMFCONFIG = "$XDG_CONFIG_HOME/texlive/texmf-config";
       MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
+      PULUMI_HOME = "$XDG_CONFIG_HOME/pulumi";
       TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
       HISTFILE = "$XDG_STATE_HOME/bash_history";
       XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
