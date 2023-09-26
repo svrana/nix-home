@@ -14,7 +14,6 @@
     ctlptl
     google-chrome
     gh
-    niv # am i using this?
     element-desktop # matrix client
     entr
     evince
@@ -36,7 +35,7 @@
     libreoffice
     nixfmt
     nixpkgs-review
-    packer
+    #packer
     pulumi-bin
     prototool
     python3
@@ -75,9 +74,8 @@
     #istioctl
     luakit
 
-    obs-studio
-
-    psst
+    #obs-studio
+    #psst
 
     # sway/wayland specific
     avizo
