@@ -9,6 +9,8 @@
 # modifying or creating a styleset.
 
 *.default=true
+*.normal=true
+
 *.selected.reverse=toggle
 
 title.reverse=true
