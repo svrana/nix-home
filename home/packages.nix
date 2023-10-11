@@ -8,7 +8,7 @@
     diffstat
     docker-compose
     emacs
-    exa
+    eza
     networkmanager_dmenu
     cachix
     ctlptl
@@ -67,7 +67,7 @@
     #go-migrate
     nodejs
     typescript
-    postman
+    #postman
     protoc-gen-validate
     #cilium-cli
     #certbot

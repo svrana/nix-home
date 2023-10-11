@@ -283,8 +283,8 @@ in
         config = ''
 
           -- so init.lua gets some space after the source of init-home-manager.vim
-          require('indent_blankline').setup {
-            char = '┊',
+          require('ibl').setup {
+            indent = { char = '┊' },
             show_trailing_blankline_indent = false,
           }
         '';

@@ -120,7 +120,7 @@ in
       "pl" = "pulumi";
 
       "cat" = "${pkgs.bat}/bin/bat";
-      "ls" = "${pkgs.exa}/bin/exa $EXA_DFLT_ARGS";
+      "ls" = "${pkgs.eza}/bin/eza $EXA_DFLT_ARGS";
       "ll" = "ls -al";
       "lsd" = "ls -d */";
 
