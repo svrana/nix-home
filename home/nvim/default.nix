@@ -286,6 +286,9 @@ in
           require('ibl').setup {
             indent = { char = '┊' },
             show_trailing_blankline_indent = false,
+            scope = {
+              enabled = false
+            }
           }
         '';
       }
@@ -415,7 +418,14 @@ in
         plugin = go-nvim;
         type = "lua";
         config = ''
-          vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+          local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            pattern = "*.go",
+            callback = function()
+              require('go.format').goimport()
+            end,
+            group = format_sync_grp,
+          })
         '';
       }
       {
@@ -883,9 +893,9 @@ in
 
              -- Format prior to save if supported
              --if client.server_capabilities.document_formatting then
-             if client.server_capabilities.documentFormattingProvider then
-                vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })")
-             end
+             --[[ if client.server_capabilities.documentFormattingProvider then ]]
+             --[[    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })") ]]
+             --[[ end ]]
 
              -- not sure I like this
              ref_highlighter(client, bufnr)

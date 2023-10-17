@@ -258,7 +258,7 @@
   };
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]
-      dmenu_command = rofi -dmenu
+      dmenu_command = fuzzel --dmenu
       compact = true
       rofi_highlight = True
       wifi_chars = ▂▄▆█
@@ -295,6 +295,24 @@
     settings = {
       sort-direction = "0";
       color-scheme = "0";
+    };
+  };
+
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        font="Hack:size=8";
+        terminal = "''${pkgs.foot}/bin/foot";
+        layer = "overlay";
+        width=50;
+      };
+      key-bindings = {
+        cancel="Control+bracketleft";
+      };
+      colors.background = "002b36ff";
+      colors.border = "2aa198ff";
+      colors.selection = "073642ff";
     };
   };
 
