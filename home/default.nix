@@ -303,12 +303,14 @@
     settings = {
       main = {
         font="Hack:size=8";
-        terminal = "''${pkgs.foot}/bin/foot";
         layer = "overlay";
         width=50;
+        inner-pad=5;
+        prompt="'❯ '";
       };
       key-bindings = {
         cancel="Control+bracketleft";
+        delete-prev-word="Control+w";
       };
       colors.background = "002b36ff";
       colors.border = "2aa198ff";

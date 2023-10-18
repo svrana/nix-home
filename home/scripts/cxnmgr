@@ -12,13 +12,13 @@
 WIFI=$(printf "%s %s" "${wifiicon}" "$(cat /sys/class/net/w*/operstate | sed "s/down/❎/;s/up/🌐/")")
 
 if [ -n "${WIFI}" ]; then
-	choice=$(printf 'Bluetooth\nNetwork' | fuzzel --dmenu -i -p "${WIFI}")
+	choice=$(printf 'Bluetooth\nNetwork' | fuzzel --dmenu -i -p "${WIFI} ")
 else
-	choice=$(printf 'Bluetooth\nNetwork' | fuzzel --dmenu -i -p 'Connect:')
+	choice=$(printf 'Bluetooth\nNetwork' | fuzzel --dmenu -i -p 'Connect: ')
 fi
 
 if [ "${choice}" = "Bluetooth" ]; then
-	choice2=$(printf 'Connect\nDisconnect\nNew\nManage\nDisable' | fuzzel --dmenu -i -p 'Bluetooth')
+	choice2=$(printf 'Connect\nDisconnect\nNew\nManage\nDisable' | fuzzel --dmenu -i -p 'Bluetooth  ')
 	[ "${choice2}" = 'Connect' ] && $BIN_DIR/btmenu
 	[ "${choice2}" = 'Disconnect' ] && $BIN_DIR/btmenu -d
 	[ "${choice2}" = 'Manage' ] && blueman-manager
