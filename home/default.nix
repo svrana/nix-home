@@ -201,6 +201,8 @@
     if [ ! -d $PROJECTS/neosolarized.nvim ]; then
       $DRY_RUN_CMD echo "Cloning neosolarized.."
       $DRY_RUN_CMD git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
+      $DRY_RUN_CMD mkdir -p $HOME/.config/nvim/after/pack/foo/start
+      $DRY_RUN_CMD ln -sf $PROJECTS/neosolarized.nvim $HOME/.config/nvim/after/pack/foo/start/neosolarized.nvim
     fi
 
     if [ ! -d $PROJECTS/gruf ]; then
