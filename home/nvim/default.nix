@@ -17,31 +17,6 @@ let
       nvim-treesitter
     ];
   };
-  guihua-lua = pkgs.vimUtils.buildVimPlugin {
-    pname = "guihua-lua";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "ray-x";
-      repo = "guihua.lua";
-      rev = "4459ce73db68bb3ad5ef789d03e6ea4adeeafa86";
-      sha256 = "sha256-H4lBJaGnpQVD+aq3A7hBGupINqMxpwfFc0TFF46eqss=";
-    };
-    configurePhase = ''
-      rm Makefile
-    '';
-  };
-  # switch to legacy branch to avoid warning.. this was upstreamed already..or so i thought
-  fidget-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "fidget.nvim";
-    version = "2023-03-27";
-    src = pkgs.fetchFromGitHub {
-      owner = "j-hui";
-      repo = "fidget.nvim";
-      rev = "90c22e47be057562ee9566bad313ad42d622c1d3";
-      sha256 = "1ga6pxz89687km1mwisd4vfl1bpw6gg100v9xcfjks03zc1bywrp";
-    };
-    meta.homepage = "https://github.com/j-hui/fidget.nvim/";
-  };
   nvim-tabline = pkgs.vimUtils.buildVimPlugin {
     pname = "nvim-tabline";
     version = "2022-01-06";
@@ -64,17 +39,6 @@ let
 #    };
 #    dependencies = [ pkgs.vimPlugins.colorbuddy-nvim ];
 #  };
-  gh-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "gh-nvim";
-    version = "2022-01-06";
-    src = pkgs.fetchFromGitHub {
-      owner = "ldelossa";
-      repo = "gh.nvim";
-      rev = "bc731bb53909481995ac2edb4bf6418c051fec1a";
-      sha256 = "sha256-BjzQe8wCNAx31vN9/RzF75U8ec5bytnaRrM0OHm1fpI=";
-    };
-    dependecies = [ pkgs.vimPlugins.litee-nvim ];
-  };
 in
 {
   xdg.configFile."nvim/init.lua".text = lib.mkBefore ''
@@ -301,7 +265,6 @@ in
       }
       vim-sleuth
       vim-numbertoggle
-      litee-nvim
       colorbuddy-nvim
       {
         plugin = rust-vim;
@@ -323,20 +286,6 @@ in
               vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
               end,
             },
-          })
-        '';
-      }
-      {
-        plugin = guihua-lua;
-        type = "lua";
-      }
-      {
-        plugin = gh-nvim;
-        type = "lua";
-        config = ''
-          require('litee.lib').setup()
-          require('litee.gh').setup({
-            debug_logging = true,
           })
         '';
       }
@@ -438,22 +387,7 @@ in
           })
         '';
       }
-# This is nice but was also triggering during actions where i didn't think it should..or where i configured it.
-#      { plugin = flash-nvim;
-#        type = "lua";
-#        config = ''
-#          vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end)
-#          vim.keymap.set({ "n", "o", "x" }, "S", function() require("flash").treesitter() end)
-#          vim.keymap.set("o", "r", function() require("flash").remote() end )
-#          vim.keymap.set({ "o", "x" }, "R", function() require("flash").treesitter_search() end)
-#
-#          vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end)
-#
-#          require('flash').setup()
-#        '';
-#      }
       goimpl-nvim
-      #lualine-lsp-progress
       {
         plugin = nvim-web-devicons;
         type = "lua";
@@ -736,16 +670,6 @@ in
         '';
       }
       lsp_signature-nvim
-      friendly-snippets
-      {
-        plugin = luasnip;
-        type = "lua";
-        config = ''
-          require("luasnip/loaders/from_vscode").lazy_load()
-          require("luasnip.loaders.from_lua").load({paths="~/.config/nvim/lua/svrana/luasnippets"})
-        '';
-      }
-      cmp_luasnip
       cmp-path
       cmp-buffer
       cmp-nvim-lsp
@@ -755,14 +679,8 @@ in
         plugin = nvim-cmp;
         type = "lua";
         config = ''
-          local luasnip = require('luasnip')
           local cmp = require('cmp')
           cmp.setup {
-            snippet = {
-              expand = function(args)
-                require('luasnip').lsp_expand(args.body)
-              end,
-            },
             mapping = {
               ['<C-p>'] = cmp.mapping.select_prev_item(),
               ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -785,7 +703,6 @@ in
             sources = {
               { name = 'nvim_lua' },
               { name = 'nvim_lsp' },
-              { name = 'luasnip'  },
               { name = 'buffer', keyword_length = 5 },
               { name = 'path'     },
               { name = 'neorg'    },
@@ -803,7 +720,6 @@ in
                     path = "[path]",
                     buffer = "[buf]",
                     nvim_lsp = "[LSP]",
-                    luasnip = "[snip]",
                     nvim_lua = "[api]",
                     gh_issues = "[issue]",
                   })
@@ -1387,51 +1303,6 @@ in
               h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
               s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
               z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
-              h = {
-                name = "+Github",
-                c = {
-                  name = "+Commits",
-                  c = { "<cmd>GHCloseCommit<cr>", "Close" },
-                  e = { "<cmd>GHExpandCommit<cr>", "Expand" },
-                  o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
-                  p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
-                  z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
-                },
-                i = {
-                  name = "+Issues",
-                  p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
-                },
-                l = {
-                  name = "+Litee",
-                  t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
-                },
-                r = {
-                  name = "+Review",
-                  b = { "<cmd>GHStartReview<cr>", "Begin" },
-                  c = { "<cmd>GHCloseReview<cr>", "Close" },
-                  d = { "<cmd>GHDeleteReview<cr>", "Delete" },
-                  e = { "<cmd>GHExpandReview<cr>", "Expand" },
-                  s = { "<cmd>GHSubmitReview<cr>", "Submit" },
-                  z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
-                },
-                p = {
-                  name = "+Pull Request",
-                  c = { "<cmd>GHClosePR<cr>", "Close" },
-                  d = { "<cmd>GHPRDetails<cr>", "Details" },
-                  e = { "<cmd>GHExpandPR<cr>", "Expand" },
-                  o = { "<cmd>GHOpenPR<cr>", "Open" },
-                  p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
-                  r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
-                  t = { "<cmd>GHOpenToPR<cr>", "Open To" },
-                  z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
-                },
-                t = {
-                  name = "+Threads",
-                  c = { "<cmd>GHCreateThread<cr>", "Create" },
-                  n = { "<cmd>GHNextThread<cr>", "Next" },
-                  t = { "<cmd>GHToggleThread<cr>", "Toggle" },
-                },
-              },
             },
             h = {
               name = "+harpoon",
