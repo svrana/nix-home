@@ -302,21 +302,21 @@ in
               ["$DOTFILES"] = {
                 term = {
                   cmds = {
-                    "make home"
+                    "make home"
                   }
                 }
               },
               [ "$PROJECTS/tests/go" ] = {
                 term = {
                   cmds = {
-                    "go run main.go"
+                    "go run main.go"
                   }
                 },
               },
               [ "$PROJECTS/geniveev" ] = {
                 term = {
                   cmds = {
-                    "go test ."
+                    "go test ."
                   }
                 },
               },
