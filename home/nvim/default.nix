@@ -68,7 +68,7 @@ in
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.pyright
-      #nil
+      nil
       #rnix-lsp
       shfmt
       lua-language-server
@@ -880,14 +880,14 @@ in
              'bashls',
              'bufls',
              'yamlls',
-             --'nil_ls',
+             'nil_ls',
              'nixd',
              'dockerls',
              'vimls',
              --'rust_analyzer', -- trying rust tools for now
              'terraform_lsp',
              'tilt_ls',
-             --'pyright'
+             'pyright'
            }
            for _, lsp in ipairs(servers) do
              nvim_lsp[lsp].setup({
