@@ -21,8 +21,6 @@ in
       EDITOR = "nvim";
       MANPAGER = "nvim +Man!";
 
-      EXA_DFLT_ARGS = "--icons --group-directories-first";
-      LS_DFLT_ARGS = "-hN --color=auto --group-directories-first";
       #TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
       TERMINAL = "${pkgs.foot}/bin/foot";
       RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
@@ -120,8 +118,6 @@ in
       "pl" = "pulumi";
 
       "cat" = "${pkgs.bat}/bin/bat";
-      "ls" = "${pkgs.eza}/bin/eza $EXA_DFLT_ARGS";
-      "ll" = "ls -al";
       "lsd" = "ls -d */";
 
       "sctl" = "systemctl";
