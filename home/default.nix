@@ -2,8 +2,7 @@
 {
   programs.home-manager.enable = true;
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
+  # Home Manager needs a bit of information about you and the paths it should manage.
   home = {
     username = "shaw";
     homeDirectory = "/home/shaw";

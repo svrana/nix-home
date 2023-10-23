@@ -98,7 +98,8 @@ in
 
       # hm readline module does not support moving it out of the home dir, so we manage
       # the config ourselves and bootstraped here
-      bind -f $INPUTRC
+      # hmm, readeline says it will look at inputrc, so let's leave this out.
+      #bind -f $INPUTRC
     '';
     bashrcExtra = ""; # run prior to the interactive session check
     profileExtra = "";
