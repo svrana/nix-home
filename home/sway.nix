@@ -402,9 +402,9 @@ in
         box-shadow: inset 0px -3px ${cyan};
       }
       #workspaces button:hover {
-        color: #A9B5AF;
-        background: rgba(0, 0, 0, 0.3);
-        box-shadow: inset 0px -3px ${violet};
+        color: ${bartext};
+        background: #2aa198;
+        box-shadow: inset 0px -3px ${base02};
       }
       #mode {
         background-color: ${base01};
