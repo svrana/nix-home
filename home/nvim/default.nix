@@ -670,6 +670,16 @@ in
         '';
       }
       lsp_signature-nvim
+      # friendly-snippets
+      {
+        plugin = luasnip;
+        type = "lua";
+        config = ''
+           --require("luasnip/loaders/from_vscode").lazy_load()
+           require("luasnip.loaders.from_lua").load({paths="~/.config/nvim/lua/svrana/luasnippets"})
+        '';
+      }
+      cmp_luasnip
       cmp-path
       cmp-buffer
       cmp-nvim-lsp
@@ -679,8 +689,14 @@ in
         plugin = nvim-cmp;
         type = "lua";
         config = ''
+          local luasnip = require('luasnip')
           local cmp = require('cmp')
           cmp.setup {
+            snippet = {
+              expand = function(args)
+                require('luasnip').lsp_expand(args.body)
+              end,
+            },
             mapping = {
               ['<C-p>'] = cmp.mapping.select_prev_item(),
               ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -697,7 +713,6 @@ in
               },
               ['<CR>'] = cmp.mapping.confirm {
                 behavior = cmp.ConfirmBehavior.Replace,
-                --select = true,
               },
             },
             sources = {
@@ -707,6 +722,7 @@ in
               { name = 'path'     },
               { name = 'neorg'    },
               { name = 'latex_symbols' },
+              { name = 'luasnip' },
             },
             experimental = {
               native_menu = false, -- default
@@ -721,7 +737,7 @@ in
                     buffer = "[buf]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[api]",
-                    gh_issues = "[issue]",
+                    luasnip = "[snip]",
                   })
                 }),
             }
