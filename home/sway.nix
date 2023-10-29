@@ -1,17 +1,10 @@
 { config, pkgs, lib, ... }:
 let
-  i3 = config.settings.i3;
   waybar = config.settings.waybar;
-  rofi = "${pkgs.rofi}/bin/rofi";
   rofi-pass = "gopass ls --flat | fuzzel --dmenu -p site | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear";
-  rofi-icon-size = config.settings.rofi.iconSize;
-  maim = "${pkgs.maim}/bin/maim";
-  grim = "${pkgs.grim}/bin/grim";
-  slurp = "${pkgs.slurp}/bin/slurp";
   ranger = "${pkgs.ranger}/bin/ranger";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
-  #alacritty = "${pkgs.alacritty}/bin/alacritty";
   terminal = "${pkgs.foot}/bin/foot";
   email_client = "${terminal} --title email --app-id email -e aerc";
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
