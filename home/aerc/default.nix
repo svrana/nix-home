@@ -2,6 +2,7 @@
 let
   sharedir = "${pkgs.aerc}/share/aerc";
   libexec = "${pkgs.aerc}/libexec/aerc";
+  filters = "${libexec}/filters";
 in
 {
   home.packages = [
@@ -186,9 +187,9 @@ in
     # You can also match on non-mimetypes, by prefixing with the header to match
     # against (non-case-sensitive) and a comma, e.g. subject,text will match a
     # subject which contains "text". Use header,~regex to match against a regex.
-    subject,~^\[PATCH=awk -f ${libexec}/filters/hldiff
-    text/html=${libexec}/filters/html
-    text/*=awk -f ${libexec}/filters/plaintext
+    subject,~^\[PATCH=awk -f ${filters}/hldiff
+    text/html=${filters}/html
+    text/*=awk -f ${filters}/plaintext
     #image/*=catimg -w $(tput cols) -
 
     [triggers]
