@@ -56,6 +56,7 @@
     ./ranger
     ./rofi.nix
     ./rust.nix
+    ./shell.nix
     ./spotify.nix
     ./qutebrowser
     #./weechat.nix

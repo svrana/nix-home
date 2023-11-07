@@ -257,7 +257,7 @@ in
     };
   };
 
-  programs.bash.sessionVariables = {
+  home.sessionVariables = {
     TLDEXTRACT_CACHE = "$XDG_CACHE_HOME/tldextract.cache";
   };
 

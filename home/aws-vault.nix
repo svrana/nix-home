@@ -4,7 +4,7 @@
     aws-vault
   ];
 
-  programs.bash.sessionVariables = {
+  home.sessionVariables = {
     AWS_VAULT_BACKEND = "pass";
     AWS_VAULT_PASS_CMD = "gopass";
     AWS_VAULT_PASS_PREFIX = "vault";

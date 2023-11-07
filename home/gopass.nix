@@ -4,7 +4,7 @@
     gopass
   ];
 
-  programs.bash.sessionVariables = {
+  home.sessionVariables = {
     PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
   };
 
