@@ -49,6 +49,7 @@ in
       PYTHONDONTWRITEBYTECODE = 1;
       RUSTUP_HOME = "$HOME/.local/share/rustup";
       SQLITE_HISTORY = "$HOME/.local/share/sqlite_history";
+      W3M_DIR="$HOME/.config/w3m";
       WGETRC = "$HOME/.config/wget/wgetrc";
       WORKON_HOME = "$HOME/.cache/virtualenvs";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
