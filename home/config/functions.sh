@@ -30,10 +30,6 @@ md() {
     mkdir "$1" && cd "$1"
 }
 
-cores() {
-    grep -c ^processor /proc/cpuinfo
-}
-
 s() {
     if [[ $# == 0 ]]; then
         sudo $(history -p '!!')
