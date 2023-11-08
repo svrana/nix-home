@@ -41,7 +41,7 @@ in
       XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
       XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
 
-      NETRC = "$XDG_CONFIG_HOME/netrc ";
+      NETRC = "$XDG_CONFIG_HOME/netrc";
       PSQLRC = "$XDG_CONFIG_HOME/psql/config ";
       PSQL_HISTORY = "$XDG_STATE_HOME/psql_history";
       PYLINTHOME = "$XDG_CACHE_HOME/pylint ";
@@ -66,7 +66,7 @@ in
       PERSONAL = "$DOTFILES/personal";
       BIN_DIR = "$HOME/.local/bin";
       SCRIPTS = "$DOTFILES/home/scripts";
-      DOOMDIR = "$HOME/.config/doom";
+      DOOMDIR = "$XDG_CONFIG_HOME/doom";
   };
 }
 
