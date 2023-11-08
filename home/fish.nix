@@ -2,8 +2,11 @@
 {
   programs.fish = {
     enable = true;
+
     interactiveShellInit = ''
       fish_vi_key_bindings
+
+      source $RCS/fish/functions.fish
     '';
     shellAliases = {
       "cd.." = "cd ..";
@@ -22,6 +25,7 @@
 
       "cat" = "${pkgs.bat}/bin/bat";
       "lsd" = "ls -d */";
+      "g" = "git";
 
       "sctl" = "systemctl";
       "jctl" = "journalctl";
