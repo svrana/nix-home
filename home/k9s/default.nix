@@ -7,6 +7,6 @@
   xdg.configFile."k9s/skin.yml" = { source = ./skin.yml; };
 
   home.sessionVariables = {
-      K9SCONFIG = "$XDG_CONFIG_HOME/k9s";
+      K9SCONFIG = "$HOME/.config/k9s";
   };
 }

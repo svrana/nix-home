@@ -258,7 +258,7 @@ in
   };
 
   home.sessionVariables = {
-    TLDEXTRACT_CACHE = "$XDG_CACHE_HOME/tldextract.cache";
+    TLDEXTRACT_CACHE = "$HOME/.cache/tldextract.cache";
   };
 
   xdg.dataFile."qutebrowser/userscripts/qute-pass-mod".source =

@@ -20,39 +20,39 @@ in
 
       NIXPKGS_ALLOW_UNFREE = 1;
       #NIXOS_OZONE_WL = 0; # electron apps should use wayland
-      CABAL_HOME = "$XDG_DATA_HOME/cabal";
-      CARGO_HOME = "$XDG_DATA_HOME/cargo";
-      DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+      CABAL_HOME = "$HOME/.local/share/cabal";
+      CARGO_HOME = "$HOME/.local/share/cargo";
+      DOCKER_CONFIG = "$HOME/.config/docker";
       DOCKER_BUILDKIT = 1;
-      GEM_HOME = "$XDG_DATA_HOME/gem";
-      GEM_SPEC_CACHE = "$XDG_CACHE_HOME/gem";
-      INPUTRC = "$XDG_CONFIG_HOME/inputrc";
+      GEM_HOME = "$HOME/.local/share/gem";
+      GEM_SPEC_CACHE = "$HOME/.cache/gem";
+      INPUTRC = "$HOME/.config/inputrc";
       LESSHISTFILE = "-";
-      NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
-      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+      NODE_REPL_HISTORY = "$HOME/.local/share/node_repl_history";
+      NPM_CONFIG_USERCONFIG = "$HOME/.config/npm/npmrc";
       # removal of ~/.texlive2021/
-      TEXMFHOME = "$XDG_DATA_HOME/texmf";
-      TEXMFVAR = "$XDG_CACHE_HOME/texlive/texmf-var";
-      TEXMFCONFIG = "$XDG_CONFIG_HOME/texlive/texmf-config";
-      MINIKUBE_HOME = "$XDG_CONFIG_HOME/minikube";
-      PULUMI_HOME = "$XDG_CONFIG_HOME/pulumi";
-      TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
-      HISTFILE = "$XDG_STATE_HOME/bash_history";
-      XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
-      XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
+      TEXMFHOME = "$HOME/.local/share/texmf";
+      TEXMFVAR = "$HOME/.cache/texlive/texmf-var";
+      TEXMFCONFIG = "$HOME/.config/texlive/texmf-config";
+      MINIKUBE_HOME = "$HOME/.config/minikube";
+      PULUMI_HOME = "$HOME/.config/pulumi";
+      TILT_DEV_DIR = "$HOME/.config/tilt";
+      HISTFILE = "$HOME/.local/state/bash_history";
+      XCOMPOSEFILE = "$HOME/.config/X11/xcompose";
+      XCOMPOSECACHE = "$HOME/.cache/X11/xcompose";
 
-      NETRC = "$XDG_CONFIG_HOME/netrc";
-      PSQLRC = "$XDG_CONFIG_HOME/psql/config ";
-      PSQL_HISTORY = "$XDG_STATE_HOME/psql_history";
-      PYLINTHOME = "$XDG_CACHE_HOME/pylint ";
+      NETRC = "$HOME/.config/netrc";
+      PSQLRC = "$HOME/.config/psql/config ";
+      PSQL_HISTORY = "$HOME/.local/state/psql_history";
+      PYLINTHOME = "$HOME/.cache/pylint ";
       PYTHONSTARTUP = "${pythonstartup}";
       PYTHONDONTWRITEBYTECODE = 1;
-      RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
-      SQLITE_HISTORY = "$XDG_DATA_HOME/sqlite_history";
-      WGETRC = "$XDG_CONFIG_HOME/wget/wgetrc";
-      WORKON_HOME = "$XDG_CACHE_HOME/virtualenvs";
-      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
-      _ZL_DATA = "$XDG_CACHE_HOME/zlua";
+      RUSTUP_HOME = "$HOME/.local/share/rustup";
+      SQLITE_HISTORY = "$HOME/.local/share/sqlite_history";
+      WGETRC = "$HOME/.config/wget/wgetrc";
+      WORKON_HOME = "$HOME/.cache/virtualenvs";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
+      _ZL_DATA = "$HOME/.cache/zlua";
 
       TMP = "/tmp";
       CLOUD_ROOT = "$HOME/Cloud";
@@ -66,7 +66,7 @@ in
       PERSONAL = "$DOTFILES/personal";
       BIN_DIR = "$HOME/.local/bin";
       SCRIPTS = "$DOTFILES/home/scripts";
-      DOOMDIR = "$XDG_CONFIG_HOME/doom";
+      DOOMDIR = "$HOME/.config/doom";
   };
 }
 

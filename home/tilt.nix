@@ -4,7 +4,7 @@
     tilt
   ];
 
-  programs.bash.sessionVariables = {
-      TILT_DEV_DIR = "$XDG_CONFIG_HOME/tilt";
+  programs.sessionVariables = {
+      TILT_DEV_DIR = "$HOME/.config/tilt";
   };
 }

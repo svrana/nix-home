@@ -4,8 +4,8 @@
     weechat
   ];
 
-  programs.bash.sessionVariables = {
-    WEECHAT_HOME = "$XDG_CONFIG_HOME/weechat";
+  home.sessionVariables = {
+    WEECHAT_HOME = "$HOME/.config/weechat";
   };
 
   xdg.configFile."weechat/weechat.conf".source = ./config/weechat.conf;

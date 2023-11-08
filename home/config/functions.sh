@@ -269,7 +269,7 @@ clone() {
 }
 
 bind '"\er": redraw-current-line'
-bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
+#bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
 
 flakify() {
   if [ ! -e flake.nix ]; then
