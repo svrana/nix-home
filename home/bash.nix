@@ -8,7 +8,7 @@
     shellOptions = [ "histappend" "checkwinsize" "autocd" "cdspell" ];
     # only run for interactive sessions
     initExtra = ''
-      source "$RCS/functions.sh"
+      source "$RCS/bash/functions.sh"
       #source "$PERSONAL/bommie.io/env.sh"
       #source "$PERSONAL/work/env.sh"
 
