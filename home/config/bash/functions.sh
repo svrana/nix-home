@@ -74,6 +74,11 @@ trim() {
     printf '%s\n' "$_"
 }
 
+linkme() {
+    [ -z "$1" ] && return
+    readlink -f $(which "$1")
+}
+
 # Remove all invalid directories from PATH
 #
 # @return String PATH
