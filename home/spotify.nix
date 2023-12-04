@@ -24,7 +24,7 @@ in
     enable = true;
     theme =
       let spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
-      in spicePkgs.themes.catppuccin-mocha;
+      in spicePkgs.themes.Default;
     colorScheme = "custom";
     # color definition for custom color scheme. (solarized dark)
     customColorScheme = {
@@ -49,7 +49,7 @@ in
   };
 
   services.spotifyd = {
-    enable = true;
+    enable = false;
     settings = {
       global = {
         username = "shaversports";

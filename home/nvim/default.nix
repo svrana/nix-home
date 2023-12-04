@@ -249,7 +249,6 @@ in
           -- so init.lua gets some space after the source of init-home-manager.vim
           require('ibl').setup {
             indent = { char = '┊' },
-            show_trailing_blankline_indent = false,
             scope = {
               enabled = false
             }
@@ -450,15 +449,14 @@ in
           ]));
         type = "lua";
         config = ''
+          require('ts_context_commentstring').setup {
+            enable = true,
+            enable_autocmd = false, -- turn on manually with comment plugin, see docs
+          }
           require('nvim-treesitter.configs').setup {
             highlight = {
               enable = true, -- false will disable the whole extension
               --disable = { "make", "dockerfile"}, -- getting an error so disable for now
-            },
-            -- see nvim-ts-context-commentstring
-            context_commentstring = {
-              enable = true,
-              enable_autocmd = false, -- turn on manually with comment plugin, see docs
             },
             incremental_selection = {
               enable = true,
