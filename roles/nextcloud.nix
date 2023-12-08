@@ -11,7 +11,6 @@
       adminpassFile = "/nextcloud-admin-passfile";
       defaultPhoneRegion = "US";
     };
-    enableBrokenCiphersForSSE = false;
   };
 
   networking.firewall.allowedTCPPorts = [
