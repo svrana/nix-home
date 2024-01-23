@@ -54,7 +54,6 @@
     tealdeer
     tmuxinator
     tree
-    urlview
     w3m
     wmctrl
     xdg-utils

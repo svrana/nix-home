@@ -13,7 +13,6 @@
 
     plugins = with pkgs.tmuxPlugins; [
       yank
-      urlview
       open
       copycat
       fingers
