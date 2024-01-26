@@ -2,14 +2,16 @@
 {
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud27;
+    package = pkgs.nextcloud28;
     hostName = "nextcloud.heimlab.link";
     # use https for generated links
     https = true;
     config = {
       adminuser = "root";
       adminpassFile = "/nextcloud-admin-passfile";
-      defaultPhoneRegion = "US";
+    };
+    extraOptions = {
+      default_phone_region = "US";
     };
   };
 
