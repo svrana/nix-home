@@ -351,8 +351,8 @@ in
         "pulseaudio" = {
           "format" = "{volume}% {icon}";
           "format-bluetooth" = "{volume}% {icon} ";
-          "format-bluetooth-muted" = " {icon} ";
-          "format-muted" = " {format_source}";
+          "format-bluetooth-muted" = "  {icon} ";
+          "format-muted" = "  {format_source}";
           "format-source" = "{volume}% ";
           "format-source-muted" = "";
           "format-icons" = {
