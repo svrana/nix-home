@@ -130,9 +130,9 @@
       };
       kubernetes = {
         disabled = false;
-        context_aliases = {
-          kind-b6 = "dev";
-        };
+        contexts = [
+          { context_pattern = "kind-b6"; context_alias = "b6"; }
+        ];
       };
       terraform = {
         disabled = true;
