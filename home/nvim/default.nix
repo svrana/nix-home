@@ -69,6 +69,7 @@ in
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.pyright
       nil
+      impl # for goimpl
       #rnix-lsp
       shfmt
       lua-language-server
