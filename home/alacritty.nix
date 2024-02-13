@@ -18,7 +18,7 @@
           history = 10000;
           multiplier = 3;
         };
-        draw_bold_text_with_bright_colors = true;
+
         font = {
           normal = {
             family = config.settings.alacritty.fontFamily;
@@ -35,8 +35,6 @@
           size = config.settings.alacritty.fontSize;
           offset.x = 0;
           offset.y = 0;
-          gliph_offset.x = 0;
-          gliph_offset.y = 0;
         };
         colors = {
           primary = {
@@ -63,23 +61,21 @@
             cyan = "0x93a1a1";
             white = "0xfdf6e3";
           };
+          draw_bold_text_with_bright_colors = true;
         };
         bell.duration = 0;
 
-        mouse_bindings = [
-          {
-            mouse = "Middle";
-            action = "PasteSelection";
-          }
-        ];
         mouse = {
-          double_click.threshold = 300;
-          triple_click.threshold = 300;
           hide_when_typing = true;
+          bindings = [
+            {
+              mouse = "Middle";
+              action = "PasteSelection";
+            }
+          ];
         };
         selection = {
           semantic_escape_chars = ",│`|:\"' ()[]{}<>";
-          save_to_clipbard = true;
         };
         cursor.style = "Block";
         live_config_reload = true;
