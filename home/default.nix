@@ -329,9 +329,11 @@
     extraOptions = [ "--group-directories-first" ];
   };
 
-  # Set name in icons theme, for compatibility with AwesomeWM etc. See:
-  # https://github.com/nix-community/home-manager/issues/2081
-  # https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
+  # Set name in icons theme. Details:
+  #   https://github.com/nix-community/home-manager/issues/2081
+  #   https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
+  #
+  # This is working and looks better than the default.
   home.file.".icons/default/index.theme".text = ''
     [icon theme]
     Name=Default
