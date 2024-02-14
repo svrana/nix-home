@@ -5,7 +5,7 @@ in
   programs.go = {
     enable = true;
     goPath = ".cache/go";
-    package = pkgs.go_1_19;
+    package = pkgs.go_1_21;
   };
 
   home.packages = with pkgs; [
