@@ -66,12 +66,13 @@
     #go-migrate
     nodejs
     typescript
-    #postman
-    protoc-gen-validate
+    #postman -- problems w/ packages being removed, see https://github.com/NixOS/nixpkgs/issues/259147, try bruno instead?
+    #bruno -- doesn't have grpc support yet
+    #protoc-gen-validate -- prefer the remote buf plugin
     #cilium-cli
     #certbot
     #istioctl
-    luakit
+    #luakit
 
     #obs-studio
     #psst
