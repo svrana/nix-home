@@ -28,6 +28,18 @@ let
     };
     dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
   };
+  # just in case harpoon2 is merged to master.. Will wait until there's a good tmux recipe
+  harpoon = pkgs.vimUtils.buildVimPlugin {
+    pname = "harpoon";
+    version = "2024-02-15";
+    src = pkgs.fetchFromGitHub {
+      owner = "ThePrimeagen";
+      repo = "harpoon";
+      rev = "ccae1b9bec717ae284906b0bf83d720e59d12b91";
+      sha256 = "sha256-SIqssvuNnkw1YbEEElLYCHmh9OLnoHzggXNIZMb3jYI=";
+    };
+  };
+
 #  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
 #    pname = "neosolarized-nvim";
 #    version = "2022-01-06";
