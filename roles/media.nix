@@ -1,4 +1,4 @@
-{ pkgs, config, options, ... }:
+{ ... }:
 {
   services.sonarr = {
     enable = true;
@@ -14,7 +14,9 @@
     enable = true;
     openPeerPorts = true;
     openRPCPort = true;
+    settings = {
+      rpc-bind-address = "0.0.0.0";
+    };
   };
-
 }
 
