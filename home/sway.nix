@@ -17,8 +17,8 @@ let
       tproject dots $DOTFILES
       tproject nixpkgs $PROJECTS/nixpkgs
       tproject vranix $PROJECTS/vranix.com
-      tproject b6 $PROJECTS/bommie/b6
-      tproject b6-infra $PROJECTS/bommie/b6
+      tproject b6 $PROJECTS/b6/bommie
+      tproject b6-infra $PROJECTS/b6/bommie
 
       sleep .2
       tmux attach -t b6
