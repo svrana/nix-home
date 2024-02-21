@@ -80,6 +80,7 @@ in
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.pyright
+      ccls
       nil
       impl # for goimpl
       #rnix-lsp
@@ -140,7 +141,8 @@ in
         local options = { noremap = true, silent = true }
 
         -- get out of insert mode, saving afterward
-        map('i', 'jj', '<esc>:w<CR>', {})
+        map('i', 'jj', '<esc>:update<CR>', {})
+        map('i', 'jk', '<esc>:update<CR>', {})
 
         -- center after movements so as not get lost
         map('n', '<c-u>', '<c-u>zz', options)
@@ -159,7 +161,7 @@ in
 
         -- TODO: quitting help. waste of letters, rework
         map('n', '<leader>q', '<esc>:q<cr>', options)
-        map('n', '<leader>w', '<esc>:w<cr>', options)
+        map('n', '<leader>w', '<esc>:update<cr>', options)
         map('c', 'w!!', '%!sudo tee > /dev/null %', {})
 
         map('n', 'Q', '@@', options)
@@ -923,6 +925,7 @@ in
              'nixd',
              'dockerls',
              'vimls',
+             'ccls',
              --'rust_analyzer', -- trying rust tools for now
              'terraform_lsp',
              'tilt_ls',
