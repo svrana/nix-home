@@ -16,13 +16,22 @@
       support32Bit = true;
     };
     wireplumber.enable = true;
+    extraConfig = {
+      pipewire = {
+        "switch-on-connect" = {
+          "pulse.cmd" = [
+            {
+              cmd = "load-module";
+              args = "module-always-sink";
+              flags = [ ];
+            }
+            {
+              cmd = "load-module";
+              args = "module-switch-on-connect";
+            }
+          ];
+        };
+      };
+    };
   };
-
-  environment.etc."pipewire/pipewire.conf.d/switch-on-connect.conf".text = ''
-    # override for pipewire-pulse.conf file
-    pulse.cmd = [
-      { cmd = "load-module" args = "module-always-sink" flags = [ ] }
-      { cmd = "load-module" args = "module-switch-on-connect" }
-    ]
-    '';
 }
