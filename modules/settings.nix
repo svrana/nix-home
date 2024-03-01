@@ -58,7 +58,7 @@ in
           description = "Font configuration for window titles, nagbar...";
         };
       };
-      foot = {
+      terminal = {
         font = mkOption {
           default = "Hack Nerd Font:size=11.50";
           type = types.str;
