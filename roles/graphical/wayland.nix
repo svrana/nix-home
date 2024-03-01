@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  programs.sway.enable = true;
+
   # for screen sharing
   xdg.portal = {
     enable = true;
