@@ -10,7 +10,7 @@
       adminuser = "root";
       adminpassFile = "/nextcloud-admin-passfile";
     };
-    extraOptions = {
+    settings = {
       default_phone_region = "US";
     };
   };
