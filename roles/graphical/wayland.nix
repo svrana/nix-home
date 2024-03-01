@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  # use home-manager sway
-  #programs.sway.enable = true;
+  # gotta enable this in global config to make sway run
+  programs.sway.enable = true;
 
   # for screen sharing
   xdg.portal = {
