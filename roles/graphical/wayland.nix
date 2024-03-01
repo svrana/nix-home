@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
-  programs.sway.enable = true;
+  # use home-manager sway
+  #programs.sway.enable = true;
 
   # for screen sharing
   xdg.portal = {
