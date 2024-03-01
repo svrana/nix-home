@@ -8,7 +8,6 @@
     ./pkgs.nix
     ../print-client.nix
     ./sound.nix
-    ./x.nix
     ./wayland.nix
   ];
 
