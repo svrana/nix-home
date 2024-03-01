@@ -28,7 +28,7 @@ let
 
       size = mkOption {
         type = types.float;
-        default = 8.0;
+        default = 9.0;
         description = ''
           The font size to use for window titles.
         '';
