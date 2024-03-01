@@ -81,7 +81,6 @@ in
   wayland = {
     windowManager = {
       sway = {
-        program = null;
         enable = true;
         wrapperFeatures.gtk = true;
         systemd.enable = true;
