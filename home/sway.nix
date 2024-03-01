@@ -81,7 +81,7 @@ in
   wayland = {
     windowManager = {
       sway = {
-        package = null;
+        package = null; # use the global package configured in sway.nix
         enable = true;
         wrapperFeatures.gtk = true;
         systemd.enable = true;
