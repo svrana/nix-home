@@ -24,10 +24,13 @@
 
   services.xserver = {
     enable = true;
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      options = "ctrl:nocaps";
+      layout = "us";
+    };
+
     # TODO: should be configurable per host
     dpi = 96;
-    layout = "us";
     displayManager.lightdm.enable = false;
     #   displayManager = {
     #     defaultSession = "sway";
