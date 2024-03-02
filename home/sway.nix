@@ -160,7 +160,7 @@ in
               "${mod}+6" = "workspace 6";
               "${mod}+slash" = "workspace 6";
               "${mod}+7" = "workspace 7";
-              "${mod}+9" = ''[class="Slack"] scratchpad show'';
+              "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
               "${mod}+a" = "focus parent";
               "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
               "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
@@ -257,7 +257,7 @@ in
           default_border pixel 2
 
           for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
-          for_window [class="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
+          for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
           for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
 
           assign [app_id="qutebrowser"] $ws3
