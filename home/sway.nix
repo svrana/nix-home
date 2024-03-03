@@ -202,7 +202,7 @@ in
               "${mod}+Shift+6" = "move container to workspace 6";
               "${mod}+Shift+7" = "move container to workspace 7";
               "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
-              "${mod}+period" = "exec ${spotify-focus}";
+              "${mod}+period" = "workspace 4"; #"exec ${spotify-focus}";  ...spotify does not have its app_id set when run as a wayland app
               "Mod1+Control+l" = "exec ${swaylock-cmd}";
               "Mod1+Control+v" = "split horizontal";
               "Mod1+Control+h" = "split vertical";
