@@ -24,7 +24,6 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, spicetify-nix, emacs-overlay, ... }@inputs:
@@ -39,11 +38,11 @@
         };
         overlays = builtins.attrValues self.overlays;
       };
-      specialArgs = { inherit inputs; };
 
       mkSystem = extraModules:
         nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             ({ config, ... }: {
               system.configurationRevision = self.sourceInfo.rev;
@@ -55,7 +54,7 @@
         };
 
       mkHome = extraModules:
-        home-manager.lib.homeManagerConfiguration rec {
+        home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             inherit (nixpkgsConfig) config overlays;
@@ -71,7 +70,7 @@
             pkgs = nixpkgs.legacyPackages.${system};
           in
           {
-            devShell = pkgs.mkShell rec {
+            devShell = pkgs.mkShell {
               name = "dots";
               buildInputs = [
                 deploy-rs.packages.${system}.deploy-rs
@@ -84,14 +83,12 @@
         nixosConfigurations = {
           prentiss = mkSystem [ ./hosts/prentiss/configuration.nix ];
           bocana = mkSystem [ ./hosts/bocana/configuration.nix ];
-          #elsie = mkSystem [ ./hosts/elsie/configuration.nix ];
           park = mkSystem [ ./hosts/park/configuration.nix ];
         };
 
         homeConfigurations = {
           prentiss = mkHome [ ./hosts/prentiss ];
           park = mkHome [ ./hosts/park ];
-          #elsie = mkHome [ ./hosts/elsie ];
         };
 
         overlays = with lib;
