@@ -4,7 +4,6 @@ let
   rofi-pass = "gopass ls --flat | fuzzel --dmenu -p site | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear";
   ranger = "${pkgs.ranger}/bin/ranger";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
-  rofi-calc-cmd = ''rofi -theme-str 'window {width: 25%; border-color: ${cyan}; }' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"'';
   terminal = "${pkgs.foot}/bin/foot";
   email_client = "${terminal} --title email --app-id email -e aerc";
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
@@ -153,7 +152,6 @@ in
               "${mod}+7" = "workspace 7";
               "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
               "${mod}+a" = "focus parent";
-              "${mod}+c" = ''exec --no-startup-id ${rofi-calc-cmd}'';
               "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
               "${mod}+e" = "layout toggle split";
               "${mod}+f" = "fullscreen toggle";
@@ -167,11 +165,8 @@ in
               "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
               "${mod}+q" = "kill";
               "${mod}+r" = "mode resize";
-              #"${mod}+s" = "layout stacking";
-              #"${mod}+t" = "layout tabbed";
               "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
               "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t CUSTOM --tool-args="fuzzel -d"'';
-              #"${mod}+x" = "layout toggle splitv splith";
               "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
               "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
               "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown"'';

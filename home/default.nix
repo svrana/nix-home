@@ -55,7 +55,6 @@
     ./fzf.nix
     ./bash.nix
     ./ranger
-    #./rofi.nix
     ./rust.nix
     ./shell.nix
     ./spotify.nix
