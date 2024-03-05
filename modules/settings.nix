@@ -40,7 +40,8 @@ in
 {
   options = {
     settings = {
-      i3 = {
+      # window manager
+      wm = {
         fonts = mkOption {
           type = with types; either (listOf str) fontOptions;
           default = {
@@ -103,38 +104,6 @@ in
       waybar = {
         interfaces = mkOption {
           default = "eno1";
-          type = types.str;
-        };
-      };
-      polybar = {
-        font0 = {
-          size = mkOption {
-            default = "10;2";
-            type = types.str;
-          };
-        };
-        font1 = {
-          size = mkOption {
-            default = "12;0";
-            type = types.str;
-          };
-        };
-        font2 = {
-          size = mkOption {
-            default = "22;4"; # untested
-            type = types.str;
-          };
-        };
-        wirelessInterface = mkOption {
-          default = "wlp2s0";
-          type = types.str;
-        };
-        wiredInterface = mkOption {
-          default = "eno1";
-          type = types.str;
-        };
-        modules-right = mkOption {
-          default = "volume xbacklight battery wlan eth powermenu";
           type = types.str;
         };
       };

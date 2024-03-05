@@ -26,15 +26,6 @@ let
 
     tmux attach 2>&1 1>/dev/null  || tmux_from_scratch
   '';
-  spotify-focus = pkgs.writeScript "spotify-focus" ''
-    #!${pkgs.bash}/bin/bash
-    # should instead get the window from which music is playing
-    if swaymsg -t get_tree | grep -q app_id.*spotify; then
-      swaymsg [app_id="spotify"] focus
-    else
-      swaymsg [class="Spotify"] focus
-    fi
-  '';
   # see swaylock-effects repo
   swaylock-cmd = lib.concatStringsSep " " [
     "${pkgs.swaylock-effects}/bin/swaylock"
@@ -104,7 +95,7 @@ in
             #newWindow = "focus";
             newWindow = "urgent";
           };
-          fonts = config.settings.i3.fonts;
+          fonts = config.settings.wm.fonts;
           colors = {
             focused = {
               border = "#4c7899";
