@@ -1,9 +1,0 @@
-text/html; qutebrowser --target tab %s; nametemplate=%s.html
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
-
-text/plain; nvim -R %s;
-
-application/pdf; zathura %s pdf
-
-image/png; feh %s
-image/jpeg; feh %s
