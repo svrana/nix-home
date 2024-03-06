@@ -206,7 +206,7 @@ in
         autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72 | setlocal fo+=t')
         autocmd('BufRead', '*.md',        'setlocal textwidth=90')
         autocmd('BufRead', '*.txt',       'setlocal textwidth=90')
-        autocmd('BufRead', '*.eml',       'setlocal textwidth=90 | setwrap')
+        autocmd('BufRead', '*.eml',       'setlocal textwidth=90 | set wrap')
         autocmd('FileType', 'terraform',  'setlocal commentstring=#%s')
         autocmd('FileType', 'json',       [[syntax match Comment +\/\/.\+$+]])
         autocmd('TermOpen', 'term://*',   'startinsert')
