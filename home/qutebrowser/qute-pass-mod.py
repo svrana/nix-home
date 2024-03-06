@@ -1,6 +1,3 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages(ps: [ ps.tldextract ])"
-
 # Copyright 2017 Chris Braun (cryzed) <cryzed@googlemail.com>
 #
 # This file is part of qutebrowser.
@@ -22,8 +19,6 @@
 # HACK:
 # Modified such that first search is done by path (i.e., there's a username in
 # the pass path. If that fails, it looks in the secret for the username.
-
-
 """
 Insert login information using pass and a dmenu-compatible application (e.g. dmenu, rofi -dmenu, ...). A short
 demonstration can be seen here: https://i.imgur.com/KN3XuZP.gif.
@@ -55,7 +50,6 @@ For issues and feedback please use: https://github.com/cryzed/qutebrowser-usersc
 
 WARNING: The login details are viewable as plaintext in qutebrowser's debug log (qute://log) and might be shared if
 you decide to submit a crash report!"""
-
 import argparse
 import enum
 import fnmatch
@@ -65,7 +59,6 @@ import re
 import shlex
 import subprocess
 import sys
-
 import tldextract
 
 
@@ -126,7 +119,7 @@ def find_pass_candidates(domain):
     candidates = []
 
     if arguments.mode == "gopass":
-        all_passwords = subprocess.run(["gopass", "list", "--flat" ], stdout=subprocess.PIPE).stdout.decode("UTF-8").splitlines()
+        all_passwords = subprocess.run(["gopass", "list", "--flat"], stdout=subprocess.PIPE).stdout.decode("UTF-8").splitlines()
 
         for password in all_passwords:
             if domain in password:
@@ -175,7 +168,7 @@ def dmenu(items, invocation):
 def fake_key_raw(text):
     for character in text:
         # Escape all characters by default, space requires special handling
-        sequence = '" "' if character == ' ' else '\{}'.format(character)
+        sequence = '" "' if character == ' ' else '{}'.format(character)
         qute_command('fake-key {}'.format(sequence))
 
 
@@ -209,7 +202,10 @@ def main(arguments):
             break
     else:
         if not candidates:
-            stderr('No pass candidates for URL {!r} found! (I tried {!r})'.format(arguments.url, attempted_targets))
+            stderr(
+                'No pass candidates for URL {!r} found! (I tried {!r})'.format(
+                    arguments.url, attempted_targets)
+            )
             return ExitCodes.NO_PASS_CANDIDATES
 
     selection = candidates.pop() if len(candidates) == 1 else dmenu(sorted(candidates), arguments.dmenu_invocation)
@@ -234,7 +230,7 @@ def main(arguments):
     match = re.search(arguments.username_pattern, target, re.MULTILINE)
     if not match:
         stderr('Failed to match username pattern on {}! Will try matching in secret..'.format(arguments.username_target))
-        match = re.search(r'.*^[u|U]sername:\s?(.+)', secret , re.MULTILINE)
+        match = re.search(r'.*^[u|U]sername:\s?(.+)', secret, re.MULTILINE)
         if not match:
             return ExitCodes.COULD_NOT_MATCH_USERNAME
     username = match.group(1)
@@ -250,8 +246,10 @@ def main(arguments):
         fake_key_raw(otp)
         qute_command('fake-key <Tab>')
     else:
-        # Enter username and password using fake-key and <Tab> (which seems to work almost universally), then switch
-        # back into insert-mode, so the form can be directly submitted by hitting enter afterwards
+        # Enter username and password using fake-key and <Tab>
+        # (which seems to work almost universally), then switch
+        # back into insert-mode, so the form can be directly
+        # submitted by hitting enter afterwards
         fake_key_raw(username)
         qute_command('fake-key <Tab>')
         fake_key_raw(password)

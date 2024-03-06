@@ -41,6 +41,11 @@ let
   cyan = "#2aa198";
   green = "#859900";
   solCSS = "${pkgs.solarized-everything-css}/share/css";
+  qutepassmod = pkgs.writers.writePython3Bin "qute-pass-mod" {
+    flakeIgnore=["E501" "E402" "E265"];
+    libraries = with pkgs.python3.pkgs; [ tldextract ];
+  }
+    (builtins.readFile ./qute-pass-mod.py);
 in
 {
   programs.qutebrowser = {
@@ -261,11 +266,10 @@ in
     TLDEXTRACT_CACHE = "$HOME/.cache/tldextract.cache";
   };
 
-  xdg.dataFile."qutebrowser/userscripts/qute-pass-mod".source =
-    ./qute-pass-mod.py;
-
-  xdg.configFile."qutebrowser/greasemonkey" = {
+   xdg.configFile."qutebrowser/greasemonkey" = {
     source = ./greasemonkey;
     recursive = true;
   };
+
+  xdg.dataFile."qutebrowser/userscripts/qute-pass-mod".source = "${qutepassmod}/bin/qute-pass-mod";
 }
