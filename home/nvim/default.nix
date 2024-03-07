@@ -1225,10 +1225,10 @@ in
             },
           })
 
-                           -- This will:
-                --  Close the tab if nvim-tree is the last buffer in the tab (after closing a buffer)
-                --  Close vim if nvim-tree is the last buffer (after closing a buffer)
-                --  Close nvim-tree across all tabs when one nvim-tree buffer is manually closed if and only if tabs.sync.close is set.
+            -- This will:
+            --  Close the tab if nvim-tree is the last buffer in the tab (after closing a buffer)
+            --  Close vim if nvim-tree is the last buffer (after closing a buffer)
+            --  Close nvim-tree across all tabs when one nvim-tree buffer is manually closed if and only if tabs.sync.close is set.
            local function tab_win_closed(winnr)
              nt_api = require('nvim-tree')
              local tabnr = vim.api.nvim_win_get_tabpage(winnr)
