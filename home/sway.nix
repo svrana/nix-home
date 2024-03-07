@@ -30,7 +30,7 @@ let
     "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
     "--ignore-empty-password"
-    "--color 073642"
+    "--color  073642"
     "--ring-color 2aa198"
     "--inside-color 002b36"
     "--clock"
@@ -243,7 +243,7 @@ in
           default_border pixel 2
 
           for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
-          for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
+          for_window [class="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
           for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
 
           assign [app_id="qutebrowser"] $ws3
@@ -526,7 +526,7 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      ExecStart = "${pkgs.bash}/bin/bash -lc '${terminal} --app-id scratch-term,scratch-term --title scratch'";
+      ExecStart = "${pkgs.bash}/bin/bash -lc '${terminal} --app-id scratch-term --title scratch'";
       Restart = "always";
     };
   };
