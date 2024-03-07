@@ -305,10 +305,10 @@
     enable = true;
     settings = {
       main = {
-        font="Hack:size=8";
+        font="${config.settings.fuzzel.font}";
         layer = "overlay";
-        width=50;
-        inner-pad=5;
+        width=config.settings.fuzzel.width;
+        inner-pad=config.settings.fuzzel.inner_pad;
         prompt="'❯ '";
       };
       key-bindings = {

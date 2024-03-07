@@ -40,6 +40,20 @@ in
 {
   options = {
     settings = {
+      fuzzel = {
+        font = mkOption {
+          default = "Hack:size=8";
+          type = types.str;
+        };
+        width = mkOption {
+          default = 50;
+          type = types.int;
+        };
+        inner_pad = mkOption {
+          default = 5;
+          type = types.int;
+        };
+      };
       # window manager
       wm = {
         fonts = mkOption {
