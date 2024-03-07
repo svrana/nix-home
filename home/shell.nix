@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   # disable .python_history file. Might want to just move it somewhere else
   # if I start using python again.
@@ -9,13 +9,10 @@ let
 in
 {
   home.sessionVariables = {
-      # for docker-compose/dev/fixuid
-      #BUILDUID = "$(id -u $USER)";
       EDITOR = "nvim";
       MANPAGER = "nvim +Man!";
+      TERMINAL = "${config.settings.terminal.executable}";
 
-      #TERMINAL = "${pkgs.alacritty}/bin/alacritty --config-file /home/shaw/.config/alacritty/alacritty.yml -e";
-      TERMINAL = "${pkgs.foot}/bin/foot";
       RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
 
       NIXPKGS_ALLOW_UNFREE = 1;

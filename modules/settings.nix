@@ -78,6 +78,10 @@ in
           default = "Hack Nerd Font:size=11.50";
           type = types.str;
         };
+        executable = mkOption {
+          default = "${pkgs.foot}/bin/foot";
+          type = types.str;
+        };
       };
       alacritty = {
         fontFamily = mkOption {

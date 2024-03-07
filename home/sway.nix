@@ -4,7 +4,7 @@ let
   rofi-pass = "gopass ls --flat | fuzzel --dmenu -p site | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear";
   ranger = "${pkgs.ranger}/bin/ranger";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
-  terminal = "${pkgs.foot}/bin/foot";
+  terminal = "${config.settings.terminal.executable}";
   email_client = "${terminal} --title email --app-id email -e aerc";
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
     #!/usr/bin/env bash
