@@ -152,6 +152,7 @@ in
               "${mod}+7" = "workspace 7";
               "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
               "${mod}+a" = "focus parent";
+              "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
               "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
               "${mod}+e" = "layout toggle split";
               "${mod}+f" = "fullscreen toggle";

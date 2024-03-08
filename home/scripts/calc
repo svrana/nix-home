@@ -1,13 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-######################################################################
-# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
-# @file        : roficalc.sh
-# @created     : Sat 11 Jan 2020 09:15:22 PM MST
-#
-# @description : wraper for rofi-calc and xclip
-######################################################################
+# Define the variable that holds the last result
+LAST=""
 
-rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo '{result}' | xclip"
-
-# vim: set tw=78 ts=2 et sw=2 sr:
+# Don't stop until the user hits escape or clicks off of fuzzel
+while true; do
+	# Add a space on the first run
+	[ -z "$LAST" ] && SPACE=" "
+	# Get user input
+	NEXT="$(fuzzel -l 0 --dmenu -p "${LAST}${SPACE}")"
+	# Quit if empty
+	[ -z "$NEXT" ] && exit 1
+	# Copy and exit if y is entered
+	[ "$NEXT" = "y" ] && wl-copy "$LAST" && exit 0
+	# Pipe the expression into bc and strip off trailing zeroes
+	LAST="$(echo "$LAST$NEXT" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')"
+done
