@@ -244,7 +244,7 @@ in
           default_border pixel 2
 
           for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
-          for_window [class="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
+          for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
           for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
 
           assign [app_id="qutebrowser"] $ws3
