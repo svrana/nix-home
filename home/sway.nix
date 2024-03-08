@@ -61,198 +61,188 @@ let
   widgetbg = "${base01}";
 in
 {
-  # TODO:
-  #   ranger image preview
-  #      anyway to do this in wayland?
-  #
-  #   # instead of xpropr for app_id
-  #   swaymsg -t get_tree
-  #
-  wayland = {
-    windowManager = {
-      sway = {
-        enable = true;
-        wrapperFeatures.gtk = true;
-        systemd.enable = true;
-        config = {
-          modifier = "Mod4";
-          floating = {
-            modifier = "Mod4";
-            border = 2;
-          };
-          gaps = {
-            inner = 20;
-            smartGaps = true;
-          };
-          seat."*" = {
-            hide_cursor = "when-typing enable";
-          };
-          bars = [ ];
-          window = { hideEdgeBorders = "smart"; };
-          focus = {
-            followMouse = false;
-            #newWindow = "focus";
-            newWindow = "urgent";
-          };
-          fonts = config.settings.wm.fonts;
-          colors = {
-            focused = {
-              border = "#4c7899";
-              background = "${base01}";
-              text = "#ffffff";
-              indicator = "${blue}";
-              childBorder = "${cyan}";
-            };
-            focusedInactive = {
-              border = "#333333";
-              background = "#5f676a";
-              text = "#ffffff";
-              indicator = "#484e50";
-              childBorder = "#5f676a";
-            };
-            unfocused = {
-              border = "#333333";
-              background = "${base02}";
-              text = "#888888";
-              indicator = "#292d2e";
-              childBorder = "#222222";
-            };
-            urgent = {
-              border = "#2f343a";
-              background = "#900000";
-              text = "#ffffff";
-              indicator = "#900000";
-              childBorder = "#900000";
-            };
-            placeholder = {
-              border = "#000000";
-              background = "#0c0c0c";
-              text = "#ffffff";
-              indicator = "#000000";
-              childBorder = "#0c0c0c";
-            };
-            background = "#ffffff";
-          };
-          keybindings =
-            let
-              mod = "Mod4";
-            in
-            {
-              "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show'';
-              "${mod}+Return" = "exec --no-startup-id ${terminal}";
-              "${mod}+Shift+q" = "kill";
-              "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
-              "${mod}+1" = "workspace 1";
-              "${mod}+2" = "workspace 2";
-              "${mod}+3" = "workspace 3";
-              "${mod}+4" = "workspace 4";
-              "${mod}+5" = "workspace 5";
-              "${mod}+6" = "workspace 6";
-              "${mod}+slash" = "workspace 6";
-              "${mod}+7" = "workspace 7";
-              "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
-              "${mod}+a" = "focus parent";
-              "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
-              "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
-              "${mod}+e" = "layout toggle split";
-              "${mod}+f" = "fullscreen toggle";
-              "${mod}+h" = "focus left";
-              "${mod}+i" = "exec --no-startup-id ${fuzzel} -d < $XDG_CONFIG_HOME/qutebrowser/quickmarks | awk '{print $2}' | xargs -r qutebrowser";
-              "${mod}+j" = "focus down";
-              "${mod}+k" = "focus up";
-              "${mod}+l" = "focus right";
-              "${mod}+m" = ''[app_id="tmux"] focus'';
-              "${mod}+n" = ''[app_id="email"] focus'';
-              "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
-              "${mod}+q" = "kill";
-              "${mod}+r" = "mode resize";
-              "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
-              "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t CUSTOM --tool-args="fuzzel -d"'';
-              "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
-              "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
-              "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown"'';
-              "${mod}+Shift+h" = "move left";
-              "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
-              "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
-              "${mod}+Shift+w" = "exec --no-startup-id $BIN_DIR/screenshot";
-              "${mod}+Shift+j" = "move down";
-              "${mod}+Shift+k" = "move up";
-              "${mod}+Shift+l" = "move right";
-              "${mod}+Shift+space" = "floating toggle";
-              "${mod}+space" = "focus mode_toggle";
-              "${mod}+Shift+t" = "exec --no-startup-id ${terminal} --app-id tmux --title tmux -e ${tmux-attach-or-new}";
-              "${mod}+Shift+1" = "move container to workspace 1";
-              "${mod}+Shift+2" = "move container to workspace 2";
-              "${mod}+Shift+3" = "move container to workspace 3";
-              "${mod}+Shift+4" = "move container to workspace 4";
-              "${mod}+Shift+5" = "move container to workspace 5";
-              "${mod}+Shift+6" = "move container to workspace 6";
-              "${mod}+Shift+7" = "move container to workspace 7";
-              "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
-              "${mod}+period" = "workspace 4"; #"exec ${spotify-focus}";  ...spotify does not have its app_id set when run as a wayland app
-              "Mod1+Control+l" = "exec ${swaylock-cmd}";
-              "Mod1+Control+v" = "split horizontal";
-              "Mod1+Control+h" = "split vertical";
-              "Mod1+Control+m" = "exec --no-startup-id volumectl mute";
-            };
-          modes = {
-            resize = {
-              "h" = "resize shrink width 10 px or 10 ppt";
-              "j" = "resize grow height 10 px or 10 ppt";
-              "k" = "resize shrink height 10 px or 10 ppt";
-              "l" = "resize grow width 10 px or 10 ppt";
-              "Return" = "mode default";
-              "Escape" = "mode default";
-            };
-            "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown" = {
-              "l" = "exec swaymsg exit";
-              "r" = "exec sudo systemctl reboot";
-              "s" = "exec sudo systemctl poweroff";
-              "u" = "exec sudo systemctl suspend; mode default";
-              "h" = "exec sudo systemctl hibernate; mode default";
-              "Escape" = "mode default";
-              "Return" = "mode default";
-            };
-          };
-          startup = [
-            { command = ''${pkgs.swaybg}/bin/swaybg -c "${base03}"''; }
-            { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
-            { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
-            { command = ''standardnotes''; }
-            { command = "${pkgs.slack}/bin/slack"; }
-          ];
-        };
-        extraSessionCommands = ''
-        '';
-        extraConfig = ''
-          set $ws1 1
-          set $ws2 2
-          set $ws3 3
-          set $ws4 4
-          set $ws5 5
-          set $ws6 6
-
-          default_border pixel 2
-
-          for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
-          for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
-          for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
-
-          assign [app_id="qutebrowser"] $ws3
-
-          seat * hide_cursor 3000
-
-          # Make all the pinentry stuff work
-          # https://git.sr.ht/~sumner/home-manager-config/tree/master/item/modules/window-manager/wayland.nix#L64
-          #exec dbus-update-activation-environment WAYLAND_DISPLAY
-
-          exec ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-
-          # Import the WAYLAND_DISPLAY env var from sway into the systemd user session.
-          exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
-        '';
+  #  swaymsg -t get_tree // to get app_id
+  wayland.windowManager.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+    systemd.enable = true;
+    config = {
+      modifier = "Mod4";
+      floating = {
+        modifier = "Mod4";
+        border = 2;
       };
+      gaps = {
+        inner = 20;
+        smartGaps = true;
+      };
+      seat."*" = {
+        hide_cursor = "when-typing enable";
+      };
+      bars = [ ];
+      window = { hideEdgeBorders = "smart"; };
+      focus = {
+        followMouse = false;
+        #newWindow = "focus";
+        newWindow = "urgent";
+      };
+      fonts = config.settings.wm.fonts;
+      colors = {
+        focused = {
+          border = "#4c7899";
+          background = "${base01}";
+          text = "#ffffff";
+          indicator = "${blue}";
+          childBorder = "${cyan}";
+        };
+        focusedInactive = {
+          border = "#333333";
+          background = "#5f676a";
+          text = "#ffffff";
+          indicator = "#484e50";
+          childBorder = "#5f676a";
+        };
+        unfocused = {
+          border = "#333333";
+          background = "${base02}";
+          text = "#888888";
+          indicator = "#292d2e";
+          childBorder = "#222222";
+        };
+        urgent = {
+          border = "#2f343a";
+          background = "#900000";
+          text = "#ffffff";
+          indicator = "#900000";
+          childBorder = "#900000";
+        };
+        placeholder = {
+          border = "#000000";
+          background = "#0c0c0c";
+          text = "#ffffff";
+          indicator = "#000000";
+          childBorder = "#0c0c0c";
+        };
+        background = "#ffffff";
+      };
+      keybindings =
+        let
+          mod = "Mod4";
+        in
+        {
+          "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show'';
+          "${mod}+Return" = "exec --no-startup-id ${terminal}";
+          "${mod}+Shift+q" = "kill";
+          "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
+          "${mod}+1" = "workspace 1";
+          "${mod}+2" = "workspace 2";
+          "${mod}+3" = "workspace 3";
+          "${mod}+4" = "workspace 4";
+          "${mod}+5" = "workspace 5";
+          "${mod}+6" = "workspace 6";
+          "${mod}+slash" = "workspace 6";
+          "${mod}+7" = "workspace 7";
+          "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
+          "${mod}+a" = "focus parent";
+          "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
+          "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
+          "${mod}+e" = "layout toggle split";
+          "${mod}+f" = "fullscreen toggle";
+          "${mod}+h" = "focus left";
+          "${mod}+i" = "exec --no-startup-id ${fuzzel} -d < $XDG_CONFIG_HOME/qutebrowser/quickmarks | awk '{print $2}' | xargs -r qutebrowser";
+          "${mod}+j" = "focus down";
+          "${mod}+k" = "focus up";
+          "${mod}+l" = "focus right";
+          "${mod}+m" = ''[app_id="tmux"] focus'';
+          "${mod}+n" = ''[app_id="email"] focus'';
+          "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
+          "${mod}+q" = "kill";
+          "${mod}+r" = "mode resize";
+          "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
+          "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t CUSTOM --tool-args="fuzzel -d"'';
+          "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
+          "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
+          "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown"'';
+          "${mod}+Shift+h" = "move left";
+          "${mod}+Shift+n" = "exec --no-startup-id $BIN_DIR/cxnmgr";
+          "${mod}+Shift+s" = ''exec --no-startup-id grim -g "$(slurp)" - | wl-copy'';
+          "${mod}+Shift+w" = "exec --no-startup-id $BIN_DIR/screenshot";
+          "${mod}+Shift+j" = "move down";
+          "${mod}+Shift+k" = "move up";
+          "${mod}+Shift+l" = "move right";
+          "${mod}+Shift+space" = "floating toggle";
+          "${mod}+space" = "focus mode_toggle";
+          "${mod}+Shift+t" = "exec --no-startup-id ${terminal} --app-id tmux --title tmux -e ${tmux-attach-or-new}";
+          "${mod}+Shift+1" = "move container to workspace 1";
+          "${mod}+Shift+2" = "move container to workspace 2";
+          "${mod}+Shift+3" = "move container to workspace 3";
+          "${mod}+Shift+4" = "move container to workspace 4";
+          "${mod}+Shift+5" = "move container to workspace 5";
+          "${mod}+Shift+6" = "move container to workspace 6";
+          "${mod}+Shift+7" = "move container to workspace 7";
+          "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
+          "${mod}+period" = "workspace 4"; #"exec ${spotify-focus}";  ...spotify does not have its app_id set when run as a wayland app
+          "Mod1+Control+l" = "exec ${swaylock-cmd}";
+          "Mod1+Control+v" = "split horizontal";
+          "Mod1+Control+h" = "split vertical";
+          "Mod1+Control+m" = "exec --no-startup-id volumectl mute";
+        };
+      modes = {
+        resize = {
+          "h" = "resize shrink width 10 px or 10 ppt";
+          "j" = "resize grow height 10 px or 10 ppt";
+          "k" = "resize shrink height 10 px or 10 ppt";
+          "l" = "resize grow width 10 px or 10 ppt";
+          "Return" = "mode default";
+          "Escape" = "mode default";
+        };
+        "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown" = {
+          "l" = "exec swaymsg exit";
+          "r" = "exec sudo systemctl reboot";
+          "s" = "exec sudo systemctl poweroff";
+          "u" = "exec sudo systemctl suspend; mode default";
+          "h" = "exec sudo systemctl hibernate; mode default";
+          "Escape" = "mode default";
+          "Return" = "mode default";
+        };
+      };
+      startup = [
+        { command = ''${pkgs.swaybg}/bin/swaybg -c "${base03}"''; }
+        { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
+        { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
+        { command = ''standardnotes''; }
+        { command = "${pkgs.slack}/bin/slack"; }
+      ];
     };
+    extraSessionCommands = ''
+    '';
+    extraConfig = ''
+      set $ws1 1
+      set $ws2 2
+      set $ws3 3
+      set $ws4 4
+      set $ws5 5
+      set $ws6 6
+
+      default_border pixel 2
+
+      for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
+      for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
+      for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
+
+      assign [app_id="qutebrowser"] $ws3
+
+      seat * hide_cursor 3000
+
+      # Make all the pinentry stuff work
+      # https://git.sr.ht/~sumner/home-manager-config/tree/master/item/modules/window-manager/wayland.nix#L64
+      #exec dbus-update-activation-environment WAYLAND_DISPLAY
+
+      exec ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+
+      # Import the WAYLAND_DISPLAY env var from sway into the systemd user session.
+      exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
+    '';
   };
 
   programs.waybar = {
@@ -271,13 +261,7 @@ in
           "format" = "  {:%H:%M   %e %b}";
           "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           "today-format" = "<b>{}</b>";
-          #"on-click"= "gnome-calendar"
         };
-        # "clock" = {
-        #   "timezone" = "America/Los_Angeles";
-        #   "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-        #   "format-alt" = "{:%Y-%m-%d}";
-        # };
         "sway/mode" = {
           "format" = "<span style=\"italic\">{}</span>";
         };
@@ -381,20 +365,12 @@ in
       }
 
       #clock,
-      #battery,
-      #cpu,
-      #memory,
-      #disk,
-      #temperature,
-      #backlight,
       #network,
       #pulseaudio,
-      #custom-media,
       #idle_inhibitor,
       #tray,
       #mode,
-      #custom,
-      #mpd {
+      #custom {
         /* tweak padding / margin here to get bottom of window alignment correct */
         padding: 0px 6px 0px 6px;
         margin: 6px 6px 9px 6px;
