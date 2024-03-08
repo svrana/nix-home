@@ -194,15 +194,6 @@ in
               "Mod1+Control+v" = "split horizontal";
               "Mod1+Control+h" = "split vertical";
               "Mod1+Control+m" = "exec --no-startup-id volumectl mute";
-              "XF86AudioRaiseVolume" = "exec --no-startup-id volumectl raise";
-              "XF86AudioLowerVolume" = "exec --no-startup-id volumectl lower";
-              "XF86AudioMute" = "exec --no-startup-id volumectl %";
-              "XF86AudioPlay" = "exec --no-startup-id playerctl play";
-              "XF86AudioPause" = "exec --no-startup-id playerctl pause";
-              "XF86AudioNext" = "exec --no-startup-id playerctl next";
-              "XF86AudioPrev" = "exec --no-startup-id playerctl previous";
-              "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl -inc 20";
-              "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl -dec 20";
             };
           modes = {
             resize = {
