@@ -20,10 +20,6 @@
   fonts.fontconfig.enable = true;
 
   imports = [
-    # settings has to go first as the config there controls aspects of the
-    # pkg configurations below it.
-    ../modules/settings.nix
-    #../personal/programs/work.nix
     ./aerc
     ./alacritty.nix
     ./aws-cli.nix
@@ -39,8 +35,6 @@
     ./gruf.nix
     ./go.nix
     ./gopass.nix
-    #./haskell.nix
-    #./helm.nix
     ./k9s
     ./keybase.nix
     ./keychain.nix
@@ -59,11 +53,8 @@
     ./shell.nix
     ./spotify.nix
     ./qutebrowser
-    #./weechat.nix
     ./zathura.nix
-
-    # big list of packages
-    ./packages.nix
+    ./packages.nix # big list o' packages
   ];
 
   gtk = {

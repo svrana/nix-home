@@ -60,7 +60,7 @@
             inherit (nixpkgsConfig) config overlays;
           };
           extraSpecialArgs = inputs;
-          modules = extraModules;
+          modules = [ modules/settings.nix ] ++ extraModules;
         };
     in
     (
