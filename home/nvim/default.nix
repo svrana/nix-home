@@ -83,7 +83,6 @@ in
       ccls
       nil
       impl # for goimpl
-      #rnix-lsp
       shfmt
       lua-language-server
       luaformatter
