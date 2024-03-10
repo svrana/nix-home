@@ -183,9 +183,10 @@ in
           "${mod}+comma" = ''[ app_id="qutebrowser" ] focus'';
           "${mod}+period" = "workspace 4"; #"exec ${spotify-focus}";  ...spotify does not have its app_id set when run as a wayland app
           "Mod1+Control+l" = "exec ${swaylock-cmd}";
-          "Mod1+Control+v" = "split horizontal";
-          "Mod1+Control+h" = "split vertical";
           "Mod1+Control+m" = "exec --no-startup-id volumectl mute";
+          "XF86AudioRaiseVolume" =  "exec --no-startup-id volumectl raise";
+          "XF86AudioLowerVolume" =  "exec --no-startup-id volumectl lower";
+          "XF86AudioMute" = "exec --no-startup-id volumectl %";
         };
       modes = {
         resize = {
