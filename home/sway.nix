@@ -354,7 +354,7 @@ in
       }
       #workspaces button:hover {
         color: ${bartext};
-        background: #2aa198;
+        background: ${cyan};
         box-shadow: inset 0px -3px ${base02};
       }
       #mode {
