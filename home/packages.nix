@@ -40,10 +40,8 @@
     prototool
     python3
     readline
-    rnix-lsp
     shellcheck
     shfmt
-    spotify-tui
     slack
     ssh-agents
     standardnotes
