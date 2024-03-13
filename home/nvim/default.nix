@@ -71,7 +71,7 @@ in
       code-minimap
       iferr
       nixfmt
-      nixd
+      #nixd
       nodePackages.prettier
       nodePackages.vim-language-server
       nodePackages.eslint_d
@@ -921,7 +921,7 @@ in
              'bufls',
              'yamlls',
              'nil_ls',
-             'nixd',
+             --'nixd',
              'dockerls',
              'vimls',
              'ccls',
