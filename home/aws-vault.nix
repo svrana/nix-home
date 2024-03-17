@@ -10,4 +10,8 @@
     AWS_VAULT_PASS_PREFIX = "vault";
     AWS_VAULT_PASS_PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
   };
+
+  programs.bash.shellAliases = {
+      "av" = "aws-vault";
+  };
 }

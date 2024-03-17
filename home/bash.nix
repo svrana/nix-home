@@ -49,8 +49,6 @@
       "nctl" = "networkctl";
 
       "make" = "make -j$(nproc)";
-
-      "av" = "aws-vault";
     };
   };
 }
