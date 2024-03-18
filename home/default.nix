@@ -42,7 +42,6 @@
     ./nvim
     ./sway.nix
     ./tmux
-    ./fish.nix
     ./glow.nix
     ./go.nix
     ./git.nix
