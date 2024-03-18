@@ -115,7 +115,6 @@ in
         opt.laststatus = 2
         opt.equalalways = false
         opt.updatetime = 100
-        opt.lazyredraw = true
         opt.background = "dark"
         opt.pyx = 3
         opt.termguicolors = true
