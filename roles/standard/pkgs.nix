@@ -19,7 +19,6 @@
     jq
     vim
     man
-    openvpn
     ripgrep
     tailscale
     tcpdump
