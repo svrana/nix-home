@@ -7,7 +7,7 @@
     keyMode = "vi";
     # sensible adds some config I don't like if I set the shortcut here
     #shortcut = "j";
-    terminal = "xterm-256color";
+    terminal = "tmux-256color";
     escapeTime = 0;
     extraConfig = builtins.readFile ./tmux.conf;
 
