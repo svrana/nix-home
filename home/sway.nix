@@ -422,23 +422,6 @@ in
     '';
   };
 
-  systemd.user.services.sway = {
-    Unit = {
-      Description = "Sway - Wayland window manager";
-      Documentation = [ "man:sway(5)" ];
-      BindsTo = [ "graphical-session.target" ];
-      Wants = [ "graphical-session-pre.target" ];
-      After = [ "graphical-session-pre.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.sway}/bin/sway";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
-
   # sway session added by hm
   systemd.user.services.swayidle = {
     Unit = {
