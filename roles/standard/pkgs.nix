@@ -9,22 +9,22 @@
     gdb
     gnumake
     htop
+    jq
+    lshw
+    lsof
+    man
     nfs-utils
     openssl
-    usbutils
     pciutils
     psmisc
-    lsof
-    lshw
-    jq
-    vim
-    man
     ripgrep
     tailscale
     tcpdump
+    unzip
+    usbutils
+    vim
     wget
     wirelesstools
-    unzip
     zip
   ];
 }
