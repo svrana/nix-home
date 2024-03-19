@@ -1,11 +1,18 @@
 { config, pkgs, lib, ... }:
 let
   waybar = config.settings.waybar;
-  rofi-pass = "gopass ls --flat | fuzzel --dmenu -p site | xargs --no-run-if-empty gopass show -o | wl-copy && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear";
   ranger = "${pkgs.ranger}/bin/ranger";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   terminal = "${config.settings.terminal.executable}";
   email_client = "${terminal} --title email --app-id email -e aerc";
+  fuzzel-pass = pkgs.writeScript "fuzzel-pass" ''
+    #!/usr/bin/env bash
+
+    site=$(gopass ls --flat | fuzzel --dmenu -p site)
+    if [[ -n "$site" ]]; then
+      gopass show -o "$site" | wl-copy && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear
+    fi
+  '';
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
     #!/usr/bin/env bash
 
@@ -155,7 +162,7 @@ in
           "${mod}+l" = "focus right";
           "${mod}+m" = ''[app_id="tmux"] focus'';
           "${mod}+n" = ''[app_id="email"] focus'';
-          "${mod}+p" = ''exec --no-startup-id "${rofi-pass}"'';
+          "${mod}+p" = ''exec --no-startup-id "${fuzzel-pass}"'';
           "${mod}+q" = "kill";
           "${mod}+r" = "mode resize";
           "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
