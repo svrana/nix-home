@@ -2,91 +2,77 @@
 {
   home.packages = with pkgs; [
     autotiling
+    avizo
+    bc
+    brightnessctl
+    buf
+    cachix
+    clipman
+    ctlptl
     dante
     dbeaver
-    discord
     diffstat
+    discord
     docker-compose
+    element-desktop
     emacs
-    eza
-    networkmanager_dmenu
-    cachix
-    ctlptl
-    google-chrome
-    gh
-    element-desktop # matrix client
     entr
     evince
+    eza
+    gh
     gimp
-    gnupg
-    kind
-    pkgs.kubernetes-helm
     gitAndTools.hub
+    gnome.eog
+    gnome.nautilus
+    gnupg
+    google-chrome
+    grim
     grpcurl
+    i3-ratiosplit
+    imv
+    kind
     kubectx
     ledger-live-desktop
-    i3-ratiosplit # works for sway too
-    imv
-    libsixel # for img2sixel
-    maim # screenshot
-    mpv
-    gnome.nautilus
-    gnome.eog
     libreoffice
+    libsixel
+    maim
+    mpv
+    networkmanager_dmenu
     nixfmt
     nixpkgs-review
-    #packer
-    pulumi-bin
+    nodejs
+    pkgs.kubernetes-helm
     prototool
+    pulumi-bin
     python3
     readline
     shellcheck
     shfmt
     slack
+    slurp
     ssh-agents
     standardnotes
+    swaybg
+    swayidle
+    swaylock
     system-san-francisco-font
     sysz
-    tdesktop # telegram
-    tilt
+    tdesktop
     tealdeer
+    tilt
     tmuxinator
     tree
-    w3m
-    wmctrl
-    xdg-utils
-    zoom
-    yarn
-    bc
-    vanilla-dmz
-    yq
-    buf
-    #go-migrate
-    nodejs
     typescript
-    #postman -- problems w/ packages being removed, see https://github.com/NixOS/nixpkgs/issues/259147, try bruno instead?
-    #bruno -- doesn't have grpc support yet
-    #protoc-gen-validate -- prefer the remote buf plugin
-    #cilium-cli
-    #certbot
-    #istioctl
-    #luakit
-
-    #obs-studio
-    #psst
-
-    # sway/wayland specific
-    avizo
-    clipman
-    swaylock
-    swayidle
-    wl-clipboard
-    wf-recorder # i.e., wf-recorder -g "$(slurp)"
-    swaybg
+    vanilla-dmz
+    w3m
     waybar
+    wf-recorder
+    wl-clipboard
+    wmctrl
     wtype
-    slurp
-    grim
-    brightnessctl
+    xdg-utils
+    yarn
+    yq
+    zoom
   ];
 }
