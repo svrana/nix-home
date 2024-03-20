@@ -24,6 +24,7 @@
     ./alacritty.nix
     ./aws-cli.nix
     ./aws-vault.nix
+    ./bash.nix
     ./bat.nix
     ./cdp.nix
     ./cmus
@@ -32,27 +33,27 @@
     ./docker.nix
     ./dunst.nix
     ./foot.nix
-    ./gruf.nix
+    ./fzf.nix
+    ./git.nix
+    ./glow.nix
+    ./go.nix
     ./go.nix
     ./gopass.nix
+    ./gruf.nix
     ./k9s
     ./keybase.nix
     ./keychain.nix
     ./kubectl.nix
     ./nvim
-    ./sway.nix
-    ./tmux
-    ./glow.nix
-    ./go.nix
-    ./git.nix
-    ./fzf.nix
-    ./bash.nix
+    ./qutebrowser
     ./ranger
     ./rust.nix
     ./shell.nix
     ./spotify.nix
-    ./qutebrowser
+    ./sway.nix
+    ./tmux
     ./zathura.nix
+
     ./packages.nix # big list o' packages
   ];
 
