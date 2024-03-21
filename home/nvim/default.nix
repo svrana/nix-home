@@ -1391,8 +1391,8 @@ in
               name = "+toggle",
               c = { "<cmd>Neorg toggle-concealer<cr>", "Neorg concealer" },
               n = { "<cmd>set relativenumber!<cr>", "Number" },
-              h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
-              m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
+              h = { "<cmd>set invhls hls?<cr>", "search Highlight" },
+              m = { "<cmd>MinimapToggle<cr>", "Minimap" }, -- minimap-vim
               t = { "<cmd>lua require('nvim-tree.api').tree.toggle(false, true)<cr>", "Tree explorer" }, --nvim-tree-lua
 
             },
