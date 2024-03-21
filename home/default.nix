@@ -44,7 +44,7 @@
     ./keybase.nix
     ./keychain.nix
     ./kubectl.nix
-    ./nvim
+    ./neovim.nix
     ./qutebrowser
     ./ranger
     ./rust.nix
