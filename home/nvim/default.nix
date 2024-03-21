@@ -71,7 +71,7 @@ in
       code-minimap
       iferr
       nixfmt
-      #nixd
+      nixd
       nodePackages.prettier
       nodePackages.vim-language-server
       nodePackages.eslint_d
