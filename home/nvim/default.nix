@@ -942,7 +942,7 @@ in
              'bufls',
              'yamlls',
              'nil_ls',
-             --'nixd',
+             'nixd',
              'dockerls',
              'vimls',
              'ccls',
