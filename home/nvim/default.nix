@@ -211,6 +211,7 @@ in
         autocmd('InsertEnter', '*',       'setlocal nocursorline')
         autocmd('InsertLeave', '*',       'setlocal cursorline')
 
+        autocmd('BufNewFile,BufRead', [[*.org,*.norg]], 'set filetype=norg')
         autocmd('BufNewFile,BufRead', [[*.tsx,*.jsx]], 'set filetype=typescriptreact')
         autocmd('BufNewFile,BufRead,BufEnter', [[*.erb, *.feature]], 'setf ruby')
         autocmd('BufNewFile,BufRead,BufEnter', '*.gradle',    'setf groovy')
@@ -413,19 +414,18 @@ in
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
           with plugins; [
+            bash
             c
-            css
             comment
+            css
             diff
+            dockerfile
             elixir
+            elm
             erlang
             git_rebase
-            gitignore
             gitattributes
-            elm
-            bash
-            nix
-            python
+            gitignore
             go
             gomod
             gowork
@@ -437,28 +437,29 @@ in
             javascript
             jsdoc
             json
+            kotlin
             latex
             lua
-            scheme
+            make
             markdown
             markdown_inline
+            nix
             norg
             org
             proto
+            python
             query
             regex
             ruby
             rust
+            scheme
             scss
             sql
-            kotlin
             toml
             tsx
+            typescript
             vim
             yaml
-            make
-            dockerfile
-            typescript
           ]));
         type = "lua";
         config = ''
@@ -708,6 +709,27 @@ in
       cmp-nvim-lsp
       cmp-nvim-lua
       cmp-latex-symbols
+      {
+        plugin = neorg;
+        type = "lua";
+        config = ''
+          require('neorg').setup {
+            load = {
+              ["core.defaults"] = {},
+              ["core.concealer"] = {},
+              ["core.autocommands"] = {},
+              ["core.integrations.treesitter"] = {},
+              ["core.dirman"] = {
+                config = {
+                  workspaces = {
+                    home = "~/Documents/org/home",
+                  }
+                }
+              }
+            }
+          }
+        '';
+      }
       {
         plugin = nvim-cmp;
         type = "lua";
@@ -1367,7 +1389,7 @@ in
             },
             t = {
               name = "+toggle",
-              c = { "<cmd>set cursorline!<cr>", "Cursorline" },
+              c = { "<cmd>Neorg toggle-concealer<cr>", "Neorg concealer" },
               n = { "<cmd>set relativenumber!<cr>", "Number" },
               h = { "<cmd>set invhls hls?<cr>", "search Highlight toggle" },
               m = { "<cmd>MinimapToggle<cr>", "Minimap toggle" }, -- minimap-vim
