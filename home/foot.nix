@@ -33,6 +33,10 @@
         bright6="32c1b6";
         bright7="ffffff";
       };
+      key-bindings = {
+        unicode-input = "Control+Shift+o";
+        show-urls-launch = "Control+Shift+u";
+      };
     };
   };
 }
