@@ -133,7 +133,7 @@ in
         tls.certificate_errors = "ask-block-thirdparty";
       };
       downloads = {
-        location.directory = "/home/shaw/Downloads";
+        location.directory = "${config.home.homeDirectory}/Downloads";
         remove_finished = 10;
       };
       fonts = {

@@ -69,10 +69,10 @@
     };
     gtk3 = {
       bookmarks = [
-        "file:///home/shaw/Documents"
-        "file:///home/shaw/Downloads"
-        "file:///home/shaw/Music"
-        "file:///home/shaw/Pictures"
+        "file://${config.home.homeDirectory}/Documents"
+        "file://${config.home.homeDirectory}/Downloads"
+        "file://${config.home.homeDirectory}/Music"
+        "file://${config.home.homeDirectory}/Pictures"
       ];
     };
     gtk2 = {
