@@ -244,6 +244,8 @@ in
       " Make the 120th column standout iff there is text there
       call matchadd('ColorColumn', '\%120v', 100)
 
+      " Get rid of end of buffer lines. The rest is fluff.
+      set fillchars=vert:\│,eob:\ ,msgsep:‾
       set expandtab
       set shiftwidth=4
       set tabstop=4
