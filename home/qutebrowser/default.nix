@@ -216,7 +216,7 @@ in
             error.fg = "${red}";
             hover.fg = "${yellow}";
             success = {
-              http.fg = "${base01}";
+              http.fg = "${yellow}";
               https.fg = "${cyan}";
             };
             warn = {
