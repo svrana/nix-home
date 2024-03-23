@@ -559,13 +559,6 @@ in
         '';
       }
       {
-        plugin = telescope-project-nvim;
-        type = "lua";
-        config = ''
-          require('telescope').load_extension('project')
-        '';
-      }
-      {
         plugin = vim-rooter;
         config = ''
           let g:rooter_cd_cmd = 'lcd'";
@@ -1351,7 +1344,6 @@ in
               f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
               h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
               n = { "<cmd>lua require('svrana.telescope').dots()<cr>",                    "dotfiles" },
-              p = { "<cmd>lua require('telescope').extensions.project.project({})<cr>",   "Project change" },
               r = { "<cmd>Rg<cr>",                                                        "Search file contents (rg)" }, -- fzf
               s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",              "Search file contents" },
               z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
