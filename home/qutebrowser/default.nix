@@ -23,23 +23,7 @@
 #
 #   register: Entered when qutebrowser is waiting for a register name/key for commands like :set-mark.
 let
-  # Solarize it
-  base03 = "#002b36";
-  base02 = "#073642";
-  base01 = "#586e75";
-  base00 = "#657b83";
-  base0 = "#839496";
-  base1 = "#93a1a1";
-  base2 = "#eee8d5";
-  base3 = "#fdf6e3";
-  yellow = "#b58900";
-  orange = "#cb4b16";
-  red = "#dc322f";
-  magenta = "#d33682";
-  violet = "#6c71c4";
-  blue = "#268bd2";
-  cyan = "#2aa198";
-  green = "#859900";
+  colors = config.settings.theme.withHashTag;
   solCSS = "${pkgs.solarized-everything-css}/share/css";
   qutepassmod = pkgs.writers.writePython3Bin "qute-pass-mod" {
     flakeIgnore=["E501" "E402" "E265"];
@@ -171,92 +155,90 @@ in
       colors = {
         downloads = {
           bar = {
-            bg = "${base03}";
+            bg = "${colors.base00}";
           };
         };
         tabs = {
-          bar.bg = "${base01}";
+          bar.bg = "${colors.base02}";
           even = {
-            fg = "${base02}";
-            bg = "${base01}";
+            fg = "${colors.base01}";
+            bg = "${colors.base02}";
           };
           odd = {
-            fg = "${base02}";
-            bg = "${base01}";
+            fg = "${colors.base01}";
+            bg = "${colors.base02}";
           };
           selected = {
             even = {
               fg = "white";
-              bg = "${base1}";
+              bg = "${colors.base05}";
             };
             odd = {
               fg = "white";
-              bg = "${base1}";
+              bg = "${colors.base05}";
             };
           };
         };
         keyhint = {
-          bg = "${base03}";
-          fg = "${base00}";
-          suffix.fg = "${cyan}";
+          bg = "${colors.base00}";
+          fg = "${colors.base03}";
+          suffix.fg = "${colors.base0C}";
         };
         hints = {
-          bg = "${base2}";
-          fg = "${base01}";
-          match.fg = "${green}";
+          bg = "${colors.base06}";
+          fg = "${colors.base02}";
+          match.fg = "${colors.base0B}";
         };
         messages = {
-          error.bg = "${red}";
+          error.bg = "${colors.base08}";
         };
         statusbar = {
-          command.bg = "${base03}";
-          normal.bg = "${base03}";
-          private.bg = "${base03}";
+          command.bg = "${colors.base00}";
+          normal.bg = "${colors.base00}";
+          private.bg = "${colors.base00}";
           url = {
-            error.fg = "${red}";
-            hover.fg = "${yellow}";
+            error.fg = "${colors.base08}";
+            hover.fg = "${colors.base0A}";
             success = {
-              http.fg = "${yellow}";
-              https.fg = "${cyan}";
+              http.fg = "${colors.base0A}";
+              https.fg = "${colors.base0C}";
             };
             warn = {
-              fg = "${yellow}";
+              fg = "${colors.base0A}";
             };
           };
         };
-        prompts.bg = "${base02}";
+        prompts.bg = "${colors.base01}";
         completion = {
           category = {
-            bg = "${base01}";
+            bg = "${colors.base02}";
             border = {
-              bottom = "${base02}";
-              top = "${base02}";
+              bottom = "${colors.base01}";
+              top = "${colors.base01}";
             };
           };
-          fg = [ "${base0}" "${base0}" "${base0}" ];
-          even.bg = "${base02}";
-          odd.bg = "${base02}";
+          fg = [ "${colors.base04}" "${colors.base04}" "${colors.base04}" ];
+          even.bg = "${colors.base01}";
+          odd.bg = "${colors.base01}";
           scrollbar = {
-            fg = "${cyan}";
-            bg = "${base01}";
+            fg = "${colors.base0C}";
+            bg = "${colors.base02}";
           };
           item = {
             selected = {
-              bg = "${cyan}";
+              bg = "${colors.base0C}";
               border = {
-                bottom = "${cyan}";
-                top = "${cyan}";
+                bottom = "${colors.base0C}";
+                top = "${colors.base0C}";
               };
             };
           };
           match = {
-            fg = "${magenta}";
+            fg = "${colors.base0F}";
           };
         };
         webpage = {
-          #prefers_color_scheme_dark = true;
           preferred_color_scheme = "dark";
-          #preferred_color_scheme = "dark";
         };
       };
     };
