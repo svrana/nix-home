@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-{
+let
+  colors = config.settings.theme.withHashTag;
+in {
   programs.home-manager.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should manage.
@@ -113,10 +115,8 @@
       #   "$character"
       # ];
       character = {
-        success_symbol = "[❯](#859900)";
-        error_symbol = "[❯](#dc322f)";
-        #success_symbol = "[➜](#859900)";
-        #error_symbol = "[➜](#dc322f)";
+        success_symbol = "[❯](${colors.base0B})";
+        error_symbol = "[❯](${colors.base08})";
       };
       kubernetes = {
         disabled = false;
@@ -279,7 +279,7 @@
     enable = true;
     config = {
       gpu-context = "wayland";
-      background = "#002b36";
+      background = colors.base00;
       force-window = "immediate";
     };
   };

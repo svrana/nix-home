@@ -1,4 +1,7 @@
 { config, ... }:
+let
+  colors = config.settings.theme;
+in
 {
   programs.foot = {
     enable = true;
@@ -11,26 +14,25 @@
       # these are the defaults (which are based on solarized-dark which I use elsewhere, but there's talk of changing
       # the defaults to something else, so we go ahead and set them manually.
       colors = {
-        background="002b36";
-        foreground="839496";
+        background=colors.base00;
+        foreground=colors.base04;
 
-        regular0="073642";
-        regular1="dc322f";
-        regular2="859900";
-        regular3="b58900";
-        regular4="268bd2";
-        regular5="d33682";
-        regular6="2aa198";
-        regular7="eee8d5";
-
+        regular0=colors.base01;
+        regular1=colors.base08;
+        regular2=colors.base0B;
+        regular3=colors.base0A;
+        regular4=colors.base0D;
+        regular5=colors.base0F;
+        regular6=colors.base0C;
+        regular7=colors.base07;
 
         bright0="08404f";
         bright1="e35f5c";
         bright2="9fb700";
         bright3="d9a400";
-        bright4="4ba1de";
-        bright5="dc619d";
-        bright6="32c1b6";
+        bright4=colors.base0D;
+        bright5=colors.base0F;
+        bright6=colors.base0C;
         bright7="ffffff";
       };
       key-bindings = {
