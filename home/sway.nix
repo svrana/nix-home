@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
 let
+  colors = config.settings.theme.withHashTag;
   waybar = config.settings.waybar;
   ranger = "${pkgs.ranger}/bin/ranger";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
@@ -49,24 +50,8 @@ let
     "--fade-in 0.5"
     "--text-color 586e75"
   ];
-  base03 = "#002b36";
-  base02 = "#073642";
-  base01 = "#586e75";
-  base00 = "#657b83";
-  base0 = "#839496";
-  base1 = "#93a1a1";
-  base2 = "#eee8d5";
-  base3 = "#fdf6e3";
-  yellow = "#b58900";
-  orange = "#cb4b16";
-  red = "#dc322f";
-  magenta = "#d33682";
-  violet = "#6c71c4";
-  blue = "#268bd2";
-  cyan = "#2aa198";
-  green = "#859900";
   bartext = "#2C3530";
-  widgetbg = "${base01}";
+  widgetbg = "${colors.base02}";
 in
 {
   #  swaymsg -t get_tree // to get app_id
@@ -98,10 +83,10 @@ in
       colors = {
         focused = {
           border = "#4c7899";
-          background = "${base01}";
+          background = "${colors.base02}";
           text = "#ffffff";
-          indicator = "${blue}";
-          childBorder = "${cyan}";
+          indicator = "${colors.base0D}";
+          childBorder = "${colors.base0C}";
         };
         focusedInactive = {
           border = "#333333";
@@ -112,7 +97,7 @@ in
         };
         unfocused = {
           border = "#333333";
-          background = "${base02}";
+          background = "${colors.base01}";
           text = "#888888";
           indicator = "#292d2e";
           childBorder = "#222222";
@@ -216,7 +201,7 @@ in
         };
       };
       startup = [
-        { command = ''${pkgs.swaybg}/bin/swaybg -c "${base03}"''; }
+        { command = ''${pkgs.swaybg}/bin/swaybg -c "${colors.base00}"''; }
         { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
         { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
         { command = ''standardnotes''; }
@@ -342,8 +327,8 @@ in
         min-height: 0;
       }
       window#waybar {
-        background: ${base02};
-        border-bottom: 3px solid ${base03};
+        background: ${colors.base01};
+        border-bottom: 3px solid ${colors.base00};
         transition-property: background;
         transition-duration: .5s;
       }
@@ -358,19 +343,19 @@ in
       #workspaces button.focused {
         color: ${bartext};
         background-color: ${widgetbg};
-        box-shadow: inset 0px -3px ${cyan};
+        box-shadow: inset 0px -3px ${colors.base0C};
       }
       #workspaces button:hover {
         color: ${bartext};
-        background: ${cyan};
-        box-shadow: inset 0px -3px ${base02};
+        background: ${colors.base0C};
+        box-shadow: inset 0px -3px ${colors.base01};
       }
       #mode {
-        background-color: ${base01};
-        border-bottom: 3px solid ${yellow};
+        background-color: ${colors.base02};
+        border-bottom: 3px solid ${colors.base0A};
       }
       #workspaces button.urgent {
-        background-color: ${cyan};
+        background-color: ${colors.base0C};
       }
 
       #clock,

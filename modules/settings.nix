@@ -40,6 +40,138 @@ in
 {
   options = {
     settings = {
+      theme = {
+        withHashTag = {
+          base04 = mkOption {
+            default = "#839496"; #839496
+            type = types.str;
+          };
+          base05 = mkOption {
+            default = "#93a1a1"; #93a1a1
+            type = types.str;
+          };
+          base06 = mkOption {
+            default = "#eee8d5"; #eee8d5
+            type = types.str;
+          };
+          base07 = mkOption {
+            default = "#fdf6e4"; #fdf6e4
+            type = types.str;
+          };
+          base00 = mkOption {
+            default = "#002b36"; #002b36
+            type = types.str;
+          };
+          base01 = mkOption {
+            default = "#073642"; #073642
+            type = types.str;
+          };
+          base02 = mkOption {
+            default = "#586e75"; #586e75
+            type = types.str;
+          };
+          base03 = mkOption {
+            default = "#657b83"; #657b83
+            type = types.str;
+          };
+          base0A = mkOption {
+            default = "#b58900"; #b58900
+            type = types.str;
+          };
+          base09 = mkOption {
+            default = "#cb4b16"; #cb4b16
+            type = types.str;
+          };
+          base08 = mkOption {
+            default = "#dc322f"; #dc322f
+            type = types.str;
+          };
+          base0F = mkOption {
+            default = "#d33682"; #d33682
+            type = types.str;
+          };
+          base0E = mkOption {
+            default = "#6c71c4"; #6c71c4
+            type = types.str;
+          };
+          base0D = mkOption {
+            default = "#268bd2"; #268bd2
+            type = types.str;
+          };
+          base0C= mkOption {
+            default = "#2aa198"; #2aa198
+            type = types.str;
+          };
+          base0B= mkOption {
+            default = "#859900"; #859900
+            type = types.str;
+          };
+        };
+        base04 = mkOption {
+          default = "839496"; #839496
+          type = types.str;
+        };
+        base05 = mkOption {
+          default = "93a1a1"; #93a1a1
+          type = types.str;
+        };
+        base06 = mkOption {
+          default = "eee8d5"; #eee8d5
+          type = types.str;
+        };
+        base07 = mkOption {
+          default = "fdf6e4"; #fdf6e4
+          type = types.str;
+        };
+        base00 = mkOption {
+          default = "002b36"; #002b36
+          type = types.str;
+        };
+        base01 = mkOption {
+          default = "073642"; #073642
+          type = types.str;
+        };
+        base02 = mkOption {
+          default = "586e75"; #586e75
+          type = types.str;
+        };
+        base03 = mkOption {
+          default = "657b83"; #657b83
+          type = types.str;
+        };
+        base0A = mkOption {
+          default = "b58900"; #b58900
+          type = types.str;
+        };
+        base09 = mkOption {
+          default = "cb4b16"; #cb4b16
+          type = types.str;
+        };
+        base08 = mkOption {
+          default = "dc322f"; #dc322f
+          type = types.str;
+        };
+        base0F = mkOption {
+          default = "d33682"; #d33682
+          type = types.str;
+        };
+        base0E = mkOption {
+          default = "6c71c4"; #6c71c4
+          type = types.str;
+        };
+        base0D = mkOption {
+          default = "268bd2"; #268bd2
+          type = types.str;
+        };
+        base0C = mkOption {
+          default = "2aa198"; #2aa198
+          type = types.str;
+        };
+        base0B = mkOption {
+          default = "859900"; #859900
+          type = types.str;
+        };
+      };
       fuzzel = {
         font = mkOption {
           default = "Hack:size=8";
