@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-
+let
+  colors = config.settings.theme.withHashTag;
+in
 {
   services.dunst = {
     enable = true;
@@ -17,8 +19,7 @@
         padding = 16;
         horizontal_padding = 16;
         frame_width = 2;
-        #frame_color = "#93a1a1";
-        frame_color = "#2aa198";
+        frame_color = colors.base0C;
 
         separator_color = "frame";
         sort = "yes";
@@ -47,18 +48,18 @@
         max_icon_size = 128;
       };
       urgency_low = {
-        background = "#002b36";
-        foreground = "#b58900";
+        background = colors.base00;
+        foreground = colors.base0A;
         timeout = 2;
       };
       urgency_normal = {
-        background = "#002b36";
-        foreground = "#d33682";
+        background = colors.base00;
+        foreground = colors.base0F;
         timeout = 4;
       };
       urgency_critical = {
-        background = "#002b36";
-        foreground = "#d33682";
+        background = colors.base00;
+        foreground = colors.base0F;
         timeout = 4;
       };
       Spotify = {
