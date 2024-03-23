@@ -1,5 +1,7 @@
-{ pkgs, lib, ... }:
-
+{ config, ... }:
+let
+  colors = config.settings.theme.withHashTag;
+in
 {
   programs.fzf = {
     enable = true;
@@ -10,7 +12,7 @@
       "--info inline"
       "--bind=ctrl-f:page-down,ctrl-b:page-up"
       "--height=40%"
-      "--color='bg+:#073642,pointer:#2aa198,hl+:#dc322f,hl:#859900'"
+      "--color='bg+:${colors.base01},pointer:${colors.base0C},hl+:${colors.base08},hl:${colors.base0B}'"
     ];
     fileWidgetCommand = "fd --type f";
   };
