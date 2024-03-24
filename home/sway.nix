@@ -407,9 +407,8 @@ in
   systemd.user.services.swayidle = {
     Unit = {
       Description = "Idle Manager for Wayland";
-      PartOf = [ "sway-session.target" ];
-      Requires = [ "sway-session.target" ];
-      After = [ "sway-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
       Documentation = [ "man:swayidle(1)" ];
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
@@ -426,9 +425,8 @@ in
   systemd.user.services.i3-ratiosplit = {
     Unit = {
       Description = "i3-ratiosplit";
-      PartOf = [ "sway-session.target" ];
-      Requires = [ "sway-session.target" ];
-      After = [ "sway-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
@@ -442,9 +440,8 @@ in
   systemd.user.services.scratch = {
     Unit = {
       Description = "Scratch terminal that is stashed by Sway";
-      PartOf = [ "sway-session.target" ];
-      Requires = [ "sway-session.target" ];
-      After = [ "sway-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
@@ -456,9 +453,8 @@ in
   systemd.user.services.avizo = {
     Unit = {
       Description = "avizo volume ctrl daemon";
-      PartOf = [ "sway-session.target" ];
-      Requires = [ "sway-session.target" ];
-      After = [ "sway-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
