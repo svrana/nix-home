@@ -52,7 +52,7 @@ let
     "--text-color ${c.base04}"
   ];
   bartext = "#2C3530";
-  widgetbg = "${colors.base02}";
+  widgetbg = colors.base02;
 in
 {
   #  swaymsg -t get_tree // to get app_id
@@ -228,21 +228,15 @@ in
       assign [app_id="qutebrowser"] $ws3
 
       seat * hide_cursor 3000
-
-      # Make all the pinentry stuff work
-      # https://git.sr.ht/~sumner/home-manager-config/tree/master/item/modules/window-manager/wayland.nix#L64
-      #exec dbus-update-activation-environment WAYLAND_DISPLAY
-
-      exec ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-
-      # Import the WAYLAND_DISPLAY env var from sway into the systemd user session.
-      exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK
     '';
   };
 
   programs.waybar = {
     enable = true;
-    systemd.enable = false;
+    systemd = {
+      enable = true;
+      target = "sway-session.target";
+    };
     settings = [
       {
         layer = "top";
@@ -442,24 +436,6 @@ in
       ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i3-ratiosplit}/bin/i3-ratiosplit'";
       RestartSec = 2;
       Restart = "on-failure";
-    };
-  };
-
-  systemd.user.services.waybar = {
-    Unit = {
-      Description =
-        "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
-      Documentation = "https://github.com/Alexays/Waybar/wiki";
-      PartOf = [ "sway-session.target" ];
-      Requires = [ "sway-session.target" ];
-      After = [ "sway-session.target" ];
-    };
-    Install = { WantedBy = [ "sway-session.target" ]; };
-    Service = {
-      ExecStart = "${pkgs.waybar}/bin/waybar";
-      ExecReload = "kill -SIGUSR2 $MAINPID";
-      Restart = "on-failure";
-      KillMode = "mixed";
     };
   };
 
