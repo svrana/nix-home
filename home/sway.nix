@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   colors = config.settings.theme.withHashTag;
+  c = config.settings.theme;
   waybar = config.settings.waybar;
   ranger = "${pkgs.ranger}/bin/ranger";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
@@ -39,16 +40,16 @@ let
     "${pkgs.swaylock-effects}/bin/swaylock"
     "--daemonize"
     "--ignore-empty-password"
-    "--color  073642"
-    "--ring-color 2aa198"
-    "--inside-color 002b36"
+    "--color ${c.base00}"
+    "--ring-color ${c.base0C}"
+    "--inside-color ${c.base01}"
     "--clock"
     "--indicator"
     "--line-uses-inside"
     "--indicator-radius 100"
     "--indicator-thickness 7"
     "--fade-in 0.5"
-    "--text-color 586e75"
+    "--text-color ${c.base04}"
   ];
   bartext = "#2C3530";
   widgetbg = "${colors.base02}";
