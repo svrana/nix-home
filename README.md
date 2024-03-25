@@ -34,11 +34,3 @@ deploy .#bocana
 ```
 
 builds and pushes the config to bocana.
-
-## Updating
-
-git log --oneline flake.lock.nodes.nixpkgs.rev..proposed.nixpkgs.update, i.e.,
-
-```
-git log --oneline  --ancestry-path 14b0f20fa1f56438b7..21c937f8cb1e6adcfeb36
-```

@@ -17,18 +17,9 @@ help: ## Show this help
 system-install-bootloader: ## Build system && allow downgrading bootloader
 	sudo nixos-rebuild --install-bootloader switch --flake .
 
-.PHONY: diff
-diff: ## Show latest commit history available to pull (make sure nixpkgs is up to date)
-	@current=$(shell nixos-version --json | jq -r .nixpkgsRevision)
-	@latest=$(shell curl --silent https://channels.nix.gsc.io/nixos-unstable/latest | cut -f1 -d" ")
-	@pushd $$PROJECTS/nixpkgs > /dev/null
-	@git log --oneline --ancestry-path $$current..$$latest | grep -v "Merge pull request" | less
-	@popd > /dev/null
-
 .PHONY: update
 update: ## Update all flakes
 	nix flake update
-	#nix flake update nixpkgs
 
 ##@ Deploy host
 .PHONY: bocana
@@ -45,6 +36,3 @@ home: ## Build home-manager configuration for the current system
 .PHONY: system
 system: ## Build system
 	nixos-rebuild --use-remote-sudo switch --flake .
-
-
-
