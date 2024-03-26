@@ -39,8 +39,7 @@
         overlays = builtins.attrValues self.overlays;
       };
 
-      mkSystem = extraModules:
-        nixosSystem {
+      mkSystem = extraModules: nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -53,14 +52,13 @@
           ] ++ extraModules;
         };
 
-      mkHome = extraModules:
-        home-manager.lib.homeManagerConfiguration {
+      mkHome = extraModules: home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             inherit (nixpkgsConfig) config overlays;
           };
-          extraSpecialArgs = inputs;
           modules = [ modules/settings.nix ] ++ extraModules;
+          extraSpecialArgs = inputs;
         };
     in
     (
