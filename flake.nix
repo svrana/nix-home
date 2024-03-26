@@ -26,7 +26,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, spicetify-nix, emacs-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, emacs-overlay, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -121,4 +121,3 @@
       }
     );
 }
-
