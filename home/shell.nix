@@ -23,7 +23,6 @@ in
       DOCKER_BUILDKIT = 1;
       GEM_HOME = "$HOME/.local/share/gem";
       GEM_SPEC_CACHE = "$HOME/.cache/gem";
-      INPUTRC = "$HOME/.config/inputrc";
       LESSHISTFILE = "-";
       NODE_REPL_HISTORY = "$HOME/.local/share/node_repl_history";
       NPM_CONFIG_USERCONFIG = "$HOME/.config/npm/npmrc";
