@@ -3,9 +3,10 @@ let
   colors = config.settings.theme.withHashTag;
   c = config.settings.theme;
   waybar = config.settings.waybar;
-  ranger = "${pkgs.ranger}/bin/ranger";
-  fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
+  yazi = "${pkgs.yazi}/bin/yazi";
   terminal = "${config.settings.terminal.executable}";
+  file_manager = "${terminal} --title file-manager --app-id file-manager -e ${yazi}";
+  fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   email_client = "${terminal} --title email --app-id email -e aerc";
   fuzzel-pass = pkgs.writeScript "fuzzel-pass" ''
     #!/usr/bin/env bash
@@ -152,7 +153,7 @@ in
           "${mod}+p" = ''exec --no-startup-id "${fuzzel-pass}"'';
           "${mod}+q" = "kill";
           "${mod}+r" = "mode resize";
-          "${mod}+u" = ''exec --no-startup-id "${terminal} -e ${ranger}"'';
+          "${mod}+u" = ''[app_id="file-manager"] scratchpad show'';
           "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t CUSTOM --tool-args="fuzzel -d"'';
           "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
           "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
@@ -224,6 +225,7 @@ in
       for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
+      for_window [app_id="file-manager"] move scratchpad, move position 1000 200, resize set 1800 1900
 
       assign [app_id="qutebrowser"] $ws3
 
@@ -446,6 +448,21 @@ in
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
       ExecStart = "${pkgs.bash}/bin/bash -lc '${terminal} --app-id scratch-term --title scratch'";
+      Restart = "always";
+    };
+  };
+
+  systemd.user.services.file-manager = {
+    Unit = {
+      Description = "sway-stashed filemanager";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      #ExecStart = "${pkgs.bash}/bin/bash -c '${yazi} --app-id file-manager --title yazi'";
+      #ExecStart = "${file_manager}";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${file_manager}'";
       Restart = "always";
     };
   };
