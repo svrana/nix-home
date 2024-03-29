@@ -1,12 +1,10 @@
 {...}:
 {
-  xdg.configFile."inputrc".source = ./config/inputrc;
-
   programs.readline = {
-    enable = false;
+    enable = true;
     bindings = {
       "\\C-l" = "clear-screen";
-      "\\C-o"  = "source ~/.bashrc && [ -f .envrc ] && direnv reload > /dev/null 2>&1\n" || true;
+      "\\C-o"  = "source ~/.bashrc && [ -f .envrc ] && direnv reload > /dev/null 2>&1\n";
     };
     extraConfig = ''
       set show-mode-in-prompt on
