@@ -48,7 +48,6 @@ in {
     ./kubectl.nix
     ./neovim.nix
     ./qutebrowser
-    ./ranger
     ./readline.nix
     ./rust.nix
     ./shell.nix
@@ -318,6 +317,11 @@ in {
     enableAliases = true;
     icons = true;
     extraOptions = [ "--group-directories-first" ];
+  };
+
+  programs.yazi = {
+    enable = true;
+    enableBashIntegration = true;
   };
 
   # Set name in icons theme. Details:
