@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  colors = config.settings.theme.withHashTag;
+  c = config.settings.theme.withHashTag;
 in {
   programs.home-manager.enable = true;
 
@@ -115,8 +115,8 @@ in {
       #   "$character"
       # ];
       character = {
-        success_symbol = "[❯](${colors.base0B})";
-        error_symbol = "[❯](${colors.base08})";
+        success_symbol = "[❯](${c.base0B})";
+        error_symbol = "[❯](${c.base08})";
       };
       kubernetes = {
         disabled = false;
@@ -279,7 +279,7 @@ in {
     enable = true;
     config = {
       gpu-context = "wayland";
-      background = colors.base00;
+      background = c.base00;
       force-window = "immediate";
     };
   };
@@ -321,7 +321,13 @@ in {
 
   programs.yazi = {
     enable = true;
-    enableBashIntegration = true;
+    theme = {
+      manager = {
+        border_style = { fg = "${c.base04}"; bg = "${c.base00}"; };
+        hovered = { fg = "${c.base07}"; bg = "${c.base01}"; };
+        previewed_hovered = { fg = "${c.base07}"; bg = "${c.base01}"; };
+      };
+    };
   };
 
   # Set name in icons theme. Details:
