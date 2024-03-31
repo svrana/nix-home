@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   c = config.settings.theme.withHashTag;
+  colors = config.settings.theme;
 in {
   programs.home-manager.enable = true;
 
@@ -306,9 +307,9 @@ in {
         cancel="Control+bracketleft";
         delete-prev-word="Control+w";
       };
-      colors.background = "002b36ff";
-      colors.border = "2aa198ff";
-      colors.selection = "073642ff";
+      colors.background = "${colors.base00}ff";
+      colors.border = "${colors.base0C}ff";
+      colors.selection = "${colors.base01}ff";
     };
   };
 
@@ -353,7 +354,7 @@ in {
   '';
   xdg.configFile."imv/config".text = ''
     [options]
-      background=002b36
+      background=${colors.base00}
   '';
   # solarize it
   xdg.configFile."Element/config.json".text = ''
