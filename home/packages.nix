@@ -6,7 +6,6 @@
     bc
     brightnessctl
     buf
-    cachix
     clipman
     ctlptl
     dante
