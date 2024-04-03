@@ -40,7 +40,6 @@ in {
     ./git.nix
     ./glow.nix
     ./go.nix
-    ./go.nix
     ./gopass.nix
     ./gruf.nix
     ./k9s
@@ -145,8 +144,7 @@ in {
     source = ./doom;
     recursive = true;
   };
-  #home.file.".ssh/config".source = ../personal/ssh/config;
-  #home.file.".pypirc".source = ../personal/pypi/pypirc;
+
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents ${config.home.homeDirectory}/Documents
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music ${config.home.homeDirectory}/Music
