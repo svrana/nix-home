@@ -128,7 +128,6 @@ in
           "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show'';
           "${mod}+Return" = "exec --no-startup-id ${terminal}";
           "${mod}+Shift+q" = "kill";
-          "${mod}+0" = ''[class="Standard Notes"] scratchpad show'';
           "${mod}+1" = "workspace 1";
           "${mod}+2" = "workspace 2";
           "${mod}+3" = "workspace 3";
@@ -206,7 +205,6 @@ in
         { command = ''${pkgs.swaybg}/bin/swaybg -c "${colors.base00}"''; }
         { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
         { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
-        { command = ''standardnotes''; }
         { command = "${pkgs.slack}/bin/slack"; }
       ];
     };
@@ -222,7 +220,6 @@ in
 
       default_border pixel 2
 
-      for_window [class="Standard Notes"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="file-manager"] move scratchpad, move position 1000 200, resize set 1800 1900

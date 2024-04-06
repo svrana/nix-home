@@ -50,7 +50,6 @@
     slack
     slurp
     ssh-agents
-    standardnotes
     swaybg
     swayidle
     swaylock
