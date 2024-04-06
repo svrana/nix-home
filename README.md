@@ -1,6 +1,6 @@
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-# nixos-configs
+# nix-home
 
 [Nix](https://nixos.org) configuration for the machines I use.
 
