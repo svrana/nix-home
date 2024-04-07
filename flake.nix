@@ -20,6 +20,10 @@
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wayland-pipewire-idle-inhibit = {
+      url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, ... }@inputs:
@@ -53,7 +57,10 @@
             system = "x86_64-linux";
             inherit (nixpkgsConfig) config overlays;
           };
-          modules = [ modules/settings.nix ] ++ extraModules;
+          modules = [
+            modules/settings.nix
+            inputs.wayland-pipewire-idle-inhibit.homeModules.default
+          ] ++ extraModules;
           extraSpecialArgs = inputs;
         };
     in

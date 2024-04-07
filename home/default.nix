@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, wayland-pipewire-idle-inhibit, ... }:
 let
   c = config.settings.theme.withHashTag;
   colors = config.settings.theme;
