@@ -9,7 +9,6 @@ in {
   home = {
     username = "shaw";
     homeDirectory = "/home/shaw";
-    stateVersion = "21.03";
     # workaround for https://github.com/nix-community/home-manager/issues/2219
     keyboard = null;
     sessionPath = [ "/home/shaw/.local/bin" ];
