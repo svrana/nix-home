@@ -108,11 +108,6 @@ in {
     enable = true;
     settings = {
       command_timeout = 20;
-      # format = lib.concatStrings [
-      #   "$all"
-      #   "$directory"
-      #   "$character"
-      # ];
       character = {
         success_symbol = "[❯](${c.base0B})";
         error_symbol = "[❯](${c.base08})";
@@ -137,10 +132,6 @@ in {
   };
   home.file.".local/share/applications" = {
     source = ./misc/desktop;
-    recursive = true;
-  };
-  home.file.".config/doom" = {
-    source = ./doom;
     recursive = true;
   };
 
@@ -197,13 +188,6 @@ in {
     if [ ! -d $PROJECTS/gruf ]; then
       $DRY_RUN_CMD echo "Cloning gruf.."
       $DRY_RUN_CMD git clone git@github.com:svrana/gruf $PROJECTS/gruf
-    fi
-
-    if [ ! -d ~/.config/emacs ]; then
-      $DRY_RUN_CMD git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    fi
-    if [ ! -f ~/.local/bin/doom ]; then
-      ln -s ~/.config/emacs/bin/doom ~/.local/bin/doom
     fi
 
     if [ -d $XDG_DATA_HOME/aerc ]; then

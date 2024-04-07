@@ -20,13 +20,9 @@
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, emacs-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -101,7 +97,6 @@
           in
           overlayFiles // {
             discord-overlay = discord-overlay.overlay;
-            emacs-overlay = emacs-overlay.overlay;
           };
 
         # deploy '.#bocana'

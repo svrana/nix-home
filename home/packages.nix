@@ -14,7 +14,6 @@
     discord
     docker-compose
     element-desktop
-    emacs
     entr
     evince
     eza
