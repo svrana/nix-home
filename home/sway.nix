@@ -457,7 +457,7 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      ExecStart = "${pkgs.bash}/bin/bash -c '${file_manager}'";
+      ExecStart = "${file_manager}";
       Restart = "always";
     };
   };
