@@ -9,7 +9,6 @@ let
 in
 {
   home.sessionVariables = {
-      EDITOR = "nvim";
       MANPAGER = "nvim +Man!";
       TERMINAL = "${config.settings.terminal.executable}";
 
