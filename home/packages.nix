@@ -57,6 +57,7 @@
     tdesktop
     tealdeer
     tilt
+    tmux-sessionizer
     tmuxinator
     tree
     typescript

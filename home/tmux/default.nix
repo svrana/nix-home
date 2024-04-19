@@ -1,6 +1,12 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
+  xdg.configFile."tms/config.toml".text = ''
+[[search_dirs]]
+path = "/home/shaw/Projects"
+depth = 10
+  '';
+
   programs.tmux = {
     enable = true;
     baseIndex = 1;
