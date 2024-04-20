@@ -1199,10 +1199,10 @@ in
         config = ''
           -- move away from nvim-tree so tab name doesn't stay nvim-tree and lose my place
           local swap_then_open_tab = function()
-	        local api = require("nvim-tree.api")
-	        local node = api.tree.get_node_under_cursor()
-	        vim.cmd("wincmd l")
-	        api.node.open.tab(node)
+            local api = require("nvim-tree.api")
+            local node = api.tree.get_node_under_cursor()
+            vim.cmd("wincmd l")
+            api.node.open.tab(node)
           end
 
          local function on_attach(bufnr)
