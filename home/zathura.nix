@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  colors = config.settings.theme.withHashTag;
+  colors = config.my.theme.withHashTag;
 in
 {
   programs.zathura = {

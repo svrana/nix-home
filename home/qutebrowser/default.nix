@@ -23,7 +23,7 @@
 #
 #   register: Entered when qutebrowser is waiting for a register name/key for commands like :set-mark.
 let
-  colors = config.settings.theme.withHashTag;
+  colors = config.my.theme.withHashTag;
   solCSS = "${pkgs.solarized-everything-css}/share/css";
   qutepassmod = pkgs.writers.writePython3Bin "qute-pass-mod" {
     flakeIgnore=["E501" "E402" "E265"];
@@ -121,7 +121,7 @@ in
         remove_finished = 10;
       };
       fonts = {
-        default_size = config.settings.qutebrowser.fonts.size;
+        default_size = config.my.qutebrowser.fonts.size;
         default_family = "DejaVu Sans Mono";
         completion = {
           entry = "default_size 'DejaVu Sans Mono'";
@@ -137,7 +137,7 @@ in
           warning = "default_size 'DejaVu Sans Mono'";
         };
         prompts = "default_size 'SFNS Display Regular'";
-        web.size = config.settings.qutebrowser.fonts.web.size;
+        web.size = config.my.qutebrowser.fonts.web.size;
       };
       scrolling.smooth = true;
       editor = {

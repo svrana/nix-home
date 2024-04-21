@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  colors = config.settings.theme;
+  colors = config.my.theme;
 in
 {
   programs.foot = {
@@ -8,7 +8,7 @@ in
     settings = {
       main = {
         #term = "xterm-256color"; # seems to apply dir-colors afterwards, though messes up when loading vim in tmux
-        font = config.settings.terminal.font;
+        font = config.my.terminal.font;
         #dpi-aware="yes";
       };
       # these are the defaults (which are based on solarized-dark which I use elsewhere, but there's talk of changing

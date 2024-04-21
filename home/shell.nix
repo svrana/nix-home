@@ -10,7 +10,7 @@ in
 {
   home.sessionVariables = {
       MANPAGER = "nvim +Man!";
-      TERMINAL = "${config.settings.terminal.executable}";
+      TERMINAL = "${config.my.terminal.executable}";
 
       RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
 

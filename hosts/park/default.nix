@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  config.settings = {
+  config.my = {
     waybar = {
       interfaces = "wlp3s0";
     };

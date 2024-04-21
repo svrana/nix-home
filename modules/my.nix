@@ -43,7 +43,7 @@ let
 in
 {
   options = {
-    settings = {
+    my = {
       theme = {
         withHashTag = {
           base04 = mkStrOpt "#839496";

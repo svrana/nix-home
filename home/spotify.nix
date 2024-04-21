@@ -1,6 +1,6 @@
 { config, pkgs, home, lib, spicetify-nix, ... }:
 let
-  colors = config.settings.theme;
+  colors = config.my.theme;
 in
 {
   imports = [ spicetify-nix.homeManagerModule ];

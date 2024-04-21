@@ -1,6 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  colors = config.settings.theme.withHashTag;
+  colors = config.my.theme.withHashTag;
 in
 {
   services.dunst = {
@@ -24,7 +24,7 @@ in
         separator_color = "frame";
         sort = "yes";
         idle_threshold = 0;
-        font = "System San Francisco Display ${toString config.settings.dunst.fontSize}";
+        font = "System San Francisco Display ${toString config.my.dunst.fontSize}";
         line_height = 4;
         markup = "full";
         # The format of the message.  Possible variables are:

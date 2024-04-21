@@ -1,7 +1,8 @@
 { config, pkgs, lib, wayland-pipewire-idle-inhibit, ... }:
 let
-  c = config.settings.theme.withHashTag;
-  colors = config.settings.theme;
+  inherit (config) my;
+  c = config.my.theme.withHashTag;
+  colors = config.my.theme;
 in {
   programs.home-manager.enable = true;
 
@@ -240,7 +241,7 @@ in {
   '';
 
   xresources = {
-    extraConfig = "Xft.dpi: ${toString config.settings.x.dpi}";
+    extraConfig = "Xft.dpi: ${toString my.x.dpi}";
     path = "${config.home.homeDirectory}/.config/X11/Xresources";
   };
 
@@ -277,10 +278,10 @@ in {
     enable = true;
     settings = {
       main = {
-        font="${config.settings.fuzzel.font}";
+        font="${my.fuzzel.font}";
         layer = "overlay";
-        width=config.settings.fuzzel.width;
-        inner-pad=config.settings.fuzzel.inner_pad;
+        width=my.fuzzel.width;
+        inner-pad=my.fuzzel.inner_pad;
         prompt="'❯ '";
       };
       key-bindings = {

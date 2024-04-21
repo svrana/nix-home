@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 let
-  colors = config.settings.theme.withHashTag;
-  c = config.settings.theme;
-  waybar = config.settings.waybar;
+  colors = config.my.theme.withHashTag;
+  c = config.my.theme;
+  waybar = config.my.waybar;
   yazi = "${pkgs.yazi}/bin/yazi";
-  terminal = "${config.settings.terminal.executable}";
+  terminal = "${config.my.terminal.executable}";
   file_manager = "${terminal} --title file-manager --app-id file-manager -e ${yazi}";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   email_client = "${terminal} --title email --app-id email -e aerc";
@@ -81,7 +81,7 @@ in
         #newWindow = "focus";
         newWindow = "urgent";
       };
-      fonts = config.settings.wm.fonts;
+      fonts = config.my.wm.fonts;
       colors = {
         focused = {
           border = "#4c7899";

@@ -1,6 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  colors = config.settings.theme;
+  colors = config.my.theme;
 in
 {
   programs.alacritty = {
@@ -23,18 +23,18 @@ in
 
         font = {
           normal = {
-            family = config.settings.alacritty.fontFamily;
+            family = config.my.alacritty.fontFamily;
             style = "Regular";
           };
           bold = {
-            family = config.settings.alacritty.fontFamily;
+            family = config.my.alacritty.fontFamily;
             style = "Bold";
           };
           italic = {
-            family = config.settings.alacritty.fontFamily;
+            family = config.my.alacritty.fontFamily;
             style = "Italic";
           };
-          size = config.settings.alacritty.fontSize;
+          size = config.my.alacritty.fontSize;
           offset.x = 0;
           offset.y = 0;
         };

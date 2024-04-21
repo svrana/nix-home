@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  c = config.settings.theme.withHashTag;
+  c = config.my.theme.withHashTag;
 in
 {
   xdg.configFile."tms/config.toml".text = ''

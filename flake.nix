@@ -58,7 +58,7 @@
             inherit (nixpkgsConfig) config overlays;
           };
           modules = [
-            modules/settings.nix
+            modules/my.nix
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
           ] ++ extraModules;
           extraSpecialArgs = inputs;
