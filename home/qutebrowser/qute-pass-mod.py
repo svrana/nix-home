@@ -82,7 +82,7 @@ argument_parser.add_argument('--username-target', '-U', choices=['path', 'secret
                              help='The target for the username regular expression')
 argument_parser.add_argument('--password-pattern', '-P', default=r'Password:\s?(.+)',
                              help='Regular expression that matches the password')
-argument_parser.add_argument('--dmenu-invocation', '-d', default='rofi -dmenu',
+argument_parser.add_argument('--dmenu-invocation', '-d', default='fuzzel -d',
                              help='Invocation used to execute a dmenu-provider')
 argument_parser.add_argument('--no-insert-mode', '-n', dest='insert_mode', action='store_false',
                              help="Don't automatically enter insert mode")
