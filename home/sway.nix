@@ -6,6 +6,7 @@ let
   yazi = "${pkgs.yazi}/bin/yazi";
   terminal = "${config.my.terminal.executable}";
   file_manager = "${terminal} --title file-manager --app-id file-manager -e ${yazi}";
+  notes = "${terminal} --title notes --app-id notes -e nvim ~/Documents/org/home";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   email_client = "${terminal} --title email --app-id email -e aerc";
   fuzzel-pass = pkgs.writeScript "fuzzel-pass" ''
@@ -137,6 +138,7 @@ in
           "${mod}+slash" = "workspace 6";
           "${mod}+7" = "workspace 7";
           "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
+          "${mod}+0" = ''[app_id="notes"] scratchpad show'';
           "${mod}+a" = "focus parent";
           "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
           "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
@@ -223,6 +225,7 @@ in
       for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="file-manager"] move scratchpad, move position 1000 200, resize set 1800 1900
+      for_window [app_id="notes"] move scratchpad, move position 1000 200, resize set 1800 1900
 
       assign [app_id="qutebrowser"] $ws3
 
@@ -458,6 +461,19 @@ in
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
       ExecStart =  "${pkgs.bash}/bin/bash -lc '${file_manager}'";
+      Restart = "always";
+    };
+  };
+
+  systemd.user.services.notes = {
+    Unit = {
+      Description = "sway-stashed notes";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+    Install = { WantedBy = [ "sway-session.target" ]; };
+    Service = {
+      ExecStart =  "${pkgs.bash}/bin/bash -lc '${notes}'";
       Restart = "always";
     };
   };
