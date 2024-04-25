@@ -287,6 +287,7 @@ in {
       key-bindings = {
         cancel="Control+bracketleft";
         delete-prev-word="Control+w";
+        delete-line="Control+u";
       };
       colors.background = "${colors.base00}ff";
       colors.border = "${colors.base0C}ff";
