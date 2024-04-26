@@ -91,15 +91,15 @@ in
         "]" = "tab-next";
         "[" = "tab-prev";
         "x" = "tab-close";
-        ",q" = "tab-close";
-        ",nt" = "open -t";
-        ",nw" = "open -w";
-        ",l" = "spawn --userscript qute-pass-mod --mode gopass";
-        ",u" = "spawn --userscript qute-pass-mod --mode gopass --username-only --no-insert-mode";
-        ",p" = "spawn --userscript qute-pass-mod --mode gopass --password-only --no-insert-mode";
+        " q" = "tab-close";
+        " nt" = "open -t";
+        " nw" = "open -w";
+        " l" = "spawn --userscript qute-pass-mod --mode gopass";
+        " u" = "spawn --userscript qute-pass-mod --mode gopass --username-only --no-insert-mode";
+        " p" = "spawn --userscript qute-pass-mod --mode gopass --password-only --no-insert-mode";
         "{" = "tab-move -";
         "}" = "tab-move +";
-        ",t" = "tab-pin";
+        " t" = "tab-pin";
       };
     };
     settings = {

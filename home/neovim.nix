@@ -54,7 +54,7 @@ let
 in
 {
   xdg.configFile."nvim/init.lua".text = lib.mkBefore ''
-    vim.g.mapleader = ","
+    vim.g.mapleader = " "
   '';
 
   programs.neovim = {
