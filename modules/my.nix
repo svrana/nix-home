@@ -119,7 +119,7 @@ in
           type = types.str;
         };
         executable = mkOption {
-          default = "${pkgs.foot}/bin/foot";
+          default = "${lib.getExe pkgs.foot}";
           type = types.str;
         };
       };

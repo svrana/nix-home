@@ -3,11 +3,11 @@ let
   colors = config.my.theme.withHashTag;
   c = config.my.theme;
   waybar = config.my.waybar;
-  yazi = "${pkgs.yazi}/bin/yazi";
+  yazi = "${lib.getExe pkgs.yazi}";
   terminal = "${config.my.terminal.executable}";
   file_manager = "${terminal} --title file-manager --app-id file-manager -e ${yazi}";
   notes = "${terminal} --title notes --app-id notes -e nvim ~/Documents/org/home";
-  fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
+  fuzzel = "${lib.getExe pkgs.fuzzel}";
   email_client = "${terminal} --title email --app-id email -e aerc";
   fuzzel-pass = pkgs.writeScript "fuzzel-pass" ''
     #!/usr/bin/env bash
@@ -155,7 +155,7 @@ in
           "${mod}+q" = "kill";
           "${mod}+r" = "mode resize";
           "${mod}+u" = ''[app_id="file-manager"] scratchpad show'';
-          "${mod}+w" = ''exec --no-startup-id ${pkgs.clipman}/bin/clipman pick -t CUSTOM --tool-args="fuzzel -d"'';
+          "${mod}+w" = ''exec --no-startup-id ${lib.getExe pkgs.clipman} pick -t CUSTOM --tool-args="fuzzel -d"'';
           "${mod}+Shift+y" = ''exec --no-startup-id "${email_client}"'';
           "${mod}+Shift+c" = "exec swaymsg reload && notify-send 'sway config reloaded'";
           "${mod}+Shift+e" = ''mode "exit: l)ogout r)eboot su)spend h)ibernate s)hutdown"'';
