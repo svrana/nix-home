@@ -7,7 +7,7 @@
       source ${pkgs.kubectl}/share/bash-completion/completions/kubectl.bash
       complete -F __start_kubectl k
   '';
-  programs.bash.shellAliases = {
+  home.shellAliases = {
       "k" = "kubectl";
   };
 }

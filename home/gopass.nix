@@ -8,7 +8,7 @@
     PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
   };
 
-  programs.bash.shellAliases = {
+  home.shellAliases = {
     "pass" = "gopass";
   };
 }

@@ -4,7 +4,7 @@
     glow
   ];
 
-  programs.bash.shellAliases = {
+  home.shellAliases = {
     "glow" = "glow -p";
   };
 }

@@ -11,7 +11,7 @@
     AWS_VAULT_PASS_PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
   };
 
-  programs.bash.shellAliases = {
+  home.shellAliases = {
       "av" = "aws-vault";
   };
 }
