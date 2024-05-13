@@ -10,7 +10,7 @@ in
       "--multi"
       "--reverse"
       "--info inline"
-      "--bind=ctrl-f:page-down,ctrl-b:page-up"
+      "--bind=ctrl-f:page-down,ctrl-b:page-up,ctrl-y:accept"
       "--height=40%"
       "--color='bg+:${colors.base01},pointer:${colors.base0C},hl+:${colors.base08},hl:${colors.base0B}'"
     ];
