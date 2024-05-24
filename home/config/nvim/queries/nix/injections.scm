@@ -6,11 +6,11 @@
   (binding
     attrpath: (attrpath) @_keys (#eq? @_keys "config")
       (indented_string_expression
-        (string_fragment) @lua))
+        (string_fragment) @injection.content (#set! injection.language "lua")))
 )
 
 (binding
 	attrpath: (attrpath) @_key (#eq? @_key "extraConfig")
 	(indented_string_expression
-		(string_fragment) @vim)
+		(string_fragment) @injection.content (#set! injection.language "vim"))
 )
