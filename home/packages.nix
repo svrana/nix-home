@@ -9,7 +9,7 @@
     clipman
     ctlptl
     dante
-    dbeaver
+    dbeaver-bin
     diffstat
     discord
     docker-compose
@@ -36,7 +36,7 @@
     maim
     mpv
     networkmanager_dmenu
-    nixfmt
+    nixfmt-rfc-style
     nixpkgs-review
     nodejs
     pkgs.kubernetes-helm

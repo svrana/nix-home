@@ -71,7 +71,7 @@ in
       buf-language-server
       code-minimap
       iferr
-      nixfmt
+      nixfmt-rfc-style
       nixd
       nodePackages.prettier
       nodePackages.vim-language-server
@@ -705,27 +705,27 @@ in
       cmp-nvim-lsp
       cmp-nvim-lua
       cmp-latex-symbols
-      {
-        plugin = neorg;
-        type = "lua";
-        config = ''
-          require('neorg').setup {
-            load = {
-              ["core.defaults"] = {},
-              ["core.concealer"] = {},
-              ["core.autocommands"] = {},
-              ["core.integrations.treesitter"] = {},
-              ["core.dirman"] = {
-                config = {
-                  workspaces = {
-                    home = "~/Documents/org/home",
-                  }
-                }
-              }
-            }
-          }
-        '';
-      }
+      /* { */
+      /*   plugin = neorg; */
+      /*   type = "lua"; */
+      /*   config = '' */
+      /*     require('neorg').setup { */
+      /*       load = { */
+      /*         ["core.defaults"] = {}, */
+      /*         ["core.concealer"] = {}, */
+      /*         ["core.autocommands"] = {}, */
+      /*         ["core.integrations.treesitter"] = {}, */
+      /*         ["core.dirman"] = { */
+      /*           config = { */
+      /*             workspaces = { */
+      /*               home = "~/Documents/org/home", */
+      /*             } */
+      /*           } */
+      /*         } */
+      /*       } */
+      /*     } */
+      /*   ''; */
+      /* } */
       {
         plugin = nvim-cmp;
         type = "lua";

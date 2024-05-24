@@ -89,7 +89,6 @@ in {
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryFlavor = "gnome3";
     defaultCacheTtl = 8 * 60 * 60;
     maxCacheTtl = 8 * 60 * 60;
   };
@@ -297,7 +296,7 @@ in {
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
+    enableBashIntegration = true;
     icons = true;
     extraOptions = [ "--group-directories-first" ];
   };

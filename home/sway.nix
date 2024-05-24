@@ -5,8 +5,8 @@ let
   waybar = config.my.waybar;
   yazi = "${lib.getExe pkgs.yazi}";
   terminal = "${config.my.terminal.executable}";
-  file_manager = "${terminal} --title file-manager --app-id file-manager -e ${yazi}";
-  notes = "${terminal} --title notes --app-id notes -e nvim ~/Documents/org/home";
+  file_manager = "${terminal} --title file-manager --app-id file-manager --window-size-pixels=1700x1900 -e ${yazi}";
+  notes = "${terminal} --title notes --app-id notes --window-size-pixels=1700x1900 -e nvim ~/Documents/org/home";
   fuzzel = "${lib.getExe pkgs.fuzzel}";
   email_client = "${terminal} --title email --app-id email -e aerc";
   fuzzel-pass = pkgs.writeScript "fuzzel-pass" ''
@@ -447,7 +447,7 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      ExecStart = "${pkgs.bash}/bin/bash -lc '${terminal} --app-id scratch-term --title scratch'";
+      ExecStart = "${pkgs.bash}/bin/bash -lc '${terminal} --app-id scratch-term --title scratch --window-size-pixels=1700x1900'";
       Restart = "always";
     };
   };
