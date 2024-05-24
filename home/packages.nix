@@ -11,7 +11,6 @@
     dante
     dbeaver-bin
     diffstat
-    discord
     docker-compose
     element-desktop
     entr

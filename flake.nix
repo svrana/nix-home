@@ -12,10 +12,6 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    discord-overlay = {
-      url = "github:InternetUnexplorer/discord-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +22,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, discord-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -103,7 +99,6 @@
               overlayFiles');
           in
           overlayFiles // {
-            discord-overlay = discord-overlay.overlay;
           };
 
         # deploy '.#bocana'

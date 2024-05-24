@@ -22,26 +22,6 @@
         "type": "github"
       }
     },
-    "discord-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1716490833,
-        "narHash": "sha256-HJIi5tGMi8sQOCN1wlNe5Ges7LlC9cXuSi0VA4h+FPk=",
-        "owner": "InternetUnexplorer",
-        "repo": "discord-overlay",
-        "rev": "182a92678f5c8addeacf21ccb00fe2d73950d48c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "InternetUnexplorer",
-        "repo": "discord-overlay",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -200,7 +180,6 @@
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
-        "discord-overlay": "discord-overlay",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
