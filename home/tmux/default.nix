@@ -11,6 +11,9 @@ depth = 10
 [picker_colors]
 highlight_color = "${c.base01}"
 highlight_text_color = "${c.base05}"
+
+[shortcuts]
+"ctrl-y" = "confirm"
   '';
 
   programs.tmux = {
