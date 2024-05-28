@@ -226,6 +226,7 @@ in
            comment_italics = true,
            background_set = true,
       })
+      vim.cmd("colorscheme neosolarized")
       -- haskell goes overboard with warnings and is distracting
       -- and for some reason some code actions appear to use this highlight group, which makes no sense to me.
       ns.Group.link('WarningMsg', ns.groups.Comment)
