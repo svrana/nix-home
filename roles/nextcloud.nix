@@ -2,7 +2,7 @@
 {
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud28;
+    package = pkgs.nextcloud29;
     hostName = "nextcloud.heimlab.link";
     # use https for generated links
     https = true;
