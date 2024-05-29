@@ -118,7 +118,6 @@ in
         opt.updatetime = 100
         opt.background = "dark"
         opt.pyx = 3
-        opt.termguicolors = true
         opt.cursorline = true
         opt.number = true
         opt.relativenumber = true
@@ -608,7 +607,6 @@ in
       {
         plugin = nvim-colorizer-lua;
         config = ''
-          set termguicolors
           lua << EOF
             require('colorizer').setup();
           EOF
@@ -623,7 +621,6 @@ in
         '';
       }
       {
-        #plugin = lspsaga-nvim-original;
         plugin = lspsaga-nvim;
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
