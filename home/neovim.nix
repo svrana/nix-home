@@ -607,10 +607,9 @@ in
       }
       {
         plugin = nvim-colorizer-lua;
+        type = "lua";
         config = ''
-          lua << EOF
             require('colorizer').setup();
-          EOF
         '';
       }
       {
