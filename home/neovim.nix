@@ -535,6 +535,7 @@ in
       }
       {
         plugin = vim-rooter;
+        type = "viml";
         config = ''
           let g:rooter_cd_cmd = 'lcd'";
           let g:rooter_silent_chdir = 1
@@ -622,6 +623,7 @@ in
       }
       {
         plugin = lspsaga-nvim;
+        type = "viml";
         config = ''
           nnoremap <silent> K :Lspsaga hover_doc<CR>
           vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
@@ -644,6 +646,7 @@ in
       }
       {
         plugin = vim-latex-live-preview;
+        type = "viml";
         config = ''
           let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
           let g:livepreview_cursorhold_recompile = 0
@@ -1158,6 +1161,7 @@ in
       vim-lastplace
       {
         plugin = vim-markdown-composer;
+        type = "viml";
         config = ''
           let g:markdown_composer_autostart = 0
           let g:markdown_composer_browser="firefox"
