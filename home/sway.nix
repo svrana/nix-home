@@ -27,7 +27,6 @@ let
       tproject dots $DOTFILES
       tproject nixpkgs $PROJECTS/nixpkgs
       tproject vranix $PROJECTS/vranix.com
-      tproject notes $DOCUMENTS/org/home
       tproject b6 $PROJECTS/b6/bommie
       tproject b6-infra $PROJECTS/b6/bommie
 
