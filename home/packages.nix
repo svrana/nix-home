@@ -33,7 +33,6 @@
     libreoffice
     libsixel
     maim
-    mpv
     networkmanager_dmenu
     nixfmt-rfc-style
     nixpkgs-review

@@ -31,7 +31,7 @@ bocana: ## Deploy bocana
 
 .PHONY: home
 home: ## Build home-manager configuration for the current system
-	home-manager switch --flake .#${HOSTNAME}
+	home-manager switch --show-trace --flake .#${HOSTNAME}
 
 .PHONY: system
 system: ## Build system

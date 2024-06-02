@@ -263,6 +263,15 @@ in {
       gpu-context = "wayland";
       background = c.base00;
       force-window = "immediate";
+      osc = "no";
+      hwdec = "auto-safe";
+      vo = "gpu";
+    };
+    defaultProfiles = [ "gpu-hq" ];
+    scripts = builtins.attrValues {
+      inherit (pkgs.mpvScripts)
+      mpv-osc-modern
+      ;
     };
   };
 
