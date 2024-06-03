@@ -1,4 +1,4 @@
-{ config, pkgs, lib, wayland-pipewire-idle-inhibit, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (config) my;
   c = config.my.theme.withHashTag;
