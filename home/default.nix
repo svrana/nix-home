@@ -10,8 +10,6 @@ in {
   home = {
     username = "shaw";
     homeDirectory = "/home/shaw";
-    # workaround for https://github.com/nix-community/home-manager/issues/2219
-    keyboard = null;
     sessionPath = [ "/home/shaw/.local/bin" ];
   };
   news.display = "silent";
