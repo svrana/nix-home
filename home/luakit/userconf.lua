@@ -32,7 +32,7 @@ modes.remap_binds("normal", {
 })
 
 modes.remap_binds("normal", {
-	{ ",nt", ":tabopen<CR>", true },
+	{ " nt", ":tabopen<CR>", true },
 })
 
 modes.remap_binds("normal", {
