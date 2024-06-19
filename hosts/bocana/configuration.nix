@@ -4,10 +4,10 @@
     ./hardware-configuration.nix
     ../../arch/amd
     ../../roles/standard
-    ../../roles/nextcloud.nix
+    #../../roles/nextcloud.nix
     ../../roles/print-server.nix
     ../../roles/syncthing.nix
-    #../../roles/borgbase-backup.nix
+    ../../roles/borgbase-backup.nix
     ../../roles/media.nix
   ];
 
