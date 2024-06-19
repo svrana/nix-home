@@ -316,7 +316,7 @@ in
     ];
     style = ''
       * {
-        font-family: 'Roboto Mono for Powerline', 'UbuntuMono Nerd Font', 'SFNS Display', Helvetica, Arial, sans-serif;
+        font-family: 'Roboto Mono for Powerline', 'UbuntuMono Nerd Font';
         border: none;
         border-radius: 2px;
         font-size: 13px;
