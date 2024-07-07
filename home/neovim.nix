@@ -80,7 +80,7 @@ in
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
-      nodePackages.pyright
+      pyright
       ccls
       nil
       impl # for goimpl
@@ -911,7 +911,7 @@ in
              'bufls',
              'yamlls',
              'nil_ls',
-             -- 'nixd',
+             'nixd',
              'dockerls',
              'vimls',
              'ccls',

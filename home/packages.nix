@@ -19,8 +19,8 @@
     gh
     gimp
     gitAndTools.hub
-    gnome.eog
-    gnome.nautilus
+    eog
+    nautilus
     gnupg
     google-chrome
     grim

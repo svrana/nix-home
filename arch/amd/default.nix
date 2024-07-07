@@ -2,5 +2,5 @@
 {
   hardware.cpu.amd.updateMicrocode = true;
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 }
