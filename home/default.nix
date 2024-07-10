@@ -11,6 +11,7 @@ in {
     username = "shaw";
     homeDirectory = "/home/shaw";
     sessionPath = [ "/home/shaw/.local/bin" ];
+    preferXdgDirectories = true;
   };
   news.display = "silent";
   nixpkgs.config.allowUnfree = true;
