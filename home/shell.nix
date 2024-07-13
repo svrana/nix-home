@@ -34,8 +34,6 @@ in
       PULUMI_HOME = "$HOME/.config/pulumi";
       TILT_DEV_DIR = "$HOME/.config/tilt";
       HISTFILE = "$HOME/.local/state/bash_history";
-      XCOMPOSEFILE = "$HOME/.config/X11/xcompose";
-      XCOMPOSECACHE = "$HOME/.cache/X11/xcompose";
 
       NETRC = "$HOME/.config/netrc";
       PSQLRC = "$HOME/.config/psql/config ";

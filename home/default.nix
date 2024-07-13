@@ -82,7 +82,7 @@ in {
 
   programs.gpg = {
     enable = true;
-    homedir = "${config.home.homeDirectory}/.config/gnupg";
+    homedir = "${config.xdg.configHome}/gnupg";
   };
   services.gpg-agent = {
     enable = true;
@@ -238,10 +238,11 @@ in {
       wifi_chars = ▂▄▆█
   '';
 
-  xresources = {
-    extraConfig = "Xft.dpi: ${toString my.x.dpi}";
-    path = "${config.home.homeDirectory}/.config/X11/Xresources";
-  };
+  # Do I need this anymore? don't see an xrdb call anywhere
+  /* xresources = { */
+  /*   extraConfig = "Xft.dpi: ${toString my.x.dpi}"; */
+  /*   path = "${config.xdg.configHome}/X11/Xresources"; */
+  /* }; */
 
   programs.z-lua = {
     enable = true;
