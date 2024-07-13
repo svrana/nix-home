@@ -30,7 +30,6 @@ in {
     ./bat.nix
     ./cdp.nix
     ./cmus
-    ./dircolors
     ./direnv
     ./docker.nix
     ./dunst.nix
@@ -355,5 +354,9 @@ in {
   xdg.configFile."luakit" = {
     source = ./luakit;
     recursive = true;
+  };
+  programs.dircolors = {
+    enable = true;
+    extraConfig = builtins.readFile ./config/dircolors;
   };
 }
