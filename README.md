@@ -4,12 +4,18 @@
 
 [Nix](https://nixos.org) configuration for the machines I use.
 
-I manage my user configuration with [home-manager](https://github.com/nix-community/home-manager). I do not configure
-home-manager as a module as I frequently make configuration changes for which I do not want boot entries.
+## Software used
 
-## Versioning
+1. flakes
+2. [home-manager](https://github.com/nix-community/home-manager). (stand-alone)
+3. wayland
+4. [deploy-rs](https://github.com/serokell/deploy-rs) for server deployment (bocana)
 
-Packages are pinned with flakes..
+## Machines
+
+prentiss
+bocana - server, syncthing and others
+park - dev machine
 
 ## Operations
 
@@ -27,7 +33,7 @@ To deploy the home (dotfile) configuration:
 make home
 ```
 
-To deploy the other machines on my home network, I use [deploy-rs](https://github.com/serokell/deploy-rs). i.e.,
+### Server hosts are deployed with deploy-rs
 
 ```
 deploy .#bocana
