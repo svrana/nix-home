@@ -13,9 +13,9 @@
 
 ## Machines
 
-prentiss
-bocana - server, syncthing and others
-park - dev machine
+* prentiss
+* bocana - server, syncthing and others
+* park - dev machine
 
 ## Operations
 
