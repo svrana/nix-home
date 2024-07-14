@@ -14,13 +14,12 @@
     docker-compose
     element-desktop
     entr
+    eog
     evince
     eza
     gh
     gimp
     gitAndTools.hub
-    eog
-    nautilus
     gnupg
     google-chrome
     grim
@@ -29,15 +28,16 @@
     imv
     kind
     kubectx
+    kubernetes-helm
     ledger-live-desktop
     libreoffice
     libsixel
     maim
+    nautilus
     networkmanager_dmenu
     nixfmt-rfc-style
     nixpkgs-review
     nodejs
-    pkgs.kubernetes-helm
     prototool
     pulumi-bin
     python3
