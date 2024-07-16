@@ -212,13 +212,6 @@ in
     extraSessionCommands = ''
     '';
     extraConfig = ''
-      set $ws1 1
-      set $ws2 2
-      set $ws3 3
-      set $ws4 4
-      set $ws5 5
-      set $ws6 6
-
       default_border pixel 2
 
       for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
@@ -226,7 +219,8 @@ in
       for_window [app_id="file-manager"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="notes"] move scratchpad, move position 1000 200, resize set 1800 1900
 
-      assign [app_id="qutebrowser"] $ws3
+      assign [app_id="qutebrowser"] 3
+      assign [class="zoom"] 7
 
       seat * hide_cursor 3000
     '';
