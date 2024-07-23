@@ -63,9 +63,6 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    withPython3 = true;
-    withNodeJs = true;
-    extraPython3Packages = (ps: with ps; [ pynvim ]);
     extraPackages = with pkgs; [
       buf
       buf-language-server

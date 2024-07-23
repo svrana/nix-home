@@ -149,12 +149,6 @@ in {
     if [ -f $DOCUMENTS/apps/qutebrowser/bookmarks ]; then
       $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
     fi
-    # not sure if i'm using this anymore
-    if [ ! -d $XDG_DATA_HOME/nvim/black ]; then
-      $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/nvim/black
-      $DRY_RUN_CMD python3 -m venv $XDG_DATA_HOME/nvim/black
-      $DRY_RUN_CMD $XDG_DATA_HOME/nvim/black/bin/pip3 install black
-    fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
     # to export:
     #   gpg --output private.pgp --armor --export-secret-key shaw@vranix.com
