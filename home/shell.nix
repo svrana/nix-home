@@ -72,7 +72,6 @@ in
 
       "v" = "nvim";
       "vir" = "nvim -R -";
-      "r" = "ranger";
       "pl" = "pulumi";
 
       "cat" = "${pkgs.bat}/bin/bat";
