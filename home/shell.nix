@@ -13,8 +13,6 @@ in
       MANPAGER = "nvim +Man!";
       TERMINAL = "${config.my.terminal.executable}";
 
-      RANGER_ZLUA = "${pkgs.z-lua}/bin/z.lua";
-
       NIXPKGS_ALLOW_UNFREE = 1;
       NIXOS_OZONE_WL = 0; # electron apps should use wayland
       CABAL_HOME = "$HOME/.local/share/cabal";
@@ -30,7 +28,6 @@ in
       TEXMFHOME = "$HOME/.local/share/texmf";
       TEXMFVAR = "$HOME/.cache/texlive/texmf-var";
       TEXMFCONFIG = "$HOME/.config/texlive/texmf-config";
-      MINIKUBE_HOME = "$HOME/.config/minikube";
       PULUMI_HOME = "$HOME/.config/pulumi";
       TILT_DEV_DIR = "$HOME/.config/tilt";
       HISTFILE = "$HOME/.local/state/bash_history";
@@ -61,7 +58,6 @@ in
       PERSONAL = "$DOTFILES/personal";
       BIN_DIR = "$HOME/.local/bin";
       SCRIPTS = "$DOTFILES/home/scripts";
-      DOOMDIR = "$HOME/.config/doom";
     };
 
     shellAliases = {
