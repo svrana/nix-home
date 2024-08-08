@@ -144,7 +144,7 @@ in
           "${mod}+e" = "layout toggle split";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+h" = "focus left";
-          "${mod}+i" = "exec --no-startup-id ${fuzzel} -d < $XDG_CONFIG_HOME/qutebrowser/quickmarks | awk '{print $2}' | xargs -r qutebrowser";
+          "${mod}+i" = "exec --no-startup-id $BIN_DIR/fuzzel-search";
           "${mod}+j" = "focus down";
           "${mod}+k" = "focus up";
           "${mod}+l" = "focus right";
