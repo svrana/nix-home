@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
+#
+# Open the selected (Enter) quickmark in the browser or search for the text
+# with Shift-Enter.
+#
 
+browser=${BROWSER:-qutebrowser}
 selection=$(fuzzel -d < "$XDG_CONFIG_HOME/qutebrowser/quickmarks")
 if [ -z "$selection" ]; then
     exit 0
@@ -7,13 +12,16 @@ fi
 second=$(echo $selection | awk '{print $2}')
 # no second word? then this is a one-word search
 if [ -z "$second" ]; then
-    qutebrowser $selection
+    $browser $selection
+    swaymsg 'workspace 3'
     exit 0
 fi
 # assume this was a selection from the menu
 if [[ $second == http* ]]; then
-    qutebrowser "$second"
+    $browser "$second"
+    swaymsg 'workspace 3'
     exit 0
 fi
 # otherwise we've got a multi-word web-search
-qutebrowser "$selection"
+$browser "$selection"
+swaymsg 'workspace 3'
