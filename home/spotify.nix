@@ -3,13 +3,13 @@ let
   colors = config.my.theme;
 in
 {
-  imports = [ spicetify-nix.homeManagerModule ];
+  imports = [ spicetify-nix.homeManagerModules.default ];
 
   programs.spicetify = {
     enable = true;
     theme =
-      let spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
-      in spicePkgs.themes.Default;
+      let spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
+      in spicePkgs.themes.default;
     colorScheme = "custom";
     customColorScheme = {
       text = colors.base07;
