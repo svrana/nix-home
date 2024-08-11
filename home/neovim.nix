@@ -873,18 +873,14 @@ in
                  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                end, '[W]orkspace [L]ist Folders')
 
-             wk.register({
-               [ '<C-]>' ]   = { "<cmd>lua vim.lsp.buf.definition()<cr>",        "goto definition" },
-               [ "[d" ]      = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",  "prev diagnostic" },
-               [ "]d" ]      = { "<cmd>lua vim.diagnostic.goto_next()<cr>",  "next diagnostic" },
-               ["<leader>"]  = {
-                 c = {
-                   n = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "show callers" },
-                   D = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "show type definition" },
-                   s = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols<cr>", "workspace symbols" },
-                 },
-               },
-               ['gi'] = {  "<cmd>lua vim.lsp.buf.implementation()<cr>", "goto implementation" },
+             wk.add({
+                { "<C-]>", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "goto definition" },
+                { "<leader>cD", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "show type definition" },
+                { "<leader>cn", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", desc = "show callers" },
+                { "<leader>cs", "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols<cr>", desc = "workspace symbols" },
+                { "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "prev diagnostic" },
+                { "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "next diagnostic" },
+                { "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "goto implementation" },
              }, { buffer = buffnr })
 
              -- Create a command `:Format` local to the LSP buffer
@@ -1261,117 +1257,86 @@ in
         config = ''
           wk = require("which-key")
           wk.setup{
-            window = {
-              border = "single"
-            }
+            win = { border = "single" }
           }
-          wk.register({
-            c = {
-              name = "+code",
-              a = { "<cmd>Lspsaga code_action<cr>", "run Action" },
-              d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line Diagnostics"},
-              f = { "<cmd>Lspsaga lsp_finder<cr>", "Find usage" },
-              g = {
-                name = "+go",
-                s = { "<cmd>GoFillStruct<cr>",  "fill struct" },
-                w = { "<cmd>GoFillSwitch<cr>",  "fill switch" },
-                j = { "<cmd>GoAddTag<cr>",      "tag struct (json)" },
-                d = { "<cmd>GoAddTag db<cr>",   "tag struct (db)" },
-                m = { "<cmd>GoAddTag mapstructure<cr>", "tag struct (mapstructure)" },
-                i = { "<cmd>GoIfErr<cr>",       "add if err"  },
-                c = { "<cmd>GoCheat<cr>",       "cheat.sh"    },
-                t = {
-                  name = "+test",
-                  f = { "<cmd>GoTestFunc<cr>", "test func" },
-                  i = { "<cmd>GoTestFile<cr>", "test file" },
-                  a = { "<cmd>GoAddTest<cr>", "add test" },
-                }
-              },
-              i = { "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", "Implement interface" },
-              j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Jump next diagnostic" },
-              l = { "<cmd>LspRestart<cr>", "Restart LSP" },
-              p = { "<cmd>Lspsaga preview_definition<cr>", "Preview definition" },
-              r = { "<cmd>Lspsaga rename<cr>", "Rename" },
-              t = {
-                name = "+typescript",
-                i = { "<cmd>TypescriptAddMissingImports<cr>", "Add missing imports" },
-                f = { "<cmd>TypescriptFixAll<cr>", "Fix code problems" },
-                u = { "<cmd>TypescriptRemoveUnused<cr>", "Remove unused imports" },
-              },
-            },
-            d = {
-              name = "+display",
-              d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
-              n = {
-                name = "+number",
-                r = { "<cmd>set relativenumber!<cr>", "Relative line numbers" },
-                l = { "<cmd>set number!<cr>", "Line numbers" },
-              },
-            },
-            f = {
-              name = "+fuzzy",
-              d = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"}, -- hard for me to hit b
-              o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>",               "Old files"},
-              b = { "<cmd>lua require('telescope.builtin').buffers()<cr>",                "Buffers"},
-              f = { "<cmd>lua require('svrana.telescope').project_files()<cr>",           "Find" },
-              h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>",              "Help" },
-              n = { "<cmd>lua require('svrana.telescope').dots()<cr>",                    "dotfiles" },
-              r = { "<cmd>Rg<cr>",                                                        "Search file contents (rg)" }, -- fzf
-              s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>",              "Search file contents" },
-              z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
-            },
-            g = {
-              name = "+git",
-              b = {
-                name = "Blame",
-                f = { "<cmd>Git blame<cr>",                                                 "File" },        -- fugitive
-                l = { "<cmd>lua require('gitsigns').blame_line{full=true}<cr>",             "Line" },
-              },
-              g = { "<cmd>lua require('neogit').open()<cr>",                              "Toggle git" },
-              h = { "<cmd>GBrowse<cr>",                                                   "gitHub view" },  -- fugitive
-              s = { "<cmd>lua require('telescope.builtin').git_status()<cr>",             "Status"},
-              z = { "<cmd>lua require('telescope.builtin').git_branches()<cr>",           "brancheZ" },
-            },
-            h = {
-              name = "+harpoon",
-              s = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show" },
-              a = { "<cmd>lua require('harpoon.mark').add_file()<cr>",        "Add file" },
-              r = { "<cmd>lua require('harpoon.tmux').sendCommand('{bottom-right}', 1)<cr>", "Run command"},
-              e = { "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", "Edit command" },
-              ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
-              ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
-              ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "goto file 3" },
-              ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "goto file 4" },
-            },
-            p = {
-              name = "+preview",
-              l = { "<cmd>LLPStartPreview<cr>", "laTEX preview" },  -- vim-latex-live-preview
-              g = { "<cmd>Glow<cr>",          "Glow (markdown)" },                   -- glow-nvim
-              s = { "<cmd>ComposerStart<cr>", "Start markdown composer" },         --vim-markdown-composer
-            },
-            n = {
-              name = "+new",
-              t = { "<cmd>tabnew<cr>", "Tab" },
-            },
-            t = {
-              name = "+toggle",
-              c = { "<cmd>Neorg toggle-concealer<cr>", "Neorg concealer" },
-              n = { "<cmd>set relativenumber!<cr>", "Number" },
-              h = { "<cmd>set invhls hls?<cr>", "search Highlight" },
-              m = { "<cmd>MinimapToggle<cr>", "Minimap" }, -- minimap-vim
-              t = { "<cmd>lua require('nvim-tree.api').tree.toggle(false, true)<cr>", "Tree explorer" }, --nvim-tree-lua
-
-            },
-            w = { "<cmd>w<cr>", "Write file" },
-            q = { "<cmd>q<cr>", "Quit" },
-            u = {
-              name = "+quickfix",
-              c = { "<cmd>cclose<cr>", "Close" },
-              n = { "<cmd>cnext<cr>", "Next" },
-              p = { "<cmd>cprev<cr>", "Previous" },
-            },
-            z = { "<cmd>q!<cr>" },
-          }, { prefix = "<leader>" })
+          wk.add({
+            { "<leader>c", group = "code" },
+            { "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "run Action" },
+            { "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "show line Diagnostics" },
+            { "<leader>cf", "<cmd>Lspsaga lsp_finder<cr>", desc = "Find usage" },
+            { "<leader>cg", group = "go" },
+            { "<leader>cgc", "<cmd>GoCheat<cr>", desc = "cheat.sh" },
+            { "<leader>cgd", "<cmd>GoAddTag db<cr>", desc = "tag struct (db)" },
+            { "<leader>cgi", "<cmd>GoIfErr<cr>", desc = "add if err" },
+            { "<leader>cgj", "<cmd>GoAddTag<cr>", desc = "tag struct (json)" },
+            { "<leader>cgm", "<cmd>GoAddTag mapstructure<cr>", desc = "tag struct (mapstructure)" },
+            { "<leader>cgs", "<cmd>GoFillStruct<cr>", desc = "fill struct" },
+            { "<leader>cgt", group = "test" },
+            { "<leader>cgta", "<cmd>GoAddTest<cr>", desc = "add test" },
+            { "<leader>cgtf", "<cmd>GoTestFunc<cr>", desc = "test func" },
+            { "<leader>cgti", "<cmd>GoTestFile<cr>", desc = "test file" },
+            { "<leader>cgw", "<cmd>GoFillSwitch<cr>", desc = "fill switch" },
+            { "<leader>ci", "<cmd>lua require('telescope').extensions.goimpl.goimpl{}<cr>", desc = "Implement interface" },
+            { "<leader>cj", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Jump next diagnostic" },
+            { "<leader>cl", "<cmd>LspRestart<cr>", desc = "Restart LSP" },
+            { "<leader>cp", "<cmd>Lspsaga preview_definition<cr>", desc = "Preview definition" },
+            { "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+            { "<leader>ct", group = "typescript" },
+            { "<leader>ctf", "<cmd>TypescriptFixAll<cr>", desc = "Fix code problems" },
+            { "<leader>cti", "<cmd>TypescriptAddMissingImports<cr>", desc = "Add missing imports" },
+            { "<leader>ctu", "<cmd>TypescriptRemoveUnused<cr>", desc = "Remove unused imports" },
+            { "<leader>d", group = "display" },
+            { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
+            { "<leader>dn", group = "number" },
+            { "<leader>dnl", "<cmd>set number!<cr>", desc = "Line numbers" },
+            { "<leader>dnr", "<cmd>set relativenumber!<cr>", desc = "Relative line numbers" },
+            { "<leader>f", group = "fuzzy" },
+            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Buffers" },
+            { "<leader>fd", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Buffers" },
+            { "<leader>ff", "<cmd>lua require('svrana.telescope').project_files()<cr>", desc = "Find" },
+            { "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", desc = "Help" },
+            { "<leader>fn", "<cmd>lua require('svrana.telescope').dots()<cr>", desc = "dotfiles" },
+            { "<leader>fo", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", desc = "Old files" },
+            { "<leader>fr", "<cmd>Rg<cr>", desc = "Search file contents (rg)" },
+            { "<leader>fs", "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = "Search file contents" },
+            { "<leader>fz", "<cmd>lua require('telescope.builtin').git_branches()<cr>", desc = "brancheZ" },
+            { "<leader>g", group = "git" },
+            { "<leader>gb", group = "Blame" },
+            { "<leader>gbf", "<cmd>Git blame<cr>", desc = "File" },
+            { "<leader>gbl", "<cmd>lua require('gitsigns').blame_line{full=true}<cr>", desc = "Line" },
+            { "<leader>gg", "<cmd>lua require('neogit').open()<cr>", desc = "Toggle git" },
+            { "<leader>gh", "<cmd>GBrowse<cr>", desc = "gitHub view" },
+            { "<leader>gs", "<cmd>lua require('telescope.builtin').git_status()<cr>", desc = "Status" },
+            { "<leader>gz", "<cmd>lua require('telescope.builtin').git_branches()<cr>", desc = "brancheZ" },
+            { "<leader>h", group = "harpoon" },
+            { "<leader>h1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", desc = "goto file 1" },
+            { "<leader>h2", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", desc = "goto file 2" },
+            { "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", desc = "goto file 3" },
+            { "<leader>h4", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", desc = "goto file 4" },
+            { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Add file" },
+            { "<leader>he", "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", desc = "Edit command" },
+            { "<leader>hr", "<cmd>lua require('harpoon.tmux').sendCommand('{bottom-right}', 1)<cr>", desc = "Run command" },
+            { "<leader>hs", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Show" },
+            { "<leader>n", group = "new" },
+            { "<leader>nt", "<cmd>tabnew<cr>", desc = "Tab" },
+            { "<leader>p", group = "preview" },
+            { "<leader>pg", "<cmd>Glow<cr>", desc = "Glow (markdown)" },
+            { "<leader>pl", "<cmd>LLPStartPreview<cr>", desc = "laTEX preview" },
+            { "<leader>ps", "<cmd>ComposerStart<cr>", desc = "Start markdown composer" },
+            { "<leader>q", "<cmd>q<cr>", desc = "Quit" },
+            { "<leader>t", group = "toggle" },
+            { "<leader>tc", "<cmd>Neorg toggle-concealer<cr>", desc = "Neorg concealer" },
+            { "<leader>th", "<cmd>set invhls hls?<cr>", desc = "search Highlight" },
+            { "<leader>tm", "<cmd>MinimapToggle<cr>", desc = "Minimap" },
+            { "<leader>tn", "<cmd>set relativenumber!<cr>", desc = "Number" },
+            { "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle(false, true)<cr>", desc = "Tree explorer" },
+            { "<leader>u", group = "quickfix" },
+            { "<leader>uc", "<cmd>cclose<cr>", desc = "Close" },
+            { "<leader>un", "<cmd>cnext<cr>", desc = "Next" },
+            { "<leader>up", "<cmd>cprev<cr>", desc = "Previous" },
+            { "<leader>w", "<cmd>w<cr>", desc = "Write file" },
+            { "<leader>z", desc = "<cmd>q!<cr>" },
+          })
         '';
       }
     ];
