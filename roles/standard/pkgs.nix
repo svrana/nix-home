@@ -22,7 +22,7 @@
     tcpdump
     unzip
     usbutils
-    vim
+    neovim
     wget
     wirelesstools
     zip
