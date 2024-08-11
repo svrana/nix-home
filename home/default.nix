@@ -246,7 +246,8 @@ in {
     enable = true;
     config = {
       gpu-context = "wayland";
-      background = c.base00;
+      background = "color";
+      background-color = c.base00;
       force-window = "immediate";
       osc = "no";
       hwdec = "auto-safe";
