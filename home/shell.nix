@@ -44,7 +44,6 @@ in
       WGETRC = "$HOME/.config/wget/wgetrc";
       WORKON_HOME = "$HOME/.cache/virtualenvs";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
-      _ZL_DATA = "$HOME/.cache/zlua";
 
       TMP = "/tmp";
       CLOUD_ROOT = "$HOME/Cloud";

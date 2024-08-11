@@ -232,10 +232,8 @@ in {
       wifi_chars = ▂▄▆█
   '';
 
-  programs.z-lua = {
+  programs.zoxide = {
     enable = true;
-    enableAliases = true;
-    options = [ "enhanced" "fzf" "once" ];
   };
 
   programs.less = {
