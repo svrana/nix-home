@@ -179,6 +179,12 @@ in
           };
         };
       };
+      aerc = {
+        messageListVerticalSplitSize = mkOption {
+          default = 200;
+          type = types.int;
+        };
+      };
     };
   };
 }

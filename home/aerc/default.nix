@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, ... }:
 let
   sharedir = "${pkgs.aerc}/share/aerc";
   libexec = "${pkgs.aerc}/libexec/aerc";
@@ -100,6 +100,7 @@ in
     column-flags = {{.Flags | join ""}}
     column-subject = {{.ThreadPrefix}}{{.Subject}}
 
+    message-list-split=vertical ${toString config.my.aerc.messageListVerticalSplitSize}
 
     [viewer]
     #
