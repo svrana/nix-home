@@ -69,4 +69,6 @@
       22000 # syncthing
     ];
   };
+
+  services.fstrim.enable = true;
 }
