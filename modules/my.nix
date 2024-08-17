@@ -112,6 +112,16 @@ in
           '';
           description = "Font configuration for window titles, nagbar...";
         };
+        output = mkOption {
+          type = types.attrsOf (types.attrsOf types.str);
+          default = { };
+          example = { "DP-2" = { scale = "2"; }; };
+          description = ''
+          An attribute set that defines output modules. See
+          {manpage}`sway-output(5)`
+          for options. Run `swaymsg -t get_outputs` to get outputs.
+          '';
+        };
       };
       terminal = {
         font = mkOption {

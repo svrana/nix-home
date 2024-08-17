@@ -62,6 +62,7 @@ in
     wrapperFeatures.gtk = true;
     systemd.enable = true;
     config = {
+      output = config.my.wm.output;
       modifier = "Mod4";
       floating = {
         modifier = "Mod4";
