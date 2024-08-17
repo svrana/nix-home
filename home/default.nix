@@ -182,12 +182,8 @@ in {
       $DRY_RUN_CMD echo "Cloning gruf.."
       $DRY_RUN_CMD git clone git@github.com:svrana/gruf $PROJECTS/gruf
     fi
-
-    if [ -d $XDG_DATA_HOME/aerc ]; then
-      $DRY_RUN_CMD cp $PERSONAL/aerc/accounts.conf $XDG_DATA_HOME/aerc
-    fi
   '';
-  xdg.configFile."nvim" = {
+  xdk.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
   };

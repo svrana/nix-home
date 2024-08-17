@@ -11,6 +11,7 @@ in
 
   xdg.configFile."aerc/binds.conf".source = ../config/aerc/binds.conf;
   xdg.configFile."aerc/stylesets/solarized".source = ../config/aerc/solarized;
+  xdg.configFile."aerc/accounts.conf".source = ../config/aerc/accounts.conf;
 
   # home.activation.copyAercAccounts =
   #   lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -20,8 +21,9 @@ in
   #   '';
   #
   xdg.configFile."aerc/aerc.conf".text = ''
-    #
-    # aerc main configuration
+    [general]
+    # No password in accounts.conf so this is safe
+    unsafe-accounts-conf=true
 
     [ui]
     threading-enabled=true
