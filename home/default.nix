@@ -183,7 +183,7 @@ in {
       $DRY_RUN_CMD git clone git@github.com:svrana/gruf $PROJECTS/gruf
     fi
   '';
-  xdk.configFile."nvim" = {
+  xdg.configFile."nvim" = {
     source = ./config/nvim;
     recursive = true;
   };
