@@ -28,7 +28,6 @@ in {
     ./aws-vault.nix
     ./bash.nix
     ./bat.nix
-    ./cdp.nix
     ./cmus
     ./direnv
     ./docker.nix
@@ -39,7 +38,6 @@ in {
     ./glow.nix
     ./go.nix
     ./gopass.nix
-    ./gruf.nix
     ./k9s
     ./keybase.nix
     ./keychain.nix
@@ -166,21 +164,11 @@ in {
       $DRY_RUN_CMD git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
     fi
 
-    if [ ! -d $PROJECTS/cdp ]; then
-      $DRY_RUN_CMD echo "Cloning cdp.."
-      $DRY_RUN_CMD git clone git@github.com:svrana/cdp $PROJECTS/cdp
-    fi
-
     if [ ! -d $PROJECTS/neosolarized.nvim ]; then
       $DRY_RUN_CMD echo "Cloning neosolarized.."
       $DRY_RUN_CMD git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
       $DRY_RUN_CMD mkdir -p $HOME/.config/nvim/after/pack/foo/start
       $DRY_RUN_CMD ln -sf $PROJECTS/neosolarized.nvim $HOME/.config/nvim/after/pack/foo/start/neosolarized.nvim
-    fi
-
-    if [ ! -d $PROJECTS/gruf ]; then
-      $DRY_RUN_CMD echo "Cloning gruf.."
-      $DRY_RUN_CMD git clone git@github.com:svrana/gruf $PROJECTS/gruf
     fi
   '';
   xdg.configFile."nvim" = {
