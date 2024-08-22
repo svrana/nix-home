@@ -1,14 +1,14 @@
-{ config, pkgs, home, lib, spicetify-nix, ... }:
+{ config, pkgs, home, inputs, ... }:
 let
   colors = config.my.theme;
 in
 {
-  imports = [ spicetify-nix.homeManagerModules.default ];
+  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
   programs.spicetify = {
     enable = true;
     theme =
-      let spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
+      let spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
       in spicePkgs.themes.default;
     colorScheme = "custom";
     customColorScheme = {

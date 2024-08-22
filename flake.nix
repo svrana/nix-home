@@ -57,7 +57,7 @@
             modules/my.nix
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
           ] ++ extraModules;
-          extraSpecialArgs = inputs;
+          extraSpecialArgs = { inherit inputs; };
         };
     in
     (
