@@ -106,6 +106,7 @@
           hostname = "bocana";
           autoRollback = false;
           sshUser = "root";
+          magicRollback = false;
           fastConnection = true;
           profiles.system = {
             user = "root";
