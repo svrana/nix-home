@@ -20,6 +20,8 @@
       url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # 6.0.2 4680; last known working zoom w/ screen-sharing
+    nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf0124219363502";
   };
 
   outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, ... }@inputs:

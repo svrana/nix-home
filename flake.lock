@@ -159,6 +159,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-zoom": {
+      "locked": {
+        "lastModified": 1714011188,
+        "narHash": "sha256-hIVcUZcQxfjqnnRrDoHCTjlrNfUFKQYLaS41trdi01E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "06031e8a5d9d5293c725a50acf01242193635022",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "06031e8a5d9d5293c725a50acf0124219363502",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
@@ -166,6 +182,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-zoom": "nixpkgs-zoom",
         "spicetify-nix": "spicetify-nix",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
       }
