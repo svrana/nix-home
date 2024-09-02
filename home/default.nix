@@ -296,8 +296,8 @@ in {
   #   https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
   #
   # This is working and looks better than the default.
-  home.file.".icons/default/index.theme".text = ''
-    [icon theme]
+  xdg.dataFile."icons/default/index.theme".text = ''
+    [Icon Theme]
     Name=Default
     Comment=Default Cursor Theme
     Inherits=Vanilla-DMZ
