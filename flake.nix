@@ -67,7 +67,7 @@
             pkgs = nixpkgs.legacyPackages.${system};
           in
           {
-            devShell = pkgs.mkShell {
+            devShells.default= pkgs.mkShell {
               name = "dots";
               buildInputs = [
                 deploy-rs.packages.${system}.deploy-rs
