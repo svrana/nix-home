@@ -88,6 +88,7 @@ in
       rustfmt
       stylua
       terraform-lsp
+      shellcheck
     ];
     extraConfig = ''
       lua << EOF

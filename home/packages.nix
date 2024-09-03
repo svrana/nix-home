@@ -23,7 +23,6 @@ in
     eog
     evince
     eza
-    gh
     gimp
     gitAndTools.hub
     gnupg
@@ -37,7 +36,6 @@ in
     kubernetes-helm
     ledger-live-desktop
     libreoffice
-    libsixel
     maim
     nautilus
     networkmanager_dmenu
@@ -48,8 +46,6 @@ in
     pulumi-bin
     python3
     readline
-    shellcheck
-    shfmt
     slack
     slurp
     ssh-agents
@@ -59,7 +55,6 @@ in
     system-san-francisco-font
     sysz
     tdesktop
-    tealdeer
     tilt
     tmux-sessionizer
     tmuxinator
