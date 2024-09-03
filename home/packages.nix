@@ -9,7 +9,6 @@ in
   home.packages = with pkgs; [
     autotiling
     avizo
-    bc
     brightnessctl
     buf
     clipman
@@ -24,7 +23,6 @@ in
     evince
     eza
     gimp
-    gitAndTools.hub
     gnupg
     google-chrome
     grim
