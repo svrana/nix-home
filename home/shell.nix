@@ -70,6 +70,7 @@ in
       "P" = "popd";
 
       "v" = "nvim";
+      "svi" = "sudo vi";
       "vir" = "nvim -R -";
       "pl" = "pulumi";
 
@@ -81,6 +82,8 @@ in
       "nctl" = "networkctl";
 
       "make" = "make -j$(nproc)";
+
+      "path"= "echo -e \${PATH//:/\\n}";
     };
 };
 }

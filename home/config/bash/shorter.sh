@@ -1,6 +1,3 @@
-alias path='echo -e ${PATH//:/\\n}'
-alias svi='sudo vi'
-
 is() {
     if [ -z "$1" ]; then
         return
