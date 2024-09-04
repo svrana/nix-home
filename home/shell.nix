@@ -18,7 +18,6 @@ in
       CABAL_HOME = "$HOME/.local/share/cabal";
       CARGO_HOME = "$HOME/.local/share/cargo";
       DOCKER_CONFIG = "$HOME/.config/docker";
-      DOCKER_BUILDKIT = 1;
       GEM_HOME = "$HOME/.local/share/gem";
       GEM_SPEC_CACHE = "$HOME/.cache/gem";
       LESSHISTFILE = "-";
