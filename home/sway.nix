@@ -126,7 +126,7 @@ in
           mod = "Mod4";
         in
         {
-          "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show'';
+          "${mod}+minus" = ''[app_id="scratch-term"] scratchpad show;sticky enable'';
           "${mod}+Return" = "exec --no-startup-id ${terminal}";
           "${mod}+Shift+q" = "kill";
           "${mod}+1" = "workspace 1";
@@ -137,8 +137,8 @@ in
           "${mod}+6" = "workspace 6";
           "${mod}+slash" = "workspace 6";
           "${mod}+7" = "workspace 7";
-          "${mod}+9" = ''[app_id="Slack"] scratchpad show'';
-          "${mod}+0" = ''[app_id="notes"] scratchpad show'';
+          "${mod}+9" = ''[app_id="Slack"] scratchpad show;sticky enable'';
+          "${mod}+0" = ''[app_id="notes"] scratchpad show;sticky enable'';
           "${mod}+a" = "focus parent";
           "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
           "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
