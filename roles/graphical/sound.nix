@@ -17,11 +17,6 @@
     };
     wireplumber.enable = true;
     extraConfig = {
-      pipewire-pulse = {
-        "server.address" = [{
-          max-clients = 128;
-        }];
-      };
       pipewire = {
         "switch-on-connect" = {
           "pulse.cmd" = [
