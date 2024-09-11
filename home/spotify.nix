@@ -1,10 +1,10 @@
-{ config, pkgs, home, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   colors = config.my.theme;
   spotify-cleanup = pkgs.writeShellApplication {
     excludeShellChecks = [ "SC2086" "SC2068" ];
     name = "spotify-cleanup";
-    runtimeInputs = with pkgs; [ pulseaudio pipewire ];
+    runtimeInputs = with pkgs; [ pulseaudio pipewire gnugrep coreutils ];
     text = builtins.readFile ./scripts/spotify-cleanup.sh;
   };
 in
@@ -54,7 +54,7 @@ in
     };
     Service = {
       Type = "oneshot";
-      ExecStart = "${spotify-cleanup}/bin/spotify-cleanup";
+      ExecStart = "${lib.getExe spotify-cleanup}";
     };
     Install.WantedBy = [ "default.target" ];
   };
