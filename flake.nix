@@ -4,6 +4,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     flake-utils.url = "github:numtide/flake-utils";
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +28,7 @@
     nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf0124219363502";
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, lix-module, flake-utils, deploy-rs, home-manager, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -41,6 +45,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            lix-module.nixosModules.default
             ({ config, ... }: {
               system.configurationRevision = self.sourceInfo.rev;
               services.getty.greetingLine =
