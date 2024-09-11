@@ -1,6 +1,12 @@
 { config, pkgs, home, inputs, ... }:
 let
   colors = config.my.theme;
+  spotify-cleanup = pkgs.writeShellApplication {
+    excludeShellChecks = [ "SC2086" "SC2068" ];
+    name = "spotify-cleanup";
+    runtimeInputs = with pkgs; [ pulseaudio pipewire ];
+    text = builtins.readFile ./scripts/spotify-cleanup.sh;
+  };
 in
 {
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
@@ -39,5 +45,31 @@ in
         password_cmd = "${pkgs.gopass}/bin/gopass show --password spotify.com";
       };
     };
+  };
+
+  systemd.user.services.spotify-cleanup = {
+    Unit = {
+      Description = "Cleanup Spotify's leaked pulse objects";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${spotify-cleanup}/bin/spotify-cleanup";
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
+  # spotify leaks pulse objects like it's going out of style. as a result, once
+  # pipewire-pulse reaches its maximum number of clients things that use
+  # pipewire-pulse will start to fail. Work around by removing all but the most
+  # recent spotify pulse objects.
+  systemd.user.timers.spotify-cleanup = {
+    Unit.Description = "Cleanup Spotify's leaked pulse objects";
+    Timer = {
+      Unit = "spotify-cleanup";
+      OnBootSec = "30m";
+      OnUnitActiveSec = "30m";
+    };
+    Install.WantedBy = [ "timers.target" ];
   };
 }
