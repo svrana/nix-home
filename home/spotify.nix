@@ -47,29 +47,9 @@ in
     };
   };
 
-  systemd.user.services.spotify-cleanup = {
-    Unit = {
-      Description = "Cleanup Spotify's leaked pulse objects";
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${lib.getExe spotify-cleanup}";
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
-
-  # spotify leaks pulse objects like it's going out of style. as a result, once
-  # pipewire-pulse reaches its maximum number of clients things that use
-  # pipewire-pulse will start to fail. Work around by removing all but the most
-  # recent spotify pulse objects.
-  systemd.user.timers.spotify-cleanup = {
-    Unit.Description = "Cleanup Spotify's leaked pulse objects";
-    Timer = {
-      Unit = "spotify-cleanup";
-      OnBootSec = "30m";
-      OnUnitActiveSec = "30m";
-    };
-    Install.WantedBy = [ "timers.target" ];
+  services.spotify-cleanup = {
+    enable = true;
+    systemdTarget = "sway-session.target";
+    interval = "30m";
   };
 }

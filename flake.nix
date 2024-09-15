@@ -26,6 +26,11 @@
     };
     # 6.0.2 4680; last known working zoom w/ screen-sharing
     nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf0124219363502";
+    spotify-cleanup = {
+      url = "github:svrana/spotify-cleanup";
+      #url = "git+file:///home/shaw/Projects/spotify-cleanup";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, lix-module, flake-utils, deploy-rs, home-manager, ... }@inputs:
@@ -63,6 +68,7 @@
           modules = [
             modules/my.nix
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
+            inputs.spotify-cleanup.homeModules.default
           ] ++ extraModules;
           extraSpecialArgs = { inherit inputs; };
         };
