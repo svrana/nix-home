@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  rustBinDir = "~/.cache/cargo/bin";
+in
 {
   home.packages = [
     pkgs.bacon
@@ -8,4 +11,6 @@
     pkgs.clippy
     pkgs.rustc
   ];
+
+  home.sessionPath = [ rustBinDir ];
 }
