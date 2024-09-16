@@ -26,6 +26,7 @@ let
     tmux_from_scratch() {
       tproject dots $DOTFILES
       tproject nixpkgs $PROJECTS/nixpkgs
+      tproject home-manager $PROJECTS/home-manager
       tproject vranix $PROJECTS/vranix.com
       tproject b6 $PROJECTS/b6/bommie
       tproject b6-infra $PROJECTS/b6/bommie
