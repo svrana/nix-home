@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  rustBinDir = "~/.cache/cargo/bin";
+  rustBinDir = "$HOME/.local/share/cargo/bin";
 in
 {
   home.packages = [
