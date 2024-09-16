@@ -316,11 +316,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726443578,
-        "narHash": "sha256-1w+jMvxoCs5NXZGuq4ibLo674pyCaha6wMbav2MjAoY=",
+        "lastModified": 1726529419,
+        "narHash": "sha256-Q1r64WePWkt5XqJQ1b8tA1hEN9tVuFzOkEB0lPo42pc=",
         "owner": "svrana",
         "repo": "spotify-cleanup",
-        "rev": "65973012e2f2071623e6b4b9f8cc721e4aac5e96",
+        "rev": "90c00d888ab3c75d4d10764ab89ea6d23bc12a0e",
         "type": "github"
       },
       "original": {
