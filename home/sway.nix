@@ -143,7 +143,7 @@ in
           "${mod}+a" = "focus parent";
           "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
           "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
-          "${mod}+e" = "layout toggle split";
+          "${mod}+e" = "exec --no-startup-id $BIN_DIR/fuzzel-emoji";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+h" = "focus left";
           "${mod}+i" = "exec --no-startup-id $BIN_DIR/fuzzel-search";
