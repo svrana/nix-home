@@ -1,3 +1,5 @@
+alias path='echo -e ${PATH//:/\\n}'
+
 is() {
     if [ -z "$1" ]; then
         return

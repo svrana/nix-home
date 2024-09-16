@@ -81,8 +81,6 @@ in
       "nctl" = "networkctl";
 
       "make" = "make -j$(nproc)";
-
-      "path"= "echo -e \${PATH//:/\\n}";
     };
 };
 }
