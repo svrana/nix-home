@@ -1,12 +1,6 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   colors = config.my.theme;
-  spotify-cleanup = pkgs.writeShellApplication {
-    excludeShellChecks = [ "SC2086" "SC2068" ];
-    name = "spotify-cleanup";
-    runtimeInputs = with pkgs; [ pulseaudio pipewire gnugrep coreutils ];
-    text = builtins.readFile ./scripts/spotify-cleanup.sh;
-  };
 in
 {
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
