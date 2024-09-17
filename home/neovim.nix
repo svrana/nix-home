@@ -755,20 +755,22 @@ in
         '';
       }
       {
-        plugin = typescript-nvim;
+        plugin = typescript-tools-nvim;
         type = "lua";
         config = ''
-          local TSFormat = vim.api.nvim_create_augroup("TSFormat", { clear = true })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = Format,
-            pattern = "*.tsx,*.ts,*.jsx,*.js",
-            callback = function()
-              if vim.fn.exists(":TypescriptAddMissingImports") then
-                  vim.cmd("TypescriptAddMissingImports!")
-                  vim.cmd("TypescriptRemoveUnused!")
-              end
-            end,
-          })
+          require("typescript-tools").setup {}
+           local TSFormat = vim.api.nvim_create_augroup("TSFormat", { clear = true })
+           vim.api.nvim_create_autocmd("BufWritePre", {
+             group = Format,
+             pattern = "*.tsx,*.ts,*.jsx,*.js",
+             callback = function()
+               if vim.fn.exists(":TSToolsAddMissingImports") then
+                   vim.cmd("TSToolsAddMissingImports")
+                   vim.cmd("TSToolsRemoveUnused")
+               end
+             end,
+           })
+
         '';
       }
       {
@@ -927,22 +929,6 @@ in
            nvim_lsp.hls.setup({
              cmd = { "haskell-language-server", "--lsp" },
              on_attach = on_attach,
-           })
-
-           require("typescript").setup({
-             disable_commands = false, -- prevent the plugin from creating Vim commands
-             debug = false, -- enable debug logging for commands
-             go_to_source_definition = {
-               fallback = true, -- fall back to standard LSP definition on failure
-             },
-             server = { -- pass options to lspconfig's setup method
-               on_attach = function(client, bufnr)
-                 client.server_capabilities.documentFormattingProvider = false
-                 client.server_capabilities.documentRangeFormattingProvider = false
-                 on_attach(client, bufnr)
-               end,
-               capabilities = capabilities,
-             },
            })
 
            require('lspconfig').lua_ls.setup {
@@ -1270,9 +1256,9 @@ in
             { "<leader>cp", "<cmd>Lspsaga preview_definition<cr>", desc = "Preview definition" },
             { "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
             { "<leader>ct", group = "typescript" },
-            { "<leader>ctf", "<cmd>TypescriptFixAll<cr>", desc = "Fix code problems" },
-            { "<leader>cti", "<cmd>TypescriptAddMissingImports<cr>", desc = "Add missing imports" },
-            { "<leader>ctu", "<cmd>TypescriptRemoveUnused<cr>", desc = "Remove unused imports" },
+            { "<leader>ctf", "<cmd>TSToolsFixAll<cr>", desc = "Fix code problems" },
+            { "<leader>cti", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add missing imports" },
+            { "<leader>ctu", "<cmd>TSToolsRemoveUnused<cr>", desc = "Remove unused imports" },
             { "<leader>d", group = "display" },
             { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
             { "<leader>dn", group = "number" },
