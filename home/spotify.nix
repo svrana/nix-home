@@ -49,7 +49,6 @@ in
 
   services.spotify-cleanup = {
     enable = true;
-    systemdTarget = "sway-session.target";
     interval = "30m";
   };
 }
