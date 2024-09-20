@@ -31,9 +31,10 @@
       #url = "git+file:///home/shaw/Projects/spotify-cleanup";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
   };
 
-  outputs = { self, nixpkgs, lix-module, flake-utils, deploy-rs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, lix-module, flake-utils, deploy-rs, home-manager, neorg-overlay, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -112,6 +113,7 @@
               overlayFiles');
           in
           overlayFiles // {
+              neorg-overlay = neorg-overlay.overlays.default;
           };
 
         # deploy '.#bocana'
