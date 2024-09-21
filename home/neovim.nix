@@ -1287,6 +1287,7 @@ in
             { "<leader>h2", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", desc = "goto file 2" },
             { "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", desc = "goto file 3" },
             { "<leader>h4", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", desc = "goto file 4" },
+            { "<leader>h5", "<cmd>lua require('harpoon.ui').nav_file(5)<cr>", desc = "goto file 5" },
             { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Add file" },
             { "<leader>he", "<cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<cr>", desc = "Edit command" },
             { "<leader>hr", "<cmd>lua require('harpoon.tmux').sendCommand('{bottom-right}', 1)<cr>", desc = "Run command" },
