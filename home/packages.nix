@@ -9,6 +9,7 @@ in
   home.packages = with pkgs; [
     autotiling
     avizo
+    bc                                        # for $BIN_DIR/calc
     brightnessctl
     buf
     clipman
