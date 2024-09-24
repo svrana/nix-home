@@ -12,14 +12,27 @@ in
   xdg.configFile."aerc/binds.conf".source = ../config/aerc/binds.conf;
   xdg.configFile."aerc/stylesets/solarized".source = ../config/aerc/solarized;
   xdg.configFile."aerc/accounts.conf".source = ../config/aerc/accounts.conf;
+  xdg.configFile."aerc/templates/quoted_html_reply".text= ''
+  {{ if or
+	(eq .OriginalMIMEType "text/html")
+	(contains (toLower .OriginalText) "<html")
+}}
+	{{- $text := exec `${filters}/html` .OriginalText | replace `\r` `` -}}
+	{{- range split "\n" $text -}}
+		{{- if eq . "References:" }}{{break}}{{end}}
+		{{- if or
+			(eq (len .) 0)
+			(match `^\[.+\]\s*$` .)
+		}}{{continue}}{{end}}
+		{{- printf "%s\n" . | replace `^[\s]+` "" | quote}}
+	{{- end -}}
+{{- else }}
+	{{- trimSignature .OriginalText | quote -}}
+{{- end -}}
 
-  # home.activation.copyAercAccounts =
-  #   lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #     install -D -m600 ${
-  #       ../../personal/aerc/accounts.conf
-  #     } $XDG_CONFIG_HOME/aerc/accounts.conf
-  #   '';
-  #
+{{.Signature -}}
+  '';
+
   xdg.configFile."aerc/aerc.conf".text = ''
     [general]
     # No password in accounts.conf so this is safe
@@ -213,12 +226,12 @@ in
     # list of directories.
     #
     # default: @SHAREDIR@/templates/
-    template-dirs=${sharedir}/templates/
+    template-dirs=${sharedir}/templates/:${config.xdg.configHome}/aerc/templates
 
     # The template to be used for quoted replies.
     #
     # default: quoted_reply
-    quoted-reply=quoted_reply
+    quoted-reply=quoted_html_reply
 
     # The template to be used for forward as body.
     #
