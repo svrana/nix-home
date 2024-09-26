@@ -9,6 +9,11 @@ let
   notes = "${terminal} --title notes --app-id notes --window-size-pixels=1700x1900 -e nvim ~/Documents/org/home";
   fuzzel = "${lib.getExe pkgs.fuzzel}";
   email_client = "${terminal} --title email --app-id email -e aerc";
+  calc = pkgs.writeShellApplication {
+    name = "calc";
+    runtimeInputs = [ pkgs.bc pkgs.fuzzel pkgs.wl-clipboard ];
+    text = builtins.readFile ../home/scripts/calc;
+  };
   fuzzel-pass = pkgs.writeScript "fuzzel-pass" ''
     #!/usr/bin/env bash
 
@@ -141,7 +146,7 @@ in
           "${mod}+9" = ''[app_id="Slack"] scratchpad show;sticky enable'';
           "${mod}+0" = ''[app_id="notes"] scratchpad show;sticky enable'';
           "${mod}+a" = "focus parent";
-          "${mod}+c"  = "exec --no-startup-id $BIN_DIR/calc";
+          "${mod}+c"  = "exec --no-startup-id ${lib.getExe calc}";
           "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
           "${mod}+e" = "exec --no-startup-id $BIN_DIR/fuzzel-emoji";
           "${mod}+f" = "fullscreen toggle";
