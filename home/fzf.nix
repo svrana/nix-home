@@ -22,9 +22,9 @@ in
     bind -x '"\C-p": f() { local file=$(fzf -m --height 80%) && [[ -n $file ]] && $EDITOR $file ; }; f'
 
     # open a dotfile
-    bind -x '"\C-n": f() { pushd $DOTFILES > /dev/null ; local file=$(fzf -m --height 80% --preview "bat --style=numbers --color=always --line-range :100 {}") && [[ -n $file ]] && $EDITOR $file ; popd > /dev/null ; }; f'
+    #bind -x '"\C-n": f() { pushd $DOTFILES > /dev/null ; local file=$(fzf -m --height 80% --preview "bat --style=numbers --color=always --line-range :100 {}") && [[ -n $file ]] && $EDITOR $file ; popd > /dev/null ; }; f'
 
     # open a file under the current (git) project root
-    bind -x '"\C-f": f() { pushd $(git_root) > /dev/null ; local file=$(fzf -m --height 80%) && [[ -n $file ]] && $EDITOR $file ; popd > /dev/null ; }; f'
+    #bind -x '"\C-f": f() { pushd $(git_root) > /dev/null ; local file=$(fzf -m --height 80%) && [[ -n $file ]] && $EDITOR $file ; popd > /dev/null ; }; f'
   '';
 }
