@@ -11,6 +11,9 @@ in
     pkgs.clippy
     pkgs.rustc
   ];
-
+  home.sessionVariables = {
+    CARGO_HOME = "$HOME/.local/share/cargo";
+    RUSTUP_HOME = "$HOME/.local/share/rustup";
+  };
   home.sessionPath = [ rustBinDir ];
 }

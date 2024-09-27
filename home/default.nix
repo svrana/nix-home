@@ -45,6 +45,7 @@ in {
     ./neovim.nix
     ./qutebrowser
     ./readline.nix
+    ./ruby.nix
     ./rust.nix
     ./shell.nix
     ./spotify.nix
