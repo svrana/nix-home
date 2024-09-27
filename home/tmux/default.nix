@@ -5,7 +5,7 @@ in
 {
   xdg.configFile."tms/config.toml".text = ''
 [[search_dirs]]
-path = "/home/shaw/Projects"
+path = "${config.home.homeDirectory}/Projects"
 depth = 10
 
 [picker_colors]
