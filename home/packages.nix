@@ -9,7 +9,6 @@ in
   home.packages = with pkgs; [
     autotiling
     avizo
-    bc                                        # for $BIN_DIR/calc
     brightnessctl
     buf
     clipman
@@ -43,7 +42,6 @@ in
     nodejs
     prototool
     pulumi-bin
-    python3
     readline
     slack
     slurp
@@ -54,7 +52,6 @@ in
     system-san-francisco-font
     sysz
     tdesktop
-    tilt
     tmux-sessionizer
     tmuxinator
     tree

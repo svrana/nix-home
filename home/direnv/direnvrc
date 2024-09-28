@@ -21,22 +21,6 @@ layout_python() {
     export PYLINTRC=${PWD}/.pylintrc
 }
 
-layout_golang() {
-    local project=${1:-${PWD##*/}}
-    local virtualgodir="$HOME/.virtualgo"
-
-    export _VIRTUALGO_OLDPS1=$PS1
-    export _VIRTUALGO_OLDGOPATH=$GOPATH
-    export _VIRTUALGO_OLDPATH_SH=$PATH
-
-    export GOPATH="$virtualgodir/$project:$GOPATH"
-    export VIRTUALGO="$project"
-    export VIRTUALGO_PATH="$virtualgodir/$VIRTUALGO"
-    export GOBIN="$VIRTUALGO_PATH/bin"
-
-    PATH_prepend "$GOBIN"
-}
-
 layout_node() {
     local version=${1}
 

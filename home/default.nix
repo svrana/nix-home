@@ -43,6 +43,7 @@ in {
     ./keychain.nix
     ./kubectl.nix
     ./neovim.nix
+    ./python.nix
     ./qutebrowser
     ./readline.nix
     ./ruby.nix
@@ -50,6 +51,7 @@ in {
     ./shell.nix
     ./spotify.nix
     ./sway.nix
+    ./tilt.nix
     ./tmux
     ./zathura.nix
 

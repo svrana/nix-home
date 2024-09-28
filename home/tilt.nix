@@ -1,10 +1,8 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    tilt
-  ];
+  home.packages = [ pkgs.tilt ];
 
   programs.sessionVariables = {
-      TILT_DEV_DIR = "$HOME/.config/tilt";
+    TILT_DEV_DIR = "$HOME/.config/tilt";
   };
 }
