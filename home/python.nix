@@ -16,5 +16,6 @@ in
     PYLINTHOME = "$HOME/.cache/pylint ";
     PYTHONSTARTUP = "${pythonstartup}";
     PYTHONDONTWRITEBYTECODE = 1;
+    WORKON_HOME = "$HOME/.cache/virtualenvs";
   };
 }
