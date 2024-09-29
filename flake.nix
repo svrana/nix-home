@@ -35,9 +35,21 @@
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tms-overlay = {
+      url = "github:jrmoulton/tmux-sessionizer";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, lix-module, flake-utils, deploy-rs, home-manager, neorg-overlay, ... }@inputs:
+  outputs = { self
+    , nixpkgs
+    , lix-module
+    , flake-utils
+    , deploy-rs
+    , home-manager
+    , neorg-overlay
+    , tms-overlay
+    , ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
@@ -117,6 +129,7 @@
           in
           overlayFiles // {
               neorg-overlay = neorg-overlay.overlays.default;
+              tms-overlay = tms-overlay.overlays.default;
           };
 
         # deploy '.#bocana'
