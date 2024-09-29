@@ -2,7 +2,7 @@
 {
   home.packages = [ pkgs.tilt ];
 
-  programs.sessionVariables = {
+  home.sessionVariables = {
     TILT_DEV_DIR = "$HOME/.config/tilt";
   };
 }
