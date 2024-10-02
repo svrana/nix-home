@@ -41,7 +41,8 @@
     };
   };
 
-  outputs = { self
+  outputs =
+    { self
     , nixpkgs
     , lix-module
     , flake-utils
@@ -49,7 +50,7 @@
     , home-manager
     , neorg-overlay
     , tms-overlay
-    , ... }@inputs:
+    , ... } @inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       inherit (builtins) readDir mapAttrs;
