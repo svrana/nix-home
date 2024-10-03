@@ -974,7 +974,7 @@ in
                }),
                --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
              },
-             debug = true,
+             debug = false,
            })
         '';
       }
