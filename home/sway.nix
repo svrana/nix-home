@@ -26,7 +26,7 @@ let
     #!/usr/bin/env bash
 
     tproject() {
-      tmuxinator start project -n "$1" workspace="$2"
+      tmuxinator start project -n "$1" workspace="$2" --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING
     }
     tmux_from_scratch() {
       tproject dots $DOTFILES
