@@ -20,12 +20,9 @@ highlight_text_color = "${c.base05}"
     enable = true;
     baseIndex = 1;
     keyMode = "vi";
-    # sensible adds some config I don't like if I set the shortcut here
-    #shortcut = "j";
+    shortcut = "j";
     terminal = "tmux-256color";
     escapeTime = 0;
-    extraConfig = builtins.readFile ./tmux.conf;
-
     plugins = with pkgs.tmuxPlugins; [
       yank
       open
@@ -34,5 +31,6 @@ highlight_text_color = "${c.base05}"
       sessionist
       vim-tmux-navigator
     ];
+    extraConfig = builtins.readFile ./tmux.conf;
   };
 }
