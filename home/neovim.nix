@@ -23,8 +23,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "seblj";
       repo = "nvim-tabline";
-      rev = "7e2df8d1f2bc0bb4575848901d628005ef181a3d";
-      sha256 = "sha256-0J1EVKCcxH47wHH//jwUDhHtNJnMkB/oOtYWrWr6BH8=";
+      rev = "e830f22f0551a462c3f1c3e9f51e3876b9a60e6d";
+      sha256 = "sha256-Rh01PQxuc9hiDr6m8C9rLR8eo4liPiKHO5IRBzLqSTU=";
     };
     dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
   };
@@ -522,7 +522,7 @@ in
         plugin = vim-rooter;
         type = "viml";
         config = ''
-          let g:rooter_cd_cmd = 'lcd'";
+          let g:rooter_cd_cmd = 'lcd'
           let g:rooter_silent_chdir = 1
         '';
       }
