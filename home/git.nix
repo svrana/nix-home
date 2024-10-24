@@ -33,14 +33,11 @@ in
         "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
       add-unmerged =
         "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`";
-      lg =
-        "log --graph --pretty=format:'%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      llog = ''log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative'';
+      lg = "log --pretty=format:'%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       latest = "diff HEAD~1 HEAD";
       home = ''config user.email "shaw@vranix.com"'';
       work = ''config user.email "shaw@vrana.com"'';
-      hg =
-        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      hg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
       fr = "!f() { git fetch origin main && git rebase origin/main; }; f";
       fro = "!f() { git fetch origin master && git rebase origin/master; }; f";
       new = ''!f() { git checkout -b "$@" --track origin/main; }; f'';
