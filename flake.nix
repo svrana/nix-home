@@ -35,10 +35,6 @@
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    tms-overlay = {
-      url = "github:jrmoulton/tmux-sessionizer";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -49,7 +45,6 @@
     , deploy-rs
     , home-manager
     , neorg-overlay
-    , tms-overlay
     , ... } @inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
@@ -130,7 +125,6 @@
           in
           overlayFiles // {
               neorg-overlay = neorg-overlay.overlays.default;
-              tms-overlay = tms-overlay.overlays.default;
           };
 
         # deploy '.#bocana'
