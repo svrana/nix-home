@@ -279,7 +279,7 @@ in {
   programs.eza = {
     enable = true;
     enableBashIntegration = true;
-    icons = true;
+    icons = "auto";
     extraOptions = [ "--group-directories-first" ];
   };
 

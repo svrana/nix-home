@@ -80,7 +80,6 @@ in
           semantic_escape_chars = ",│`|:\"' ()[]{}<>";
         };
         cursor.style = "Block";
-        live_config_reload = true;
       };
   };
 }
