@@ -8,7 +8,6 @@
     ../../roles/print-server.nix
     ../../roles/syncthing.nix
     ../../roles/borgbase-backup.nix
-    ../../roles/media.nix
   ];
 
   networking = {
