@@ -924,6 +924,9 @@ in
              --verbose = true,
              --tag_options = "json="
              tag_transform = "camelcase",
+             lsp_inlay_hints = {
+               style = 'eol',
+             },
            })
 
            nvim_lsp.hls.setup({
