@@ -65,7 +65,6 @@ in
     vimdiffAlias = true;
     extraPackages = with pkgs; [
       buf
-      buf-language-server
       code-minimap
       iferr
       nixfmt-rfc-style
@@ -891,7 +890,7 @@ in
            -- map buffer local keybindings when the language server attaches
            local servers = {
              'bashls',
-             'bufls',
+             'buf_ls',
              'yamlls',
              'nil_ls',
              --'nixd',
