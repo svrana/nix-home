@@ -136,19 +136,19 @@ in {
   };
 
   home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents ${config.home.homeDirectory}/Documents
-    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music ${config.home.homeDirectory}/Music
-    $DRY_RUN_CMD ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Pictures ${config.home.homeDirectory}/Pictures
+    run ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents ${config.home.homeDirectory}/Documents
+    run ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music ${config.home.homeDirectory}/Music
+    run ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Pictures ${config.home.homeDirectory}/Pictures
 
     # qutebrowser writes to these so cannot be in the nix store- having them synced across
     # desktops automatically is also nice. Have to do this after sync or qutebrowser will
     # autocreate and then you've got a mess.
-    $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
+    run mkdir -p $VERBOSE_ARG $XDG_CONFIG_HOME/qutebrowser/bookmarks
     if [ -f $DOCUMENTS/apps/qutebrowser/quickmarks ]; then
-      $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
+      run ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/quickmarks $XDG_CONFIG_HOME/qutebrowser/quickmarks
     fi
     if [ -f $DOCUMENTS/apps/qutebrowser/bookmarks ]; then
-      $DRY_RUN_CMD ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
+      run ln -sf $VERBOSE_ARG $DOCUMENTS/apps/qutebrowser/bookmarks $XDG_CONFIG_HOME/qutebrowser/bookmarks/urls
     fi
     # import public/private personal keys. Create $GNUPGHOME directory if not exists
     # to export:
@@ -158,20 +158,20 @@ in {
 
     if [ ! -z $XDG_DATA_HOME ]; then
       if [ ! -d $XDG_DATA_HOME/bash ]; then
-        $DRY_RUN_CMD mkdir -p $XDG_DATA_HOME/bash
+        run mkdir -p $XDG_DATA_HOME/bash
       fi
     fi
 
     if [ ! -d $PASSWORD_STORE_DIR ]; then
-      $DRY_RUN_CMD echo "Cloning password-store.."
-      $DRY_RUN_CMD git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
+      run echo "Cloning password-store.."
+      run git clone git@github.com:svrana/password-store $PASSWORD_STORE_DIR
     fi
 
     if [ ! -d $PROJECTS/neosolarized.nvim ]; then
-      $DRY_RUN_CMD echo "Cloning neosolarized.."
-      $DRY_RUN_CMD git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
-      $DRY_RUN_CMD mkdir -p $HOME/.config/nvim/after/pack/foo/start
-      $DRY_RUN_CMD ln -sf $PROJECTS/neosolarized.nvim $HOME/.config/nvim/after/pack/foo/start/neosolarized.nvim
+      run echo "Cloning neosolarized.."
+      run git clone git@github.com:svrana/neosolarized.nvim $PROJECTS/neosolarized.nvim
+      run mkdir -p $HOME/.config/nvim/after/pack/foo/start
+      run ln -sf $PROJECTS/neosolarized.nvim $HOME/.config/nvim/after/pack/foo/start/neosolarized.nvim
     fi
   '';
   xdg.configFile."nvim" = {
