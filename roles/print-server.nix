@@ -18,5 +18,6 @@
       enable = true;
       userServices = true;
     };
+    openFirewall = true;
   };
 }
