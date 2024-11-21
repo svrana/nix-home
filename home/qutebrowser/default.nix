@@ -34,7 +34,7 @@ in
 {
   programs.qutebrowser = {
     enable = true;
-    package = pkgs.qutebrowser;
+    package = pkgs.qutebrowser.override { enableWideVine = true; };
     #loadAutoConfig = true;
     # no per website configuratble stylesheets yet
     #config.set('content.user_stylesheets', '${solCSS}/solarized-dark-github.css', '*://github.com/')
