@@ -893,7 +893,7 @@ in
              'buf_ls',
              'yamlls',
              'nil_ls',
-             --'nixd',
+             'nixd',
              'dockerls',
              'vimls',
              'ccls',
