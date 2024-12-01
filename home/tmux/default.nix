@@ -23,6 +23,7 @@ highlight_text_color = "${c.base05}"
     shortcut = "j";
     terminal = "tmux-256color";
     escapeTime = 0;
+    sensibleOnTop = true;
     plugins = with pkgs.tmuxPlugins; [
       yank
       open
