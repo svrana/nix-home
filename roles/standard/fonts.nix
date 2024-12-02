@@ -17,9 +17,8 @@
       font-awesome
       hack-font
       dejavu_fonts
-      # nerd-fonts.Ubuntu-Mono
-      # nerd-fonts.Hack
-      (nerdfonts.override { fonts = [ "UbuntuMono" "Hack" ]; })
+      nerd-fonts.ubuntu-mono
+      nerd-fonts.hack
     ];
   };
 }
