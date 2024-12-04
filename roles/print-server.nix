@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ ... }:
 # Config for a shared printer.
 {
   services.printing = {
@@ -14,6 +14,9 @@
 
   services.avahi = {
     enable = true;
+    # Important to resolve .local domains of printers, otherwise you get an error
+    # like  "Impossible to connect to XXX.local: Name or service not known"
+    nssmdns4 = true;
     publish = {
       enable = true;
       userServices = true;
