@@ -63,11 +63,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             lix-module.nixosModules.default
-            ({ config, ... }: {
-              system.configurationRevision = self.sourceInfo.rev;
-              services.getty.greetingLine =
-                "<<< Welcome to NixOS ${config.system.nixos.label} @ ${lib.substring 0 7 self.sourceInfo.rev} - \\l >>>";
-            })
             { nixpkgs.overlays = nixpkgsConfig.overlays; }
           ] ++ extraModules;
         };
