@@ -71,4 +71,6 @@
   };
 
   services.fstrim.enable = true;
+
+  hardware.enableRedistributableFirmware = true;
 }
