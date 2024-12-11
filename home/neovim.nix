@@ -965,6 +965,7 @@ in
                null_ls.builtins.diagnostics.buf,
                null_ls.builtins.diagnostics.golangci_lint,
                null_ls.builtins.diagnostics.eslint_d,
+               null_ls.builtins.formatting.nixfmt,
                null_ls.builtins.formatting.stylua,
                null_ls.builtins.formatting.prettier.with({
                  filetypes = { "typescript", "typescriptreact", "markdown", "json" },
