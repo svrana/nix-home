@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../../arch/amd
     ../../roles/standard
-    #../../roles/nextcloud.nix
     ../../roles/print-server.nix
+    ../../roles/rss.nix
     ../../roles/syncthing.nix
     ../../roles/borgbase-backup.nix
   ];
