@@ -1,6 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -9,6 +9,7 @@
     ../../roles/standard
     ../../roles/graphical
     ../../roles/work
+    ../../roles/android-dev.nix
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages;
