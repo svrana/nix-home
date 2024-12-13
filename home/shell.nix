@@ -26,6 +26,7 @@
       W3M_DIR="$HOME/.config/w3m";
       WGETRC = "$HOME/.config/wget/wgetrc";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
+      GRADLE_USER_HOME="$HOME/.config/gradle";
 
       CLOUD_ROOT = "$HOME/Cloud";
       PHOTOS = "$HOME/Pictures";
