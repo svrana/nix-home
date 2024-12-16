@@ -1310,8 +1310,8 @@ in
             { "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle(false, true)<cr>", desc = "Tree explorer" },
             { "<leader>u", group = "quickfix" },
             { "<leader>uc", "<cmd>cclose<cr>", desc = "Close" },
-            { "<leader>un", "<cmd>cnext<cr>", desc = "Next" },
-            { "<leader>up", "<cmd>cprev<cr>", desc = "Previous" },
+            { "<leader>uj", "<cmd>cnext<cr>", desc = "Next" },
+            { "<leader>uk", "<cmd>cprev<cr>", desc = "Previous" },
             { "<leader>w", "<cmd>w<cr>", desc = "Write file" },
             { "<leader>z", desc = "<cmd>q!<cr>" },
           })
