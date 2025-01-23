@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "System San Francisco Font by Apple";
-    homepage = https://github.com/supermarin/YosemiteSanFranciscoFont;
+    homepage = "https://github.com/supermarin/YosemiteSanFranciscoFont";
     license = pkgs.lib.licenses.asl20;
     platforms = pkgs.lib.platforms.all;
     maintainers = [];
