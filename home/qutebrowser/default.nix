@@ -141,7 +141,7 @@ in
       };
       scrolling.smooth = true;
       editor = {
-        command = [ "${pkgs.alacritty}/bin/alacritty" "-e" "${pkgs.neovim}/bin/nvim" "{file}" ];
+        command = [ "${config.my.terminal.executable}" "-e" "${pkgs.neovim}/bin/nvim" "{file}" ];
       };
       #statusbar.show = "in-mode";
       tabs = {
