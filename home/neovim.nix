@@ -98,7 +98,7 @@ in
         opt.showmode = false
         opt.visualbell = true
         opt.ruler = true
-        opt.laststatus = 2
+        opt.laststatus = 3
         opt.equalalways = false
         opt.updatetime = 100
         opt.background = "dark"
@@ -430,7 +430,7 @@ in
             markdown_inline
             nix
             norg
-            org
+            #org
             proto
             python
             query
@@ -680,6 +680,22 @@ in
               }
             }
           }
+        '';
+      }
+      {
+        plugin = avante-nvim;
+        type = "lua";
+        config = ''
+          require("avante").setup({
+            rag_service = {
+              enabled = false, -- Enables the RAG service
+              host_mount = os.getenv("HOME"), -- Host mount path for the rag service
+              provider = "openai", -- The provider to use for RAG service (e.g. openai or ollama)
+              llm_model = "gpt-4o-mini", -- The LLM model to use for RAG service
+              embed_model = "", -- The embedding model to use for RAG service
+              endpoint = "https://api.openai.com/v1", -- The API endpoint for RAG service
+            },
+          });
         '';
       }
       {
