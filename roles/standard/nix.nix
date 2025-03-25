@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   nix = {
+    package = pkgs.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       trusted-users = [ "@wheel" ];

@@ -4,10 +4,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     flake-utils.url = "github:numtide/flake-utils";
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +36,6 @@
   outputs =
     { self
     , nixpkgs
-    , lix-module
     , flake-utils
     , deploy-rs
     , home-manager
@@ -62,7 +57,6 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            lix-module.nixosModules.default
             { nixpkgs.overlays = nixpkgsConfig.overlays; }
           ] ++ extraModules;
         };
