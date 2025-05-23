@@ -429,7 +429,7 @@ in
             markdown
             markdown_inline
             nix
-            norg
+            #norg
             #org
             proto
             python
