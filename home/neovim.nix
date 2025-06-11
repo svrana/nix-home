@@ -395,7 +395,7 @@ in
         '';
       }
       plenary-nvim
-      { plugin = null-ls-nvim; }
+      { plugin = none-ls-nvim; }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
           with plugins; [
@@ -979,17 +979,18 @@ in
              sources = {
                null_ls.builtins.diagnostics.buf,
                null_ls.builtins.diagnostics.golangci_lint,
-               null_ls.builtins.diagnostics.eslint_d,
+               -- require("none-ls.diagnostics.eslint"),
+               -- null_ls.builtins.diagnostics.eslint_d,
                null_ls.builtins.formatting.nixfmt,
                null_ls.builtins.formatting.stylua,
                null_ls.builtins.formatting.prettier.with({
                  filetypes = { "typescript", "typescriptreact", "markdown", "json" },
                }),
-               null_ls.builtins.formatting.lua_format.with({
-                 args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
-                 "--no-keep_simple_control_block_one_line", "--column-limit=130",
-                 "--break-after-table-lb" },
-               }),
+               -- null_ls.builtins.formatting.lua_format.with({
+               --   args = { "-i", "--no-keep-simple-function-one-line", "--no-break-after-operator",
+               --   "--no-keep_simple_control_block_one_line", "--column-limit=130",
+               --   "--break-after-table-lb" },
+               -- }),
                --null_ls.builtins.code_actions.gitsigns, -- got annoying seeing the code action on each line for blame :(
              },
              debug = false,
