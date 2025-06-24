@@ -64,6 +64,7 @@ in
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
+      nodePackages.vscode-langservers-extracted
       pyright
       ccls
       nil
@@ -915,7 +916,8 @@ in
              --'rust_analyzer', -- trying rust tools for now
              'terraform_lsp',
              'tilt_ls',
-             'pyright'
+             'pyright',
+             --'eslint'
            }
            for _, lsp in ipairs(servers) do
              nvim_lsp[lsp].setup({
@@ -980,7 +982,7 @@ in
                null_ls.builtins.diagnostics.buf,
                null_ls.builtins.diagnostics.golangci_lint,
                -- require("none-ls.diagnostics.eslint"),
-               -- null_ls.builtins.diagnostics.eslint_d,
+               --null_ls.builtins.diagnostics.eslint_d,
                null_ls.builtins.formatting.nixfmt,
                null_ls.builtins.formatting.stylua,
                null_ls.builtins.formatting.prettier.with({
