@@ -225,8 +225,6 @@ in {
 
   programs.less = {
     enable = true;
-    keys = ''
-    '';
   };
 
   programs.mpv = {

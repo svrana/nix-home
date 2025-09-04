@@ -39,4 +39,4 @@ home: ## Build home-manager configuration for the current system
 
 .PHONY: system
 system: ## Build system
-	nixos-rebuild --use-remote-sudo switch --flake .
+	nixos-rebuild --sudo switch --flake .

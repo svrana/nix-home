@@ -7,7 +7,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    autotiling
+    autotiling-rs
     avizo
     brightnessctl
     buf
