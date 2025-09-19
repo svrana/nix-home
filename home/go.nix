@@ -4,7 +4,7 @@ in
 {
   programs.go = {
     enable = true;
-    goPath = ".cache/go";
+    env.GOPATH = ".cache/go";
   };
 
   home.packages = with pkgs; [

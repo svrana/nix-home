@@ -63,7 +63,7 @@ in
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       nodePackages.yaml-language-server
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       nodePackages.vscode-langservers-extracted
       pyright
       ccls
