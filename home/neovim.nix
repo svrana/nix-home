@@ -792,7 +792,6 @@ in
         plugin = nvim-lspconfig;
         type = "lua";
         config = ''
-           local nvim_lsp = require('lspconfig')
            local protocol = require('vim.lsp.protocol')
            local wk = require("which-key")
 
@@ -920,7 +919,7 @@ in
              --'eslint'
            }
            for _, lsp in ipairs(servers) do
-             nvim_lsp[lsp].setup({
+             vim.lsp.config(lsp, {
                on_attach = on_attach,
                capabilities = capabilities,
              })
@@ -945,12 +944,12 @@ in
              },
            })
 
-           nvim_lsp.hls.setup({
+           vim.lsp.config('hls', {
              cmd = { "haskell-language-server", "--lsp" },
              on_attach = on_attach,
            })
 
-           require('lspconfig').lua_ls.setup {
+           vim.lsp.config('lua_ls', {
              settings = {
                Lua = {
                  runtime = {
@@ -971,7 +970,7 @@ in
                  },
                },
              },
-           }
+           })
 
            local null_ls = require('null-ls')
            local helpers = require('null-ls.helpers')

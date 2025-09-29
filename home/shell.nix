@@ -7,7 +7,7 @@
       TMP = "/tmp";
 
       NIXPKGS_ALLOW_UNFREE = 1;
-      NIXOS_OZONE_WL = 0; # electron apps should use wayland
+      NIXOS_OZONE_WL = 1; # electron apps should use wayland
 
       DOCKER_CONFIG = "$HOME/.config/docker";
       LESSHISTFILE = "-";
