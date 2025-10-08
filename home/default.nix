@@ -39,7 +39,7 @@ in {
     ./go.nix
     ./gopass.nix
     ./k9s
-    ./keybase.nix
+    #./keybase.nix
     ./keychain.nix
     ./kubectl.nix
     ./neovim.nix
