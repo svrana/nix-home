@@ -83,15 +83,15 @@ in
         require('svrana.globals')
 
         local opt = vim.opt
-        opt.ttimeout = false
-        opt.ttimeoutlen = 100
+        -- following options caused commands to be run when opening a file.
+        --opt.ttimeout = false
+        --opt.ttimeoutlen = 100
         opt.wrap = false
         opt.backspace = "indent,eol,start"
         opt.smartcase = true
         opt.ignorecase = true
         opt.incsearch = true
         opt.hlsearch = false
-        opt.incsearch = true
         opt.inccommand = "split"
         opt.showmatch = true
         opt.backupext  = ".bak"
