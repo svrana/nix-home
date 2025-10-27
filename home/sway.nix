@@ -269,6 +269,12 @@ in
             "6" = "";
             "7" = "";
           };
+          "persistent-workspaces"= {
+              "1" = [];
+              "2" = [];
+              "3" = [];
+              "4" = [];
+          };
         };
         "idle_inhibitor" = {
           "format" = "{icon}";
