@@ -331,4 +331,13 @@ in {
     enable = true;
     extraConfig = builtins.readFile ./config/dircolors;
   };
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Shaw Vrana";
+        email = "shaw@vranix.com";
+      };
+    };
+  };
 }
