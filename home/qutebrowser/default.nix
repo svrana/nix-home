@@ -41,6 +41,7 @@ in
     extraConfig = ''
       c.url.default_page = "www.kagi.com";
       c.tabs.padding = {"top": 7, "bottom": 7, "left": 5, "right": 5}
+      c.content.javascript.log_message.excludes = {"userscript:_qute_stylesheet": ["*Refused to apply inline style because it violates the following Content Security Policy directive: *"], "userscript:_qute_js": ["*TrustedHTML*"]}
       config.bind("<Escape>", "mode-leave", mode="passthrough")
       config.load_autoconfig()
     '';
