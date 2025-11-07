@@ -279,16 +279,6 @@ in
         type = "lua";
       }
       {
-        plugin = copilot-cmp;
-        type = "lua";
-        config = ''
-          require("copilot").setup({
-            suggestion = { enabled = false },
-            panel = { enabled = false },
-          })
-        '';
-      }
-      {
         plugin = harpoon;
         type = "lua";
         config = ''
@@ -681,22 +671,6 @@ in
               }
             }
           }
-        '';
-      }
-      {
-        plugin = avante-nvim;
-        type = "lua";
-        config = ''
-          require("avante").setup({
-            rag_service = {
-              enabled = false, -- Enables the RAG service
-              host_mount = os.getenv("HOME"), -- Host mount path for the rag service
-              provider = "openai", -- The provider to use for RAG service (e.g. openai or ollama)
-              llm_model = "gpt-4o-mini", -- The LLM model to use for RAG service
-              embed_model = "", -- The embedding model to use for RAG service
-              endpoint = "https://api.openai.com/v1", -- The API endpoint for RAG service
-            },
-          });
         '';
       }
       {
