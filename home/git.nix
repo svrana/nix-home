@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  diffSoFancy = "${lib.getExe pkgs.gitAndTools.diff-so-fancy}";
+  diffSoFancy = "${lib.getExe pkgs.diff-so-fancy}";
 in
 {
   programs.git = {

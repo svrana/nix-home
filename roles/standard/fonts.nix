@@ -12,7 +12,7 @@
 
     packages = with pkgs; [
       corefonts
-      ubuntu_font_family
+      ubuntu-classic
       powerline-fonts
       font-awesome
       hack-font

@@ -51,7 +51,7 @@ in
     swaylock
     system-san-francisco-font
     sysz
-    tdesktop
+    telegram-desktop
     tmux-sessionizer
     tmuxinator
     tree
