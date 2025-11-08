@@ -77,6 +77,7 @@ in
       stylua
       terraform-lsp
       shellcheck
+      zls
     ];
     extraConfig = ''
       lua << EOF
@@ -436,6 +437,7 @@ in
             typescript
             vim
             yaml
+            zig
           ]));
         type = "lua";
         config = ''
@@ -890,6 +892,7 @@ in
              'terraform_lsp',
              'tilt_ls',
              'pyright',
+             'zls',
              --'eslint'
            }
            for _, lsp in ipairs(servers) do
@@ -1283,7 +1286,6 @@ in
             { "<leader>p", group = "preview" },
             { "<leader>pg", "<cmd>Glow<cr>", desc = "Glow (markdown)" },
             { "<leader>pl", "<cmd>LLPStartPreview<cr>", desc = "laTEX preview" },
-            { "<leader>ps", "<cmd>ComposerStart<cr>", desc = "Start markdown composer" },
             { "<leader>q", "<cmd>q<cr>", desc = "Quit" },
             { "<leader>t", group = "toggle" },
             { "<leader>tc", "<cmd>Neorg toggle-concealer<cr>", desc = "Neorg concealer" },
