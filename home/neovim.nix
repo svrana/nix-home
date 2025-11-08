@@ -1119,14 +1119,6 @@ in
         '';
       }
       vim-lastplace
-      /* { */
-      /*   plugin = vim-markdown-composer; */
-      /*   type = "viml"; */
-      /*   config = '' */
-      /*     let g:markdown_composer_autostart = 0 */
-      /*     let g:markdown_composer_browser="firefox" */
-      /*   ''; */
-      /* } */
       vim-tmux
       {
         plugin = nvim-tree-lua;
