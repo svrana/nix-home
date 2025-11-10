@@ -706,7 +706,7 @@ in
               },
             },
             sources = {
-              { name = "copilot"  },
+              { name = "supermaven" },
               { name = 'nvim_lua' },
               { name = 'nvim_lsp' },
               { name = 'buffer', keyword_length = 5 },
@@ -729,6 +729,7 @@ in
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[api]",
                     luasnip = "[snip]",
+                    supermaven = "[ ]",
                   })
                 }),
             }
@@ -1027,6 +1028,13 @@ in
       }
       # for fugitive, opening github links in browser
       rhubarb
+      {
+        plugin = supermaven-nvim;
+        type = "lua";
+        config = ''
+          require("supermaven-nvim").setup({})
+        '';
+      }
       {
         plugin = gitsigns-nvim;
         type = "lua";
