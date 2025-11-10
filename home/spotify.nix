@@ -8,7 +8,7 @@ in
   programs.spicetify = {
     enable = true;
     theme =
-      let spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+      let spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
       in spicePkgs.themes.default;
     colorScheme = "custom";
     customColorScheme = {
