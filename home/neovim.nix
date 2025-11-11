@@ -386,7 +386,6 @@ in
           })
         '';
       }
-      plenary-nvim
       { plugin = none-ls-nvim; }
       {
         plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
@@ -1114,21 +1113,8 @@ in
           })
         '';
       }
-      vim-sort-motion
-      tmux-complete-vim
       vim-fetch
-      fzfWrapper
       fzf-vim
-      {
-        plugin = vim-polyglot;
-        # delay loading until after vim-go or polyglot will override the nix patched
-        # vim bin path in the vim-go plugin.
-        optional = true;
-        config = ''
-          let g:polyglot_disabled = ['typescript']
-          packadd vim-polyglot
-        '';
-      }
       vim-lastplace
       vim-tmux
       {
