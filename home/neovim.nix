@@ -135,14 +135,8 @@ in
         map('n', 'N', 'Nzz', options)
         map('n', 'n', 'nzz', options)
 
-        -- move lines (and blocks of lines in visual mode) up and down using alt-j/k
-        -- I rarely use this, but it's kinda cool
-        map('n', '<A-j>', ':m .+1<CR>==', options)
-        map('n', '<A-k>', ':m .-2<CR>==', options)
-        map('i', '<A-j>', '<Esc>:m .+1<CR>==gi', options)
-        map('i', '<A-k>', '<Esc>:m .-2<CR>==gi', options)
-        map('v', '<A-j>', ':m \'>+1<CR>gv=gv', options)
-        map('v', '<A-k>', ':m \'<-2<CR>gv=gv', options)
+        map('n', '<A-j>', '<cmd>cnext<cr>', options)
+        map('n', '<A-k>', '<cmd>cprev<cr>', options)
 
         -- TODO: quitting help. waste of letters, rework
         map('n', '<leader>q', '<esc>:q<cr>', options)
