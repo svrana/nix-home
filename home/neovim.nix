@@ -1025,7 +1025,9 @@ in
         plugin = supermaven-nvim;
         type = "lua";
         config = ''
-          require("supermaven-nvim").setup({})
+          require("supermaven-nvim").setup({
+            ignore_filetypes = { "mail" }
+          })
         '';
       }
       {
