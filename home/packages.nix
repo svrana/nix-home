@@ -1,10 +1,4 @@
 { pkgs, inputs, ... }:
-let
-  zoomPkgs = import inputs.nixpkgs-zoom {
-    system = "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in
 {
   home.packages = with pkgs; [
     autotiling-rs
@@ -66,6 +60,6 @@ in
     xdg-utils
     yarn
     yq
-    zoomPkgs.zoom-us
+    zoom-us
   ];
 }
