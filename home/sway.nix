@@ -146,7 +146,7 @@ in
           "${mod}+9" = ''[app_id="Slack"] scratchpad show;sticky enable'';
           "${mod}+0" = ''[app_id="notes"] scratchpad show;sticky enable'';
           "${mod}+a" = "focus parent";
-          "${mod}+c"  = "exec --no-startup-id ${lib.getExe calc}";
+          "${mod}+c" = "exec --no-startup-id ${lib.getExe calc}";
           "${mod}+d" = ''exec --no-startup-id "${fuzzel}"'';
           "${mod}+e" = "exec --no-startup-id $BIN_DIR/fuzzel-emoji";
           "${mod}+f" = "fullscreen toggle";
