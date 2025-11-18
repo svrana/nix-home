@@ -60,6 +60,7 @@
     xdg-utils
     yarn
     yq
+    zig
     zoom-us
   ];
 }
