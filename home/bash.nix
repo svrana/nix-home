@@ -9,14 +9,9 @@
     # only run for interactive sessions
     initExtra = ''
       source "$RCS/bash/shorter.sh"
-      #source "$RCS/bash/functions.sh"
-      #source "$PERSONAL/bommie.io/env.sh"
-      if [ -f $PERSONAL/work/env.sh ]; then
-        source $PERSONAL/work/env.sh
-      fi
-      if [ -f $PERSONAL/env.sh ]; then
-        source $PERSONAL/env.sh
-      fi
+
+      [[ -f $PERSONAL/work/env.sh ]] && source $PERSONAL/work/env.sh
+      [[ -f $PERSONAL/env.sh ]] && source $PERSONAL/env.sh
 
       set -o vi
       stty -ixon
