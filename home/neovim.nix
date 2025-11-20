@@ -23,8 +23,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "seblj";
       repo = "nvim-tabline";
-      rev = "e830f22f0551a462c3f1c3e9f51e3876b9a60e6d";
-      sha256 = "sha256-Rh01PQxuc9hiDr6m8C9rLR8eo4liPiKHO5IRBzLqSTU=";
+      rev = "deb569d04d8b3e674ff33c3baaacdfb6f12ab460";
+      sha256 = "sha256-fYH+pyb36j3jlBYwWQbSnLtPb6p6R8/pTlZiIV2dGlU=";
     };
     dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
   };
