@@ -79,8 +79,7 @@ in
       shellcheck
       zls
     ];
-    extraConfig = ''
-      lua << EOF
+    extraLuaConfig = ''
         require('svrana.globals')
 
         local opt = vim.opt
@@ -221,8 +220,8 @@ in
         group = highlight_group,
         pattern = '*',
       })
-      EOF
-
+    '';
+    extraConfig = ''
       " Make the 120th column standout iff there is text there
       call matchadd('ColorColumn', '\%120v', 100)
 

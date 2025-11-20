@@ -25,3 +25,9 @@
 	(indented_string_expression
 		(string_fragment) @injection.content (#set! injection.language "vim"))
 )
+
+(binding
+	attrpath: (attrpath) @_key (#eq? @_key "extraLuaConfig")
+	(indented_string_expression
+		(string_fragment) @injection.content (#set! injection.language "lua"))
+)
