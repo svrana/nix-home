@@ -28,6 +28,17 @@ let
     };
     dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
   };
+  lualine-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "lualine-nvim";
+    version = "2022-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-lualine";
+      repo = "lualine.nvim";
+      rev = "47f91c416daef12db467145e16bed5bbfe00add8";
+      sha256 = "sha256-OpLZH+sL5cj2rcP5/T+jDOnuxd1QWLHCt2RzloffZOA=";
+    };
+    dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
+  };
 #  neosolarized-nvim = pkgs.vimUtils.buildVimPlugin {
 #    pname = "neosolarized-nvim";
 #    version = "2022-01-06";
@@ -608,14 +619,6 @@ in
             border_style = "round",
           })
           EOF
-        '';
-      }
-      {
-        plugin = vim-latex-live-preview;
-        type = "viml";
-        config = ''
-          let g:livepreview_previewer = '${pkgs.zathura}/bin/zathura'
-          let g:livepreview_cursorhold_recompile = 0
         '';
       }
       lsp_signature-nvim
