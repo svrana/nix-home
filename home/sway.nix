@@ -232,6 +232,10 @@ in
       assign [class="zoom"] 7
 
       seat * hide_cursor 3000
+
+      input "type:keyboard" {
+        xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+      }
     '';
   };
 
