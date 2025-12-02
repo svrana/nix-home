@@ -7,6 +7,6 @@
     };
   };
 
-  home.stateVersion = "21.03";
+  config.home.stateVersion = "25.11";
   imports = [ ../../home ];
 }
