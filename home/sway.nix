@@ -218,6 +218,7 @@ in
         { command = "${pkgs.slack}/bin/slack  --ozone-platform=wayland"; }
       ];
     };
+    #xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
     extraSessionCommands = ''
     '';
     extraConfig = ''
@@ -234,7 +235,7 @@ in
       seat * hide_cursor 3000
 
       input "type:keyboard" {
-        xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+        xkb_options ctrl:nocaps
       }
     '';
   };
