@@ -61,6 +61,5 @@
     yarn
     yq
     zig
-    zoom-us
   ];
 }

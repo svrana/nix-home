@@ -4,4 +4,6 @@
     firefox
     libnotify
   ];
+
+  programs.zoom-us.enable = true;
 }
