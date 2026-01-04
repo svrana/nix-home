@@ -8,6 +8,7 @@
     ../../roles/rss.nix
     ../../roles/syncthing.nix
     ../../roles/borgbase-backup.nix
+    ../../roles/minecraft.nix
   ];
 
   networking = {

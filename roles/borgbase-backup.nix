@@ -3,6 +3,7 @@
   services.borgbackup.jobs."borgbase" = {
     paths = [
       "/var/lib/syncthing"
+      "/var/lib/minecraft"
     ];
     exclude = [
     ];
