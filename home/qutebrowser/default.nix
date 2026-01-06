@@ -56,6 +56,7 @@ in
       ho = "https://hoogle.haskell.org/?hoogle={}";
       rs = "https://doc.rust-lang.org/std/index.html?search={}";
       rc = "https://docs.rs/releases/search?query={}";
+      nw = "https://wiki.nixos.org/w/index.php?search={}";
     };
     keyBindings = {
       command = {
