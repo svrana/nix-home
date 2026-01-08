@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   services.sonarr = {
     enable = true;
@@ -12,6 +12,7 @@
 
   services.transmission = {
     enable = true;
+    package = pkgs.transmission_4;
     openPeerPorts = true;
     openRPCPort = true;
     settings = {
