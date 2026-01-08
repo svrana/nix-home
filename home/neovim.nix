@@ -72,7 +72,7 @@ in
       nodePackages.vim-language-server
       nodePackages.eslint_d
       nodePackages.bash-language-server
-      nodePackages.typescript-language-server
+      #nodePackages.typescript-language-server
       nodePackages.yaml-language-server
       dockerfile-language-server
       nodePackages.vscode-langservers-extracted
@@ -87,6 +87,7 @@ in
       rustfmt
       stylua
       terraform-lsp
+      typescript-go
       shellcheck
       zls
     ];
@@ -501,7 +502,7 @@ in
           }
         '';
       }
-      nvim-treesitter-textobjects
+      #nvim-treesitter-textobjects
       popup-nvim
       telescope-fzf-native-nvim
       {
@@ -886,6 +887,7 @@ in
              'ccls',
              --'rust_analyzer', -- trying rust tools for now
              'terraform_lsp',
+             --'tsgo',
              'tilt_ls',
              'pyright',
              'zls',
