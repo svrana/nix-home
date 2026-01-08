@@ -5,12 +5,12 @@
     ../../arch/amd
     ../../roles/standard
     ../../roles/print-server.nix
-    ../../roles/rss.nix
-    ../../roles/syncthing.nix
-    ../../roles/borgbase-backup.nix
-    ../../roles/minecraft.nix
-    ../../roles/postgres.nix
-    ../../roles/immich.nix
+    ../../apps/rss.nix
+    ../../apps/syncthing.nix
+    ../../apps/borgbase-backup.nix
+    ../../apps/minecraft.nix
+    ../../apps/postgres.nix
+    ../../apps/immich.nix
   ];
 
   networking = {
