@@ -4,6 +4,7 @@
     paths = [
       "/var/lib/syncthing"
       "/var/lib/minecraft"
+      "/var/lib/immich"
     ];
     exclude = [
     ];
