@@ -56,18 +56,7 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   networking.firewall = {
-    # enable the firewall
-    enable = true;
-
-    allowedUDPPorts = [
-      21027 # syncthing
-    ];
-
-    # allow you to SSH in over the public internet
-    allowedTCPPorts = [
-      22
-      22000 # syncthing
-    ];
+    enable = true; # this is the default
   };
 
   services.fstrim.enable = true;
