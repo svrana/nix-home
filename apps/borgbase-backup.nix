@@ -5,6 +5,7 @@
       "/var/lib/syncthing"
       "/var/lib/minecraft"
       "/var/lib/immich"
+      "/var/lib/forgejo"
     ];
     exclude = [
     ];

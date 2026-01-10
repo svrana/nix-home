@@ -12,6 +12,7 @@
     ../../apps/minecraft.nix
     ../../apps/postgres.nix
     ../../apps/immich.nix
+    ../../apps/forgejo.nix
   ];
 
   networking = {
