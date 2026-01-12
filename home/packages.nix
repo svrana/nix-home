@@ -31,7 +31,7 @@
     maim
     nautilus
     networkmanager_dmenu
-    nixfmt-rfc-style
+    nixfmt
     nixpkgs-review
     nodejs
     prototool
