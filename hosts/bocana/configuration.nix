@@ -5,7 +5,7 @@
     ../../arch/amd
     ../../roles/standard
     ../../roles/print-server.nix
-    #../../roles/media.nix
+    ../../roles/media.nix
     ../../apps/rss.nix
     ../../apps/syncthing.nix
     ../../apps/borgbase-backup.nix

@@ -9,7 +9,6 @@
     ../../roles/standard
     ../../roles/graphical
     ../../roles/work
-    ../../apps/android-dev.nix
   ];
 
   networking.hostName = "prentiss";

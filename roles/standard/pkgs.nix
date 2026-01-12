@@ -25,6 +25,7 @@
     neovim
     wget
     wirelesstools
+    unixtools.netstat
     zip
   ];
 }
