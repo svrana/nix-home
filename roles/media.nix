@@ -12,7 +12,12 @@
 
   services.sabnzbd = {
     enable = true;
-    openFirewall = true; # port 8080 (doesn't really do anything)
+    openFirewall = true; # port 8080
+    settings = {
+      misc = {
+        host = "0.0.0.0";
+      };
+    };
   };
 
   services.prowlarr = {
