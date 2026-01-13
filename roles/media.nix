@@ -29,6 +29,7 @@
     enable = true;
     openFirewall = true; # port 8096, 8920
     hardwareAcceleration = {
+      enable = true;
       device = "/dev/dri/renderD128";
       type = "vaapi";
     };
