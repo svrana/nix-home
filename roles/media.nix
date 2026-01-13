@@ -12,10 +12,12 @@
 
   services.sabnzbd = {
     enable = true;
-    openFirewall = true; # port 8080
+    allowConfigWrite = true;
+    openFirewall = true;
     settings = {
       misc = {
         host = "0.0.0.0";
+        port = 8080;
       };
     };
   };
