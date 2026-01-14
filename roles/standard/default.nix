@@ -45,11 +45,11 @@
   # so swaylock can unlock..
   security.pam.services.swaylock = { };
 
-  # Will run a caching dns server on :53 which conflicts with adguardhome
-  # services.resolved = {
-  #     enable = true;
-  #     dnssec = "false";
-  #   };
+  # Will run a caching dns server on :53
+  services.resolved = {
+    enable = true;
+    dnssec = "false";
+  };
 
   # Disable wait online as it's causing trouble at rebuild
   # See: https://github.com/NixOS/nixpkgs/issues/180175
