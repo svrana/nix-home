@@ -55,10 +55,6 @@
   # See: https://github.com/NixOS/nixpkgs/issues/180175
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  networking.firewall = {
-    enable = true; # this is the default
-  };
-
   services.fstrim.enable = true;
 
   hardware.enableRedistributableFirmware = true;
