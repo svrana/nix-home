@@ -54,10 +54,10 @@ loopitfail() {
 
 flakify() {
   if [ ! -e flake.nix ]; then
-    nix flake new -t github:nix-community/nix-direnv .
+    nix flake init -t github:numtide/blueprint
   elif [ ! -e .envrc ]; then
     echo "use flake" > .envrc
     direnv allow
   fi
-  ${EDITOR:-vim} flake.nix
+  ${EDITOR:-vim} devshell.nix
 }
