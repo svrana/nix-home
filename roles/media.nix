@@ -37,6 +37,11 @@
     };
   };
 
+  services.jellyseerr = {
+    enable = true;
+    openFirewall = true; # port 5055
+  };
+
   services.navidrome = { # port 4533
     enable = true;
     openFirewall = true;
