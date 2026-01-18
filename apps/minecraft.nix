@@ -12,6 +12,7 @@
     };
     serverProperties = {
       white-list = true;
+      allow-cheats = true;
     };
   };
 }
