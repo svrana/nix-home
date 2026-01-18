@@ -13,6 +13,8 @@
     serverProperties = {
       white-list = true;
       allow-cheats = true;
+      op-permission-level=2;
+      # level-seed=
     };
   };
 }
