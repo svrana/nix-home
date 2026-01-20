@@ -29,6 +29,10 @@
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -38,6 +42,7 @@
     , deploy-rs
     , home-manager
     , neorg-overlay
+    , sops-nix
     , ... } @inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
@@ -56,6 +61,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             { nixpkgs.overlays = nixpkgsConfig.overlays; }
+            sops-nix.nixosModules.sops
           ] ++ extraModules;
         };
 
