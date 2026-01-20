@@ -2,7 +2,7 @@ keys:
   - &admin_shaw age15f7qpkuz6ucsjuqk3567r5f0l5mzxlnn9nvh8jyzcn7a8rxavywsw2vx93
   - &server_bocana age16zv33ymd8mhhg99e8hcwphqzwc6e2qqc6vu7tnpg2t8l68k5w3cqgpelge
 creation_rules:
-  - path_regex: hosts/bocana/secrets.yaml
+  - path_regex: hosts/bocana/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *admin_shaw
