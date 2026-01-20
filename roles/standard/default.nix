@@ -19,7 +19,12 @@
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
   networking.networkmanager.enable = true;
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      AcceptEnv = [ "GIT_PROTOCOL" ];
+    };
+  };
   # Limit the systemd journal to 100 MB of disk or the last 7 days of logs whichever happens first.
   services.journald.extraConfig = ''
     SystemMaxUse=100M
@@ -48,7 +53,6 @@
   # Will run a caching dns server on :53
   services.resolved = {
     enable = true;
-    dnssec = "false";
   };
 
   # Disable wait online as it's causing trouble at rebuild
