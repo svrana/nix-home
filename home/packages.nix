@@ -39,6 +39,7 @@
     readline
     slack
     slurp
+    sops
     ssh-agents
     swaybg
     swayidle

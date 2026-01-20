@@ -6,6 +6,7 @@
       "/var/lib/minecraft"
       "/var/lib/immich"
       "/var/lib/forgejo"
+      #"/var/backup/postgres"
     ];
     exclude = [
     ];

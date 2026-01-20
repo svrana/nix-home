@@ -32,7 +32,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  sops.defaultSopsFile = ./secrets.yaml;
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
   # This will automatically import SSH keys as age keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
