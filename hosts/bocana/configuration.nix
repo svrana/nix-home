@@ -13,6 +13,7 @@
     ../../apps/postgres.nix
     ../../apps/immich.nix
     ../../apps/forgejo.nix
+    ../../apps/paperless.nix
   ];
 
   networking = {
