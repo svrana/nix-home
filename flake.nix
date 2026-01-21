@@ -74,6 +74,7 @@
             modules/my.nix
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
             inputs.spotify-cleanup.homeModules.default
+            inputs.sops-nix.homeManagerModules.sops
           ] ++ extraModules;
           extraSpecialArgs = { inherit inputs; };
         };
