@@ -340,4 +340,7 @@ in {
       };
     };
   };
+  programs.opencode = {
+    enable = true;
+  };
 }
