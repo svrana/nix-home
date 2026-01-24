@@ -33,6 +33,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixflix = {
+      url = "github:kiriwalawren/nixflix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -43,6 +47,7 @@
     , home-manager
     , neorg-overlay
     , sops-nix
+    , nixflix
     , ... } @inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
@@ -62,6 +67,7 @@
           modules = [
             { nixpkgs.overlays = nixpkgsConfig.overlays; }
             sops-nix.nixosModules.sops
+            nixflix.nixosModules.default
           ] ++ extraModules;
         };
 
