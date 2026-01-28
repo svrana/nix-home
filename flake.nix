@@ -51,8 +51,6 @@
     , ... } @inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
-      inherit (builtins) readDir mapAttrs;
-      lib = nixpkgs.lib;
       nixpkgsConfig = {
         config = {
           allowUnfree = true;
@@ -113,9 +111,9 @@
           park = mkHome [ ./hosts/park ];
         };
 
-        overlays = with lib;
+        overlays = with nixpkgs.lib;
           let
-            overlayFiles' = filter (hasSuffix ".nix") (attrNames (readDir ./overlays));
+            overlayFiles' = filter (hasSuffix ".nix") (attrNames (builtins.readDir ./overlays));
             overlayFiles = listToAttrs (map
               (name: {
                 name = removeSuffix ".nix" name;
@@ -141,7 +139,7 @@
         };
 
         # This is highly advised, and will prevent many possible mistakes
-        checks = mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       }
     );
 }
