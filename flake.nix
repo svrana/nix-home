@@ -34,8 +34,8 @@
     };
   };
 
-  outputs = inputs@{ self, flake-parts, nixpkgs, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs@{ self, ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
 
       perSystem = { system, pkgs, ... }: {
@@ -49,8 +49,8 @@
       };
 
       flake = let
-        inherit (nixpkgs.lib) nixosSystem;
-        lib = nixpkgs.lib;
+        inherit (inputs.nixpkgs.lib) nixosSystem;
+        lib = inputs.nixpkgs.lib;
 
         nixpkgsConfig = {
           config = {
@@ -72,7 +72,7 @@
 
         mkHome = extraModules:
           inputs.home-manager.lib.homeManagerConfiguration {
-            pkgs = import nixpkgs {
+            pkgs = import inputs.nixpkgs {
               system = "x86_64-linux";
               inherit (nixpkgsConfig) config overlays;
             };
