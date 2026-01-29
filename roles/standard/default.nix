@@ -20,10 +20,8 @@
 
   networking.networkmanager.enable = true;
   services.openssh = {
+    openFirewall = true;
     enable = true;
-    settings = {
-      AcceptEnv = [ "GIT_PROTOCOL" ];
-    };
   };
   # Limit the systemd journal to 100 MB of disk or the last 7 days of logs whichever happens first.
   services.journald.extraConfig = ''
