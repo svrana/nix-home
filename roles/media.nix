@@ -1,10 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   sops.secrets = {
     "sonarr/api_key" = {};
     "sonarr/password" = {};
     "radarr/api_key" = {};
     "radarr/password" = {};
+    "lidarr/api_key" = {};
+    "lidarr/password" = {};
     "prowlarr/api_key" = {};
     "prowlarr/password" = {};
     "indexer-api-keys/nzbgeek" = {};

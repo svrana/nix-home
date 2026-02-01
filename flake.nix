@@ -32,6 +32,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixflix = {
+      url = "github:kiriwalawren/nixflix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, ... }:
@@ -67,6 +71,7 @@
             modules = [
               { nixpkgs.overlays = nixpkgsConfig.overlays; }
               inputs.sops-nix.nixosModules.sops
+              inputs.nixflix.nixosModules.nixflix
             ] ++ extraModules;
           };
 

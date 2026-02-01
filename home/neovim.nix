@@ -91,7 +91,7 @@ in
       shellcheck
       zls
     ];
-    extraLuaConfig = ''
+    initLua = ''
         require('svrana.globals')
 
         local opt = vim.opt
