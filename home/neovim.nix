@@ -190,7 +190,7 @@ in
         vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
         autocmd = require('svrana.utils').autocmd
-        autocmd('TextYankPost', '*', 'lua vim.highlight.on_yank{timeout=40}')
+        autocmd('TextYankPost', '*', 'lua vim.hl.on_yank{timeout=40}')
         autocmd('BufWritePre', '*', [[:%s/\s\+$//e]])
         autocmd('FileType', '*',          'setlocal formatoptions+=croq')
         autocmd('BufRead', 'gitcommit',   'setlocal textwidth=72 | setlocal fo+=t')
@@ -227,7 +227,7 @@ in
       local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
       vim.api.nvim_create_autocmd('TextYankPost', {
         callback = function()
-          vim.highlight.on_yank()
+          vim.hl.on_yank()
         end,
         group = highlight_group,
         pattern = '*',
