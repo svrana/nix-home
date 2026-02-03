@@ -7,8 +7,6 @@
     ./hardware-configuration.nix
     ../../arch/amd
     ../../roles/standard
-    ../../roles/graphical
-    ../../roles/work
   ];
 
   networking.hostName = "park";

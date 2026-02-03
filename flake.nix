@@ -98,7 +98,6 @@
 
         homeConfigurations = {
           prentiss = mkHome [ ./hosts/prentiss ];
-          park     = mkHome [ ./hosts/park ];
         };
 
         overlays = with lib;
