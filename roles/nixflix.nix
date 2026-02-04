@@ -68,7 +68,7 @@
         hostConfig.password = { _secret = config.sops.secrets."prowlarr/password".path; };
         indexers = [
           {
-            name = "NZBGeek";
+            name = "NZBgeek";
             apiKey = { _secret = config.sops.secrets."indexer-api-keys/nzbgeek".path; };
           }
         ];
