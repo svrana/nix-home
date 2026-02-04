@@ -103,6 +103,7 @@
 
     jellyfin = {
       enable = true;
+      openFirewall = true;
       encoding = {
         enableHardwareEncoding = true;
         hardwareAccelerationType = "vaapi";
@@ -119,6 +120,7 @@
 
     jellyseerr = {
       enable = true;
+      openFirewall = true;
       apiKey = { _secret = config.sops.secrets."jellyseerr/api_key".path; };
     };
   };
