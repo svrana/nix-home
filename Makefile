@@ -30,6 +30,10 @@ home-test: ## Build home-manager configuration for the current system using a lo
 bocana: ## Deploy bocana
 	deploy '.#bocana'
 
+##@ Deploy host
+.PHONY: park
+park: ## Deploy park
+	deploy '.#park'
 
 ##@ Common
 

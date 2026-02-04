@@ -1,9 +1,16 @@
+# server_* age secrets ==> cat /etc/ssh/ssh_host_ed25519_key.pub | nix run nixpkgs#ssh-to-age
 keys:
   - &admin_shaw age15f7qpkuz6ucsjuqk3567r5f0l5mzxlnn9nvh8jyzcn7a8rxavywsw2vx93
   - &server_bocana age16zv33ymd8mhhg99e8hcwphqzwc6e2qqc6vu7tnpg2t8l68k5w3cqgpelge
+  - &server_park age15lakes7zx7huskn2l57nzpqh63z9mzk6gc6rddtaw0rc3st3ngvq233xgh
 creation_rules:
   - path_regex: hosts/bocana/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *admin_shaw
       - *server_bocana
+  - path_regex: hosts/park/secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *admin_shaw
+      - *server_park

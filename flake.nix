@@ -132,6 +132,21 @@
           };
         };
 
+        deploy.nodes.park = {
+          hostname = "park";
+          autoRollback = false;
+          sshUser = "root";
+          magicRollback = false;
+          fastConnection = true;
+
+          profiles.system = {
+            user = "root";
+            path =
+              inputs.deploy-rs.lib.x86_64-linux.activate.nixos
+                self.nixosConfigurations.park;
+          };
+        };
+
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
       };
     };

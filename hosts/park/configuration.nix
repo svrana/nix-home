@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../../arch/amd
     ../../roles/standard
+    ../../roles/nixflix.nix
   ];
 
   networking.hostName = "park";
@@ -17,9 +18,17 @@
 
   boot.blacklistedKernelModules = [ "snd_hda_intel" ];
 
+  services.openssh = {
+    settings.PermitRootLogin = "yes";
+  };
+
   # disable power save on this ax200 as it powers on while I'm working and speed drops to shit
   # equivalent to doing iw dev <wlp3s0> set power_save off
   networking.networkmanager.wifi.powersave = false;
+
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  # This will automatically import SSH keys as age keys
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
