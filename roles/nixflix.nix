@@ -1,19 +1,9 @@
 { pkgs, config, ... }:
 {
   sops.secrets = {
-    "sonarr/api_key" = {};
-    "sonarr/password" = {};
-    "radarr/api_key" = {};
-    "radarr/password" = {};
-    "lidarr/api_key" = {};
-    "lidarr/password" = {};
-    "prowlarr/api_key" = {};
-    "prowlarr/password" = {};
+    "media/password" = {};
+    "media/api_key" = {};
     "indexer-api-keys/nzbgeek" = {};
-    "jellyfin/shaw_password" = {};
-    "jellyseerr/api_key" = {};
-    "sabnzbd/api_key" = {};
-    "sabnzbd/nzb_key" = {};
     "usenet/newshosting/username" = {};
     "usenet/newshosting/password" = {};
   };
@@ -35,16 +25,16 @@
     sonarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."sonarr/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."sonarr/password".path; };
+        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
+        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
       };
     };
 
     radarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."radarr/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."radarr/password".path; };
+        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
+        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
       };
     };
 
@@ -56,16 +46,16 @@
     lidarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."lidarr/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."lidarr/password".path; };
+        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
+        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
       };
     };
 
     prowlarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."prowlarr/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."prowlarr/password".path; };
+        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
+        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
         indexers = [
           {
             name = "NZBgeek";
@@ -80,8 +70,8 @@
 
       settings = {
         misc = {
-          api_key = { _secret = config.sops.secrets."sabnzbd/api_key".path; };
-          nzb_key = { _secret = config.sops.secrets."sabnzbd/nzb_key".path; };
+          api_key = { _secret = config.sops.secrets."media/api_key".path; };
+          nzb_key = { _secret = config.sops.secrets."media/api_key".path; };
         };
 
         servers = [
@@ -113,7 +103,7 @@
         shaw = {
           mutable = false;
           policy.isAdministrator = true;
-          password = { _secret = config.sops.secrets."jellyfin/shaw_password".path; };
+          password = { _secret = config.sops.secrets."media/password".path; };
         };
       };
     };
@@ -121,7 +111,7 @@
     jellyseerr = {
       enable = true;
       openFirewall = true;
-      apiKey = { _secret = config.sops.secrets."jellyseerr/api_key".path; };
+      apiKey = { _secret = config.sops.secrets."media/api_key".path; };
     };
   };
 }
