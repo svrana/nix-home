@@ -273,11 +273,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769979067,
-        "narHash": "sha256-L7cnB/xomd2NK+mRYLBysyuIHjHU5vZv4tt0c74e6/4=",
+        "lastModified": 1770449369,
+        "narHash": "sha256-PwNtrJiUUHFCE9zJWEBPkB2CenHSN3aboUR20hMrytg=",
         "owner": "kiriwalawren",
         "repo": "nixflix",
-        "rev": "1112c49a29f054c3a52b2624da51e963b49ccb0b",
+        "rev": "affcbf81fc2c6ebc433462ba0c22106fde784b9f",
         "type": "github"
       },
       "original": {
