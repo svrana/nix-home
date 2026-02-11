@@ -973,7 +973,7 @@ in
         '';
       }
       # for fugitive, opening github links in browser
-      rhubarb
+      vim-rhubarb
       {
         plugin = supermaven-nvim;
         type = "lua";
