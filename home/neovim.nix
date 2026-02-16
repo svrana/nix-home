@@ -211,6 +211,13 @@ in
         autocmd('BufNewFile,BufRead,BufEnter', '*.gjs',       'setf javascript')
         autocmd('BufRead,BufEnter,BufNewFile', 'Tiltfile',    'setf tiltfile | set syntax=python')
 
+        -- start treesitter for all filetypes, silently ignoring errors for filetypes without parsers
+        vim.api.nvim_create_autocmd("FileType", {
+          callback = function(args)
+            pcall(vim.treesitter.start)
+          end,
+        })
+
       -- uncomment and add link to neosolarized.nvim from /home/shaw/.config/nvim/after/pack/foo/start
       -- and remove from plugin section below
       local ns = require('neosolarized').setup({
