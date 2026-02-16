@@ -6,6 +6,7 @@
     brightnessctl
     buf
     clipman
+    comma
     ctlptl
     dante
     dbeaver-bin

@@ -36,6 +36,10 @@
       url = "github:kiriwalawren/nixflix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, ... }:
@@ -86,6 +90,7 @@
               inputs.wayland-pipewire-idle-inhibit.homeModules.default
               inputs.spotify-cleanup.homeModules.default
               inputs.sops-nix.homeManagerModules.sops
+              inputs.nix-index-database.homeModules.default
             ] ++ extraModules;
             extraSpecialArgs = { inherit inputs; };
           };
