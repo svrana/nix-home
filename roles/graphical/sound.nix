@@ -3,7 +3,6 @@
   # So things that rely on pulseaudio command still work.
   environment.systemPackages = with pkgs; [
     pavucontrol
-    pulseaudio
     pamixer
   ];
 
