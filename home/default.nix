@@ -283,6 +283,7 @@ in {
 
   programs.yazi = {
     enable = true;
+    shellWrapperName = "y";
     theme = {
       manager = {
         border_style = { fg = "${c.base04}"; bg = "${c.base00}"; };
