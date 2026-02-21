@@ -135,7 +135,7 @@ in {
     recursive = true;
   };
 
-  home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.linkMyFiles = lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */ ''
     run ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Documents ${config.home.homeDirectory}/Documents
     run ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Music ${config.home.homeDirectory}/Music
     run ln -sfT $VERBOSE_ARG $CLOUD_ROOT/Pictures ${config.home.homeDirectory}/Pictures
