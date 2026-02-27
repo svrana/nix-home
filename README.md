@@ -13,9 +13,9 @@
 
 ## Machines
 
-* prentiss
+* prentiss - desktop dev machine
 * bocana - server, syncthing and others
-* park - dev machine
+* park - server, jellyfin and others
 
 ## Operations
 
