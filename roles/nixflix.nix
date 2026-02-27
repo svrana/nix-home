@@ -40,7 +40,7 @@
 
     recyclarr = {
       enable = true;
-      cleanupUnmanagedProfiles.enable = true;
+      cleanupUnmanagedProfiles = true;
     };
 
     lidarr = {
@@ -65,7 +65,7 @@
       };
     };
 
-    usenetClients.sabnzbd = {
+    sabnzbd = {
       enable = true;
 
       settings = {
