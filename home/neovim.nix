@@ -432,8 +432,6 @@ in
             markdown
             markdown_inline
             nix
-            #norg
-            #org
             proto
             python
             query
