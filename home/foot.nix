@@ -13,7 +13,7 @@ in
       };
       # these are the defaults (which are based on solarized-dark which I use elsewhere, but there's talk of changing
       # the defaults to something else, so we go ahead and set them manually.
-      colors = {
+      colors-dark = {
         background=colors.base00;
         foreground=colors.base04;
 

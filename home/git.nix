@@ -6,6 +6,7 @@ in
   programs.git = {
     enable = true;
     signing = {
+      format = "openpgp";
       key = "220B8643296AB53D";
       signByDefault = false;
     };
