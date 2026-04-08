@@ -250,6 +250,7 @@ in
       set shiftwidth=4
       set tabstop=4
       set scrolloff=8
+      set termguicolors
 
       if !isdirectory("~/.local/state/nvim/backup")
         silent! execute "!mkdir ~/.local/state/nvim/backup"
