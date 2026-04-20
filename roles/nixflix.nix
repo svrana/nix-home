@@ -106,9 +106,10 @@
           password = { _secret = config.sops.secrets."media/password".path; };
         };
       };
+      apiKey = { _secret = config.sops.secrets."media/api_key".path; };
     };
 
-    jellyseerr = {
+    seerr = {
       enable = true;
       openFirewall = true;
       apiKey = { _secret = config.sops.secrets."media/api_key".path; };
