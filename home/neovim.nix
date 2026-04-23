@@ -62,20 +62,22 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+    withRuby = false;
+    withPython3 = false;
     extraPackages = with pkgs; [
       buf
       code-minimap
       iferr
       nixfmt
       nixd
-      nodePackages.prettier
-      nodePackages.vim-language-server
-      nodePackages.eslint_d
-      nodePackages.bash-language-server
+      prettier
+      vim-language-server
+      eslint_d
+      bash-language-server
       #nodePackages.typescript-language-server
-      nodePackages.yaml-language-server
+      yaml-language-server
       dockerfile-language-server
-      nodePackages.vscode-langservers-extracted
+      vscode-langservers-extracted
       pyright
       ccls
       nil
@@ -284,6 +286,7 @@ in
       colorbuddy-nvim
       {
         plugin = rust-vim;
+        type = "viml";
         config = ''
           autocmd FileType rust let g:rustfmt_autosave = 1
         '';
@@ -973,6 +976,7 @@ in
       }
       {
         plugin = vim-fugitive;
+        type = "viml";
         config = ''
           " Open visual selection in the browser (with rhubarb handler for github)
           xnoremap <silent> <Leader>gh :'<,'>GBrowse<CR>
