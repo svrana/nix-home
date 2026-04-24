@@ -21,6 +21,10 @@ system-install-bootloader: ## Build system && allow downgrading bootloader
 update: ## Update all flakes
 	nix flake update
 
+.PHONY: system-next-boot
+system-next-boot: ## Build system, install on next boot
+	nixos-rebuild --sudo boot --flake .
+
 .PHONY: home-test
 home-test: ## Build home-manager configuration for the current system using a local version of home-manager
 	home-manager --override-input home-manager ~/Projects/home-manager switch --show-trace --flake .#${HOSTNAME}
@@ -28,7 +32,7 @@ home-test: ## Build home-manager configuration for the current system using a lo
 ##@ Deploy host
 .PHONY: bocana
 bocana: ## Deploy bocana
-	deploy '.#bocana'
+	deploy --boot '.#bocana'
 
 ##@ Deploy host
 .PHONY: park
