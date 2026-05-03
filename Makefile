@@ -32,7 +32,7 @@ home-test: ## Build home-manager configuration for the current system using a lo
 ##@ Deploy host
 .PHONY: bocana
 bocana: ## Deploy bocana
-	deploy --boot '.#bocana'
+	deploy '.#bocana'
 
 ##@ Deploy host
 .PHONY: park
