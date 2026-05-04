@@ -19,7 +19,7 @@
       name = "overseerr";
     };
 
-    nginx.enable = true;
+    nginx.enable = false;
     postgres.enable = false;
 
     sonarr = {
