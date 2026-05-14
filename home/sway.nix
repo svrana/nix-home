@@ -324,7 +324,7 @@ in
             "portable" = "";
             "default" = [ "" "" "" ];
           };
-          "on-click" = "pavucontrol";
+          "on-click" = "${lib.getExe pkgs.pavucontrol}";
         };
       }
     ];
