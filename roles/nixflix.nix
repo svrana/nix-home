@@ -25,16 +25,16 @@
     sonarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
+        apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.password._secret = config.sops.secrets."media/password".path;
       };
     };
 
     radarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
+        apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.password._secret = config.sops.secrets."media/password".path;
       };
     };
 
@@ -46,20 +46,20 @@
     lidarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
+        apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.password._secret = config.sops.secrets."media/password".path;
       };
     };
 
     prowlarr = {
       enable = true;
       config = {
-        apiKey = { _secret = config.sops.secrets."media/api_key".path; };
-        hostConfig.password = { _secret = config.sops.secrets."media/password".path; };
+        apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.password._secret = config.sops.secrets."media/password".path;
         indexers = [
           {
             name = "NZBgeek";
-            apiKey = { _secret = config.sops.secrets."indexer-api-keys/nzbgeek".path; };
+            apiKey._secret = config.sops.secrets."indexer-api-keys/nzbgeek".path;
           }
         ];
       };
@@ -70,8 +70,8 @@
 
       settings = {
         misc = {
-          api_key = { _secret = config.sops.secrets."media/api_key".path; };
-          nzb_key = { _secret = config.sops.secrets."media/api_key".path; };
+          api_key._secret = config.sops.secrets."media/api_key".path;
+          nzb_key._secret = config.sops.secrets."media/api_key".path;
         };
 
         servers = [
@@ -79,9 +79,8 @@
             name = "newshosting";
             host = "news.newshosting.com";
             port = 563;
-            # Secrets use { _secret = /path; } syntax
-            username = { _secret = config.sops.secrets."usenet/newshosting/username".path; };
-            password = { _secret = config.sops.secrets."usenet/newshosting/password".path; };
+            username._secret = config.sops.secrets."usenet/newshosting/username".path;
+            password._secret = config.sops.secrets."usenet/newshosting/password".path;
             connections = 20;
             ssl = true;
             priority = 0;
@@ -103,16 +102,16 @@
         shaw = {
           mutable = false;
           policy.isAdministrator = true;
-          password = { _secret = config.sops.secrets."media/password".path; };
+          password._secret = config.sops.secrets."media/password".path;
         };
       };
-      apiKey = { _secret = config.sops.secrets."media/api_key".path; };
+      apiKey._secret = config.sops.secrets."media/api_key".path;
     };
 
     seerr = {
       enable = true;
       openFirewall = true;
-      apiKey = { _secret = config.sops.secrets."media/api_key".path; };
+      apiKey._secret = config.sops.secrets."media/api_key".path;
     };
   };
 }

@@ -985,15 +985,6 @@ in
       # for fugitive, opening github links in browser
       vim-rhubarb
       {
-        plugin = supermaven-nvim;
-        type = "lua";
-        config = ''
-          require("supermaven-nvim").setup({
-            ignore_filetypes = { "mail" }
-          })
-        '';
-      }
-      {
         plugin = gitsigns-nvim;
         type = "lua";
         config = ''
