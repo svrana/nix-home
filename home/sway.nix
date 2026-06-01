@@ -143,7 +143,7 @@ in
           "${mod}+6" = "workspace 6";
           "${mod}+slash" = "workspace 6";
           "${mod}+7" = "workspace 7";
-          "${mod}+9" = ''[app_id="Slack"] scratchpad show;sticky enable'';
+          "${mod}+9" = ''[app_id="slack"] scratchpad show;sticky enable'';
           "${mod}+0" = ''[app_id="notes"] scratchpad show;sticky enable'';
           "${mod}+a" = "focus parent";
           "${mod}+b" = "splith";
@@ -224,7 +224,7 @@ in
     extraConfig = ''
       default_border pixel 2
 
-      for_window [app_id="Slack"] move scratchpad, move position 1000 200, resize set 1800 1900
+      for_window [app_id="slack"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="scratch-term"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="file-manager"] move scratchpad, move position 1000 200, resize set 1800 1900
       for_window [app_id="notes"] move scratchpad, move position 1000 200, resize set 1800 1900
