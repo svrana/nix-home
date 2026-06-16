@@ -215,7 +215,7 @@ in
         { command = ''${pkgs.swaybg}/bin/swaybg -c "${colors.base00}"''; }
         { command = ''${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
         { command = ''${pkgs.wl-clipboard}/bin/wl-paste -p -t text --watch ${pkgs.clipman}/bin/clipman store --no-persist''; }
-        { command = "${pkgs.slack}/bin/slack  --ozone-platform=wayland"; }
+        { command = "${pkgs.slack}/bin/slack"; }
       ];
     };
     #xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
