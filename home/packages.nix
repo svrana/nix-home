@@ -8,7 +8,6 @@
     clipman
     comma
     ctlptl
-    dante
     dbeaver-bin
     diffstat
     docker-compose
