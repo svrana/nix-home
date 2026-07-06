@@ -14,6 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.tmp.cleanOnBoot = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # defining an xsession will set this for you, but there's not a wayland version yet, so we do this ourselves.
   boot.kernel.sysctl."fs.inotify.max_user_instances" = 524288;
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
