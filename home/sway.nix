@@ -428,7 +428,8 @@ in
     };
     Install = { WantedBy = [ "sway-session.target" ]; };
     Service = {
-      ExecStart = ''${pkgs.swayidle}/bin/swayidle -w -d \
+      ExecStart = ''
+      ${pkgs.swayidle}/bin/swayidle -w -d \
         timeout 600 '${swaylock-cmd}' \
         before-sleep '${swaylock-cmd}' \
         timeout 700 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \

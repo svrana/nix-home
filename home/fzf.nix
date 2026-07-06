@@ -14,7 +14,7 @@ in
       "--height=40%"
       "--color='bg+:${colors.base01},pointer:${colors.base0C},hl+:${colors.base08},hl:${colors.base0B}'"
     ];
-    fileWidgetCommand = "fd --type f";
+    fileWidget.command = "fd --type f";
   };
 
   programs.bash.initExtra = ''
