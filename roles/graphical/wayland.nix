@@ -6,6 +6,9 @@
   # for screen sharing
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    wlr = {
+      enable = true;
+      settings.screencast.max_fps = 30;
+    };
   };
 }
