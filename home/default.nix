@@ -64,11 +64,11 @@ in {
       package = pkgs.arc-icon-theme;
       name = "Arc-Dark";
     };
-    theme = {
-      package = pkgs.arc-theme;
-      name = "Arc-Dark";
-    };
-    gtk4.theme = config.gtk.theme;
+#    theme = {
+#      package = pkgs.arc-theme;
+#      name = "Arc-Dark";
+#    };
+#    gtk4.theme = config.gtk.theme;
     gtk3 = {
       bookmarks = [
         "file://${config.home.homeDirectory}/Documents"
