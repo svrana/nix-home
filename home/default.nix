@@ -58,17 +58,22 @@ in {
     ./packages.nix # big list o' packages
   ];
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.arc-icon-theme;
-      name = "Arc-Dark";
+      package = pkgs.fluent-icon-theme;
+      name = "Fluent-dark";
     };
-#    theme = {
-#      package = pkgs.arc-theme;
-#      name = "Arc-Dark";
-#    };
-#    gtk4.theme = config.gtk.theme;
+    theme = {
+      package = pkgs.fluent-gtk-theme;
+      name = "Fluent-Dark";
+    };
+    gtk4.theme = config.gtk.theme;
     gtk3 = {
       bookmarks = [
         "file://${config.home.homeDirectory}/Documents"
@@ -79,6 +84,16 @@ in {
     };
     gtk2 = {
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    };
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
     };
   };
 
