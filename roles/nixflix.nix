@@ -3,6 +3,8 @@
   sops.secrets = {
     "media/password" = {};
     "media/api_key" = {};
+    "jellyfin/api_key" = {};
+    "seerr/api_key" = {};
     "indexer-api-keys/nzbgeek" = {};
     "usenet/newshosting/username" = {};
     "usenet/newshosting/password" = {};
@@ -105,13 +107,13 @@
           password._secret = config.sops.secrets."media/password".path;
         };
       };
-      apiKey._secret = config.sops.secrets."media/api_key".path;
+      apiKey._secret = config.sops.secrets."jellyfin/api_key".path;
     };
 
     seerr = {
       enable = true;
       openFirewall = true;
-      apiKey._secret = config.sops.secrets."media/api_key".path;
+      apiKey._secret = config.sops.secrets."seerr/api_key".path;
     };
   };
 }
