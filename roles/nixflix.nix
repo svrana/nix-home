@@ -5,6 +5,7 @@
     "media/api_key" = {};
     "jellyfin/api_key" = {};
     "seerr/api_key" = {};
+    "lidarr/api_key" = {};
     "indexer-api-keys/nzbgeek" = {};
     "usenet/newshosting/username" = {};
     "usenet/newshosting/password" = {};
@@ -48,7 +49,7 @@
     lidarr = {
       enable = true;
       config = {
-        apiKey._secret = config.sops.secrets."media/api_key".path;
+        apiKey._secret = config.sops.secrets."lidarr/api_key".path;
         hostConfig.password._secret = config.sops.secrets."media/password".path;
       };
     };
