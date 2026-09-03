@@ -12,8 +12,6 @@
     dnsutils
     fd
     file
-    gcc
-    gdb
     gnumake
     htop
     jq
@@ -35,4 +33,3 @@
     zip
   ];
 }
-
