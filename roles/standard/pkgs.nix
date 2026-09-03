@@ -1,5 +1,12 @@
 { pkgs, ... }:
 {
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
+
   environment.systemPackages = with pkgs; [
     coreutils
     dnsutils
@@ -22,7 +29,6 @@
     tcpdump
     unzip
     usbutils
-    neovim
     wget
     wirelesstools
     unixtools.netstat
