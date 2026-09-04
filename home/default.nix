@@ -34,6 +34,7 @@ in {
     ./dunst.nix
     ./foot.nix
     ./fzf.nix
+    ./ghostty.nix
     ./git.nix
     ./glow.nix
     ./go.nix
