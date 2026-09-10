@@ -89,7 +89,7 @@ in
       rustfmt
       stylua
       terraform-lsp
-      typescript-go
+      typescript
       shellcheck
       zls
     ];

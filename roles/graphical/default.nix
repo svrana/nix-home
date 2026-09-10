@@ -14,7 +14,7 @@
   programs.dconf.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
-  services.dbus.packages = [ pkgs.gcr ]; # fixes pinentry-gnome3 from working on none-Gnome systems.
+  services.dbus.packages = [ pkgs.gcr_4 ]; # fixes pinentry-gnome3 from working on none-Gnome systems.
 
   documentation.dev.enable = true;
 }

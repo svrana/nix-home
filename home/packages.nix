@@ -34,7 +34,6 @@
     nixfmt
     nixpkgs-review
     nodejs
-    prototool
     pulumi-bin
     readline
     slack
@@ -50,7 +49,6 @@
     tmux-sessionizer
     tmuxinator
     tree
-    typescript
     vanilla-dmz
     w3m
     waybar
