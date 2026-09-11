@@ -97,6 +97,13 @@
             ] ++ extraModules;
             extraSpecialArgs = { inherit inputs; };
           };
+
+        deploySettings = {
+          autoRollback = false;
+          sshUser = "root";
+          magicRollback = false;
+          fastConnection = true;
+        };
       in {
         nixosConfigurations = {
           prentiss = mkSystem [ ./hosts/prentiss/configuration.nix ];
@@ -127,33 +134,23 @@
 
         deploy.nodes.bocana = {
           hostname = "bocana";
-          autoRollback = false;
-          sshUser = "root";
-          magicRollback = false;
-          fastConnection = true;
-
           profiles.system = {
             user = "root";
             path =
               inputs.deploy-rs.lib.x86_64-linux.activate.nixos
                 self.nixosConfigurations.bocana;
           };
-        };
+        } // deploySettings;
 
         deploy.nodes.park = {
           hostname = "park";
-          autoRollback = false;
-          sshUser = "root";
-          magicRollback = false;
-          fastConnection = true;
-
           profiles.system = {
             user = "root";
             path =
               inputs.deploy-rs.lib.x86_64-linux.activate.nixos
                 self.nixosConfigurations.park;
           };
-        };
+        } // deploySettings;
 
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
       };
