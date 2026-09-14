@@ -67,12 +67,16 @@ in {
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.fluent-icon-theme;
-      name = "Fluent-dark";
+      #package = pkgs.fluent-icon-theme;
+      #name = "Fluent-dark";
+      package = pkgs.whitesur-icon-theme;
+      name = "WhiteSur-Dark";
     };
     theme = {
-      package = pkgs.fluent-gtk-theme;
-      name = "Fluent-Dark";
+      #package = pkgs.fluent-gtk-theme;
+      #name = "Fluent-Dark";
+      package = pkgs.whitesur-gtk-theme.override { colorVariants = [ "dark" ]; };
+      name = "WhiteSur-Dark";
     };
     gtk4.theme = config.gtk.theme;
     gtk3 = {
