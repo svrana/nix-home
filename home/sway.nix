@@ -344,7 +344,7 @@ in
       }
       #workspaces button {
         color: #A9B5AF;
-        padding: 0px 14px 0px 10px;
+        padding: 0px 28px 0px 20px;
         font-size: 16px;
         font-weight: bold;
         /* Use box-shadow instead of border so the text isn't offset */
