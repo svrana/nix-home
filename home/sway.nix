@@ -19,7 +19,7 @@ let
 
     site=$(gopass ls --flat | fuzzel --dmenu -p site)
     if [[ -n "$site" ]]; then
-      gopass show -o "$site" | wl-copy && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear
+      gopass show -o "$site" | wl-copy --sensitive && notify-send 'Copied to clipboard' && sleep 15 && wl-copy --clear
     fi
   '';
   tmux-attach-or-new = pkgs.writeScript "tmux-attach" ''
