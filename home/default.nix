@@ -368,4 +368,8 @@ in {
     enable = true;
     enableBashIntegration = true;
   };
+  programs.claude-code = {
+    enable = true;
+    configDir = "${config.xdg.configHome}/claude";
+  };
 }
