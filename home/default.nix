@@ -364,4 +364,8 @@ in {
       theme = "system";
     };
   };
+  programs.worktrunk = {
+    enable = true;
+    enableBashIntegration = true;
+  };
 }
