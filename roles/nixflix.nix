@@ -70,6 +70,8 @@
 
     usenetClients.sabnzbd = {
       enable = true;
+      openFirewall = true;
+      reverseProxy.expose = false;
 
       settings = {
         misc = {
