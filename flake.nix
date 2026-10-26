@@ -1,7 +1,7 @@
 {
   description = "my dots";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
