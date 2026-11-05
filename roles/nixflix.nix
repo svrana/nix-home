@@ -30,7 +30,6 @@
       config = {
         apiKey._secret = config.sops.secrets."media/api_key".path;
         hostConfig.password._secret = config.sops.secrets."media/password".path;
-        hostConfig.bindAddress = "0.0.0.0";
       };
     };
 
@@ -39,7 +38,6 @@
       config = {
         apiKey._secret = config.sops.secrets."media/api_key".path;
         hostConfig.password._secret = config.sops.secrets."media/password".path;
-        hostConfig.bindAddress = "0.0.0.0";
       };
     };
 
@@ -53,7 +51,6 @@
       config = {
         apiKey._secret = config.sops.secrets."lidarr/api_key".path;
         hostConfig.password._secret = config.sops.secrets."media/password".path;
-        hostConfig.bindAddress = "0.0.0.0";
       };
     };
 
@@ -62,7 +59,6 @@
       config = {
         apiKey._secret = config.sops.secrets."media/api_key".path;
         hostConfig.password._secret = config.sops.secrets."media/password".path;
-        hostConfig.bindAddress = "0.0.0.0";
         indexers = [
           {
             name = "NZBgeek";
@@ -102,7 +98,6 @@
     jellyfin = {
       enable = true;
       openFirewall = true;
-      network.localNetworkAddresses = [ "0.0.0.0" ];
       encoding = {
         enableHardwareEncoding = true;
         hardwareAccelerationType = "vaapi";
