@@ -48,15 +48,6 @@
       cleanupUnmanagedProfiles.enable = true;
     };
 
-    lidarr = {
-      enable = true;
-      config = {
-        apiKey._secret = config.sops.secrets."lidarr/api_key".path;
-        hostConfig.password._secret = config.sops.secrets."media/password".path;
-        hostConfig.bindAddress = "0.0.0.0";
-      };
-    };
-
     prowlarr = {
       enable = true;
       config = {
