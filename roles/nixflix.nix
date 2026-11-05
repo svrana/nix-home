@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 {
   sops.secrets = {
     "media/password" = {};
@@ -188,5 +188,4 @@
       apiKey._secret = config.sops.secrets."seerr/api_key".path;
     };
   };
-  systemd.services.seerr.environment.HOST = lib.mkForce "0.0.0.0";
 }
