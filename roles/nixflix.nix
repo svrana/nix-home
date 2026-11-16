@@ -29,6 +29,7 @@
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.username = "shaw";
         hostConfig.password._secret = config.sops.secrets."media/password".path;
         hostConfig.bindAddress = "0.0.0.0";
       };
@@ -38,6 +39,7 @@
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.username = "shaw";
         hostConfig.password._secret = config.sops.secrets."media/password".path;
         hostConfig.bindAddress = "0.0.0.0";
       };
@@ -52,6 +54,7 @@
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."media/api_key".path;
+        hostConfig.username = "shaw";
         hostConfig.password._secret = config.sops.secrets."media/password".path;
         hostConfig.bindAddress = "0.0.0.0";
         indexers = [
